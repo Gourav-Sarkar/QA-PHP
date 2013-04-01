@@ -47,6 +47,10 @@ abstract class AbstractUser
         //$this->addRole($role);
         
     }
+     public function __toString() {
+        return strtolower(get_class($this));
+    }
+    
     
     public function setID($id)
     {

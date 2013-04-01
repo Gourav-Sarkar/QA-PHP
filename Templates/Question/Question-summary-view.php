@@ -21,7 +21,7 @@
             <a href="#"><?php echo $this->getUser()->getNick(); ?></a>
         </div>
         <div class="row-fluid container-fluid">
-           <?php echo $this->getTags()->render(new Template("/templates/tag-list-view.php")); ?>
+           <?php echo $this->getTags()->render(new Template("tag-list")); ?>
         </div>
     </div>
 </article>

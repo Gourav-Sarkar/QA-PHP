@@ -43,13 +43,13 @@
                             //Ignore exception
                          }
                     $questions=Question::listing($ques);
-                    echo ($questions->count())?$questions->render(new Template("Templates/Question-summary-view.php")):'No questions ahs been asked yet';
+                    echo ($questions->count())?$questions->render(new Template("Question-summary")):'No questions ahs been asked yet';
                     
                     
                     
                    ?>
                 <div class="row-fluid">
-                    <?php echo $pager->render(new Template("/templates/pager-view.php")); ?>
+                    <?php echo $pager->render(new Template("pager")); ?>
                 </div>
             </div>
             <div class="span4">

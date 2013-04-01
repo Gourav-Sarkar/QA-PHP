@@ -28,11 +28,11 @@
         <div class="span12">
             <?php
             $comments=$this->getComments();
-            echo ($comments->count())?$comments->render(new Template("templates/comment-view.php")):"";
+            echo ($comments->count())?$comments->render(new Template("comment")):"";
             ?>
         
             <br/>
-            <?php require "templates/comment-form-view.php"; ?>
+            <?php require "/../comment/comment-form-view.php"; ?>
       
             <br/>
         </div>

@@ -42,7 +42,7 @@
                 <div id="question" class="span6 container-fluid">
                     <div class="span1">
                         <?php 
-                        echo $this->getUser()->render(new Template("Templates/User-short-view.php")); 
+                        echo $this->getUser()->render(new Template("User-short")); 
                         ?>
                         
                         <!--Vote interface -->
@@ -69,7 +69,7 @@
                                 <div class="container-fluid">
                                     <!-- get tag template -->
                                     <?php echo $this->getTags()->count(); ?>
-                                    <?php echo $this->getTags()->render(new Template("Templates/tag-list-view.php")); ?>
+                                    <?php echo $this->getTags()->render(new Template("tag-list")); ?>
                                 </div>
                             </div>
                             <div class="span4">
@@ -103,10 +103,10 @@
                         //Conugated object
                         $coms=$this->getComments();
                         //var_dump($coms->count());
-                        echo (is_object($coms))?$coms->render(new Template("Templates/comment-view.php")):'no Comments';
+                        echo (is_object($coms))?$coms->render(new Template("comment")):'no Comments';
                         ?>
                         
-                        <?php require "comment-form-view.php"; ?>
+                        <?php require "/../comment/comment-form-view.php"; ?>
                     </div>
                     
                 </div>
@@ -117,7 +117,7 @@
                     //Conugated object
                     $ans=$this->getSelectedAnswer();
                     //var_dump($ans);
-                    echo (is_object($ans))?$ans->render(new Template("Templates/Best-Answer-view.html")):'';
+                    echo (is_object($ans))?$ans->render(new Template("Best-Answer")):'';
                 ?>
                 
             </div>
@@ -141,12 +141,12 @@
                             </ul>
                         </div>
                         
-                        <?php require 'Answer-form-view.html'; ?>
+                        <?php require '/../Answer/Answer-form-view.html'; ?>
                         
                         <?php 
                         //Conugated object
                         $ans=$this->getAnswers();
-                        echo (is_object($ans))?$ans->render(new Template("Templates/Answer-view.php")):'';
+                        echo (is_object($ans))?$ans->render(new Template("Answer")):'';
                         ?>
                      
                 </div>

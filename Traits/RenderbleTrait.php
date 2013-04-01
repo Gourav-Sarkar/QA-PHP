@@ -26,7 +26,7 @@ trait RenderbleTrait{
          */
         $pathPieces=[Template::TEMPLATE_ROOT_PATH,$this,$template->getTemplate()];
         ob_start();
-        require implode(DIRECTORY_SEPARATOR, $pathPieces); //require_once also working. STRANGE!
+        require implode('/', $pathPieces); //require_once also working. STRANGE!
         $output=ob_get_clean();
         //var_dump($output);
         return $output;

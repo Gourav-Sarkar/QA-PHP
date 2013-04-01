@@ -117,7 +117,7 @@ class QuestionController {
             $question=$this->question->read();
             //var_dump($question);
             $question->updateView();
-            echo $question->render(new Template('Templates/Question.php'));
+            echo $question->render(new Template('Question'));
         }
         catch(NoEntryFoundException $e)
         {
@@ -137,7 +137,7 @@ class QuestionController {
         /*
          * new Pagaination()
          */
-        echo $this->question->render(new Template('Templates/QuestionList.php'));
+        echo $this->question->render(new Template('Question-list'));
         
     }
     
