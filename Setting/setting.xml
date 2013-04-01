@@ -51,5 +51,13 @@ each node must have meta attribute or meta node
         <flaggingEnable>true</flaggingEnable>
         <itemPerPage>5</itemPerPage>
     </module>
+    
+    <module name="notification">
+        <target module="question">
+            <actor>true</actor>
+            <participant>true</participant>
+            <owner>true</owner>
+        </target>
+    </module>
         
 </root>
