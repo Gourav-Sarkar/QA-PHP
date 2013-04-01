@@ -1,0 +1,8 @@
+<form action="/stackoverflow/index.php?module=question&question=<?php echo $_GET['question'];?>&action=edit" method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Ask Question</legend>
+        <input type="text" name="title" />
+        <textarea class="span9" name="content"></textarea>
+        <input type="submit" class="btn btn-primary btn-large" name="edit" value="edit"/>
+    </fieldset>
+</form>

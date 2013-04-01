@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Setting file will auto parseble and updateble
+each module (submodule) have tab
+each node must have meta attribute or meta node
+-->
+
+
+<root>
+    <module name="core" meta="Core setting for system">
+        <module name="social">
+            <!--Social integration-->
+            <facebook meta="Intigrate facebook application with the system">
+                <appID></appID>
+                <appKey></appKey>
+            </facebook>
+            
+            <facebook meta="Intigrate twitter application with the system">
+                <appID></appID>
+                <appKey></appKey>
+            </facebook>
+            
+            <google meta="Intigrate google plus group with the system">
+                <appID></appID>
+                <appKey></appKey>
+            </google>
+        </module>
+    </module>
+    
+    <module name="question">
+        <commentEnable>true</commentEnable>
+        <votingEnable>true</votingEnable>
+        <flaggingEnable>true</flaggingEnable>
+        <itemPerPage>10</itemPerPage>
+        <categorizingScheme toggle='tag'> <!-- toggle value tag/category Now only tag is available-->
+            <tag>
+                <max>5</max> <!-- Maximum tag can be used -->
+            </tag>
+        </categorizingScheme>
+    </module>
+    
+    <module name="answer">
+        <commentEnable>true</commentEnable>
+        <votingEnable>true</votingEnable>
+        <flaggingEnable>true</flaggingEnable>
+        <itemPerPage>10</itemPerPage>
+    </module>
+    
+    <module name="comment">
+        <votingEnable>true</votingEnable>
+        <flaggingEnable>true</flaggingEnable>
+        <itemPerPage>5</itemPerPage>
+    </module>
+        
+</root>

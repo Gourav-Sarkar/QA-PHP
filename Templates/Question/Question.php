@@ -1,0 +1,167 @@
+    <?php
+    /*
+        $ques = new Question();
+        $ques->setConnection(DatabaseHandle::getConnection());
+        $data= $ques->get(1);
+        
+        $QuestionTemplate = new Template("template-question",$data);
+      */ 
+    ?>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>
+        <?php echo $this->getTitle(); ?> -StackOverflow
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+    
+        <header claas="row-fluid">
+           <?php require 'Templates/header-view.php'; ?>
+        </header>
+        
+        <section class="row-fluid">
+            
+            <div class="row-fluid container-fluid">
+            <!-- Question Template  -->
+                <h1 class="span10">
+                    <?php echo $this->getTitle() ?>
+                </h1>
+            </div>
+            
+            <div class="row-fluid span8">
+                <hr>
+            </div>
+            
+            <div class="row-fluid">
+                
+                <div id="question" class="span6 container-fluid">
+                    <div class="span1">
+                        <?php 
+                        echo $this->getUser()->render(new Template("Templates/User-short-view.php")); 
+                        ?>
+                        
+                        <!--Vote interface -->
+                        <div>
+                            <a class="btn" href="<?php echo $this->getLink("upvote"); ?>">
+                                up vote
+                            </a>
+                             <p class="text-center lead" style="margin:0px"><?php echo $this->getVotes(); ?></p>
+                             <a class="btn" href="<?php echo $this->getLink("downvote"); ?>">
+                                 down vote
+                             </a>
+                             
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="span11">
+                        <p data-name="content" class="lead">
+                            <?php echo $this->getContent(); ?>
+                        </p>
+                        
+                        <div class="row-fluid">
+                            <div class="span7">
+                                <div class="container-fluid">
+                                    <!-- get tag template -->
+                                    <?php echo $this->getTags()->count(); ?>
+                                    <?php echo $this->getTags()->render(new Template("Templates/tag-list-view.php")); ?>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                - <?php echo Utility::timeDiff($this->getTime()); ?>
+                            </div>
+                        </div>
+                    
+                        <div class="row-fluid">
+                        <!-- Revision data -->
+                            <?php if($this->getRevisions()->count()):?>
+                            <a href="<?php echo $this->getLink("getRevision"); ?>">Show rev</a>
+                            <?php else: echo '&nbsp;'; ?>
+                            <?php endif; ?>
+                       
+                        </div>
+                    
+                        <div class="row-fluid">
+                        <!--Action link/button goes here -->
+                            <div class="broup">
+                                <a href="<?php echo $this->getLink("close"); ?>">Close</a>
+                                <a href="<?php echo $this->getLink("edit"); ?>">Edit</a>
+                                <a href="<?php echo $this->getLink("delete"); ?>">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment section of Question -->
+                    <div class="row-fluid offset1 span11">
+                       <!--comment template goes here -->
+                       <?php 
+                        //Conugated object
+                        $coms=$this->getComments();
+                        //var_dump($coms->count());
+                        echo (is_object($coms))?$coms->render(new Template("Templates/comment-view.php")):'no Comments';
+                        ?>
+                        
+                        <?php require "comment-form-view.php"; ?>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- <h2>Best Answer</h2> -->
+                <?php 
+                    //Conugated object
+                    $ans=$this->getSelectedAnswer();
+                    //var_dump($ans);
+                    echo (is_object($ans))?$ans->render(new Template("Templates/Best-Answer-view.html")):'';
+                ?>
+                
+            </div>
+         
+          
+            <div class="row-fluid">
+                
+                <div class="offset2 span7">
+                    <hr/>
+                        
+                         
+                        <div class="pagination pagination-medium">
+                            <ul>
+                                <li><a href="#">Prev</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                        
+                        <?php require 'Answer-form-view.html'; ?>
+                        
+                        <?php 
+                        //Conugated object
+                        $ans=$this->getAnswers();
+                        echo (is_object($ans))?$ans->render(new Template("Templates/Answer-view.php")):'';
+                        ?>
+                     
+                </div>
+                
+            </div>
+            
+        </section>
+        
+        
+        <footer class="row-fluid">
+            <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">copyright protected</a>
+        </footer>
+    
+	<script src="/Bootstrap/js/bootstrap.min.js"></script>
+	<script src="/stackoverflow/js/realTime.js"></script>
+	<!-- -->
+    </body>
+    </html>
