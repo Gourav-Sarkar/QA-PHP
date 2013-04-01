@@ -24,8 +24,9 @@ trait RenderbleTrait{
          * In that case we can discard the result;
          * If tries to get property of non object discard rendering
          */
+        $pathPieces=[Template::TEMPLATE_ROOT_PATH,$this,$template->getTemplate()];
         ob_start();
-        require $template->getTemplate(); //require_once also working. STRANGE!
+        require implode(DIRECTORY_SEPARATOR, $pathPieces); //require_once also working. STRANGE!
         $output=ob_get_clean();
         //var_dump($output);
         return $output;

@@ -16,6 +16,7 @@
  */
 class Template {
     //put your code here
+   const TEMPLATE_ROOT_PATH='templates';
    private $template;
    private $model;
     
@@ -24,7 +25,7 @@ class Template {
      */
     public function Template($template)
     {
-        $this->template=$template;
+        $this->template="{$template}-view.php";
         //$this->model=$model;
         
         /*
