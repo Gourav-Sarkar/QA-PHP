@@ -2,16 +2,43 @@
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
+
+- Message differs from config or setting files
+- Message is for just text extraction
+- Message is bound to module
+- Message is bound to action actor and target taken to a module
+- Mesage is bound to result of each action
 -->
 
 
 <message>
-    <core>
+    <!--
+    Notiification used to notify user if some action is taken on some object
+    So it is good to atatch notification message attached to either object or objectController AKA action
+    -->
+    <module name="notification">
+        <taget module="self">
+            
+        </taget>
         
-    </core>
+        <target module="question">
+            <action name="edit">
+                A comment has been added to %question
+            </action>
+            <action name="addComment">
+                %question has been modified
+            </action>
+        </target>
+    </module>
     
-    <question>
-        <noList>No questions has been asked yet. You may like to %s a question</noList>
-        <noEntry>No question found</noEntry>
-    </question>
+    <Question>
+        <create>
+            <message type="default"></message>
+            <message type="NoEntryFound"></message>
+        </create>
+        <upVote>question have been upvoted</upVote>
+        <addComment>A comment has been added to the Question ?> echo $subject->getLink("show");?> </addComment>
+        <answer>An answer has been added to question</answer>
+    </Question>
+   
 </message>

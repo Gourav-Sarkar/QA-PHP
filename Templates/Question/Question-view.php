@@ -28,13 +28,9 @@
             
             <div class="row-fluid container-fluid">
             <!-- Question Template  -->
-                <h1 class="span10">
+                <h1 class="span10 page-header">
                     <?php echo $this->getTitle() ?>
                 </h1>
-            </div>
-            
-            <div class="row-fluid span8">
-                <hr>
             </div>
             
             <div class="row-fluid">
@@ -146,7 +142,7 @@
                         <?php 
                         //Conugated object
                         $ans=$this->getAnswers();
-                        echo (is_object($ans))?$ans->render(new Template("Answer")):'';
+                        echo (is_object($ans))?$ans->render(new Template("Answer")):$this->getMessage();
                         ?>
                      
                 </div>

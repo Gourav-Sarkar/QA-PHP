@@ -11,7 +11,8 @@
  * @author Gourav Sarkar
  */
 require_once 'models/Question.php';
-         
+require_once 'models/Notification.php';
+require_once 'models/NotificationStorage.php';
 class QuestionController {
     //put your code here
     private $question;
@@ -34,7 +35,14 @@ class QuestionController {
         //Question Controller must have Question object
         $this->question= new Question();
         
+        $this->notifier=new Notification();
+        
+        $this->question->attach($this->notifier);
+        
         //$this->question->attach(new XMLFileCache());
+        
+        $this->question->getObservers()->offsetGet($this->notifier)->setTarget('comments');
+        $this->question->getObservers()->offsetGet($this->notifier)->setTarget('Answers');
         
         
     }
@@ -107,6 +115,7 @@ class QuestionController {
     }
     public function show()
     {
+        //echo _("GETTEXT");
         
         $this->question->setID($_GET['question']);
         $this->question->setConnection(DatabaseHandle::getConnection());

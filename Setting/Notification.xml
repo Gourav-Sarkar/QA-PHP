@@ -2,10 +2,19 @@
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
+
+Notiification used to notify user if some action is taken on some object
+So it is good to atatch notification message attached to either object or objectController AKA action
+
 -->
 <notification>
     <module name="question">
-        <action
+        <action name="edit">
+            A comment has been added to %question
+        </action>
+        <action name="addComment">
+            %question has been modified
+        </action>
     </module>
     
 </notification>

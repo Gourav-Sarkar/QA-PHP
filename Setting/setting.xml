@@ -59,5 +59,68 @@ each node must have meta attribute or meta node
             <owner>true</owner>
         </target>
     </module>
+    
+    <!--
+    Notiification used to notify user if some action is taken on some object
+    So it is good to atatch notification message attached to either object or objectController AKA action
+    -->
+    <module name="notification">
+        <target module="question">
+            <action name="edit">
+                A comment has been added to %question
+            </action>
+            <action name="addComment">
+                %question has been modified
+            </action>
+        </module>
+    </module>
+    
+    <!--
+    - Reputation will be on content base not directly to user
+    - Rputation holds information about reputation for different action in system
+    - Reputation will bee given or taken for action
+    - There is two elements  of each action actor and target
+    - Actor is User who is doing the action
+    - Target is also User. It is the owner of the content
+    - @TODO Self is special case to where target and actor same
+    - Reputation could be  any negetive or positive ineteger,zero or NULL for invalid case
+    - NULL will be treated as 0
+    -->
+    <module name="reputation">
+        <target module="question">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+        </target>
+    
+        <target module="answer">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+            <action name="selectAnswer">
+                <actor>3</actor>
+                <target>10</target>
+            </action>
+        </target>
+    </module>
+
         
 </root>

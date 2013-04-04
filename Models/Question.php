@@ -23,6 +23,7 @@ require_once 'interfaces/RenderbleInterface.php';
 require_once 'traits/CounterTrait.php';
 require_once 'traits/VoteableTrait.php';
 require_once 'QuestionCache.php';
+require_once 'ObserverStorage.php';
 /* 
  */
 
@@ -77,7 +78,7 @@ class Question
         $this->tagList=new tagStorage();
         //
         $this->revisions=new QuestionStorage();
-        $this->observers=new SplObjectStorage();
+        $this->observers=new ObserverStorage();
         $this->selectedAnswer=new Answer($this);
         
         
@@ -156,8 +157,17 @@ class Question
     
     public function addComment(AbstractComment $comment)
     {
+        //Add comments to current question
         $this->commentList->attach($comment,$comment);
+        
+        //Create Comment
         $comment->create();
+        
+        $comment->getQuestion()->read();
+        
+        $this->observers->setMessage(__FUNCTION__);
+        $this->notify();
+        
     }
     
     
@@ -450,8 +460,14 @@ class Question
     public function notify() {
         foreach($this->observers as $observer)
         {
+            $observer->relay($this->observers->getMessage());
             $observer->update($this);
         }
+    }
+    
+    public function getObservers()
+    {
+        return $this->observers;
     }
    
     
