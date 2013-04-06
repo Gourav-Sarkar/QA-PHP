@@ -9,7 +9,7 @@ body.addEventListener("click",function(e)
                                  {
                                   
                                    //e.target.
-                                   console.log( e.target.parentNode);
+                                   //console.log( e.target.parentNode);
                                    /*
                                     *target node
                                     * If it is anchor or it is image node but its parent is anchor/button
@@ -18,7 +18,7 @@ body.addEventListener("click",function(e)
                                    if(target=e.target['class']=="btn-group")
                                    {
                                         //console.log("hello");
-                                        console.log(e.target.getAttribute("href"));
+                                        //console.log(e.target.getAttribute("href"));
                                         
                                         var location=e.target.getAttribute("href");
                                         e.preventDefault();
@@ -47,3 +47,26 @@ function inlineEdit()
 {
     document.getElementById(id);
 }
+
+/*
+ * Mouseover chunck quickmenu
+ * Get elements which is
+ */
+function hover()
+{
+    var divList=document.getElementsByTagName("div");
+    console.log(divList);
+    
+    //var hover = divList.getElementsByClassName("hover");
+    //console.log(hover);
+    
+    console.log("go");
+    for(div in divList)
+    {
+        console.log(div.getProperty("class")=='hover');
+    }
+}
+
+
+//console.log("heloo");
+hover();
