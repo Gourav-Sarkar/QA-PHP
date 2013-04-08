@@ -1,4 +1,5 @@
 <?php
+/*
 spl_autoload_register(function($name)
                         {
                             require_once "$name.php";
@@ -14,4 +15,6 @@ var_dump($_SESSION);
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+$bool=false;
+var_dump((bool) $bool);
 ?>

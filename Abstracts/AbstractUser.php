@@ -179,6 +179,13 @@ abstract class AbstractUser
         $this->hash();
         $this->softRead();
         
+        /*
+         * Get Roles of user
+         */
+        
+        //RoleUserMapper::get
+        //$this->setRoles();
+        
         //var_dump($this);
         
         if(!empty($this->id))
@@ -204,6 +211,34 @@ abstract class AbstractUser
          var_dump($this->password);
     }
     
+    /*
+     * @PARAM AbstractUser $user (optional)
+     * If nothing is passed in parameter it will be assumed as ACtor
+     * Actor is the current user session who is doing the actions
+     * 
+     * Before comparing both object it needs to make sure that compared object is also AbstractUser
+     */
+    public function equals(AbstractUser $user=null)
+    {
+        
+        if(empty($user))
+        {
+            $user=$_SESSION['self'];
+        }
+        
+            //var_dump($this->getID().' '.$user->getID());
+        
+        if($user instanceof AbstractUser)
+        {
+            //@TODO Strict check is failing the method
+            //var_dump((bool)$this->getID()==$user->getID() .' '. ($this->getID()==$user->getID()));
+            //echo '<hr>';
+            
+            return (bool)($this->getID()==$user->getID());
+        }
+        
+        return false;
+    }
    
 }
 

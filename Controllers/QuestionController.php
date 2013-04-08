@@ -35,12 +35,17 @@ class QuestionController {
         //Question Controller must have Question object
         $this->question= new Question();
         
+        /*
+         * Add notifier to the controller 
+         */
         $this->notifier=new Notification();
-        
         $this->question->attach($this->notifier);
         
         //$this->question->attach(new XMLFileCache());
         
+        /*
+         * Notifies comments owners and answer owners
+         */
         $this->question->getObservers()->offsetGet($this->notifier)->setTarget('comments');
         $this->question->getObservers()->offsetGet($this->notifier)->setTarget('Answers');
         

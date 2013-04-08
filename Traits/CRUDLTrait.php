@@ -34,6 +34,7 @@ trait CRUDLTrait{
     
     public function create()
     {
+        var_dump(__METHOD__);
          /*
          * if fieldcache is null try to insert all row
          */
@@ -56,7 +57,6 @@ trait CRUDLTrait{
          * hieggherchy
          */
         //Flip array
-        echo __METHOD__;
         var_dump($this->fieldCache);
         $fieldCache=array_flip($this->fieldCache);
         //walk through array and set value by the key name
@@ -102,8 +102,11 @@ trait CRUDLTrait{
         $retVal=$stmt->execute();
         
         //Ensures format last inserted ID
-        $this->setID(static::$connection->lastInsertId());
-        
+        //Dont use setter method because it does not needed to be cached for re database entry
+        //$this->setID(static::$connection->lastInsertId());
+        $this->id=static::$connection->lastInsertId();
+                
+                
         //unset fieldCache after each CRUDE operation
         $this->fieldCache=[];
         return $retVal;
