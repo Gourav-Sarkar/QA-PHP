@@ -9,6 +9,8 @@ require_once 'traits/RenderbleTrait.php';
 require_once 'traits/CRUDLTrait.php';
 require_once 'interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/AuthenticationInterface.php';
+require_once 'models/RoleStorage.php';
+require_once 'models/Role.php';
 /**
  * Description of AbstractUser
  *
@@ -35,14 +37,14 @@ abstract class AbstractUser
     protected static $connection;
     protected $auth;    //Authentication object
     
-    protected $roles;
+    protected $roleList;
     
     
 
     public function __construct() 
     {
         //$this->auth=new LocalAuth();
-        //$this->roles=new RolesStorage();
+        $this->roleList=new RoleStorage();
         //Default role initiated for each suer
         //$this->addRole($role);
         
@@ -155,8 +157,7 @@ abstract class AbstractUser
         $ext='png';
         return sprintf("/image/avatar/%s.%s",$identifier,$ext);
     }
-
-
+    
     /*
      * Tries Database auth if no module is set up
      * If module is there use the interface to auth user
@@ -178,6 +179,7 @@ abstract class AbstractUser
         
         $this->hash();
         $this->softRead();
+        $this->setRoles(Role::listing($this));
         
         /*
          * Get Roles of user
@@ -238,6 +240,36 @@ abstract class AbstractUser
         }
         
         return false;
+    }
+    
+    
+    public function hasPermission(Resource $resource)
+    {
+        $permission=false;
+        /*
+         * get User roles and manipulate to get particular resource
+         * role object will have several resource object with permission
+         */
+        
+        foreach($this->roleList as $role)
+        {
+            /*
+             * if a user has both permission true or false. it will be considered
+             * User has permission to that resource. by default permission to all 
+             * the resource is false
+             */
+            if($permission=$role->hasPermission($resource))
+            {
+                return;
+            }
+        }
+        
+        throw new PermissionDeniedException("Permission denied");
+    }
+    
+    public static function getActiveUser()
+    {
+        return (isset($_SESSION['self']))?$_SESSION['self']:new User();
     }
    
 }

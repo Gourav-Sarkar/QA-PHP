@@ -3,6 +3,8 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ * 
+ * all internal message should be cacheble
  */
 
 /**
@@ -13,23 +15,21 @@
 class AbstractInternalMessage {
     //put your code here
     const prefix="CORE_SETTING";
-    private $source;
+    
     private $target;
+    
+    private $FileDump; /* setting stored as text */
     /*
      * Load string in APC
      * Load
      */
     public function __constrcut($target)
     {
-        $this->target;
-        //Check if it has been cached or not
-        if($this->getKey())
-        {
-            
-        }
+        $this->target=$target;
+        
     }
     
-    public function getKey()
+    private function getKey()
     {
         return sprintf("%s_%s_%s"
                         ,static::prefix

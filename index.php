@@ -1,5 +1,12 @@
 <?php
-/* Things that should be cached by priority
+/* 
+ * Permanant and temporary both cache file should be revaildate if any changes happens in
+ * cache file. if it changes withing system revalidate everytime(admin panel)
+ * 
+ * Textual data can be compressed to save diskspace
+ * 
+ * Things that should be cached by priority
+ * 
  * Core levele system
  * User credential for each user to resolve subdomain to load appropiate application strcuture
  * Configuration files for system
@@ -16,8 +23,10 @@ require_once 'sessionDatabase.php';
 require_once 'util/utility.php';
 
 require_once 'models/user.php';
+require_once 'models/resource.php';
 require_once 'controllers/userController.php';
 require_once 'controllers/questionController.php';
+require 'exception/PermissionDeniedException.php';
 
 session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
 session_start();
@@ -61,22 +70,23 @@ apc_clear_cache("user");
 
 //Normalize GET POST
 //array_change_key_case($_GET);
+$resource=new Resource();
+$resource->setController($_GET['module']);
+$resource->setAction($_GET['action']);
 
-//Normalize module
-$module=  strtolower($_GET['module']);
+var_dump(User::getActiveUser());
 
-$controlerClass= "{$_GET['module']}Controller";
-//Find and append controller class
-$model = new $controlerClass($module);
-
-if(method_exists($model, $_GET['action']))
+try
 {
-    
-    $model->$_GET['action']();
+    User::getActiveUser()->hasPermission($resource); //Throw Permission denied
+    $resource->get();
 }
-else {
-    trigger_error("Invalid Request",E_USER_ERROR);
-}
+ catch (PermissionDeniedException $e)
+ {
+    var_dump($e->getMessage());
+     $resource->get();
+ }
+//$_SESSION['self']->hasPermission($resource);
 
 //file_get_contents("dummyText.txt");
 ?>

@@ -31,14 +31,25 @@ and open the template in the editor.
         </target>
     </module>
     
-    <Question>
-        <create>
-            <message type="default"></message>
-            <message type="NoEntryFound"></message>
-        </create>
+    <question>
+        <create>Create</create>
         <upVote>question have been upvoted</upVote>
-        <addComment>A comment has been added to the Question ?> echo $subject->getLink("show");?> </addComment>
+        <addComment>A comment has been added to the Question %link% </addComment>
         <answer>An answer has been added to question</answer>
-    </Question>
+    </question>
+    
+    <!--
+    <question>
+        <notification>
+            <create></create>
+            <upVote>question have been upvoted</upVote>
+            <addComment>A comment has been added to the Question %link% </addComment>
+            <answer>An answer has been added to question</answer>
+        </notification>
+        <error>
+            <create>Some error occured when posting the question</create>
+        </error>
+    </question>
+    -->
    
 </message>
