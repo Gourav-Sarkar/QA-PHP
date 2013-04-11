@@ -70,7 +70,7 @@ class Answer extends AbstractContent
     
     //Interface wont have id
     //Returns objectStorage
-    public static function listing(AbstractContent $question, Pagination $pager=null)
+    public static function listing(DatabaseInteractbleInterface $question, Pagination $pager=null)
     {
         
         $answerStorage= new AnswerStorage();

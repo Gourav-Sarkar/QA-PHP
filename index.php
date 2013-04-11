@@ -28,6 +28,7 @@ require_once 'controllers/userController.php';
 require_once 'controllers/questionController.php';
 require 'exception/PermissionDeniedException.php';
 
+
 session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
 session_start();
 
@@ -74,7 +75,6 @@ $resource=new Resource();
 $resource->setController($_GET['module']);
 $resource->setAction($_GET['action']);
 
-var_dump(User::getActiveUser());
 
 try
 {

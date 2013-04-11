@@ -64,11 +64,11 @@ abstract class AbstractSiteMap
       }
     }
     
-    public function edit(AbstractContent $content)
+    public function edit(DatabaseInteractbleInterface $content)
     {
         trigger_error("BLOCKED" . __METHOD__, E_USER_ERROR);
     }
-    public static function listing(\AbstractContent $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference) {
         
         trigger_error("BLOCKED" . __METHOD__, E_USER_ERROR);;
     }

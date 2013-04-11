@@ -10,6 +10,7 @@ require_once 'traits/CRUDLTrait.php';
 require_once 'interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/AuthenticationInterface.php';
 require_once 'models/RoleStorage.php';
+require_once 'models/RoleUserMapper.php';
 require_once 'models/Role.php';
 /**
  * Description of AbstractUser
@@ -98,9 +99,9 @@ abstract class AbstractUser
     {
         $this->auth=$auth;
     }
-    public function setRoles(RolesStorage $role)
+    public function setRoles(RoleStorage $role)
     {
-        $this->roles=$role;
+        $this->roleList=$role;
     }
 
     public function addRole(Role $role)
@@ -123,7 +124,7 @@ abstract class AbstractUser
     }
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roleList;
     }
     /*
      public function getName()
@@ -179,7 +180,7 @@ abstract class AbstractUser
         
         $this->hash();
         $this->softRead();
-        $this->setRoles(Role::listing($this));
+        $this->setRoles(RoleUserMapper::listing($this));
         
         /*
          * Get Roles of user
@@ -189,6 +190,7 @@ abstract class AbstractUser
         //$this->setRoles();
         
         //var_dump($this);
+        
         
         if(!empty($this->id))
         {
@@ -258,7 +260,10 @@ abstract class AbstractUser
              * User has permission to that resource. by default permission to all 
              * the resource is false
              */
-            if($permission=$role->hasPermission($resource))
+            $permission=$role->hasPermission($resource);
+            var_dump($permission);
+                    
+            if($permission)
             {
                 return;
             }

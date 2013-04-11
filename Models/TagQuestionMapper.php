@@ -49,13 +49,13 @@ class TagQuestionMapper implements CRUDLInterface{
         ;
     }
     
-    public static function listing(\AbstractContent $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference) {
         $tagStore=new TagStorage();
         
         $query=sprintf("SELECT * FROM tagQuestionMapper WHERE question=?");
         $stmt=DatabaseHandle::getConnection()->prepare($query);
-        $stmt->bindValue(1,$reference->getID());
-        $stmt->execute();
+        
+        $stmt->execute([$reference->getID()]);
         
         while($data=$stmt->fetch(PDO::FETCH_ASSOC))
         {
@@ -76,7 +76,7 @@ class TagQuestionMapper implements CRUDLInterface{
     
     
     
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         trigger_error("Restricted method call");
     } 
     public function read() {

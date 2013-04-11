@@ -51,7 +51,7 @@ class QuestionRevision
         $this->question->setTitle($title);
         parent::edit($quesTemp);
     }
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         trigger_error("Invalid operation",E_USER_ERROR);
     }
 
@@ -61,7 +61,7 @@ class QuestionRevision
     public function read() {
         return parent::read();
     }
-    public static function listing(AbstractContent $content, Pagination $pager=null) {
+    public static function listing(DatabaseInteractbleInterface $content, Pagination $pager=null) {
         $revisionStorage= new RevisionStorage();
         
         $query="SELECT

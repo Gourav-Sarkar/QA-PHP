@@ -54,6 +54,22 @@ class Resource {
         $this->action=$act;
     }
     
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getModule()
+    {
+        /*
+         * Truncate 'controller to get module name, 
+         * make controller lower case so it will be easy to compare
+         */
+        return str_replace('controller','',strtolower(get_Class($this->controller)));
+    }
+    public function getAction()
+    {
+        return $this->action;
+    }
     
     public function get()
     {
@@ -69,12 +85,18 @@ class Resource {
          */
         $this->controller->{$this->action}();
     }
-    
-    public function hasPermission()
+   
+    /*
+     * @TODO should be move to general object (Abstract)
+     * @TODO mak database module+action unique combo
+     * two resource can't have same module and action combo
+     * check both module and action same 
+     */
+    public function equals(Resource $resource)
     {
-        /*
-         * check current user roles and get every bit of
-         */
+        //Debug
+        //echo sprintf("%s %s %s %s",$this->getModule(),$resource->getModule(),$this->getAction(),$resource->getAction());
+        return ($this->getModule()==$resource->getModule()&&$this->getAction()==$resource->getAction());
     }
 }
 

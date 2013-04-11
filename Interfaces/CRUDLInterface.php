@@ -19,9 +19,9 @@ interface CRUDLInterface {
     //public function delete();
     //public function update();
     public function read();
-    public function edit(AbstractContent $tempObj);
+    public function edit(DatabaseInteractbleInterface $tempObj);
     public function delete();
-    public static function listing(AbstractContent $reference);
+    public static function listing(DatabaseInteractbleInterface $reference);
     //public function delete();
 }
 

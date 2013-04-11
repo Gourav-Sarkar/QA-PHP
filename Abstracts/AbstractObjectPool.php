@@ -24,7 +24,7 @@ abstract class AbstractObjectPool
         return apc_add($this->getKey(),$this->reference);
     }
     
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         return apc_store($this->getKey(),$this->reference);
     }
     

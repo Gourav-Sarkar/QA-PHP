@@ -38,10 +38,10 @@ implements SplObserver
     public function delete() {
         throw new BadMethodCallException("Invalid method call");
     }
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         throw new BadMethodCallException("Invalid method call");
     }
-    public static function listing(\AbstractContent $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference) {
         throw new BadMethodCallException("Invalid method call");
     }
     public function read() {

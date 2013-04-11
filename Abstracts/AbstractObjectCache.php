@@ -30,7 +30,7 @@ abstract class AbstractObjectCache
         return apc_add($this->getKey(),serialize($this->object));
     }
     
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         return apc_store($this->getKey(),  serialize($this->object));
     }
     
@@ -50,7 +50,7 @@ abstract class AbstractObjectCache
         return unserialize(apc_fetch($this->getKey()));
     }
     
-    public static function listing(AbstractContent $reference,  Pagination $pager=null) {
+    public static function listing(DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
         ;
     }
      public function getKey()

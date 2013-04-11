@@ -92,6 +92,7 @@ class Notification extends AbstractContent
                    
                     /*
                      * @todo Move filtering and verification part to notificationStorage
+                     * @todo Remove $userlist array use splobjectstorage instead to determine existance of object
                      */
                     if(null!=$data->getUser()->getID() 
                             && !in_array($data->getUser()->getID(),$userlist) 
@@ -163,13 +164,13 @@ class Notification extends AbstractContent
     {
         $this->targetList->removeAll($this);
     }
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         trigger_error("BLOCKED method", E_USER_ERROR);
     }
     public function delete() {
        
     }
-    public static function listing(\AbstractContent $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference) {
         ;
     }
     

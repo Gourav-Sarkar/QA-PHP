@@ -38,7 +38,7 @@ class SessionDatabase implements SessionHandlerInterface{
        
         $stmt->execute([$session_id, ip2long($_SERVER['REMOTE_ADDR'])]);
         //var_dump($r);
-        
+        //var_dump($stmt->fetch()['content']);
         return $stmt->fetch()['content'];
     }
     
@@ -73,5 +73,12 @@ class SessionDatabase implements SessionHandlerInterface{
         $stmt->execute([$session_id]);
     }
 }
+/*
+require_once 'DatabaseHandle.php';
+require_once 'models/user.php';
 
+session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
+session_start();
+/* 
+ */
 ?>

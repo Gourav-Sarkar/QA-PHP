@@ -21,7 +21,7 @@ class permission{
         CRUDLTrait::create as proxyCreate; //
     }
     
-    private $id;
+    private $role;
     private $resource;
     private $permission;
     
@@ -30,11 +30,12 @@ class permission{
     public function __construct() {
         $this->resourceStorage=new ResourceStorage();
         $this->resource=new Resource();
+        $this->role=new Role();
     }
     
-    public function setID($id)
+    public function setRole(Role $role)
     {
-        $this->id=$id;
+        $this->role=$role;
     }
     
     public function setPermission($permit)
@@ -46,6 +47,22 @@ class permission{
     {
         $this->resource=$resource;
     }
+    
+
+    public function getResource()
+    {
+        return $this->resource;
+    }
+    public function getRole()
+    {
+        return $this->role;
+    }
+    
+    public function getPermission()
+    {
+        return $this->permission;
+    }
+    
     public function create()
     {
         /*

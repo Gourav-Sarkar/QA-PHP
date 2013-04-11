@@ -122,7 +122,7 @@ trait CRUDLTrait{
     * Which object should be updated
      * 
      */
-    public function edit(AbstractContent $tempObj)
+    public function edit(DatabaseInteractbleInterface $tempObj)
     {
        
         $data=$condition='';
@@ -519,7 +519,7 @@ trait CRUDLTrait{
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
     
-   public static function Listing(AbstractContent $reference)
+   public static function Listing(DatabaseInteractbleInterface $reference)
    {
        
        

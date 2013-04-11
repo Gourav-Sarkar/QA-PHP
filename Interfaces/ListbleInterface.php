@@ -16,7 +16,7 @@
  */
 interface ListbleInterface {
     //put your code here
-    public static function getList(AbstractContent $obj);
+    public static function getList(DatabaseInteractbleInterface $obj);
 }
 
 ?>

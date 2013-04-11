@@ -220,7 +220,7 @@ class Question
     }
     
     
-    public function edit(\AbstractContent $tempObj) {
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
         //Get 
         
         //Get current question
@@ -274,7 +274,7 @@ class Question
     /*
      * 
      */
-    public static function listing(AbstractContent $reference)
+    public static function listing(DatabaseInteractbleInterface $reference)
     {
         //$calcFoundRows='';
         $questions = new QuestionStorage();

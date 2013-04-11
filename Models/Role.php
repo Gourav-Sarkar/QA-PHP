@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/Abstractcontent.php';
+require_once 'models/PermissionStorage.php';
 /**
  * Description of Role
  *
@@ -12,11 +13,12 @@ require_once 'Abstracts/Abstractcontent.php';
  */
 class Role extends AbstractContent{
     private $title;
-    protected $permission;
+    protected $permissions; /* @deprecated List of permission object */
     
     
     public function __construct() {
         parent::__construct();
+        $this->permissions=new PermissionStorage();
     }
     //put your code here
     public function setTitle($title)
@@ -24,27 +26,49 @@ class Role extends AbstractContent{
         $this->setFieldCache("title");
         $this->title=$title;
     }
+    /*
+     * @deprecated
+     */
+    public function addPermission(Permission $permission)
+    {
+        $this->permissions->attach($permission,$permission);
+    }
+    public function setPermissions(PermissionStorage $permission)
+    {
+        $this->permissions=$permission;
+    }
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+    
     public function getTitle()
     {
         return $this->title;
     }
     
-    public static function listing(\AbstractContent $reference) {
-        $query="SELECT * 
-                FROM roleUserMapper AS rumap 
-                LEFT OUTER JOIN permission AS perm
-                ON rumap.role =perm.role
-                WHERE user=?";
+    public static function listing(\DatabaseInteractbleInterface $reference) {
         
-        $stmt=static::$connection->prepare($query);
+       
+    }
+    
+    
+    public function hasPermission(Resource $resource)
+    {
+        foreach($this->permissions as $permission)
+        {
+            /*
+             * If requeste resource and permssion objects resource id is same
+             */
+            var_dump($permission);
+            var_dump($permission->getResource()->equals($resource));
+            if($permission->getResource()->equals($resource))
+            {
+                return $permission->getPermission();
+            }
+        }
         
-        $stmt->execute([$reference->getID()]);
-        
-        var_dump($stmt->fetchAll());
-        
-        /*
-         * 
-         */
+        return false;
     }
 }
 
