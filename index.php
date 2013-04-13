@@ -60,26 +60,9 @@ session_start();
  * 
  * $perm->hasPermission();
  */
-var_dump(__FILE__ . "get roles");
+//var_dump(__FILE__ . "get roles");
     
 //var_dump($_SESSION['self']->getRoles()->count());
-
-foreach(User::getActiveUser()->getRoles() as $role)
-    {
-        var_dump($role->getPermissions()->count());
-        foreach($role->getPermissions() as $perm)
-        {
-            foreach($perm as $p)
-            {
-                var_dump($p);
-            }
-        }
-    }
-
-require_once 'templates/user/user-login-form-view.php';
-
-
-
 
 //DO NOT DELETE/Comment IMPORTANT FOR DEBUGGING CACHE PROBLEM
 //var_dump(apc_cache_info("user"));

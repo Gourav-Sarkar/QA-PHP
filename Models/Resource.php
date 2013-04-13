@@ -27,7 +27,10 @@ class Resource {
     
     
     public function __construct() {
-        $this->accessor=User::getActiveUser();
+        /*
+         * @TODO causing infinite loop
+         */
+        //$this->accessor=User::getActiveUser();
     }
     
     

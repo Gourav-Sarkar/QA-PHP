@@ -22,14 +22,14 @@ class SessionDatabase implements SessionHandlerInterface{
     {
         //Database connection is the path here
         //$this->connection=$path;
-        echo "opening session database";
+        //echo "opening session database";
         return (bool) $this->connection;
     }
     
     public function close()
     {
         
-        echo "closing session database";
+        //echo "closing session database";
         unset($this->connection);
         return true;
         
@@ -37,7 +37,7 @@ class SessionDatabase implements SessionHandlerInterface{
     
     public function read($session_id) {
         
-        echo "reading session database";
+        //echo "reading session database";
         
         $query="SELECT content FROM session WHERE id=? AND ip=?";
         $stmt=$this->connection->prepare($query);
@@ -52,7 +52,7 @@ class SessionDatabase implements SessionHandlerInterface{
         //$ip=ip2long($_SERVER['REMOTE_ADDR']);
         //$time=time();
         
-        echo "writiing session database";
+        //echo "writiing session database";
         
         $query="INSERT INTO session(id,content,ip,time) VALUES(?,?,?,?)
                 ON DUPLICATE KEY

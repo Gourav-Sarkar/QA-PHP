@@ -49,7 +49,7 @@ class RoleUserMapper implements CRUDLInterface{
                 ON r.id=rumap.role
                 LEFT OUTER JOIN resource AS res
                 ON perm.resource=res.id
-                WHERE r.user=?";
+                WHERE rumap.user=?";
         
         $stmt=static::$connection->prepare($query);
         
