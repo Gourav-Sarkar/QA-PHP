@@ -13,6 +13,9 @@ require_once 'models/Resource.php';
  * Description of permission
  *
  * @author Gourav Sarkar
+ * 
+ * @toDo Permission table has role object in database. Database permission table more of
+ *  a mapper which map permission and resource
  */
 class permission{
     //put your code here
@@ -21,7 +24,8 @@ class permission{
         CRUDLTrait::create as proxyCreate; //
     }
     
-    private $role;
+    //private $role;
+    
     private $resource;
     private $permission;
     
@@ -32,11 +36,16 @@ class permission{
         $this->resource=new Resource();
         $this->role=new Role();
     }
-    
+    /*
+     * @deprecated
+     */
+    /*
     public function setRole(Role $role)
     {
         $this->role=$role;
     }
+     * 
+     */
     
     public function setPermission($permit)
     {
@@ -53,10 +62,18 @@ class permission{
     {
         return $this->resource;
     }
+    /*
+     * @deprecated
+     * 
+     */
+    
+    /*
     public function getRole()
     {
         return $this->role;
     }
+     * 
+     */
     
     public function getPermission()
     {

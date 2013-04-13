@@ -10,6 +10,7 @@
  */
 const E_USER_CUSTOM_ERROR=13131313;
 const CUSTOM_USER_SESSION_NAME="self";
+const DOCUMENT_ROOT="e:/wamp/www/stackoverflow/";
 //const DEPLOYED='../';
 const DEPLOYED='';
 ?>

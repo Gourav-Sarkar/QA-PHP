@@ -11,6 +11,7 @@ require_once 'interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/AuthenticationInterface.php';
 require_once 'models/RoleStorage.php';
 require_once 'models/RoleUserMapper.php';
+require_once 'models/RolePermissionMapper.php';
 require_once 'models/Role.php';
 /**
  * Description of AbstractUser
@@ -46,6 +47,7 @@ abstract class AbstractUser
     {
         //$this->auth=new LocalAuth();
         $this->roleList=new RoleStorage();
+        
         //Default role initiated for each suer
         //$this->addRole($role);
         
@@ -106,11 +108,11 @@ abstract class AbstractUser
 
     public function addRole(Role $role)
         {
-            $this->roles->attach($role,$role);
+            $this->roleList->attach($role,$role);
         }
         public function dropRole(Role $role)
         {
-            $this->roles->detach($role);
+            $this->roleList->detach($role);
         }
     
     
@@ -198,6 +200,19 @@ abstract class AbstractUser
             //Ensure previous session get deleted and start new session
             session_regenerate_id(true);
             
+            /*
+             * DEBUG
+             * /
+            var_dump("SESSION DEBUG");
+            var_dump($_SESSION);
+            foreach($_SESSION['self']->getRoles() as $role)
+            {
+                foreach($role->getPermissions() as $perm)
+                {
+                    var_dump($perm);
+                }
+            }
+             */
             
             $_SESSION['self']=$this;
             
@@ -263,7 +278,7 @@ abstract class AbstractUser
             $permission=$role->hasPermission($resource);
             var_dump($permission);
                     
-            if($permission)
+            if($permission===true)
             {
                 return;
             }
@@ -274,7 +289,22 @@ abstract class AbstractUser
     
     public static function getActiveUser()
     {
-        return (isset($_SESSION['self']))?$_SESSION['self']:new User();
+        if(!isset($_SESSION['self']))
+        {
+            $role=new Role();
+            $role->setConnection(DatabaseHandle::getConnection());
+            $role->setTitle('guest');
+            $role->softRead();
+            
+            var_dump($role);
+            
+            $role->setPermissions(RolePermissionMapper::Listing($role));
+     
+            $_SESSION['self']=new User();
+            $_SESSION['self']->addRole($role);
+        }
+        
+        return $_SESSION['self'];
     }
    
 }

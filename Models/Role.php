@@ -12,7 +12,7 @@ require_once 'models/PermissionStorage.php';
  * @author Gourav Sarkar
  */
 class Role extends AbstractContent{
-    private $title;
+    protected $title;
     protected $permissions; /* @deprecated List of permission object */
     
     
@@ -60,8 +60,9 @@ class Role extends AbstractContent{
             /*
              * If requeste resource and permssion objects resource id is same
              */
-            var_dump($permission);
-            var_dump($permission->getResource()->equals($resource));
+            //var_dump($permission);
+            //var_dump($permission->getResource()->equals($resource));
+            
             if($permission->getResource()->equals($resource))
             {
                 return $permission->getPermission();

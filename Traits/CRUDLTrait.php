@@ -485,7 +485,11 @@ trait CRUDLTrait{
         $stmt=static::$connection->prepare($query);
         $stmt->execute($fieldCache);
         
+        
+        //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+        
         $data=$stmt->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);
         /*
          * Initialize self
          */
@@ -497,26 +501,36 @@ trait CRUDLTrait{
             $property->setAccessible(true);
             $name=$property->getName();
             $value=$property->getValue($this);
-            var_dump($value);
+            
+            //echo "init $name value $value<br/>";
+            
             /*
+             *  Property either will be complex data type or promitive data type
              * If value is object it suppose to be initiated as object
              */
-            if(is_object($value) && $value instanceof AbstractContent)
-            {
-                $this->{"get{$name}"}()->setID($data[$name]);
-                break;
-            }
-            
             if(is_object($value))
             {
-                break;
+                if($value instanceof AbstractContent)
+                {
+                    $this->{"get{$name}"}()->setID($data[$name]);
+                }
+            }
+            else
+            {
+                 //echo "init $name<br/>";
+                if(isset($data[$name]))
+                 {
+                    $this->{"set{$name}"}($data[$name]);
+        
+                }
             }
             
-            $this->{"set{$name}"}($data[$name]);
+            
+           
         }
         
         $this->fieldCache=[];
-        //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+        //var_dump($this);
     }
     
    public static function Listing(DatabaseInteractbleInterface $reference)

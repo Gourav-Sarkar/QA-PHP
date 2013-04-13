@@ -12,7 +12,7 @@ require_once 'Models/Permission.php';
  *
  * @author Gourav Sarkar
  */
-class RoleUserMapper implements CRUDLInterface{
+class RolePermissionMapper implements CRUDLInterface{
     //put your code here
     //private $role;
     static $connection; /*should be removed */
@@ -29,27 +29,19 @@ class RoleUserMapper implements CRUDLInterface{
          */
     }
     public static function listing(\DatabaseInteractbleInterface $reference) {
-         $roles=new RoleStorage();
          $permissions=new PermissionStorage();
         
         static::$connection=  DatabaseHandle::getConnection();
         
         $query="SELECT
-                r.id AS role_id
-                ,r.title AS role_title
-                ,rumap.role AS role_id
-                ,res.id AS resource_id
+                res.id AS resource_id
                 ,res.action
                 ,res.module
                 ,perm.permission
-                FROM roleUserMapper AS rumap 
-                LEFT OUTER JOIN permission AS perm
-                ON rumap.role =perm.role
-                LEFT OUTER JOIN role AS r
-                ON r.id=rumap.role
+                FROM permission AS perm
                 LEFT OUTER JOIN resource AS res
                 ON perm.resource=res.id
-                WHERE r.user=?";
+                WHERE perm.role=?";
         
         $stmt=static::$connection->prepare($query);
         
@@ -81,11 +73,7 @@ class RoleUserMapper implements CRUDLInterface{
             $res->setAction($data['action']);
             $res->setController($data['module']);
             $res->setID($data['resource_id']);
-            //*/
             
-            $role=new Role();
-            $role->setID($data['role_id']);
-            $role->setTitle($data['role_title']);
             /*
              * Permission object is actually role resource mapper with granted permission
              */
@@ -102,42 +90,10 @@ class RoleUserMapper implements CRUDLInterface{
              * Make permission list on each iteration
              */
             $permissions->attach($perm, $perm);
-            
-            /*
-             * Store it in rolestorge
-             * First always add role to role storage
-             * It will overwrite any role
-             */
-            if(!$roles->contains($role))
-            {
-                $roles->attach($role,$role);
-            }
-            /*
-             * add permission list to role where role matches
-             * Role should be pulled from roleStorage
-             */
-            $roles->offsetGet($role)->setPermissions($permissions);
-            
-            
-            
-            
-            
-            /*
-             * attach a role object to roleStorage if its not already created
-             */
            
-            //$role->setPermissions($permStorage);
             
         }
-        var_dump("GET PERMISSIONS");
-        var_dump($roles->offsetGet($role)->getPermissions()->count());
-        
-        foreach($roles as $role)
-        {
-            var_dump($role);
-        }
-        
-        return $roles;
+        return $permissions;
     }
     
     public function read() {
