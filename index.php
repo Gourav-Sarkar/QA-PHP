@@ -78,8 +78,9 @@ $resource->setController($_GET['module']);
 $resource->setAction($_GET['action']);
 
 
-//$resource->get();
+$resource->get();
 
+/*
 try
 {
     User::getActiveUser()->hasPermission($resource); //Throw Permission denied

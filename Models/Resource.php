@@ -15,7 +15,7 @@ class Resource {
     use CRUDLTrait;
     //put your code here
     protected $id;
-    private $controller;
+    private $module;
     private $action;
     /* 
      * There must have some accessor who will access the resource
@@ -23,7 +23,7 @@ class Resource {
      * If there is need for other type of accessor it should be abstracted and
      *   an interface should be used to get acecessor
      */
-    private $accessor;
+    //private $accessor;
     
     
     public function __construct() {
@@ -44,12 +44,7 @@ class Resource {
         $this->setFieldCache('module');
         
         //Normalize module
-        $module=  strtolower($module);
-
-        $controllerClass="{$module}Controller";
-        $this->controller= new $controllerClass($module);
-        
-        //Find and append controller class
+        $this->module=  strtolower($module); //Find and append controller class
     }
     public function setAction($act)
     {
@@ -63,11 +58,7 @@ class Resource {
     }
     public function getModule()
     {
-        /*
-         * Truncate 'controller to get module name, 
-         * make controller lower case so it will be easy to compare
-         */
-        return str_replace('controller','',strtolower(get_Class($this->controller)));
+        return $this->module;
     }
     public function getAction()
     {
@@ -79,14 +70,20 @@ class Resource {
         /*
          * Validate IF module is there and has permssion to acccess it
          */
-        if(!method_exists($this->controller,$this->action))
+        
+        if(!method_exists("{$this->module}Controller",$this->action))
         {
             throw new InvalidRequestException("Invalid Request");
         }
         /*
          * check if methods are in module
          */
-        $this->controller->{$this->action}();
+        $controllerName="{$this->module}Controller";
+        
+        require_once "controllers/$controllerName.php";
+        
+        $controller=new $controllerName();
+        $controller->{$this->action}();
     }
    
     /*

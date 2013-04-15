@@ -34,7 +34,6 @@ class permission{
     public function __construct() {
         $this->resourceStorage=new ResourceStorage();
         $this->resource=new Resource();
-        $this->role=new Role();
     }
     /*
      * @deprecated

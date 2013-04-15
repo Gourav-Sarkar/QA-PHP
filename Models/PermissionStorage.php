@@ -19,9 +19,9 @@ class PermissionStorage extends SplObjectStorage{
      */
     public function getHash($object) 
     {
-        //echo sprintf('%s',$object->getResource()->getID());
+        //assert(false);
+        //echo sprintf('%s <hr/>',$object->getResource()->getID());
         //var_dump($object->getRole()->getID());
-        //echo '<hr/>'; 
         
         //$roleID=$object->getRole()->getID();
         $resourceID=$object->getResource()->getID();

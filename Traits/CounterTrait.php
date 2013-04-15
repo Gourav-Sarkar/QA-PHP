@@ -31,9 +31,8 @@ trait CounterTrait {
         
         $query=sprintf("UPDATE %s SET views=views+1 WHERE id=?", __CLASS__);
         $stmt=static::$connection->prepare($query);
-        $stmt->bindParam(1,$this->id);
         
-        $stmt->execute();
+        $stmt->execute([$this->id]);
         
     }
 }
