@@ -28,13 +28,15 @@ each node must have meta attribute or meta node
     </module>
     
     <module name="question">
-        <commentEnable>true</commentEnable>
-        <votingEnable>true</votingEnable>
-        <flaggingEnable>true</flaggingEnable>
+        <checkbox name="commentEnable" meta="Enable or disable comment">true</checkbox>
+        <checkbox name="votingEnable" meta="Enable or disable voting">true</checkbox>
+        <checkbox name="flagEnable" meta="Enable or disable Flagging">true</checkbox>
+        <int name="itemPerPage">10</int>
         <itemPerPage>10</itemPerPage>
         <categorizingScheme toggle='tag'> <!-- toggle value tag/category Now only tag is available-->
             <tag>
                 <max>5</max> <!-- Maximum tag can be used -->
+                <min>1</min>
             </tag>
         </categorizingScheme>
     </module>

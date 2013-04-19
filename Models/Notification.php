@@ -54,7 +54,7 @@ class Notification extends AbstractContent
          * Replace link
          * Replace marker (location of the change (optional
          */
-        $sxml=new SimpleXMLElement("setting/message.xml",null, true);
+        $sxml=new SimpleXMLElement(SETTING_ROOT . "message.xml",null, true);
         $msg=$sxml->{strtolower(get_class($subject))}->{$this->relayMessage};
         var_dump($msg);
         $msg=str_replace(['%link%','%marker%'],[$subject->getLink('show'),13],$msg);

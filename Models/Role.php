@@ -3,6 +3,12 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ *  By default at the time of system installing there will be three default user role
+ * SUPERADMIN - unediteble (Has all privilages)
+ * GUEST - Editble
+ * BANNED -Editble
+ * 
+ * User will be able to add more roles as needed and can give permission to access certain resource
  */
 require_once 'Abstracts/Abstractcontent.php';
 require_once 'models/PermissionStorage.php';
@@ -12,6 +18,7 @@ require_once 'models/PermissionStorage.php';
  * @author Gourav Sarkar
  */
 class Role extends AbstractContent{
+    
     protected $title;
     protected $permissions; /* @deprecated List of permission object */
     
@@ -55,6 +62,8 @@ class Role extends AbstractContent{
     
     public function hasPermission(Resource $resource)
     {
+        $perm=false;
+        //echo $this->permissions->count();
         foreach($this->permissions as $permission)
         {
             /*
@@ -65,11 +74,16 @@ class Role extends AbstractContent{
             
             if($permission->getResource()->equals($resource))
             {
-                return $permission->getPermission();
+                if($permission->getPermission()===true)
+                {
+                    return true;
+                }
+                
+                break;
             }
         }
         
-        return false;
+        return $perm;
     }
 }
 

@@ -71,6 +71,9 @@ class Resource {
          * Validate IF module is there and has permssion to acccess it
          */
         
+        $controllerName="{$this->module}Controller";
+        require_once "controllers/$controllerName.php";
+        
         if(!method_exists("{$this->module}Controller",$this->action))
         {
             throw new InvalidRequestException("Invalid Request");
@@ -78,14 +81,35 @@ class Resource {
         /*
          * check if methods are in module
          */
-        $controllerName="{$this->module}Controller";
-        
-        require_once "controllers/$controllerName.php";
         
         $controller=new $controllerName();
         $controller->{$this->action}();
     }
    
+    /*
+     * @PARAM strin $module name of the module
+     * @return ResourceStorage
+     * It will analyse each of module controller using Reflection
+     * 
+     */
+    public static function getAavailableAction(Resource $resource)
+    {
+        /*
+         * Get controller
+         */
+        $controllerName=$resource->getModule()."Controller";
+         require_once "controllers/{$controllerName}.php";
+         //Init controller
+         $reflClass=new ReflectionClass($controllerName);
+         $reflMethods=$reflClass->getMethods(ReflectionMethod::IS_PUBLIC);
+         
+         foreach($reflMethods as $methods)
+         {
+             var_dump($methods);
+         }
+         
+         
+    }
     /*
      * @TODO should be move to general object (Abstract)
      * @TODO mak database module+action unique combo

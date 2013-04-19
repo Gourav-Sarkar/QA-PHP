@@ -24,12 +24,16 @@ require_once 'traits/CounterTrait.php';
 require_once 'traits/VoteableTrait.php';
 require_once 'QuestionCache.php';
 require_once 'ObserverStorage.php';
+require_once 'Reputation.php';
 /* 
  */
 
 
 /**
  * Description of Question
+ * Question is type of AbstractContent > AbstractQuestion which is CRUDEable
+ * Question is indipendent and can stand alone
+ * Question object is made of answer,comments,tag,revision object
  *
  * @author Gourav Sarkar
  */
@@ -45,10 +49,18 @@ class Question
                 //CachebleInterface
 {
     
-    //Used traits
+    /*
+     * Counte Trait
+     * Used to keep track of visit counter
+     */
     use CounterTrait;
+    /*
+     * VoteableTrait
+     * Trait of voteble items. The objects which can be voted
+     */
     use VoteableTrait;
-    //put your code here
+    
+    
     private $answerCount=0; //Count the total answers, cache the count of total answer
     
     //SPLObjectStorage
@@ -57,9 +69,20 @@ class Question
     private $revisionList;
     private $tagList;
     
+    /*
+     * Reference to answer object which is selected as choosen answer
+     * One Question can have only one choosen answer
+     * Before making a answer object a selected it have to make sure the answer is belongs to
+     *  certain question object
+     * @todo One question may have multiple choosen answer
+     */
     private $selectedAnswer;
      
     private $observers;
+    /*
+     * Pager object used to paginate question objects
+     * @todo Check the usage of $pager. Most probably it is limited to Question::listing() which is static
+     */
     private $pager;
     
     //need verification about passing id param
@@ -272,7 +295,7 @@ class Question
     }
     
     /*
-     * 
+     *  
      */
     public static function listing(DatabaseInteractbleInterface $reference)
     {

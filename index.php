@@ -78,9 +78,11 @@ $resource->setController($_GET['module']);
 $resource->setAction($_GET['action']);
 
 
-$resource->get();
 
-/*
+//$resource->get();
+
+//var_dump($resource);
+echo User::getActiveUser()->getRoles()->count();
 try
 {
     User::getActiveUser()->hasPermission($resource); //Throw Permission denied
@@ -89,7 +91,17 @@ try
  catch (PermissionDeniedException $e)
  {
     var_dump($e->getMessage());
-     //$resource->get();
+    if($resource->getModule()=='adminpanel')
+    {
+        //echo "DEBUG TEST FOR ADMIN PANEL" . $resource->getModule();
+        $resource->get();
+    }
+    
+    /*
+     * Bypass RBAC
+     */
+    
+    $resource->get();
  } 
  
 //*/

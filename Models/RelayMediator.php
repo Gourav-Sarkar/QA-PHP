@@ -6,23 +6,28 @@
  */
 
 /**
- * Description of Reputation
+ * Description of RelayMediator
  *
  * @author Gourav Sarkar
  */
-class Reputation extends AbstractContent
+class RelayMediator 
     implements SplObserver
+                ,SplSubject
 {
     //put your code here
     
-    private $question;
-    private $type;
-    
+    public function attach(\SplObserver $observer) {
+        ;
+    }
+    public function detach(\SplObserver $observer) {
+        ;
+    }
+    public function notify() {
+        ;
+    }
     public function update(\SplSubject $subject) {
         ;
     }
-    
-    
 }
 
 ?>

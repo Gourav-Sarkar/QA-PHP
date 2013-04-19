@@ -13,7 +13,7 @@
             <?php endif; ?>
             
             <li><a href="#">tags</a></li>
-            <li><a href="#">admin panel</a></li>
+            <li><a href="index.php?module=adminpanel&amp;action=show">AP</a></li>
             <li><a href="#">help</a></li>
         </ul>
     </div>

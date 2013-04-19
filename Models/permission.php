@@ -3,6 +3,7 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ * 
  */
 require_once 'models/ResourceStorage.php';
 require_once 'traits/CRUDLTrait.php';
@@ -89,6 +90,11 @@ class permission{
          * Create permission to above resource
          */
         $this->proxyCreate();
+    }
+    
+    public static function listing(DatabaseInteractbleInterface $content)
+    {
+        //assert('$content instanceof Resource');
     }
 }
 ?>

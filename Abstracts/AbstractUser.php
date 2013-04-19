@@ -170,6 +170,7 @@ abstract class AbstractUser
      */
     public function auth()
     {
+        $roleCache=static::getActiveUser()->getRoles();
         /*
          * authenticate user if there is not any authenyicate object use default
          */
@@ -183,6 +184,11 @@ abstract class AbstractUser
         $this->hash();
         $this->softRead();
         $this->setRoles(RoleUserMapper::listing($this));
+        /*
+         * Append active users default role
+         * @todo can be get all the data from database
+         */
+        $this->getRoles()->addAll($roleCache);
         
         /*
          * Get Roles of user
@@ -259,10 +265,12 @@ abstract class AbstractUser
         return false;
     }
     
-    
+    /*
+     * Iterate over role list
+     * check each role have certain resource permission or not
+     */
     public function hasPermission(Resource $resource)
     {
-        $permission=false;
         /*
          * get User roles and manipulate to get particular resource
          * role object will have several resource object with permission
@@ -275,20 +283,23 @@ abstract class AbstractUser
              * User has permission to that resource. by default permission to all 
              * the resource is false
              */
-            $permission=$role->hasPermission($resource);
-            var_dump($permission);
-                    
-            if($permission===true)
+            if($role->hasPermission($resource)===true)
             {
-                return;
+                return true;
             }
+            //var_dump($permission);
         }
-        
         throw new PermissionDeniedException("Permission denied");
     }
     
     public static function getActiveUser()
     {
+        /*
+         * Active user is not nessacrily authneticated user.
+         * Every time a user comes to page it get session which represents current active user
+         * Every Active user should have at least one role. more role is also possible
+         * When user does authenticate activeUsers role are appended to authenticated user roleList
+         */
         if(!isset($_SESSION['self']))
         {
             $role=new Role();
@@ -296,7 +307,7 @@ abstract class AbstractUser
             $role->setTitle('guest');
             $role->softRead();
             
-            var_dump($role);
+            //var_dump($role);
             
             $role->setPermissions(RolePermissionMapper::Listing($role));
      
