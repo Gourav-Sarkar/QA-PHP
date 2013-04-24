@@ -31,9 +31,11 @@ require_once 'Abstracts/AbstractContent.php';
 class Notification extends AbstractContent
     implements SplObserver
 {
+        const SETTING_FILE_LOCATION="E:/wamp/www/stackoverflow/setting/"; //File name is class name
+        const NOTIFICATION_LANG='en';
+        
     //put your code here
     private $targetList=[];
-    private $relayMessage;
     
     /*
      * Notification should not be edited
@@ -45,19 +47,39 @@ class Notification extends AbstractContent
     
     public function update(SplSubject $subject)
     {
+        echo "Notification notified";
         $userlist=[];
-        var_dump($this->targetList);
-        $notificationList=new NotificationStorage();
-         
         /*
-         * Parse message
-         * Replace link
-         * Replace marker (location of the change (optional
+         * $subject is relay object which have origin object
+         * get the origin object which have started relay event
          */
-        $sxml=new SimpleXMLElement(SETTING_ROOT . "message.xml",null, true);
-        $msg=$sxml->{strtolower(get_class($subject))}->{$this->relayMessage};
-        var_dump($msg);
-        $msg=str_replace(['%link%','%marker%'],[$subject->getLink('show'),13],$msg);
+        $originObject= $subject->getOrigin();
+        
+        /* 
+         * @DEPRECATED BLOCK
+         * Reflect $originObject to get its property
+         * Origin object is type of AbstractContent
+         * It could have other abstractContent Object associated with
+         * Mostly other abstarctcontent object will be stored as ObjectStorage of AbstractContentObjectStorage
+         * All other assocaiated abstractContent owner who are not the triggering event owner will be notified
+         * Owner (user ID) will not be notified if it has NULL value or he is iteslf the triggerring the event
+         */
+        
+        /*
+        $reflOrigin= new ReflectionObject($originObject);
+        //Properties of origin object
+        $originObjProps=$reflOrigin->getProperties(ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE);
+        foreach($originObjProps as $property)
+        {
+            //Set accessible property
+            $property->SetAccessible(true);
+            if($property->getValue($originObject) instanceof AbstractContentObjectStorage)
+            {
+                echo $property->getName();
+            }
+        }
+         * 
+         */
         
         
         /*
@@ -68,8 +90,8 @@ class Notification extends AbstractContent
          */
         foreach($this->targetList as $target)
         {
-            assert('method_exists($subject,"get{$target}");');
-            $targetData=$subject->{"get{$target}"}();
+            assert('method_exists($originObject,"get{$target}");');
+            $targetData=$originObject->{"get{$target}"}();
             assert('$targetData instanceof AbstractContent || $targetData instanceof AbstractContentObjectStorage');
             
             
@@ -93,7 +115,9 @@ class Notification extends AbstractContent
                     /*
                      * @todo Move filtering and verification part to notificationStorage
                      * @todo Remove $userlist array use splobjectstorage instead to determine existance of object
+                     * 
                      */
+        
                     if(null!=$data->getUser()->getID() 
                             && !in_array($data->getUser()->getID(),$userlist) 
                             && !$data->getUser()->equals())
@@ -125,12 +149,15 @@ class Notification extends AbstractContent
          * User id could be null
          * Like post by deleted user AKA annonymous user
          * filter null value
+         * 
+         */
          
         $userlist=array_filter($userlist,function($val){return !empty($val);});
         
         /*
          * flipping array will eliminate common values
          * array key will return value which is stored in keys (reveresed during flipping of array)
+         */
          
         $userlist=array_keys(array_flip($userlist));
         
@@ -143,16 +170,26 @@ class Notification extends AbstractContent
             $user=new User($user);
             
         }
-        */
         //var_dump($userlist);
-        
-            $notificationList->create();
+        //$notificationList->create();
     }
         
     public function setTarget($target)
     {
         //$this->targetList->attach($target,$target);
-        $this->targetList[]=$target;
+        if(is_string($target))
+        {
+            $this->targetList[]=$target;
+            return true;
+        }
+        
+        if(is_array($target))
+        {
+            $this->targetList=$target;
+            return true;
+        }
+        
+        return false;
     }
     
     public function getTarget()
@@ -174,7 +211,7 @@ class Notification extends AbstractContent
         ;
     }
     
-    public function getParticipant()
+    private function getParticipant(AbstractContent $object)
     {
         /*
          * Who should be notified?

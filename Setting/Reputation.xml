@@ -3,6 +3,7 @@
 - Reputation will be on content base not directly to user
 - Rputation holds information about reputation for different action in system
 - Reputation will bee given or taken for action
+- Action is method of conroller of module name
 - There is two elements  of each action actor and target
 - Actor is User who is doing the action
 - Target is also User. It is the owner of the content
@@ -23,6 +24,10 @@
         <action name="upVote">
             <actor>0</actor>
             <target>3</target>
+        </action> 
+        <action name="addComment">
+            <actor>1</actor>
+            <target>-2</target>
         </action>
     </module>
     

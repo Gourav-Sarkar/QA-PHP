@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
  * To change this template, choose Tools | Templates
@@ -14,7 +14,6 @@ class AbstractUniqueClassObjectStorage
     extends SplObjectStorage
 {
     //put your code here
-    
     public function getHash($object)
     {
         return get_class($object);

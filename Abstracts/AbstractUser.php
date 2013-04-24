@@ -317,6 +317,19 @@ abstract class AbstractUser
         
         return $_SESSION['self'];
     }
+    
+    public function updateReputation($reps)
+    {
+        $query=sprintf("UPDATE %s SET reputation=reputation+? WHERE id=?",get_class($this));
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        
+        if(empty($this->id))
+        {
+            trigger_error("User id must be there to do the action", E_USER_ERROR);
+        }
+        
+        $stmt->execute([$reps,$this->getID()]);
+    }
    
 }
 

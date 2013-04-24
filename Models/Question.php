@@ -20,10 +20,11 @@ require_once 'tagQuestionMapper.php';
 require_once 'tagStorage.php';
 require_once 'QuestionStorage.php';
 require_once 'interfaces/RenderbleInterface.php';
+require_once 'interfaces/RelayInterface.php';
 require_once 'traits/CounterTrait.php';
 require_once 'traits/VoteableTrait.php';
 require_once 'QuestionCache.php';
-require_once 'ObserverStorage.php';
+require_once 'RelayMediator.php';
 require_once 'Reputation.php';
 /* 
  */
@@ -42,6 +43,7 @@ class Question
     extends AbstractQuestion
     implements SplSubject
                 ,RenderbleInterface
+                ,RelayInterface
                 //VoteableInterface,
                 //CommentableInterface,
                 //AnswerableInterface,
@@ -101,8 +103,9 @@ class Question
         $this->tagList=new tagStorage();
         //
         $this->revisions=new QuestionStorage();
-        $this->observers=new ObserverStorage();
         $this->selectedAnswer=new Answer($this);
+        
+        $this->observers=new RelayMediator();
         
         
        
@@ -159,7 +162,10 @@ class Question
     {
         $this->pager=$pager;
     }
-    
+    public function setObserver(RelayMediator $observers)
+    {
+        $this->observers=$observers;
+    }
     
     public function getPager()
     {
@@ -188,9 +194,13 @@ class Question
         
         $comment->getQuestion()->read();
         
-        $this->observers->setMessage(__FUNCTION__);
-        $this->notify();
-        
+        /*
+         * Set meessage for relaying message to observers
+         */
+        //$this->observers->setMessage(__FUNCTION__);
+        /*
+         * $this->observers->notify();
+        */
     }
     
     
@@ -481,17 +491,15 @@ class Question
     }
     
     public function notify() {
-        foreach($this->observers as $observer)
-        {
-            $observer->relay($this->observers->getMessage());
-            $observer->update($this);
-        }
+      
+        $this->observers->update($this);
+    }
+    public function relay($msg)
+    {
+        $this->observers->relay($msg);
+        $this->notify();
     }
     
-    public function getObservers()
-    {
-        return $this->observers;
-    }
    
     
 }

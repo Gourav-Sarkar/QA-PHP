@@ -35,19 +35,22 @@ class QuestionController {
         //Question Controller must have Question object
         $this->question= new Question();
         
+        
+         
+        /*
+         * RelayMediator will propogate message event to other observer
+         * Enlisted observers are cache,notification,reputation
+         */
+        //$observerList->attach(new QuestionCache($this->question));
+        //$this->observers->attach(new SiteMapManager());
+        $notificationObject=new Notification();
+        $notificationObject->setTarget(["comments","answers"]);
+        
+        $this->question->attach(new Reputation());
+        $this->question->attach($notificationObject);
         /*
          * Add notifier to the controller 
          */
-        $this->notifier=new Notification();
-        $this->question->attach($this->notifier);
-        
-        //$this->question->attach(new XMLFileCache());
-        
-        /*
-         * Notifies comments owners and answer owners
-         */
-        $this->question->getObservers()->offsetGet($this->notifier)->setTarget('comments');
-        $this->question->getObservers()->offsetGet($this->notifier)->setTarget('Answers');
         
         
     }
@@ -106,7 +109,7 @@ class QuestionController {
     /*
      * Comment handler of question
      */
-    public function comment()
+    public function addComment()
     {
         
         $this->question->setID($_GET['question']);
@@ -117,6 +120,11 @@ class QuestionController {
         $comment->setUser($_SESSION['self']);
         
         $this->question->addComment($comment);
+        $this->question->relay(__FUNCTION__);
+        
+        /*
+         * Relay event
+         */
     }
     public function show()
     {
@@ -211,6 +219,9 @@ class QuestionController {
     public function remove()
     {
         echo __METHOD__;
+    }
+    
+    public function __destruct() {
     }
 }
 

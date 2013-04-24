@@ -121,6 +121,7 @@ trait CRUDLTrait{
     * @PARAM AbstractContent $object is template of object which will be used to compare
     * Which object should be updated
      * 
+     * 
      */
     public function edit(DatabaseInteractbleInterface $tempObj)
     {
@@ -132,7 +133,7 @@ trait CRUDLTrait{
          * Update object
          * Make data for query
          */
-        $query=sprintf("UPDATE %s SET %s %s",get_class($this),$data,$condition);
+        //$query=sprintf("UPDATE %s SET %s %s",get_class($this),$data,$condition);
         
         //Flip array
         $fieldCache=array_flip($this->fieldCache);
@@ -166,14 +167,8 @@ trait CRUDLTrait{
                                         
         
         
-        if(isset($tempObj))
-        {
-            $condition=" WHERE id=:id";
-            
-        }
-        
-        $query=sprintf("UPDATE %s SET %s %s",get_class($this),$data,$condition);
-        $stmt=AbstractContent::$connection->prepare($query);
+        $query=sprintf("UPDATE %s SET %s WHERE id=:id",get_class($this),$data);
+        $stmt= DatabaseHandle::getConnection()->prepare($query);
         
           
          foreach($fieldCache as $idf=>$val)
@@ -182,16 +177,42 @@ trait CRUDLTrait{
             $stmt->bindValue(":$idf",$val);
         }
         
+        /*
+         * $tempObj is template for updating
+         * If $temobj is not there AKA NULL use objects id
+         * ensure id is there
+         */
+        
          if(isset($tempObj))
         {
             $stmt->bindValue(":id",$tempObj->getID());
         }
         
+        /*
+        else
+        {
+            $id=$this->getID();
+            assert('isset($id)');
+            $stmt->bindValue(":id",$id);
+        }
+         * 
+         */
+        
+        
+        /*
+         * Debug statement
+         */
         echo $stmt->queryString;
         
         
-        //unset fieldCache after each CRUDE operation
+        /*
+         * unset fieldCache after each CRUDE operation
+         */
         $this->fieldCache=[];
+        
+        /*
+         * Execute query
+         */
         return $stmt->execute();
         
         

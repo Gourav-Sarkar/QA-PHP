@@ -6,12 +6,12 @@
  */
 
 /**
- * Description of AbstractCache
  *
  * @author Gourav Sarkar
  */
-class AbstractCache {
+interface RelayInterface{
     //put your code here
+    public function relay($msg);
 }
 
 ?>

@@ -23,6 +23,12 @@ class QuestionCache extends AbstractObjectCache {
         
         return parent::read();
     }
+    
+    public function getKey()
+    {
+        //var_dump("{$this->object}_". $this->object->getID());
+        return (string)"{$this->object}_". $this->object->getID();
+    } 
 }
 
 ?>

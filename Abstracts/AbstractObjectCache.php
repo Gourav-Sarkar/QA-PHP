@@ -22,9 +22,9 @@ abstract class AbstractObjectCache
     }
     public function create()
     {
-        //var_dump("Debug cache");
+        var_dump("Debug cache");
         //var_dump($d=serialize($this->object));
-        //var_dump($this->object);
+        var_dump($this->object);
         //var_dump(serialize($this->object));
         //var_dump(unserialize(serialize($this->object)));
         return apc_add($this->getKey(),serialize($this->object));
@@ -53,11 +53,8 @@ abstract class AbstractObjectCache
     public static function listing(DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
         ;
     }
-     public function getKey()
-    {
-        //var_dump("{$this->object}_". $this->object->getID());
-        return (string)"{$this->object}_". $this->object->getID();
-    } 
+     
+     abstract public function getKey();
 }
 
 ?>
