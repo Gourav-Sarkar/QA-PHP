@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Exception/NoEntryFoundException.php';
 /**
  * Description of CrudTrait
  * Used in self behaviour of CRUD
@@ -401,7 +401,7 @@ trait CRUDLTrait{
         //echo $query;
         $stmt->execute();
         
-        if(!$data=$stmt->fetch())
+        if(!$data=$stmt->fetch(PDO::FETCH_ASSOC))
         {
             throw new NoEntryFoundException("No entry in Database");
         }
@@ -510,9 +510,13 @@ trait CRUDLTrait{
         
         
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+        //var_dump($data);
         
-        $data=$stmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($data);
+        if(!$data=$stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            throw new NoEntryFoundException("No entry in Database");
+        }
+        
         /*
          * Initialize self
          */

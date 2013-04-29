@@ -15,6 +15,7 @@ class RoleStorage extends SplObjectStorage{
     
     public function getHash($object)
     {
+        assert('$object instanceof Role');
         return (string) $object->getTitle();
     }
 }

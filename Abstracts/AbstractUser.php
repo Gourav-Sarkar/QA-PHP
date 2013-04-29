@@ -13,6 +13,7 @@ require_once 'models/RoleStorage.php';
 require_once 'models/RoleUserMapper.php';
 require_once 'models/RolePermissionMapper.php';
 require_once 'models/Role.php';
+require_once 'Exception/PermissionDeniedException.php';
 /**
  * Description of AbstractUser
  *
@@ -176,27 +177,42 @@ abstract class AbstractUser
          */
         $defaultrole=new Role();
         $defaultrole->setTitle(static::USER_DEFAULT_ROLE);
+        
         $roleCache=static::getActiveUser()->getRoles()->offsetGet($defaultrole);
+        var_dump('role default',$roleCache);
+        
         
         /*
          * authenticate user if there is not any authenyicate object use default
          * CURRENTLY NOT IN USE
          */
+        /*
         if(!empty($this->auth))
         {
             $this->auth->auth();
         }
+         *
+         */
         
         //var_dump($this);
+        try {
+            $this->hash();
+            $this->softRead();
+            $this->setRoles(RoleUserMapper::listing($this));
+        }
+        catch(NoEntryFoundException $e)
+        {
+            throw new NoEntryFoundException("Wrong user Credentials");
+        }
         
-        $this->hash();
-        $this->softRead();
-        $this->setRoles(RoleUserMapper::listing($this));
+        
+        
+        
         /*
          * Append active users default role
-         * @todo can be get all the data from database
+         * @todo can be get all the data from database 
          */
-        $this->getRoles()->addAll($roleCache);
+        $this->getRoles()->attach($roleCache,$roleCache);
         
         /*
          * Get Roles of user
@@ -204,35 +220,24 @@ abstract class AbstractUser
         
         
         //var_dump($this);
-        
-        
-        if(!empty($this->id))
-        {
-            //echo "boo";
             //Ensure previous session get deleted and start new session
             session_regenerate_id(true);
             
             /*
              * DEBUG
-             * /
+             */
             var_dump("SESSION DEBUG");
             var_dump($_SESSION);
             foreach($_SESSION['self']->getRoles() as $role)
             {
+                var_dump('Roles',$role);
                 foreach($role->getPermissions() as $perm)
                 {
                     var_dump($perm);
                 }
             }
-             */
             
             $_SESSION['self']=$this;
-            
-            var_dump($_SESSION);
-            return;
-        }
-        
-        throw new Exception("Wrong password/username");
     }
     
     
