@@ -288,7 +288,7 @@ class Question
             $cache =new QuestionCache($this);
             return $cache->read();
         }
-        catch(NoEntryFoundException $e)
+        catch(Exception $e) //No entry found exception and no extension found exception
         {
             //echo "Cache empty";
             
@@ -298,8 +298,11 @@ class Question
             $this->revisionList = QuestionRevision::listing($this);
             $this->tagList = TagQuestionMapper::listing($this);
            
+            /*
+             * @DEBUG Moved to observer
+             */
+            //$cache->create();
             
-            $cache->create();
             return $this;
         }
     }
@@ -500,7 +503,9 @@ class Question
         $this->notify();
     }
     
-   
+   /*
+    * @todo Check if question has been changed or not
+    */
     
 }
 

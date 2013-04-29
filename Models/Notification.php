@@ -5,6 +5,8 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractContent.php';
+require_once 'DefaultSettingObject.php';
+/**
 /**
  * It Does notify users about certain activity on a object
  * It does have log in database
@@ -36,6 +38,7 @@ class Notification extends AbstractContent
         
     //put your code here
     private $targetList=[];
+    private $setting;
     
     /*
      * Notification should not be edited
@@ -43,12 +46,16 @@ class Notification extends AbstractContent
     public function __construct() {
         parent::__construct();
         //$this->targetList=new SplObjectStorage();
+        
+        
+        $this->setting=new DefaultSettingObject($this);
     }
     
     public function update(SplSubject $subject)
     {
-        echo "Notification notified";
+        echo "Relay message to notification";
         $userlist=[];
+        $notificationList=new NotificationStorage();
         /*
          * $subject is relay object which have origin object
          * get the origin object which have started relay event
@@ -88,6 +95,8 @@ class Notification extends AbstractContent
          * Only fetch the user id
          * Only user can be notified 
          */
+        //var_dump($this->targetList);
+        
         foreach($this->targetList as $target)
         {
             assert('method_exists($originObject,"get{$target}");');
@@ -110,7 +119,7 @@ class Notification extends AbstractContent
                      * If user id is not in cache use it cache it and craete a entry
                      * else skip it
                      */
-                    //var_dump($data->getUser()->equals());
+                    var_dump($data->getUser()->equals());
                    
                     /*
                      * @todo Move filtering and verification part to notificationStorage
@@ -128,7 +137,7 @@ class Notification extends AbstractContent
                         $userlist[]=$data->getUser()->getID();
                         //Create a notification
                         $this->setUser($data->getUser());
-                        $this->setContent($msg);
+                        $this->setContent('');
                         $this->setTime();
                         
                         $notificationList->attach($this,$this);
@@ -171,7 +180,10 @@ class Notification extends AbstractContent
             
         }
         //var_dump($userlist);
-        //$notificationList->create();
+        
+        //Insert
+        echo $notificationList->count();
+        $notificationList->create();
     }
         
     public function setTarget($target)
@@ -185,7 +197,7 @@ class Notification extends AbstractContent
         
         if(is_array($target))
         {
-            $this->targetList=$target;
+            $this->targetList=array_merge($this->targetList, $target);
             return true;
         }
         

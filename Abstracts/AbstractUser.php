@@ -24,6 +24,7 @@ abstract class AbstractUser
     ,AuthenticationInterface
 {
     
+    const USER_DEFAULT_ROLE='guest';
     
     use RenderbleTrait;
     use CRUDLTrait;
@@ -31,7 +32,7 @@ abstract class AbstractUser
     protected $id;
     //protected $name;
     protected $nick;
-    protected $reputation=9000;
+    protected $reputation=1;
     protected $password;
     protected $email;
     
@@ -170,9 +171,16 @@ abstract class AbstractUser
      */
     public function auth()
     {
-        $roleCache=static::getActiveUser()->getRoles();
+        /*
+         * Only get default role permission
+         */
+        $defaultrole=new Role();
+        $defaultrole->setTitle(static::USER_DEFAULT_ROLE);
+        $roleCache=static::getActiveUser()->getRoles()->offsetGet($defaultrole);
+        
         /*
          * authenticate user if there is not any authenyicate object use default
+         * CURRENTLY NOT IN USE
          */
         if(!empty($this->auth))
         {
@@ -194,8 +202,6 @@ abstract class AbstractUser
          * Get Roles of user
          */
         
-        //RoleUserMapper::get
-        //$this->setRoles();
         
         //var_dump($this);
         
@@ -300,11 +306,12 @@ abstract class AbstractUser
          * Every Active user should have at least one role. more role is also possible
          * When user does authenticate activeUsers role are appended to authenticated user roleList
          */
+        
         if(!isset($_SESSION['self']))
         {
             $role=new Role();
             $role->setConnection(DatabaseHandle::getConnection());
-            $role->setTitle('guest');
+            $role->setTitle(static::USER_DEFAULT_ROLE);
             $role->softRead();
             
             //var_dump($role);
@@ -314,12 +321,16 @@ abstract class AbstractUser
             $_SESSION['self']=new User();
             $_SESSION['self']->addRole($role);
         }
+        /* 
+         */
         
         return $_SESSION['self'];
     }
     
-    public function updateReputation($reps)
+    public function updateReputation()
     {
+        assert('isset($this->reputation)');
+        
         $query=sprintf("UPDATE %s SET reputation=reputation+? WHERE id=?",get_class($this));
         $stmt=DatabaseHandle::getConnection()->prepare($query);
         
@@ -328,8 +339,9 @@ abstract class AbstractUser
             trigger_error("User id must be there to do the action", E_USER_ERROR);
         }
         
-        $stmt->execute([$reps,$this->getID()]);
+        $stmt->execute([$this->getReputation(),$this->getID()]);
     }
+    
    
 }
 

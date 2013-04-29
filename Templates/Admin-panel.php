@@ -75,7 +75,7 @@
         
         </footer>
 	
-        <script src="/jquery/jquery-min.js" type="text/javascript"></script>
+    <script src="/jquery/jquery-min.js" type="text/javascript"></script>
     <script src="/Bootstrap/js/bootstrap.js" type="text/javascript"></script>
     </body>
     </html>

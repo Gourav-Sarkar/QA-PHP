@@ -339,6 +339,8 @@ trait CRUDLTrait{
      *      When using read()
      *  
      *  Supports only LEFT OUTER JOIN. deep pulling of data [Need update]
+     * 
+     *  @tODO IF $reference is empty it means that class has not any associates and softread()==read();
      *  
      */
     public function read()

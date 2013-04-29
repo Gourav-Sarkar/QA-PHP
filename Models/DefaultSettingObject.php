@@ -12,6 +12,15 @@ require_once 'Abstracts/AbstractSettingObject.php';
  */
 class DefaultSettingObject extends AbstractSettingObject{
     //put your code here
+    
+    public function __construct($object) {
+        parent::__construct($object);
+    }
+    
+    public function getKey()
+    {
+        return sprintf("core_setting_%s",$this->object);
+    }
 }
 
 ?>

@@ -37,7 +37,11 @@ class UserController {
     }
     public function show()
     {
-        echo __METHOD__;
+        $this->user->setID($_GET['user']);
+        //$this->user->read();
+        $this->user->Softread();
+        
+        echo $this->user->render(new Template('user-profile'));
     }
 }
 

@@ -34,7 +34,11 @@ class permission{
     
     public function __construct() {
         $this->resourceStorage=new ResourceStorage();
-        $this->resource=new Resource();
+        
+        /*
+         * @todo [BUG]Possible cause of infinite loop
+         */
+        //$this->resource=new Resource();
     }
     /*
      * @deprecated

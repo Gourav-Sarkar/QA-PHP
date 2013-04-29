@@ -13,8 +13,8 @@ require_once 'Abstracts/AbstractObjectCache.php';
 class QuestionCache extends AbstractObjectCache {
     //put your code here
     public function __construct(AbstractQuestion $object) {
-        $this->object=$object;
-    }
+        parent::__construct($object);
+        }
     
     public function read()
     {

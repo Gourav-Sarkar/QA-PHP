@@ -8,7 +8,11 @@ require_once 'Abstracts/AbstractContent.php';
 require_once 'DefaultSettingObject.php';
 /**
  * Description of Reputation
- *
+ * @todo Dependble to Other abstractContent: Reputation can not exist alone
+ * @todo if Reputation needs to sort by how a user get or lost reputation it needs
+ *  to add two fields (type and reference id) to reputation column
+ * @todo If Reputation dont need sorting just add content field to database update Reputaion::setContent()
+ * 
  * @author Gourav Sarkar
  */
 class Reputation extends AbstractContent
@@ -19,13 +23,14 @@ class Reputation extends AbstractContent
     //put your code here
     const SETTING_FILE_LOCATION="E:/wamp/www/stackoverflow/setting/"; //File name is class name
     
-    private $reputaion;
+    private $reputation;
     private $setting;
     
     //private $relayObject;
     
     public function __construct() {
-        var_dump("COnstructor is calling");
+        //var_dump("COnstructor is calling");
+        
         parent::__construct();
         $this->setting=new DefaultSettingObject($this);
         
@@ -50,7 +55,7 @@ class Reputation extends AbstractContent
          * update target user reputation
          * update reputation table for both entry
          */
-        $reps=$this->fetchReputation($origin, $subject->getRelayMessage());
+        $reps=$this->parseSetting($origin, $subject->getRelayMessage());
         var_dump($reps);
         
         /*
@@ -62,23 +67,31 @@ class Reputation extends AbstractContent
         {
             if(!empty($reps['actor']))
             {
-                $user=User::getActiveUser()->updateReputation($reps['actor']);
+                User::getActiveUser()->updateReputation($reps['actor']);
                 
                 $rep=new Reputation();
                 $rep->setTime();
-                $rep->setContent('Rep has been adeed 1');
-                $this->setReputation($reps['actor']);
+                //$rep->setContent('Rep has been adeed 1');
+                $rep->setReputation($reps['actor']);
+                $rep->setUser(User::getActiveUser());
+                
+                var_dump($rep);
+                
                 $rep->create();
             }
         
             if(!empty($reps['target']))
             {
-                $user=$origin->getUser()->updateReputation($reps['target']);
                 
                 $rep=new Reputation();
                 $rep->setTime();
-                $rep->setContent('Rep has been adeed 2');
-                $this->setReputation($reps['target']);
+                //$rep->setContent('Rep has been adeed 2');
+                $rep->setReputation($reps['target']);
+                $rep->setUser($origin->getUser());
+                
+                
+                var_dump($rep);
+                
                 $rep->create();
             }
             
@@ -86,8 +99,27 @@ class Reputation extends AbstractContent
         }
     }
     
-    private function fetchReputation(AbstractContent $subject,$event)
+    private function parseSetting(AbstractContent $subject,$event)
     {
+        
+        /*
+         * @todo callback parsing
+         */
+         
+        /* 
+        return $this->setting->parseSetting($subject
+                                    ,$event
+                                    ,function($action)
+                                    {   
+                                        $reps['actor']=(String)$action->actor;
+                                        $reps['target']=(string)$action->target;
+                                    }
+                                    );
+         * 
+         */
+        
+        
+        
         $reps=[];
         
         foreach($this->setting->get()->module as $module)
@@ -117,11 +149,12 @@ class Reputation extends AbstractContent
     
     public function getReputation()
     {
-        return $this->reputaion;
+        return $this->reputation;
     }
     public function setReputation($rep)
     {
-        $this->rep=$rep;
+        $this->setFieldCache('reputation');
+        $this->reputation=$rep;
     }
     
     public function serialize() {
@@ -133,6 +166,19 @@ class Reputation extends AbstractContent
     public function unserialize($serialized) {
         var_dump("UnSerializing....");
         self::__construct();
+    }
+    
+    /*
+     * update reputation cache of user
+     */
+    public function setUser(\User $owner) {
+        //Get reputation from reputation object and assign it to user reputation
+        $owner->setReputation($this->getReputation());
+        //initiate user
+        parent::setUser($owner);
+        
+        //update user reputation
+        $this->user->updateReputation();
     }
     
 }

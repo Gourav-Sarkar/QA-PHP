@@ -1,4 +1,9 @@
 <?php
+
+require_once "config.php";
+//xdebug_start_code_coverage();
+xdebug_start_trace( DOCUMENT_ROOT . 'trace',XDEBUG_TRACE_HTML | XDEBUG_TRACE_COMPUTERIZED );
+
 /* 
  * Permanant and temporary both cache file should be revaildate if any changes happens in
  * cache file. if it changes withing system revalidate everytime(admin panel)
@@ -16,17 +21,13 @@
  * Session management (time constrained)
  * Question caching if server permits (time limited)
  */
-ini_set("xdebug.var_display_max_data", -1);
-require_once "config.php";
+//ini_set("xdebug.var_display_max_data", -1);
 require_once 'DatabaseHandle.php';
 require_once 'sessionDatabase.php';
 require_once 'util/utility.php';
 
 require_once 'models/user.php';
 require_once 'models/resource.php';
-require_once 'controllers/userController.php';
-require_once 'controllers/questionController.php';
-require 'exception/PermissionDeniedException.php';
 
 
 session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
@@ -47,7 +48,7 @@ session_start();
  */
 
 
-
+var_dump($_SESSION);
 /*
  * Initialize system setting,error,message files
  */
@@ -66,23 +67,24 @@ session_start();
 
 //DO NOT DELETE/Comment IMPORTANT FOR DEBUGGING CACHE PROBLEM
 //var_dump(apc_cache_info("user"));
-apc_clear_cache("user");
+//apc_clear_cache("user");
 //var_dump(hash_algos());
 
 //var_dump($_SERVER);
 
 //Normalize GET POST
 //array_change_key_case($_GET);
+
 $resource=new Resource();
 $resource->setController($_GET['module']);
 $resource->setAction($_GET['action']);
 
 
-
 //$resource->get();
 
 //var_dump($resource);
-echo User::getActiveUser()->getRoles()->count();
+//echo User::getActiveUser()->getRoles()->count();
+
 try
 {
     User::getActiveUser()->hasPermission($resource); //Throw Permission denied
@@ -91,23 +93,34 @@ try
  catch (PermissionDeniedException $e)
  {
     var_dump($e->getMessage());
+    
+    /*
     if($resource->getModule()=='adminpanel')
     {
         //echo "DEBUG TEST FOR ADMIN PANEL" . $resource->getModule();
         $resource->get();
     }
+    */
     
     /*
      * Bypass RBAC
      */
     
-    $resource->get();
+    //$resource->get();
  } 
+ 
  
 //*/
 
 //$_SESSION['self']->hasPermission($resource);
 
 //file_get_contents("dummyText.txt");
+ 
+ 
+ xdebug_stop_trace();
+//debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+//var_dump(xdebug_get_function_stack());
+ //var_dump(xdebug_get_code_coverage());
+ //xdebug_print_function_stack();
 ?>
          

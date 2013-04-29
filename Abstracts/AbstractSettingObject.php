@@ -5,32 +5,61 @@
  * and open the template in the editor.
  */
 require_once 'Interfaces/CachebleInterface.php';
+require_once 'Exception/NoExtensionInstalledException.php';
 /**
  * Description of AbstractSettingObject
  *
  * @author Gourav Sarkar
  */
-class AbstractSettingObject implements CachebleInterface
+abstract class AbstractSettingObject 
+    implements 
+    CachebleInterface
+    ,Serializable
 {
     //put your code here
     
-    private $object;
-    private $setting;
+    protected $object;
+    protected $setting;
     
-    private $moduleNode;
+    protected $moduleNode;
     
     public function __construct($object) {
-        $this->object=$object;
+        
+        /*
+         * Verify APC module
+         */
+        
+         $this->object=$object;
+         $this->setting=new SimpleXMLElement($this->getFile(),null,true);
+              
+              /*
+        try 
+        {
+            
+            $this->object=$object;
+            
+            if(!extension_loaded('apc'))
+            {
+                throw new NoExtensionInstalledException("APC is not installed");
+            }
         //Get data from cache and make and simple xml object
-        try
-        {
-            $this->setting=new SimpleXMLElement($this->read());
+            try
+            {
+                $this->setting=new SimpleXMLElement($this->read());
+            }
+            catch(NoEntryFoundException $e)
+            {
+                echo "No cache for $object";
+            
+                $this->setting=new SimpleXMLElement($this->getFile(),null,true);
+                $suc=apc_add($this->getKey(),$this->setting->asXML());
+            }
         }
-        catch(NoEntryFoundException $e)
+        catch(NoExtensionInstalledException $e)
         {
-            $this->setting=new SimpleXMLElement($this->getFile(),null,true);
-            apc_add($this->getKey(),$this->setting->asXML());
+              $this->setting=new SimpleXMLElement($this->getFile(),null,true);
         }
+        */
         
         /*
          * Initialize module node
@@ -43,12 +72,14 @@ class AbstractSettingObject implements CachebleInterface
     }
     
     public function edit(\DatabaseInteractbleInterface $tempObj) {
-        throw new BadMethodCallException();
+        throw new  BadMethodCallException();
     }
     
     public function read() {
+        
         if(!$data=apc_fetch($this->getKey()))
         {
+            var_dump($data);
             throw new NoEntryFoundException("No file for setting of {$this->object}");
         }
         
@@ -63,10 +94,7 @@ class AbstractSettingObject implements CachebleInterface
         throw new BadMethodCallException();;
     }
 
-    public function getKey()
-    {
-        return sprintf("core_setting_%s",$this->object);
-    }
+    abstract public function getKey();
     
     
     /*
@@ -96,6 +124,49 @@ class AbstractSettingObject implements CachebleInterface
     public function get()
     {
         return $this->setting;
+    }
+    
+    
+    /*
+     * @PARAM $callback return inside data
+     * @TODO make it interface
+     */
+    
+    /*
+    public function parseSetting(AbstractContent $subject,$event,$callback)
+    {
+        foreach($this->setting->module as $module)
+        {
+            //var_dump($module);
+            if($module['name']==(string)$subject)
+            {
+                //var_dump($module);
+                
+                foreach($module->action as $action)
+                {
+                    //var_dump($action);
+                    //echo $event;
+                    
+                    if($action['name']==$event)
+                    {
+                        return $callback($action);
+                    }
+                }
+            }
+            
+        }
+    }
+     * 
+     */
+    
+    
+    public function serialize() {
+        //Discard SIMPLEXML setting object
+        unset($this->setting);
+    }
+    
+    public function unserialize($serialized) {
+        static::__construct();
     }
     
 }

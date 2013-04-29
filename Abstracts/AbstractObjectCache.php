@@ -18,15 +18,22 @@ abstract class AbstractObjectCache
     
     //put your code here
     public function __construct(AbstractContent $object) {
+        
+        
         $this->object=$object;
+        
+        if(!extension_loaded('apc'))
+        {
+            throw new NoExtensionInstalledException("APC is not installed");
+        }
     }
     public function create()
     {
         var_dump("Debug cache");
         //var_dump($d=serialize($this->object));
-        var_dump($this->object);
         //var_dump(serialize($this->object));
         //var_dump(unserialize(serialize($this->object)));
+        //var_dump($this->object);
         return apc_add($this->getKey(),serialize($this->object));
     }
     

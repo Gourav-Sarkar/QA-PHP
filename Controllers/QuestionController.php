@@ -129,6 +129,7 @@ class QuestionController {
     public function show()
     {
         //echo _("GETTEXT");
+        //echo __METHOD__;
         
         $this->question->setID($_GET['question']);
         $this->question->setConnection(DatabaseHandle::getConnection());
@@ -140,6 +141,16 @@ class QuestionController {
             //var_dump($question);
             $question->updateView();
             echo $question->render(new Template('Question'));
+            
+            /*
+             * @debug
+             * Test question serializing
+             */
+            
+            foreach($question->getAnswers() as $answer)
+            {
+                echo unserialize(serialize($answer));
+            }
         }
         catch(NoEntryFoundException $e)
         {

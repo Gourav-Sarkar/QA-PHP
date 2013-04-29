@@ -28,6 +28,7 @@ require_once 'traits/DependebleTrait.php';
  */
 class Answer extends AbstractContent
     implements RenderbleInterface
+                //,Serializable
     //implements CommentableInterface,
             //ListbleInterface,
      //VoteableInterface
@@ -163,6 +164,30 @@ class Answer extends AbstractContent
         return $answerStorage;
         
     }
+    
+    /*
+    public function serialize() {
+        
+         //Set reference to dependency to its id $reference->id
+         
+        xdebug_print_function_stack('Serialization stack trace for' . __METHOD__);
+        
+        $className=  get_class($this->reference);
+        $newRef= new $className();
+        $newRef->setID($this->reference->getID());
+        unset($this->reference);
+        
+        $this->reference=$newRef;
+    }
+    
+    public function unserialize($serialized) {
+        
+        
+        //echo $serialized;
+        xdebug_print_function_stack('Deserialization stack trace for' . __METHOD__);
+        }
+        
+        */
             
 }
 
