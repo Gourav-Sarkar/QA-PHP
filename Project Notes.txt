@@ -1,0 +1,12 @@
+AbstractContent is actually kind of abstractModel
+List of classes that can be used interchangebly
+    Abstracts
+        AbstractContent -Base MVC
+        AbstractAuth    -Base Auth
+        AbstractContentObjectStorage    -Base MVC
+        AbstractController  -Base MVC
+        AbstractFileCache
+        AbstractObjectCache
+        AbstractSettingObject
+        AbstractSiteMap
+        AbstractUser
