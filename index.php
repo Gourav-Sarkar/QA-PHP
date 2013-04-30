@@ -2,7 +2,7 @@
 
 require_once "config.php";
 //xdebug_start_code_coverage();
-xdebug_start_trace( DOCUMENT_ROOT . 'trace',XDEBUG_TRACE_HTML | XDEBUG_TRACE_COMPUTERIZED );
+//xdebug_start_trace( DOCUMENT_ROOT . 'trace',XDEBUG_TRACE_HTML | XDEBUG_TRACE_COMPUTERIZED );
 
 /* 
  * Permanant and temporary both cache file should be revaildate if any changes happens in
@@ -121,7 +121,7 @@ try
 //file_get_contents("dummyText.txt");
  
  
- xdebug_stop_trace();
+ //xdebug_stop_trace();
 //debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 //var_dump(xdebug_get_function_stack());
  //var_dump(xdebug_get_code_coverage());
