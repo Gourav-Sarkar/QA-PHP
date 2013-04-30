@@ -401,7 +401,7 @@ trait CRUDLTrait{
         //echo $query;
         $stmt->execute();
         
-        if(!$data=$stmt->fetch(PDO::FETCH_ASSOC))
+        if(!$data=$stmt->fetch(PDO::FETCH_NUM))
         {
             throw new NoEntryFoundException("No entry in Database");
         }

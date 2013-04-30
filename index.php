@@ -110,7 +110,7 @@ try
      * Bypass RBAC
      */
     
-    //$resource->get();
+    $resource->get();
  } 
  
  

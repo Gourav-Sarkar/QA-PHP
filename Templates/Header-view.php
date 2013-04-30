@@ -7,7 +7,10 @@
     <div class="span4 navbar">
         <ul class="nav">
             <?php if($_SESSION['self'] instanceof AbstractUSer):?>
-            <li><a data-toggle="modal" href="<?php echo $_SESSION['self']->getLink("show"); ?>"><?php echo $_SESSION['self']->getNick(); ?></a></li>
+            <li>
+                <a data-toggle="modal" href="<?php echo $_SESSION['self']->getLink("show"); ?>"><?php echo $_SESSION['self']->getNick(); ?></a>
+                <span class="badge badge-info">35k</span>
+            </li>
             <?php else: ?>
             <li><a href="#hover">Login</a></li>
             <?php endif; ?>
