@@ -1,4 +1,4 @@
- <?php
+<?php
 
 /*
  * To change this template, choose Tools | Templates
@@ -6,15 +6,12 @@
  */
 
 /**
- * Description of NotificationController
  *
  * @author Gourav Sarkar
  */
-class NotificationController {
+interface PageComponentInterface {
     //put your code here
-    public function getList()
-    {
-    }
+    public function getContent();
 }
 
 ?>

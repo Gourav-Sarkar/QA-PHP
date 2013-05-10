@@ -18,9 +18,8 @@ class AdminPanelController {
         require_once "templates/admin-panel.php";
         
         
-
-        $sh=new SettingHandler('notification');
-        $sh->generateForm();
+        $methods=Resource::getAvailableController();
+        var_dump($methods);
     }
 }
 

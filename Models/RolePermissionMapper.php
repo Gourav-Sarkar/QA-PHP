@@ -71,7 +71,7 @@ class RolePermissionMapper implements CRUDLInterface{
             
             $res= new Resource();
             $res->setAction($data['action']);
-            $res->setController($data['module']);
+            $res->setModule($data['module']);
             $res->setID($data['resource_id']);
             
             /*

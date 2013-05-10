@@ -9,6 +9,7 @@ require_once 'models/ResourceStorage.php';
 require_once 'traits/CRUDLTrait.php';
 require_once 'databaseHandle.php';
 require_once 'models/Resource.php';
+require_once 'models/Role.php';
 
 /**
  * Description of permission
@@ -29,6 +30,7 @@ class permission{
     
     private $resource;
     private $permission;
+    private $role;
     
     static $connection;
     
@@ -38,17 +40,16 @@ class permission{
         /*
          * @todo [BUG]Possible cause of infinite loop
          */
-        //$this->resource=new Resource();
+        $this->resource=new Resource();
+        $this->resource=new Role();
     }
-    /*
-     * @deprecated
-     */
-    /*
+    
+    
     public function setRole(Role $role)
     {
         $this->role=$role;
     }
-     * 
+     /* 
      */
     
     public function setPermission($permit)
@@ -66,17 +67,12 @@ class permission{
     {
         return $this->resource;
     }
-    /*
-     * @deprecated
-     * 
-     */
     
-    /*
     public function getRole()
     {
         return $this->role;
     }
-     * 
+     /* 
      */
     
     public function getPermission()
@@ -98,7 +94,59 @@ class permission{
     
     public static function listing(DatabaseInteractbleInterface $content)
     {
-        //assert('$content instanceof Resource');
+        $params=[];
+        
+        $permissionStore=new PermissionStorage();
+        
+        assert('$content instanceof Role');
+        
+        $query="SELECT
+            res.id AS res_id
+            ,res.module AS res_module
+            ,res.action AS res_action
+            ,perm.permission
+            ,role.id AS r_id
+            ,role.title AS r_title
+            ,role.content AS r_content
+            FROM permission AS perm
+            INNER JOIN role AS r
+            ON per.role=r.id
+            INNER JOIN resource AS res
+            ON perm.resource=res.id
+            ";
+        
+        if(!empty($content))
+        {
+            
+            $query .= 'WHERE r.id=?';
+            $params[]=$content->getID();
+        }
+        
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        
+        $stmt->execute($params);
+        
+        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $resource= new Resource();
+            $resource->setID($data['res_id']);
+            $resource->setModule($data['res_module']);
+            $resource->setAction($data['res_action']);
+            
+            $role= new Role();
+            $role->setID($data['r_id']);
+            $role->setTitle($data['r_title']);
+            $role->setContent($data['r_content']);
+            
+            $permission= new permission();
+            $permission->setRole($role);
+            $permission->setPermission($data['permission']);
+            $permission->setResource($resource);
+            
+            $permissionStore->attach($permission,$permission);
+        }
+        
+        return $permissionStore;
     }
 }
 ?>

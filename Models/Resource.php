@@ -7,7 +7,7 @@
 require_once 'traits/CRUDLTrait.php';
 /**
  * Description of Resource
- *
+ * @todo possible issue with case sensivity []
  * @author Gourav Sarkar
  */
 class Resource {
@@ -39,12 +39,14 @@ class Resource {
         $this->setFieldCache('id');
         $this->id=$id;
     }
-    public function setController($module)
+    public function setModule($module)
     {
         $this->setFieldCache('module');
         
-        //Normalize module
-        $this->module=  strtolower($module); //Find and append controller class
+        /*
+         *  @todo possible issue with case
+         */
+        $this->module=  $module;
     }
     public function setAction($act)
     {
@@ -72,7 +74,7 @@ class Resource {
          */
         
         $controllerName="{$this->module}Controller";
-        require_once "controllers/$controllerName.php";
+        require_once DOCUMENT_ROOT . "controllers/$controllerName.php";
         
         if(!method_exists("{$this->module}Controller",$this->action))
         {
@@ -91,24 +93,76 @@ class Resource {
      * @return ResourceStorage
      * It will analyse each of module controller using Reflection
      * 
+     * 
      */
-    public static function getAavailableAction(Resource $resource)
+    public function getAavailableAction()
     {
-        /*
-         * Get controller
-         */
-        $controllerName=$resource->getModule()."Controller";
-         require_once "controllers/{$controllerName}.php";
-         //Init controller
+        $methods=[];
+        $module=$this->getModule();
+        
+        assert('!empty($module)');
+        
+        $controllerName="{$module}Controller";
+        
+        //Include controller
+        require_once DOCUMENT_ROOT . "controllers/{$controllerName}.php";
+         
+        //Reflect controller
          $reflClass=new ReflectionClass($controllerName);
+         /*
+          * Get methods from reflected controller
+          * Only public methods is used for controller. as controller meant to be used
+          * From other object
+          */
          $reflMethods=$reflClass->getMethods(ReflectionMethod::IS_PUBLIC);
          
-         foreach($reflMethods as $methods)
+        //Loop over reflected methods
+         foreach($reflMethods as $method)
          {
-             var_dump($methods);
+             $methods[]=$method->getName();
          }
          
          
+        //Filter methods
+         $methods=  array_filter($methods,function($value)use($controllerName)
+                                        {
+                                            /*
+                                             * Filter constrcutor and destrcutor
+                                             * strtolower() is used to normalize names
+                                             */
+                                            return !in_array($value,['__destruct','__construct',$controllerName]);
+                                        }
+                                );
+         
+         return $methods;
+    }
+    
+    /*
+     * Get modules only for thoswe who have controllers
+     * @todo controller and models are unnesacrily parsed twice. FIX IT if possible
+     */
+    public static function getAvailableController()
+    {
+        $output=[];
+        /*
+         * Get all files from Controller folder
+         */
+        $dirs=glob(DOCUMENT_ROOT . 'controllers/*.php');
+        
+        foreach($dirs as $dir)
+        {
+            $module=str_ireplace('controller','',pathinfo($dir, PATHINFO_FILENAME));
+            /*
+             * Get action for each controller
+             */
+            $resource=new Resource();
+            $resource->setModule($module);
+              
+            $output[$module]=$resource->getAavailableAction();
+            
+        }
+        
+        return $output;
     }
     /*
      * @TODO should be move to general object (Abstract)

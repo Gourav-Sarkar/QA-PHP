@@ -21,79 +21,6 @@ class SettingHandler {
         $this->settingObject=$tobj;
     }
 
-    /* 
-     * Analyse all possible module and possible actions and make an array of it
-     */
-    private function parseModule()
-    {
-        
-        echo __METHOD__;
-        /*
-         * Get all files from Controller folder
-         */
-        $dirs=glob(DOCUMENT_ROOT . 'controllers/*.php');
-        
-        foreach($dirs as $dir)
-        {
-            /*
-             * Include classes so that it will be posssible to reflect
-             */
-            require_once $dir;
-            
-            /*
-             * File name AKA class name
-             */
-            $name=pathinfo($dir, PATHINFO_FILENAME);
-            
-            /*
-             * Get available methods
-             * All methods in controller class is public 
-             */
-            
-            $reflClass=new ReflectionClass($name);
-            $refMethods=$reflClass->getMethods();
-            
-            foreach ($refMethods as $method)
-            {
-                /*
-                 * Remove controller from $name. $name is the name of controllers which
-                 * used control a class. by naming convention it is {CLASS_NAME}Controller
-                 */
-                $module=str_ireplace('controller','',$name);
-                
-                /*
-                 * Store action names in array where index is module name
-                 * Stored as 2-D array
-                 */
-                $this->modules[$module][]=$method->getName();
-                
-                /*
-                 * Filter the result
-                 * Action also will contain constructor and destrcutor. Remove them
-                 */
-                $this->modules[$module]=  array_filter($this->modules[$module]
-                                    ,function($input) use($name)
-                                        {
-                                            /*
-                                             * Filter __constructor(),__destructor(), 
-                                             * $name is class name in other word one way to declare
-                                             * constructor
-                                             * 
-                                             * which needs to filter will return false
-                                             */
-                                             return !in_array($input,['__construct','__destruct',$name]);
-                                        }
-                                    );
-            }
-            
-        }
-        
-       /*
-        * Debug statement
-        */
-        var_dump($this->modules);
-    }
-    
     
     public function validate()
     {
@@ -136,7 +63,7 @@ class SettingHandler {
                          */
                     }
                    
-                }
+                } 
                 
             }
             

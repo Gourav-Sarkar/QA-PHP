@@ -17,6 +17,7 @@
 class Template {
     //put your code here
    const TEMPLATE_ROOT_PATH='Templates';
+   
    private $template;
    private $model;
     
@@ -45,6 +46,11 @@ class Template {
     public function getTemplate()
     {
         return $this->template;
+    }
+    
+    public function convert()
+    {
+        
     }
 }
 

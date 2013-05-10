@@ -27,6 +27,14 @@ require_once 'DefaultSettingObject.php';
  *  Because user of notification will come from othe abstracContent which ensures 
  *  the id intigrity itself.
  * 
+ * @todo Currently notification only works with user interaction. means user will be notified
+ *  for those contents which they ahd participated in.
+ *  
+ *  new feature will be added to maintain a watch list of contents and favourite tags , 
+ *  for what every activity on those contents will be notified to user
+ * 
+ * @todo User can maintain and swithc off/on notification system
+ * 
  * @author Gourav Sarkar
  * implement relay
  */

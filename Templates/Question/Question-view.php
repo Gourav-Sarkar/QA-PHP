@@ -37,9 +37,11 @@
                 
                 <div id="question" class="span6 container-fluid">
                     <div class="span1">
-                        <?php 
-                        echo $this->getUser()->render(new Template("User-short")); 
-                        ?>
+                        <p>
+                            <?php
+                            echo $this->getUser()->render(new Template("User-short")); 
+                            ?>
+                        </p>
                         
                         <!--Vote interface -->
                         <div>

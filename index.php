@@ -21,7 +21,7 @@ require_once "config.php";
  * Session management (time constrained)
  * Question caching if server permits (time limited)
  */
-//ini_set("xdebug.var_display_max_data", -1);
+ini_set("xdebug.var_display_max_data", -1);
 require_once 'DatabaseHandle.php';
 require_once 'sessionDatabase.php';
 require_once 'util/utility.php';
@@ -76,7 +76,7 @@ var_dump($_SESSION);
 //array_change_key_case($_GET);
 
 $resource=new Resource();
-$resource->setController($_GET['module']);
+$resource->setModule($_GET['module']);
 $resource->setAction($_GET['action']);
 
 

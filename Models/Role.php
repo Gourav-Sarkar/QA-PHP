@@ -20,7 +20,7 @@ require_once 'models/PermissionStorage.php';
 class Role extends AbstractContent{
     
     protected $title;
-    protected $permissions; /* @deprecated List of permission object */
+    protected $permissions; /* List of permission object */
     
     
     public function __construct() {

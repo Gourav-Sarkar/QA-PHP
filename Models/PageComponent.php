@@ -1,20 +1,17 @@
- <?php
+<?php
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Abstracts/abstractPageComponent.php';
 /**
- * Description of NotificationController
+ * Description of PageComponent
  *
  * @author Gourav Sarkar
  */
-class NotificationController {
-    //put your code here
-    public function getList()
-    {
-    }
+class PageComponent extends AbstractPageComponent{
+   
 }
 
 ?>
