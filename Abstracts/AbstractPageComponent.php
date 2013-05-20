@@ -14,6 +14,17 @@ require_once 'Abstracts/AbstractContent.php';
 abstract class AbstractPageComponent
     extends AbstractContent
 {
+    private $title;
+    
+    public function setTitle($title)
+    {
+        $this->setFieldCache('title');
+        $this->title=$title;
+    }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }
 
 ?>

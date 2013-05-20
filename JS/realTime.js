@@ -1,72 +1,71 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * Stream Object
+ * 
  */
-body=document.getElementsByTagName("body")[0];
-console.log(body);
 
-body.addEventListener("click",function(e)
-                                 {
-                                  
-                                   //e.target.
-                                   //console.log( e.target.parentNode);
-                                   /*
-                                    *target node
-                                    * If it is anchor or it is image node but its parent is anchor/button
-                                   */
-                                  
-                                   if(target=e.target['class']=="btn-group")
-                                   {
-                                        //console.log("hello");
-                                        //console.log(e.target.getAttribute("href"));
-                                        
-                                        var location=e.target.getAttribute("href");
-                                        e.preventDefault();
-                                        send(location)
-                                        return false;
-                                   }
-                                 }
-                               ,true
-                      );
+
 
 /*
- * Well suited for buttons
- * Synced so pressing button twice wont make any difference
+ * Streaming Continous data
+ * It Analyzes document and check the data entry points which should be streamed
+ * The target URL is same as current document but action will be different
  */
-function send(location)
-{
-    var ajax=new XMLHttpRequest();
-    ajax.open("GET",location,false);
-    ajax.setRequestHeader("X_REQUESTED_WITH", "ajax");
-    ajax.send();
+//Items which can be streamed
+var streamObjs=document.getElementsByClassName('stream');
+//console.log(streamObjs);
     
-    console.log(ajax.responseText);
-}
-
-function inlineEdit()
-{
-    document.getElementById(id);
-}
-
-/*
- * Mouseover chunck quickmenu
- * Get elements which is
- */
-function hover()
-{
-    var divList=document.getElementsByTagName("div");
-    console.log(divList);
-    
-    //var hover = divList.getElementsByClassName("hover");
-    //console.log(hover);
-    
-    console.log("go");
-    for(div in divList)
-    {
-        console.log(div.getProperty("class")=='hover');
+    for(var i=0;streamObjs.length>i;++i)
+    {   
+        streamObj=streamObjs.item(i);
+        
+        console.log(streamObj.firstChild);
+        console.log(streamObj.dataset.stream);
+        
+        var targetUrl="http://localhost/stackoverflow/index.php?module=" + streamObj.dataset.stream +"&action=stream";
+        streamPoll=function(){
+                        send(targetUrl,function(data)
+                                        {  
+                                            //console.log(data.documentElement);
+                                            /*
+                                             * Add element only if it is not already added
+                                             */
+                                            ibf=streamObj.insertBefore(data.documentElement,streamObj.firstChild);
+                                        }
+                            )
+                            };
+                            
+                            setInterval(streamPoll,10000);
+        
     }
-}
-
-
-//console.log("heloo");
-hover();
+    
+    
+    
+    
+    /*
+     * sends a get request
+     * @target URL where to send the request
+     * @postTask task callback
+     */
+    function send(target,postTask)
+    {
+        xhr=new XMLHttpRequest();
+        xhr.open('GET',target,true);
+        xhr.onreadystatechange=function()
+            {
+                if(xhr.status==200 && xhr.readyState==4)
+                    {
+                        console.log('logging');
+                        //console.log(xhr.responseXML);
+                        postTask(xhr.responseXML);
+                    }
+            }
+        xhr.send();
+    }
+    
+    /*
+     * streamListUpdate
+     */
+    function streamListUpdate(data)
+    {
+        streamObj.insertBefore(data,streamObj.firstChild);
+    }

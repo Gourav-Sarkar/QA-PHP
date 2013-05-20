@@ -1,4 +1,4 @@
-<article class="row-fluid">
+<article class="row-fluid" data-time="<?php echo $this->getTime(); ?>">
     <div class="span3">
         <div class="container-fluid">
             <ul class="thumbnails">
@@ -25,4 +25,3 @@
         </div>
     </div>
 </article>
-<hr/>

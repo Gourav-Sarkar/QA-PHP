@@ -6,6 +6,7 @@
  */
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Models/PageComponent.php';
+require_once 'Models/pageComponentStorage.php';
 /**
  * Description of Page
  * 
@@ -16,12 +17,12 @@ require_once 'Models/PageComponent.php';
 class Page extends AbstractContent{
     //put your code here
     private $meta;
-    private $component;
+    private $componentList;
     private $title;
     
     
     public function __construct() {
-        $this->component=new PageComponent();
+        $this->componentList=new PageComponentStorage();
     }
     
     public function setTitle($title)
@@ -39,7 +40,52 @@ class Page extends AbstractContent{
     {
         /*
          * get components by identifier
+         * @todo Blank or unavailable component should return dummy text
          */
+        $component=new PageComponent();
+        $component->setTitle($identifier);
+        
+        //echo $this->componentList->count();
+        
+        return $this->componentList->offsetGet($component)->getContent();
+    }
+    
+    public function read()
+    {
+        parent::read();
+        /*
+         * Get component listed in page
+         */
+        $this->getComponents();
+    }
+    
+    private function getComponents()
+    {
+        $componentStorage=new PageComponentStorage();
+        
+        $query="SELECT
+            pc.* FROM
+            PageComponentMapper AS pcm
+            INNER JOIN pageComponent as pc
+            ON pcm.component=pc.id
+            WHERE pcm.page=?
+            ";
+        
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
+        $stmt->execute([$this->id]);
+        
+        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            
+            $pageComponent=new PageComponent();
+            $pageComponent->setID($data['id']);
+            $pageComponent->setTitle($data['title']);
+            $pageComponent->setContent($data['content']);
+            
+            
+            //var_dump($pageComponent);
+            $this->componentList->attach($pageComponent,$pageComponent);
+        }
     }
 }
 

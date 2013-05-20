@@ -17,10 +17,9 @@
                     <div class="container-fluid">
                         <?php require_once 'question-form-view.html'; ?>
                     </div>
-                    
                 </div>
                 
-                
+                <div class="stream" data-stream="question">
                 <!--Question list template -->
                 <?php 
                     //$ans=$this->getSelectedAnswer();
@@ -46,8 +45,9 @@
                     echo ($questions->count())?$questions->render(new Template("Question-summary")):'No questions ahs been asked yet';
                     
                     
-                    
                    ?>
+                </div>
+                
                 <div class="row-fluid">
                     <?php echo $pager->render(new Template("pager")); ?>
                 </div>

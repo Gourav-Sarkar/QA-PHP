@@ -15,7 +15,7 @@
             </div>
                 
             <div class="span8">
-                More text
+                <?php echo $this->get('address'); ?>
             </div>
         </div>
     </div>

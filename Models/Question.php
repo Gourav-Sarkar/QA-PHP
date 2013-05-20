@@ -234,12 +234,19 @@ class Question
         
         $tagMap=new TagQuestionMapper($this);
         $tagMap->create();
-        
+        /*
         $cache =new QuestionCache($this);
         $cache->create();
         
+         * 
+         */
+        
+        /*
         $sm= new XMLSitemap("sitemap",$this);
         $sm->create();
+        
+         * 
+         */
         
         //publish a message
         /*
@@ -505,7 +512,32 @@ class Question
     
    /*
     * @todo Check if question has been changed or not
+    * @todo one setting for stream polling time interval
     */
+    
+    public static function stream()
+    {
+        $qstore=new QuestionStorage();
+        
+        $query="SELECT * FROM question WHERE time BETWEEN ? AND ?";
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        $stmt->execute([time()-10,time()]);
+        
+        //echo $query;
+        
+        while($data=$stmt->fetch())
+        {
+            $ques=new Question();
+            $ques->setID($data['id']);
+            $ques->setTime($data['time']);
+            $ques->setTitle($data['title']);
+            $ques->setContent($data['content']);
+            
+            $qstore->attach($ques,$ques);
+        }
+        
+        return $qstore;
+    }
     
 }
 

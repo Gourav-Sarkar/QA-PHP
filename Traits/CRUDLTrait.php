@@ -345,6 +345,7 @@ trait CRUDLTrait{
      */
     public function read()
     {
+        $reference=[];
             //echo __CLASS__;
             //var_dump($this);
         $query=sprintf("SELECT * FROM %s ",get_class($this));
@@ -388,13 +389,13 @@ trait CRUDLTrait{
         
         
         //var_dump($reference);
-        //var_dump($query);
+        var_dump($query);
         
         //Execute query
         $id=$this->getID();
         assert(!empty($id));
         
-        $stmt=static::$connection->prepare($query);
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(":id", $id);
         unset($id);
         
@@ -459,6 +460,10 @@ trait CRUDLTrait{
                         $tempObj=$this->{"get{$referenceColumn}"}();
                         if(method_exists($tempObj, "set{$column}"))
                         {
+                            /*
+                             * @TODO undefined method means undefined property or both
+                             * Handle those error as Development Errors
+                             */
                              $tempObj->{"set{$column}"}($value);
                         }
                     }

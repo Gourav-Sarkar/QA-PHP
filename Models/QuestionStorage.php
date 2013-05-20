@@ -20,7 +20,11 @@ class QuestionStorage extends AbstractContentObjectStorage{
      */
     
     public function attach($object, $data = null) {
+        $id=$object->getID();
+        
         assert($object instanceof AbstractQuestion);
+        assert('isset($id)');
+        
         return parent::attach($object, $data);
     }
 }

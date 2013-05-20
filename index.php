@@ -48,7 +48,8 @@ session_start();
  */
 
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
+
 /*
  * Initialize system setting,error,message files
  */
@@ -83,20 +84,22 @@ $resource->setAction($_GET['action']);
 //$resource->get();
 
 //var_dump($resource);
-echo User::getActiveUser()->getRoles()->count();
+//echo User::getActiveUser()->getRoles()->count();
+/*
 foreach(User::getActiveUser()->getRoles() as $role)
 {
     var_dump($role->getTitle());
 }
+*/
 
 try
 {
-    User::getActiveUser()->hasPermission($resource); //Throw Permission denied
+    //User::getActiveUser()->hasPermission($resource); //Throw Permission denied
     $resource->get();
 }
  catch (PermissionDeniedException $e)
  {
-    var_dump($e->getMessage());
+    //var_dump($e->getMessage());
     
     /*
     if($resource->getModule()=='adminpanel')
@@ -109,7 +112,6 @@ try
     /*
      * Bypass RBAC
      */
-    
     $resource->get();
  } 
  

@@ -41,13 +41,11 @@ class QuestionController {
          * RelayMediator will propogate message event to other observer
          * Enlisted observers are cache,notification,reputation
          */
-        //$observerList->attach(new QuestionCache($this->question));
         //$this->observers->attach(new SiteMapManager());
-        $notificationObject=new Notification();
-        $notificationObject->setTarget(["comments","answers"]);
-        
-        $this->question->attach(new Reputation());
-        $this->question->attach($notificationObject);
+        //$notificationObject=new Notification();
+        //$notificationObject->setTarget(["comments","answers"]);
+        //$this->question->attach(new Reputation());
+        //$this->question->attach($notificationObject);
         /*
          * Add notifier to the controller 
          */
@@ -102,7 +100,7 @@ class QuestionController {
         $ans->setTime();
         
         
-         var_dump($this->question);
+         //var_dump($this->question);
         $this->question->addAnswer($ans);
     }
     
@@ -230,6 +228,12 @@ class QuestionController {
     public function remove()
     {
         echo __METHOD__;
+    }
+    
+    public function stream()
+    {
+        header("content-type:text/xml");
+        echo $this->question->render(new Template('question-stream'));
     }
     
     public function __destruct() {

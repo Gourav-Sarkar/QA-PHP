@@ -1,5 +1,5 @@
 
-<div class="row-fluid container-fluid">
+<div class="row-fluid container-fluid navbar-fixed-top">
       <div class="span4">
           <h1>StackOverflow Clone</h1>
       </div>

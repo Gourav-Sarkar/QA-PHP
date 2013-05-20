@@ -22,7 +22,9 @@ class PageController {
     {
         echo 'SHOW simple CMS page';
         
-        $this->model->setTitle($_GET['page']);
+        $this->model->setID($_GET['page']);
+        $this->model->read();
+        
         echo $this->model->render(new Template('cms-page'));
     }
 }
