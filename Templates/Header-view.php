@@ -1,12 +1,12 @@
 
-<div class="row-fluid container-fluid navbar-fixed-top">
+<div class="row-fluid container-fluid navbar navbar-inverse navbar-fixed-top">
       <div class="span4">
           <h1>StackOverflow Clone</h1>
       </div>
            
-    <div class="span4 navbar">
+    <div class="span4">
         <ul class="nav">
-            <?php if($_SESSION['self'] instanceof AbstractUSer):?>
+            <?php if(User::getActiveUser()):?>
             <li>
                 <a data-toggle="modal" href="<?php echo $_SESSION['self']->getLink("show"); ?>"><?php echo $_SESSION['self']->getNick(); ?></a>
                 <span class="badge badge-info">35k</span>
