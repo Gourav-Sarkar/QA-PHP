@@ -28,6 +28,7 @@
         <div class="span12">
             <?php
             $comments=$this->getComments();
+            //var_dump($comments->count());
             echo ($comments->count())?$comments->render(new Template("comment")):"";
             ?>
         

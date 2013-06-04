@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'models/Question.php';
 /**
  * Description of AnswerController
  *
@@ -22,7 +22,7 @@ class AnswerController {
         Answer::setConnection(DatabaseHandle::getConnection());
     }
     
-    public function comment()
+    public function addComment()
     {
        $comment = new AnswerComment($this->answer);
        $comment->setContent($_POST['content']);
@@ -33,6 +33,11 @@ class AnswerController {
        $comment->create();
        $this->answer->addComment($comment);
     }
+    
+    public function selectAnswer()
+    {
+    }
+    
 }
 
 ?>

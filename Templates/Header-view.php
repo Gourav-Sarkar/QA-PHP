@@ -1,43 +1,27 @@
 
-<div class="row-fluid container-fluid navbar navbar-inverse navbar-fixed-top">
-      <div class="span4">
-          <h1>StackOverflow Clone</h1>
-      </div>
-           
-    <div class="span4">
-        <ul class="nav">
-            <?php if(User::getActiveUser()):?>
-            <li>
-                <a data-toggle="modal" href="<?php echo $_SESSION['self']->getLink("show"); ?>"><?php echo $_SESSION['self']->getNick(); ?></a>
-                <span class="badge badge-info">35k</span>
-            </li>
-            <?php else: ?>
-            <li><a href="#hover">Login</a></li>
-            <?php endif; ?>
-            
-            <li><a href="#">tags</a></li>
-            <li><a href="index.php?module=adminpanel&amp;action=show">AP</a></li>
-            <li><a href="#">help</a></li>
-        </ul>
-    </div>
-    
-    <div id="hover">
-        Hover
-    </div>
-    
-    <div class="span4">
-        <form class="form-search">
-             <span>Search</span>
-             <input type="text" name="query" />
-             <input type="submit" name="search" value="search" class="btn" />
-         </form>
-    </div>
-    
-    <div >
-        <div>
-            <?php require_once 'user/user-login-form-view.php'; ?>
+<div class="navbar navbar-inverse navbar-static-top">
+
+    <div class="row-fluid container-fluid">
+        <div class="span4">
+            <h1>StackOverflow</h1>
         </div>
+
+        <div class=" offset4 span4">
+            <ul class="nav">
+                <?php if (User::getActiveUser()): ?>
+                    <li><img src='/image/avatar/avatar.jpg' style="width:40px;height:40px;" class="img-polaroid"/></li>
+                    <li>
+                        <a data-toggle="modal" href="<?php echo $_SESSION['self']->getLink("show"); ?>"><?php echo $_SESSION['self']->getNick(); ?></a>
+                    </li>
+                <?php else: ?>
+                    <li><a href="#hover">Login</a></li>
+                <?php endif; ?>
+
+                <li><a href='#'><i class="icon-globe"></i></a></li>
+                <li><a href='#'><i class="icon-bell"></i></a></li>
+                <li><a href='#'><i class="icon-envelope"></i></a></li>
+            </ul>
+        </div>
+
     </div>
-    
-    
 </div>

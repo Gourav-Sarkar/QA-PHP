@@ -1,4 +1,5 @@
 <?php
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -26,63 +27,58 @@ require_once 'traits/DependebleTrait.php';
  *
  * @author Gourav Sarkar
  */
-class Answer extends AbstractContent
-    implements RenderbleInterface
-                //,Serializable
-    //implements CommentableInterface,
-            //ListbleInterface,
-     //VoteableInterface
+class Answer extends AbstractContent implements RenderbleInterface
+//,Serializable
+//implements CommentableInterface,
+//ListbleInterface,
+//VoteableInterface  
 {
+
     use \DependebleTrait;
+
     //put your code here
-    
     //Object array or object storage
     private $commentList;
     private $vote;
-
 
     /* Give answer to certain question
      *  An answer does not exist unless its parent class does not exist (eg question). So there should be a question before you create
      *  an answer
      */
-  
-    public function Answer(Question $ques)
-    {
+
+    public function Answer(Question $ques) {
         parent::__construct();
         $this->setReference($ques);
-        
-        $this->commentList=new CommentStorage();
+
+        $this->commentList = new CommentStorage();
     }
-    
-    
+
     public function addComment(AbstractComment $comment) {
         //Change it to object storage for better object handling
-        $this->commentList->attach($comment,$comment);
+        $this->commentList->attach($comment, $comment);
     }
-    
-   
-    
-   
-    public function getComments()
-    {
+
+    public function getComments() {
         return $this->commentList;
     }
 
-    
     //Interface wont have id
     //Returns objectStorage
-    public static function listing(DatabaseInteractbleInterface $question, Pagination $pager=null)
-    {
-        
-        $answerStorage= new AnswerStorage();
-       // parent::get();
-        
+    /*
+     * @todo IT now fetches comment all togeteher. It can be replaced with
+     * two query
+     */
+    public static function listing(DatabaseInteractbleInterface $question, Pagination $pager = null) {
+
+        $answerStorage = new AnswerStorage();
+        // parent::get();
+
         /*
          * Get answer and their comments
          * 
          */
-        
-        $query="SELECT 
+
+        $query = "SELECT 
                A.id
                ,A.content
                ,A.time
@@ -95,104 +91,96 @@ class Answer extends AbstractContent
                 LEFT OUTER JOIN AnswerComment AS AC
                 ON A.id=AC.answer
                 WHERE A.question=?";
-        
-         /* 
+
+        /*
          */
         //Debug test
         //$query="SELECT * FROM answer";
-        
-        $stmt=static::$connection->prepare($query);
-        $stmt->bindValue(1,$question->getid());
+
+        $stmt = static::$connection->prepare($query);
+        $stmt->bindValue(1, $question->getid());
         $stmt->execute();
-        
+
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
-        
-         //$i=$j=0;
-         
-        while($data=$stmt->fetch(PDO::FETCH_ASSOC,PDO::FETCH_ORI_NEXT))
-        {   
+        //$i=$j=0;
+
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            
             //var_dump($data);
             //Setup answer
-            
-           $answer = new Answer($question);
-           $answer->setID($data['id']);
-           $answer->setContent($data['content']);
-           //$answer->setContent($data['time']);
-           
-            
-           //get comments
-           $comments=new AnswerComment($answer);
-           $comments->setID($data['commentID']);
-           $comments->setContent($data['commentContent']);
-           $comments->setTime($data['commentTime']);
-           
-           //$meta=$stmt->getColumnMeta(2);
-           //var_dump($meta);
-        
-          
-           
+
+            $answer = new Answer($question);
+            $answer->setID($data['id']);
+            $answer->setContent($data['content']);
+            //$answer->setContent($data['time']);
+            //get comments
+
+            $comments = new AnswerComment($answer);
+            $comments->setID($data['commentID']);
+            $comments->setContent($data['commentContent']);
+            $comments->setTime($data['commentTime']);
+
+            //$meta=$stmt->getColumnMeta(2);
+            //var_dump($meta);
             //echo ++$i . 'entries<br/>';
-            
+
             /*
              * If answer is previously fetched dont initialize another answer
              * instead take the rest of properties/objects and assign it to previously
              * Initialized answer
              */
-            if(!$answerStorage->offsetExists($answer))
-            {
+            if (!$answerStorage->offsetExists($answer)) {
                 //Answer is new so attacth it to storage
-                 $answerStorage->attach($answer,$answer);
-                 
-                 //debug
+                $answerStorage->attach($answer, $answer);
+                //debug
                 //echo ++$j . 'Distinct entries <br/>';
-                 
-                
             }
-            
-             $answerStorage->offsetGet($answer)->addComment($comments);
+
+            if ($comments->getID() != NULL) {
+                $answerStorage->offsetGet($answer)->addComment($comments);
+            }
         }
         /*
-        foreach($answerStorage as $ans)
-        {
-            echo "object";
-            var_dump($ans);
-        }
+          foreach($answerStorage as $ans)
+          {
+          echo "object";
+          var_dump($ans);
+          }
          *
          */
         return $answerStorage;
-        
     }
-    
+
+    public function isSelectedAnswer() {
+        return (bool) $this->reference->getSelectedAnswer()->getID() === $this->id;
+    }
+
     /*
-    public function serialize() {
-        
-         //Set reference to dependency to its id $reference->id
-         
-        xdebug_print_function_stack('Serialization stack trace for' . __METHOD__);
-        
-        $className=  get_class($this->reference);
-        $newRef= new $className();
-        $newRef->setID($this->reference->getID());
-        unset($this->reference);
-        
-        $this->reference=$newRef;
-    }
-    
-    public function unserialize($serialized) {
-        
-        
-        //echo $serialized;
-        xdebug_print_function_stack('Deserialization stack trace for' . __METHOD__);
-        }
-        
-        */
-            
+      public function serialize() {
+
+      //Set reference to dependency to its id $reference->id
+
+      xdebug_print_function_stack('Serialization stack trace for' . __METHOD__);
+
+      $className=  get_class($this->reference);
+      $newRef= new $className();
+      $newRef->setID($this->reference->getID());
+      unset($this->reference);
+
+      $this->reference=$newRef;
+      }
+
+      public function unserialize($serialized) {
+
+
+      //echo $serialized;
+      xdebug_print_function_stack('Deserialization stack trace for' . __METHOD__);
+      }
+
+     */
 }
 
-/*TEST
+/* TEST
  * 
  */
-
 ?>

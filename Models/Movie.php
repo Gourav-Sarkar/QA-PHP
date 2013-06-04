@@ -4,14 +4,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'Abstracts/AbstractContent.php';
+
 /**
- * Description of Article
+ * Description of Movie
  *
  * @author Gourav Sarkar
  */
-class Article extends AbstractContent{
+class Movie {
     //put your code here
+    
+    private $rated;
+    private $releaseYear;
+    private $genres;
+    private $poster;
+    private $rating;
 }
 
 ?>

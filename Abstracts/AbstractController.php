@@ -7,7 +7,8 @@
 
 /**
  * Description of AbstractController
- *
+ * @todo layout basic controller set up
+ * @todo Ensure intigrity of controllers- methods are public,final,no args
  * @author Gourav Sarkar
  */
 abstract class AbstractController {

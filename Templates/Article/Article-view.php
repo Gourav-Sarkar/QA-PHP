@@ -7,7 +7,7 @@
         <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
-
+        <?php require_once 'templates/Header-view.php';?>
         <div class="container-fluid row-fluid">
 
             <!--Article heading -->
