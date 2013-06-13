@@ -7,12 +7,12 @@ each node must have meta attribute or meta node
 
 
 <root>
-    <module name="core" meta="Core setting for system">
-        <module name="social">
+    <core  meta="Core setting for system">
+        <social>
             <!--Social integration-->
             <facebook meta="Intigrate facebook application with the system">
-                <appID></appID>
-                <appKey></appKey>
+                <appID>537717556265847</appID>
+                <appKey>73a48848a53a948e6f78fd96448406e1</appKey>
             </facebook>
             
             <facebook meta="Intigrate twitter application with the system">
@@ -24,43 +24,52 @@ each node must have meta attribute or meta node
                 <appID></appID>
                 <appKey></appKey>
             </google>
-        </module>
-    </module>
+        </social>
+    </core>
     
-    <module name="question">
-        <checkbox name="commentEnable" meta="Enable or disable comment">true</checkbox>
-        <checkbox name="votingEnable" meta="Enable or disable voting">true</checkbox>
-        <checkbox name="flagEnable" meta="Enable or disable Flagging">true</checkbox>
-        <int name="itemPerPage">10</int>
+    <file>
+        <movie>
+            <permitedExtension></permitedExtension>
+            <location></location>
+            <maxSize></maxSize>
+            <permitedResolution></permitedResolution>
+        </movie>
+    </file>
+    
+    <question>
+        <commentEnable meta="Enable or disable comment" type="bool">1</commentEnable>
+        <votingEnable meta="Enable or disable voting" type="bool">true</votingEnable>
+        <flagEnable meta="Enable or disable Flagging" type="bool">true</flagEnable>
         <itemPerPage>10</itemPerPage>
+        <privateConversation meta="Toggle" type="bool">1</privateConversation>
         <categorizingScheme toggle='tag'> <!-- toggle value tag/category Now only tag is available-->
             <tag>
                 <max>5</max> <!-- Maximum tag can be used -->
                 <min>1</min>
             </tag>
         </categorizingScheme>
-    </module>
-    
-    <module name="answer">
+        <format>threaded</format> <!-- Threaded or tagged -->
+    </question>    
+    <answer>
         <commentEnable>true</commentEnable>
         <votingEnable>true</votingEnable>
         <flaggingEnable>true</flaggingEnable>
         <itemPerPage>10</itemPerPage>
-    </module>
+    </answer>
     
-    <module name="comment">
+    <comment>
         <votingEnable>true</votingEnable>
         <flaggingEnable>true</flaggingEnable>
         <itemPerPage>5</itemPerPage>
-    </module>
+    </comment>
     
-    <module name="notification">
+    <notification>
         <target module="question">
             <actor>true</actor>
             <participant>true</participant>
             <owner>true</owner>
         </target>
-    </module>
+    </notification>
     
     <!--
     Notiification used to notify user if some action is taken on some object
@@ -74,7 +83,7 @@ each node must have meta attribute or meta node
             <action name="addComment">
                 %question has been modified
             </action>
-        </module>
+        </target>
     </module>
     
     <!--

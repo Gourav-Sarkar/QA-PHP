@@ -8,16 +8,10 @@
     </head>
     <body>
         <div class="row-fluid">
-            <div class="offset2 span8">
-            <form action="/stackoverflow/index.php?module=file&action=upload" method="post" enctype="multipart/form-data">
-                <input type='text' name='title' />
-                <input type='file' name='movie' />
-                <input type='submit' name='upload' value="upload" class="btn btn-block btn-primary btn-large"/>
-            </form>     
+            <div class="container-fluid">
+                <?php require_once 'question-form-component.html'; ?>
             </div>
-           
         </div>
-
 
         <script src="jquery/jquery-min.js"></script>
         <script src="Bootstrap/js/bootstrap.min.js"></script>

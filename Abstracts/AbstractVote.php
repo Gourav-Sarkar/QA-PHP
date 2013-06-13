@@ -7,7 +7,7 @@
 
 /**
  * Description of AbstractVote
- *
+ * @todo change name to weightedvote
  * @author Gourav Sarkar
  */
 class AbstractVote {

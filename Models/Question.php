@@ -87,6 +87,7 @@ class Question
      */
     private $pager;
     
+    
     //need verification about passing id param
     public function Question()
     {
@@ -186,6 +187,14 @@ class Question
     
     public function addComment(AbstractComment $comment)
     {
+        //echo($this->setting->get('commentEnable'));
+        //Check Setting for adding comments
+        if(!$this->setting->get('commentEnable'))
+        {
+            //Debug purpose
+            //trigger_error('Comenting closed by admin');
+            throw new PermissionDeniedException("Commenting is closed by admin");
+        }
         //Add comments to current question
         $this->commentList->attach($comment,$comment);
         

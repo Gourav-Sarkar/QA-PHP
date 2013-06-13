@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row-fluid span1">
-        <img src="/image/avatar/anonymousUserAvatar.png" class="img-rounded" />
+        <img src="/image/avatar/default.png" class="img-rounded" />
         
         <!--Vote interface -->
         <div class="span12">

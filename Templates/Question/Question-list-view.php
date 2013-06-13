@@ -1,53 +1,42 @@
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
     <head>
-    <title>Bootstrap 101 Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <title>Bootstrap 101 Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
         <header class="row-fluid">
             <?php require 'Templates/header-view.php'; ?>
         </header>
-        
+
         <section class="row-fluid">
             <div class="span8">
-                <div class="row-fluid">
-                    <div class="container-fluid">
-                        <?php require_once 'question-form-view.html'; ?>
-                    </div>
-                </div>
-                
+
                 <div class="stream" data-stream="question">
-                <!--Question list template -->
-                <?php 
+                    <!--Question list template -->
+                    <?php
                     //$ans=$this->getSelectedAnswer();
                     //var_dump($this);
-                    try{
-                         $ques= new Question();
-                         
-                         $pager= new Pagination($ques);
-                         $pager->setPage($_GET['page']);
-                         
-                         
-                         if(isset($_GET['tags']))
-                            {
-                                $ques->setTags(implode(',',$_GET['tags']));
-                        
-                            }
+                    try {
+                        $ques = new Question();
+
+                        $pager = new Pagination($ques);
+                        $pager->setPage($_GET['page']);
+
+
+                        if (isset($_GET['tags'])) {
+                            $ques->setTags(implode(',', $_GET['tags']));
                         }
-                        catch (Exception $e)
-                         {
-                            //Ignore exception
-                         }
-                    $questions=Question::listing($ques);
-                    echo ($questions->count())?$questions->render(new Template("Question-summary")):'No questions ahs been asked yet';
-                    
-                    
-                   ?>
+                    } catch (Exception $e) {
+                        //Ignore exception
+                    }
+                    $questions = Question::listing($ques);
+                    echo ($questions->count()) ? $questions->render(new Template("Question-summary")) : 'No questions ahs been asked yet';
+                    ?>
                 </div>
-                
+
                 <div class="row-fluid">
                     <?php echo $pager->render(new Template("pager")); ?>
                 </div>
@@ -58,11 +47,7 @@
                 </div>
             </div>
         </section>
-        
-        <footer class="row-fluid">
-            
-        </footer>
-    <!-- <script src="/Bootstrap/js/bootstrap.min.js"></script> -->
-    <script src="js/realtime.js"></script>
+
+<?php require_once 'templates/footer-view.php'; ?>
     </body>
-    </html>
+</html>

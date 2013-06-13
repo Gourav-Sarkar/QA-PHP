@@ -13,63 +13,23 @@
  */
 class SettingHandler {
     //put your code here
-    private $settingObject;
     
-    private $modules;
+    private $settingObject;
+    private $module;
     
     public function __construct($tobj) {
-        $this->settingObject=$tobj;
+        $this->settingObject=new SimpleXMLElement(SETTING_ROOT. 'setting.xml',NULL,TRUE);
+        $this->module=(string) $tobj;
     }
-
     
-    public function validate()
+    /*
+     * @todo Should have throw exception in case of noNodefound error
+     */
+    public function get($node)
     {
-        $this->parseModule();
-        
-        $domDoc=new DOMDocument();
-        $domDoc->load(SETTING_ROOT . $this->settingObject);
-        
-        /*
-         * Check all modules
-         */
-        $moduleNodes=$domDoc->getElementsByTagName('module');
-        
-        
-        foreach($moduleNodes as $moduleNode)
-        {
-            /*
-             * Module Node 'name' attribute must have the module name
-             */
-            if(!in_Array($moduleNode->getAttribute('name'),$this->modules))
-            {
-                /*
-                 * it have not setting for that module
-                 */
-            }
-            else
-            {
-                /*
-                 * Check all action for that module
-                 */
-                foreach($moduleNode->getElementByTagName('action') as $action)
-                {
-                    /*
-                     * Check if all action is there or not
-                     */
-                    if(!in_Array($action->getAttribute('name'),$this->modules[$moduleNode->getAttribute('name')]))
-                    {
-                        /*
-                         * It have not all setting for action
-                         */
-                    }
-                   
-                } 
-                
-            }
-            
-        }
-         
+        //if node not found throw exception
+        var_dump($this->module,$node);
+        return (string)$this->settingObject->{$this->module}->$node;
     }
-    
 }
-?>
+   ?>

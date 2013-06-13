@@ -154,12 +154,7 @@
         </section>
         
         
-        <footer class="row-fluid">
-            <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">copyright protected</a>
-        </footer>
-    
-	<script src="/Bootstrap/js/bootstrap.min.js"></script>
-	<script src="/stackoverflow/js/realTime.js"></script>
+        <?php require_once 'templates/footer-view.php'; ?>
 	<!-- -->
     </body>
     </html>

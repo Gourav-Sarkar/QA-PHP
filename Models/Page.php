@@ -11,6 +11,7 @@ require_once 'Models/pageComponentStorage.php';
  * Description of Page
  * 
  *  @DEPRECTAED User and time
+ * @handle pager GET missing
  * 
  * @author Gourav Sarkar
  */

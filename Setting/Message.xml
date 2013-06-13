@@ -12,25 +12,6 @@ and open the template in the editor.
 
 
 <message>
-    <!--
-    Notiification used to notify user if some action is taken on some object
-    So it is good to atatch notification message attached to either object or objectController AKA action
-    -->
-    <module name="notification">
-        <taget module="self">
-            
-        </taget>
-        
-        <target module="question">
-            <action name="edit">
-                A comment has been added to %question
-            </action>
-            <action name="addComment">
-                %question has been modified
-            </action>
-        </target>
-    </module>
-    
     <question>
         <create>Create</create>
         <upVote>question have been upvoted</upVote>

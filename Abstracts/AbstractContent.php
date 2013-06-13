@@ -8,6 +8,7 @@ require_once 'Interfaces/CRUDLInterface.php';
 require_once 'Interfaces/DatabaseInteractbleInterface.php';
 require_once 'traits/CRUDLTrait.php';
 require_once 'traits/RenderbleTrait.php';
+require_once 'models/SettingHandler.php';
 /**
  * Description of AbstractContent
  * Content behaviour
@@ -36,6 +37,7 @@ abstract class AbstractContent
     protected  $user; //test
     protected  $time;
     protected  $content;
+    protected $setting;
     
     protected static $connection;
     
@@ -43,7 +45,7 @@ abstract class AbstractContent
     public function AbstractContent()
     {
         $this->user=new User();
-       
+        $this->setting=new SettingHandler($this);
         
         
         /*

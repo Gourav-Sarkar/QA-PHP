@@ -24,7 +24,6 @@ class Reputation extends AbstractContent
     const SETTING_FILE_LOCATION="E:/wamp/www/stackoverflow/setting/"; //File name is class name
     
     private $reputation;
-    private $setting;
     
     //private $relayObject;
     

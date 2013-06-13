@@ -46,7 +46,6 @@ class Notification extends AbstractContent
         
     //put your code here
     private $targetList=[];
-    private $setting;
     
     /*
      * Notification should not be edited
