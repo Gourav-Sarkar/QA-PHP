@@ -42,10 +42,32 @@ class SessionDatabase implements SessionHandlerInterface{
         $query="SELECT content FROM session WHERE id=? AND ip=?";
         $stmt=$this->connection->prepare($query);
        
+        /*
+         * @version PHP 5.4 
+         */
+        /*
         $stmt->execute([$session_id, ip2long($_SERVER['REMOTE_ADDR'])]);
+        */
+
+        /*
+         * @version PHP 5.3 
+         */
+        $stmt->execute(array($session_id, ip2long($_SERVER['REMOTE_ADDR'])));
         //var_dump($r);
         //var_dump($stmt->fetch()['content']);
-        return $stmt->fetch()['content'];
+        
+        /*
+         * @version PHP 5.4 
+         */
+        /*
+         * return $stmt->fetch()['content']; 
+         */
+        
+        /*
+         * @version PHP 5.3 
+         */
+        $data=$stmt->fetch();
+        return $data['content'];
     }
     
     public function write($session_id, $session_data) {
@@ -59,6 +81,10 @@ class SessionDatabase implements SessionHandlerInterface{
                 UPDATE content=?,time=?";
         $stmt=$this->connection->prepare($query);
         
+        /*
+         * @version PHP 5.4 
+         */
+        /*
         $stmt->execute(
                         [$session_id
                         ,$session_data
@@ -67,6 +93,20 @@ class SessionDatabase implements SessionHandlerInterface{
                         ,$session_data 
                         ,time()
                         ]
+                       );
+         * 
+         */
+        /*
+         * @version PHP 5.3 
+         */
+        $stmt->execute(array
+                        ($session_id
+                        ,$session_data
+                        ,ip2long($_SERVER['REMOTE_ADDR'])
+                        ,time()
+                        ,$session_data 
+                        ,time()
+                        )
                        );
         
     }
@@ -78,7 +118,16 @@ class SessionDatabase implements SessionHandlerInterface{
     public function destroy($session_id) {
         $query="DELETE FROM session WHERE id=?";
         $stmt=  $this->connection->prepare($query);
-        $stmt->execute([$session_id]);
+        
+        /*
+         * @version PHP 5.4 
+         */
+        //$stmt->execute([$session_id]);
+        
+        /*
+         * @version PHP 5.3 
+         */
+        $stmt->execute(array($session_id));
     }
 }
 ?>

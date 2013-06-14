@@ -17,4 +17,5 @@ var_dump($_SESSION);
  */
 $bool=false;
 var_dump((bool) $bool);
+bcompiler_write_file();
 ?>
