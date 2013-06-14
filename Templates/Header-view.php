@@ -13,10 +13,16 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="?module=question&AMP;action=ask">Write Article</a></li>
-                    <li><a href="#">Ask Question</a></li>
-                    <li><a href="#">Give Answer</a></li>
+                    <li><a href="?module=question&AMP;action=ask">Ask Question</a></li>
+                    <li><a href="?module=question&AMP;action=ask">Give Answer</a></li>
+                    <li><a href="?module=question&AMP;action=ask">Add File</a></li>
                 </ul>
+
+               
             </div>
+             <div class="switch switch-small">
+                    <input type="checkbox" />
+                </div>
         </div>
         <div class="span4">
             <ul class="nav">

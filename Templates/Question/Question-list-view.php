@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/Bootstrap/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
     </head>
     <body>
         <header class="row-fluid">
@@ -13,7 +14,6 @@
 
         <section class="row-fluid">
             <div class="span8">
-
                 <div class="stream" data-stream="question">
                     <!--Question list template -->
                     <?php
