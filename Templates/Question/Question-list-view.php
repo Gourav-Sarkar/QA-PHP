@@ -48,6 +48,6 @@
             </div>
         </section>
 
-<?php require_once 'templates/footer-view.php'; ?>
+        <?php require_once 'templates/footer-view.php'; ?>
     </body>
 </html>

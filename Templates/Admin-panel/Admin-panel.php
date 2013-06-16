@@ -21,7 +21,7 @@
                 ?>
             </div>
         </header>
-        
+            
         <section class="row-fluid container-fluid">
             <div class="span2">
                 <!-- List of all modules -->
@@ -40,8 +40,9 @@
                 </ul>
             </div>
             
-            <!-- TAB CONTENT -->
+            
             <div class="span10">
+                <!-- Content of tabs -->
                 <div class="tab-content">
                     <div class="tab-pane" id="core">
                         <pre>

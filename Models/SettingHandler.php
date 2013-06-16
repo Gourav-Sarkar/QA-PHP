@@ -4,14 +4,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+//require_once 'interfaces/RednerbleInterface.php';
 /**
  * Description of SettingHandler
  * Handles setting 
  * Settings are XML files
  * @author Gourav Sarkar
  */
-class SettingHandler {
+class SettingHandler 
+//implements RenderbleInterface
+{
     //put your code here
     
     private $settingObject;
@@ -31,5 +33,23 @@ class SettingHandler {
         var_dump($this->module,$node);
         return (string)$this->settingObject->{$this->module}->$node;
     }
+    
+    /*
+    private function isLeafNode($node)
+    {
+        if(isset($node['type']))
+        {
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    public function Render(\Template $template) {
+        ;
+    }
+     *
+     */
 }
    ?>

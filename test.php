@@ -15,7 +15,14 @@ var_dump($_SESSION);
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$bool=false;
-var_dump((bool) $bool);
-bcompiler_write_file();
+$doc=new DOMDocument();
+$doc->load('setting/setting.xml');
+
+$stylesheet=new DOMDocument();
+$stylesheet->load('setting/setting.xsl');
+
+$procs=new XSLTProcessor();
+$procs->importStylesheet($stylesheet);
+
+echo $procs->transformToDoc($doc)->saveHTML();
 ?>

@@ -18,11 +18,11 @@
                     <li><a href="?module=question&AMP;action=ask">Add File</a></li>
                 </ul>
 
-               
+                <div class="switch switch-small">
+            <input type="checkbox" />
+        </div>
             </div>
-             <div class="switch switch-small">
-                    <input type="checkbox" />
-                </div>
+             
         </div>
         <div class="span4">
             <ul class="nav">
