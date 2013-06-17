@@ -53,7 +53,7 @@ class RoleUserMapper implements CRUDLInterface{
         
         $stmt=static::$connection->prepare($query);
         
-        $stmt->execute([$reference->getID()]);
+        $stmt->execute(array($reference->getID()));
         
         //var_dump($stmt->fetchAll());
         

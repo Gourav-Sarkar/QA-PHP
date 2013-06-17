@@ -4,11 +4,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+ * @version PHP 5.4< will not use trait
+ */
+//require_once 'traits/CRUDLTrait.php';
+//require_once 'traits/RenderbleTrait.php';
+
 require_once 'Interfaces/CRUDLInterface.php';
 require_once 'Interfaces/DatabaseInteractbleInterface.php';
-require_once 'traits/CRUDLTrait.php';
-require_once 'traits/RenderbleTrait.php';
 require_once 'models/SettingHandler.php';
+require_once 'models/CRUDobject.php';
 /**
  * Description of AbstractContent
  * Content behaviour
@@ -27,8 +33,12 @@ abstract class AbstractContent
     //put your code here
     
     //AbstractContent should be viewable so it has render trait
+    /*
     use RenderbleTrait;
     use \CRUDLTrait;
+    */
+    
+    
     
     /*
      * TESting
@@ -38,6 +48,7 @@ abstract class AbstractContent
     protected  $time;
     protected  $content;
     protected $setting;
+    protected $crud;
     
     protected static $connection;
     
@@ -46,6 +57,7 @@ abstract class AbstractContent
     {
         $this->user=new User();
         $this->setting=new SettingHandler($this);
+        $this->crud=new CRUDobject();
         
         
         /*
@@ -173,6 +185,16 @@ abstract class AbstractContent
     
     /* 
      */
+    public function create()
+    {
+        return $this->crud->
+    }
+    //public function delete();
+    //public function update();
+    public function read();
+    public function edit(DatabaseInteractbleInterface $tempObj);
+    public function delete();
+    public static function listing(DatabaseInteractbleInterface $reference);
     
     
 }

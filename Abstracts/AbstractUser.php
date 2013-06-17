@@ -5,8 +5,13 @@
  * and open the template in the editor.
  */
 
-require_once 'traits/RenderbleTrait.php';
-require_once 'traits/CRUDLTrait.php';
+/*
+ * @version PHP 5.4< will not use trait
+ */
+//require_once 'traits/RenderbleTrait.php';
+//require_once 'traits/CRUDLTrait.php';
+
+
 require_once 'interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/AuthenticationInterface.php';
 require_once 'models/RoleStorage.php';
@@ -27,8 +32,7 @@ abstract class AbstractUser
     
     const USER_DEFAULT_ROLE='guest';
     
-    use RenderbleTrait;
-    use CRUDLTrait;
+    
     //put your code here
     protected $id;
     //protected $name;
@@ -344,7 +348,11 @@ abstract class AbstractUser
             trigger_error("User id must be there to do the action", E_USER_ERROR);
         }
         
-        $stmt->execute([$this->getReputation(),$this->getID()]);
+        $stmt->execute(array(
+                            $this->getReputation()
+                            ,$this->getID()
+                            )
+                        );
     }
     
    

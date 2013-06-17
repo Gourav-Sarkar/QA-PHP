@@ -29,8 +29,6 @@ require_once 'util/utility.php';
 require_once 'models/user.php';
 require_once 'models/resource.php';
 
-
-session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
 session_start();
 
 /*

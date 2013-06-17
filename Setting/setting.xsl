@@ -17,15 +17,23 @@
     
     
     <!-- content of tab -->
-    
     <xsl:template match="*[@type='toggle']">
-        <div class="switch switch-small">
-            <input type="checkbox">
-               <xsl:if test="boolean(text())">
-                   <xsl:attribute name="checked" />
-               </xsl:if> 
-            </input>
+        <div class ="row-fluid">
+            <h4>
+                <xsl:value-of select="@heading" /> 
+                <small>
+                     <xsl:value-of select="@meta" />
+                </small>
+            </h4>
+            <div class="switch switch-small">
+                <input type="checkbox">
+                    <xsl:if test="boolean(text())">
+                        <xsl:attribute name="checked" />
+                    </xsl:if> 
+                </input>
+            </div>    
         </div>
+        
     </xsl:template>
     
     

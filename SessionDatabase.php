@@ -5,11 +5,17 @@
  */
 
 /**
- * Description of SessionDatabase
+ * Custom session handling in database
+ * 
+ * @version PHP 5.4 uses SessionHandlerInterface
+ * @version PHP 5.3 uses generic
  *
  * @author Gourav Sarkar
  */
-class SessionDatabase implements SessionHandlerInterface{
+class SessionDatabase 
+//@version PHP 5.4 dependble
+//implements SessionHandlerInterface
+{
     //put your code here
     private $connection;
     
@@ -129,5 +135,31 @@ class SessionDatabase implements SessionHandlerInterface{
          */
         $stmt->execute(array($session_id));
     }
+    
+    
 }
+
+//session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
+/*
+ * PHP 5.4 uses sessionHandlerInterface
+ * Check the php version if it is lower than 5.4 use fallback
+ * otherwise go normal way
+ * 
+ */
+
+//session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
+
+
+/*
+$sesdb=new SessionDatabase(DatabaseHandle::getConnection());
+        session_set_save_handler(       
+                                 array($sesdb,'open')
+                                ,array($sesdb,'close')
+                                ,array($sesdb,'read')
+                                ,array($sesdb,'write')
+                                ,array($sesdb,'destroy')
+                                ,array($sesdb,'gc')
+                                );
+ /*
+ */
 ?>
