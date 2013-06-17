@@ -93,8 +93,6 @@ abstract class AbstractSettingObject
     public static function listing(\DatabaseInteractbleInterface $reference) {
         throw new BadMethodCallException();;
     }
-
-    abstract public function getKey();
     
     
     /*

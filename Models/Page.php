@@ -88,6 +88,13 @@ class Page extends AbstractContent{
             $this->componentList->attach($pageComponent,$pageComponent);
         }
     }
+    
+    /*
+     * Do not serialize pager object
+     */
+    public function xmlSerialize() {
+        //parent::xmlSerialize();
+    }
 }
 
 ?>

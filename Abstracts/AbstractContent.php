@@ -12,9 +12,16 @@
 //require_once 'traits/RenderbleTrait.php';
 
 require_once 'Interfaces/CRUDLInterface.php';
-require_once 'Interfaces/DatabaseInteractbleInterface.php';
-require_once 'models/SettingHandler.php';
 require_once 'models/CRUDobject.php';
+
+require_once 'Interfaces/DatabaseInteractbleInterface.php';
+require_once 'interfaces/RenderbleInterface.php';
+
+require_once 'models/SettingHandler.php';
+
+
+require_once 'Models/XMLserialize.php';
+require_once 'interfaces/XMLserializeble.php';
 /**
  * Description of AbstractContent
  * Content behaviour
@@ -24,42 +31,39 @@ require_once 'models/CRUDobject.php';
  * Must have a Textual content
  * @author Gourav Sarkar
  */
+abstract class AbstractContent implements CRUDLInterface
+, RenderbleInterface
+, XMLSerializeble
+//,Serializable
+, DatabaseInteractbleInterface {
 
-abstract class AbstractContent 
-    implements CRUDLInterface //have CRUDL features
-                //,Serializable
-                ,DatabaseInteractbleInterface
-{
     //put your code here
-    
     //AbstractContent should be viewable so it has render trait
     /*
-    use RenderbleTrait;
-    use \CRUDLTrait;
-    */
-    
-    
-    
+      use RenderbleTrait;
+      use \CRUDLTrait;
+     */
+
+
+
     /*
      * TESting
      */
-    protected  $id; /*@DATABASE*/
-    protected  $user; //test
-    protected  $time;
-    protected  $content;
+    protected $id; /* @DATABASE */
+    protected $user; //test
+    protected $time;
+    protected $content;
     protected $setting;
     protected $crud;
-    
+    protected $render;
     protected static $connection;
-    
-    
-    public function AbstractContent()
-    {
-        $this->user=new User();
-        $this->setting=new SettingHandler($this);
-        $this->crud=new CRUDobject();
-        
-        
+
+    public function AbstractContent() {
+        $this->user = new User();
+        $this->setting = new SettingHandler($this);
+        $this->crud = new CRUDobject($this);
+
+
         /*
          * make connection 
          * All abstractContent have DB intereaction
@@ -69,7 +73,7 @@ abstract class AbstractContent
          * For now connection is set through setter method
          */
     }
-    
+
     /** This function is used to insert data into DB 
      * Another implementetion of this method can be done with reflection
      * 
@@ -77,126 +81,144 @@ abstract class AbstractContent
     public function __toString() {
         return strtolower(get_class($this));
     }
-    
-    public function setID($id)
-    {
-        
-        $this->setFieldCache("id");
-        $this->id=intval($id);
+
+    public function setID($id) {
+
+        $this->crud->setFieldCache("id");
+        $this->id = intval($id);
     }
-    public function setTime($time=NULL)
-    {
-        $this->setFieldCache("time");
-        
-        if(isset($time) && is_numeric($time))
-        {
-            $this->time=$time;
+
+    public function setTime($time = NULL) {
+        $this->crud->setFieldCache("time");
+
+        if (isset($time) && is_numeric($time)) {
+            $this->time = $time;
             return null;
         }
-        $this->time=time();
+        $this->time = time();
     }
-    
-    
+
     /*
      * Setter method for Owenr
      */
-    public function setUser(User $owner)
-    {
-        $this->setFieldCache("user");
-        $this->user=$owner;
+
+    public function setUser(User $owner) {
+        $this->crud->setFieldCache("user");
+        $this->user = $owner;
     }
-    
-    /*Setter method for content*/
-     public function setContent($content)
-    {
-         /*
-          * Ensure Content is strin
-          */
-         if(is_string($content))
-         {
-            $this->setFieldCache("content");
-            $this->content=$content;
+
+    /* Setter method for content */
+
+    public function setContent($content) {
+        /*
+         * Ensure Content is strin
+         */
+        if (is_string($content)) {
+            $this->crud->setFieldCache("content");
+            $this->content = $content;
             return true;
-         }
-         
-         return false;
+        }
+
+        return false;
     }
-    
-    
+
     /*
      * Setter method for DAtabase connection
      */
-    public static function setConnection(PDO $con)
-    {
-        static::$connection=$con;
+
+    public static function setConnection(PDO $con) {
+        static::$connection = $con;
     }
-    
-    
-    
+
     /* Getter methods to access private properties
      * 
      */
-    public function getContent()
-    {
+
+    public function getContent() {
         return $this->content;
     }
-    public function getUser()
-    {
+
+    public function getUser() {
         return $this->user;
     }
-    public function getTime()
-    {
+
+    public function getTime() {
         /*
          * 
          * Date formating
-         
-        $dateFormat=["inMinute"=>""
-                    ,"inDay"=>""
-                    ,"inPastDay"=>""
-                    ,"normal"=>""];
-        */
-        
+
+          $dateFormat=["inMinute"=>""
+          ,"inDay"=>""
+          ,"inPastDay"=>""
+          ,"normal"=>""];
+         */
+
         return $this->time;
     }
-    public function getID()
-    {
+
+    public function getID() {
         return $this->id;
     }
-    
+
     /*
      * Create link to get object data
      */
     /*
-    public function serialize() {
-        //Unset field cache
-        //unset($this->fieldCache);
-        //unset Connection
-        //unset(AbstractContent::$connection);
-        echo "serializing";
-        return serialize($this);
-    }
-    
-    public function unserialize($serialized)
-    {
-        //Revive connection
-        AbstractContent::$connection=  DatabaseHandle::getConnection();
-        return unserialize($serialized);
-    }
-    
-    /* 
+      public function serialize() {
+      //Unset field cache
+      //unset($this->fieldCache);
+      //unset Connection
+      //unset(AbstractContent::$connection);
+      echo "serializing";
+      return serialize($this);
+      }
+
+      public function unserialize($serialized)
+      {
+      //Revive connection
+      AbstractContent::$connection=  DatabaseHandle::getConnection();
+      return unserialize($serialized);
+      }
+
+      /*
      */
-    public function create()
-    {
-        return $this->crud->
+
+    public function create() {
+        return $this->crud->create();
     }
+
     //public function delete();
     //public function update();
-    public function read();
-    public function edit(DatabaseInteractbleInterface $tempObj);
-    public function delete();
-    public static function listing(DatabaseInteractbleInterface $reference);
+    public function read() {
+        return $this->crud->read();
+    }
+
+    public function edit(DatabaseInteractbleInterface $tempObj) {
+        return $this->crud->edit();
+    }
+
+    public function delete() {
+        return $this->crud->delete();
+    }
+
+    public static function listing(DatabaseInteractbleInterface $reference) {
+        return $this->crud->listing();
+    }
+
+    public function Render(\Template $template) {
+        ;
+    }
+
+    public function getLink($action) {
+        ;
+    }
     
     
+    public function xmlSerialize() {
+        $xmlSer = new XMLSerialize($this);
+        return $xmlSer->xmlSerialize();
+    }
+
 }
 
 ?>

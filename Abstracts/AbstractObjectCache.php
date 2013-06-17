@@ -60,8 +60,6 @@ abstract class AbstractObjectCache
     public static function listing(DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
         ;
     }
-     
-     abstract public function getKey();
 }
 
 ?>

@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'DependencyObject.php';
 /**
  * Description of AbstractController
  * @todo layout basic controller set up
@@ -13,6 +13,8 @@
  */
 abstract class AbstractController {
     //put your code here
+    protected $dependency;
+    
     public function __constrcut($model,$depedency=null)
     {
         if(!is_null($depedency))

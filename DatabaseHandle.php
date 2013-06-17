@@ -17,7 +17,12 @@ class DatabaseHandle {
     
     //Database credentials
     private static $driver='mysql';
-    private static $server="localhost";
+    
+    /*
+     * @issue $server could not resolveded to correct ip address in 5.3
+     *  Where as 5.4 resolved it well
+     */
+    private static $server="127.0.0.1";
     private static $password='';
     private static $userName="root";
     private  static $dbname="Stackoverflow";

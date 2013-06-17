@@ -4,19 +4,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'traits/CRUDLTrait.php';
+require_once 'Interfaces/CRUDLInterface.php';
+require_once 'models/CRUDobject.php';
 /**
  * Description of Resource
  * @todo possible issue with case sensivity []
  * @author Gourav Sarkar
  */
-class Resource {
+class Resource implements CRUDLInterface{
     
-    use CRUDLTrait;
-    //put your code here
+    //In favor PHP 5.3 compatible
+    //use CRUDLTrait;
+    
     protected $id;
     private $module;
     private $action;
+    private $crud;
     /* 
      * There must have some accessor who will access the resource
      * In this case accessor is User object it could be anything else
@@ -31,17 +34,18 @@ class Resource {
          * @TODO causing infinite loop
          */
         //$this->accessor=User::getActiveUser();
+        $this->crud=new CRUDobject($this);
     }
     
     
     public function setID($id)
     {
-        $this->setFieldCache('id');
+        $this->crud->setFieldCache('id');
         $this->id=$id;
     }
     public function setModule($module)
     {
-        $this->setFieldCache('module');
+        $this->crud->setFieldCache('module');
         
         /*
          *  @todo possible issue with case
@@ -50,7 +54,7 @@ class Resource {
     }
     public function setAction($act)
     {
-        $this->setFieldCache('action');
+        $this->crud->setFieldCache('action');
         $this->action=$act;
     }
     
@@ -72,6 +76,11 @@ class Resource {
         /*
          * Validate IF module is there and has permssion to acccess it
          */
+        if(empty($this->module))
+        {
+            throw new InvalidRequestException("Invalid Request [Module loading failure]");
+        }
+        
         
         $controllerName="{$this->module}Controller";
         require_once DOCUMENT_ROOT . "controllers/$controllerName.php";
@@ -97,7 +106,7 @@ class Resource {
      */
     public function getAavailableAction()
     {
-        $methods=[];
+        $methods=array();
         $module=$this->getModule();
         
         assert('!empty($module)');
@@ -130,7 +139,7 @@ class Resource {
                                              * Filter constrcutor and destrcutor
                                              * strtolower() is used to normalize names
                                              */
-                                            return !in_array($value,['__destruct','__construct',$controllerName]);
+                                            return !in_array($value,array('__destruct','__construct',$controllerName));
                                         }
                                 );
          
@@ -143,7 +152,7 @@ class Resource {
      */
     public static function getAvailableController()
     {
-        $output=[];
+        $output=array();
         /*
          * Get all files from Controller folder
          */
@@ -176,6 +185,30 @@ class Resource {
         //echo sprintf("%s %s %s %s",$this->getModule(),$resource->getModule(),$this->getAction(),$resource->getAction());
         return ($this->getModule()==$resource->getModule()&&$this->getAction()==$resource->getAction());
     }
+    
+    
+    
+    
+    
+    public function create()
+    {
+        return $this->crud->create();
+    }
+    
+    public function delete() {
+        ;
+    }
+    
+    public function read() {
+        ;
+    }
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
+        ;
+    }
+    public static function listing(\DatabaseInteractbleInterface $reference) {
+        ;
+    }
+    
 }
 
 ?>

@@ -45,7 +45,7 @@ class Notification extends AbstractContent
         const NOTIFICATION_LANG='en';
         
     //put your code here
-    private $targetList=[];
+    private $targetList=array();
     
     /*
      * Notification should not be edited
@@ -61,7 +61,7 @@ class Notification extends AbstractContent
     public function update(SplSubject $subject)
     {
         echo "Relay message to notification";
-        $userlist=[];
+        $userlist=array();
         $notificationList=new NotificationStorage();
         /*
          * $subject is relay object which have origin object

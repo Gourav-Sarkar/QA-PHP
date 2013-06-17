@@ -22,13 +22,13 @@ class Tag extends AbstractContent{
         parent::__construct();
 
         $this->question=$reference;
-        $this->setFieldCache(get_class($reference));
+        $this->crud->setFieldCache(get_class($reference));
         $this->dependency=  strtolower(get_class($reference));
     }
     
     public function setName($name)
     {
-        $this->setFieldCache("name");
+        $this->crud->setFieldCache("name");
         $this->name=$name;
     }
     

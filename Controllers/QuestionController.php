@@ -139,7 +139,7 @@ class QuestionController {
         try {
             $question = $this->question->read();
             //var_dump($question);
-            $question->updateView();
+            //$question->updateView();
             echo $question->render(new Template('Question'));
 
             /*
@@ -161,6 +161,10 @@ class QuestionController {
             die("404 PAGE NOT FOUND");
         }
         //echo $template->render();
+        
+        
+        var_dump($this->question);
+        echo $this->question->xmlSerialize();
     }
 
     public function getList() {
@@ -169,6 +173,8 @@ class QuestionController {
         /*
          * new Pagaination()
          */
+        echo __METHOD__;
+        
         echo $this->question->render(new Template('Question-list'));
     }
 

@@ -55,7 +55,7 @@ class TagQuestionMapper implements CRUDLInterface{
         $query=sprintf("SELECT * FROM tagQuestionMapper WHERE question=?");
         $stmt=DatabaseHandle::getConnection()->prepare($query);
         
-        $stmt->execute([$reference->getID()]);
+        $stmt->execute(array($reference->getID()));
         
         while($data=$stmt->fetch(PDO::FETCH_ASSOC))
         {

@@ -5,9 +5,12 @@
  * and open the template in the editor.
  */
 
-
-require_once 'Abstracts/AbstractQuestion.php';
+/*
 require_once 'traits/CounterTrait.php';
+require_once 'traits/VoteableTrait.php';
+require_once 'traits/CounterTrait.php';
+*/
+require_once 'Abstracts/AbstractQuestion.php';
 require_once 'Pagination.php';
 require_once 'Answer.php';
 require_once 'QuestionComment.php';
@@ -19,13 +22,11 @@ require_once 'QuestionRevision.php';
 require_once 'tagQuestionMapper.php';
 require_once 'tagStorage.php';
 require_once 'QuestionStorage.php';
-require_once 'interfaces/RenderbleInterface.php';
 require_once 'interfaces/RelayInterface.php';
-require_once 'traits/CounterTrait.php';
-require_once 'traits/VoteableTrait.php';
 require_once 'QuestionCache.php';
 require_once 'RelayMediator.php';
 require_once 'Reputation.php';
+
 /* 
  */
 
@@ -55,12 +56,12 @@ class Question
      * Counte Trait
      * Used to keep track of visit counter
      */
-    use CounterTrait;
+    //use CounterTrait;
     /*
      * VoteableTrait
      * Trait of voteble items. The objects which can be voted
      */
-    use VoteableTrait;
+    //use VoteableTrait;
     
     
     private $answerCount=0; //Count the total answers, cache the count of total answer
@@ -138,7 +139,7 @@ class Question
     public function setTags($tags)
     {
         
-        $tagList=[];
+        $tagList=array();
         
         if(!empty($tags))
         {
@@ -453,7 +454,7 @@ class Question
     
     public function getLink($action)
     {
-        $query=[];
+        $query=array();
         
         $queryString = parent::getLink($action);
         
@@ -530,7 +531,7 @@ class Question
         
         $query="SELECT * FROM question WHERE time BETWEEN ? AND ?";
         $stmt=DatabaseHandle::getConnection()->prepare($query);
-        $stmt->execute([time()-10,time()]);
+        $stmt->execute(array(time()-10,time()));
         
         //echo $query;
         
@@ -546,6 +547,11 @@ class Question
         }
         
         return $qstore;
+    }
+    
+    public function xmlSerialize() {
+        $xml=new XMLSerialize($this);
+        echo $xml->xmlSerialize();
     }
     
 }

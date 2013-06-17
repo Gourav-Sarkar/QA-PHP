@@ -12,7 +12,7 @@
  */
 class Pagination {
     //put your code here
-    use RenderbleTrait;
+    //use RenderbleTrait;
     
     const ITEM_PER_PAGE=2;
     
@@ -60,7 +60,8 @@ class Pagination {
     public function CountTotalPage()
     {
         $stmt=DatabaseHandle::getConnection()->query("SELECT FOUND_ROWS()");
-        $this->totalPage=$stmt->fetch()[0] / static::ITEM_PER_PAGE;
+        $data=$stmt->fetch();
+        $this->totalPage=$data[0] / static::ITEM_PER_PAGE;
     }
     
     public function prevPage()
@@ -86,7 +87,7 @@ class Pagination {
     
     public function getLink($action)
     {
-        $query=[];
+        $query=array();
         $queryString=  $this->reference->getLink($action);
         
         //Check tags

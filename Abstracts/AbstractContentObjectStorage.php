@@ -7,6 +7,7 @@
 //require_once 'ListbleInterface.php';
 //require_once 'RenderbleTrait.php';
 require_once 'Interfaces/RenderbleInterface.php';
+require_once 'Interfaces/XMLserializeble.php';
 /**
  * Description of AbstractContentObjectStorage
  *
@@ -15,6 +16,7 @@ require_once 'Interfaces/RenderbleInterface.php';
 abstract class AbstractContentObjectStorage 
 extends SplObjectStorage 
 implements RenderbleInterface
+//,XMLSerializeble
 //implements ListbleInterface
 {
     //put your code here
@@ -76,6 +78,9 @@ implements RenderbleInterface
     
     public function getLink($action) {
         trigger_error(__METHOD__ . "Blocked", E_USER_ERROR);
+    }
+    
+    public function xmlSerialize() {
     }
 }
 

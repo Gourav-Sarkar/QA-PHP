@@ -12,8 +12,14 @@
 //require_once 'traits/CRUDLTrait.php';
 
 
+require_once 'Interfaces/CRUDLInterface.php';
+require_once 'models/CRUDobject.php';
+
 require_once 'interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/AuthenticationInterface.php';
+require_once 'Interfaces/XMLserializeble.php';
+
+
 require_once 'models/RoleStorage.php';
 require_once 'models/RoleUserMapper.php';
 require_once 'models/RolePermissionMapper.php';
@@ -28,6 +34,8 @@ require_once 'Exception/PermissionDeniedException.php';
 abstract class AbstractUser 
     implements DatabaseInteractbleInterface
     ,AuthenticationInterface
+    ,CRUDLInterface
+    ,XMLSerializeble
 {
     
     const USER_DEFAULT_ROLE='guest';
@@ -40,6 +48,7 @@ abstract class AbstractUser
     protected $reputation=1;
     protected $password;
     protected $email;
+    protected $crud;
     
     //protected $authType;
     protected static $connection;
@@ -53,6 +62,7 @@ abstract class AbstractUser
     {
         //$this->auth=new LocalAuth();
         $this->roleList=new RoleStorage();
+        $this->crud=new CRUDobject($this);
         
         //Default role initiated for each suer
         //$this->addRole($role);
@@ -63,9 +73,41 @@ abstract class AbstractUser
     }
     
     
+    /*
+     * CRUD implements
+     * 
+     * 
+     */
+    public function create() {
+        return $this->crud->create();
+    }
+
+    //public function delete();
+    //public function update();
+    public function read() {
+        return $this->crud->read();
+    }
+
+    public function edit(DatabaseInteractbleInterface $tempObj) {
+        return $this->crud->edit();
+    }
+
+    public function delete() {
+        return $this->crud->delete();
+    }
+
+    public static function listing(DatabaseInteractbleInterface $reference) {
+        return $this->crud->listing();
+    }
+    
+    
+    
+    
+    
+    
     public function setID($id)
     {
-        $this->setFieldCache("id");
+        $this->crud->setFieldCache("id");
         $this->id=$id;
         
     }
@@ -73,7 +115,7 @@ abstract class AbstractUser
     public function setName($name)
     {
         
-        $this->setFieldCache("name");
+        $this->crud->setFieldCache("name");
         $this->name=$name;
     }
      * 
@@ -81,22 +123,22 @@ abstract class AbstractUser
     
     public function setNick($nick)
     {
-        $this->setFieldCache("nick");
+        $this->crud->setFieldCache("nick");
         $this->nick=$nick;
     }
     public function setReputation($rep)
     {
-        $this->setFieldCache("reputation");
+        $this->crud->setFieldCache("reputation");
         $this->reputation=$rep;
     }
     public function setPassword($pass)
     {
-        $this->setFieldCache("password");
+        $this->crud->setFieldCache("password");
         $this->password=$pass;
     }
     public function setEmail($email)
     {
-        $this->setFieldCache("email");
+        $this->crud->setFieldCache("email");
         $this->email=$email;
     }
     public function setConnection(PDO $con)
@@ -355,6 +397,20 @@ abstract class AbstractUser
                         );
     }
     
+    
+    public function xmlSerialize() {
+        echo "<b>Question xml serialize </b>";
+        //var_dump($this);
+        $xmlWriter=new XMLSerialize($this);
+        //var_dump('foo ',$xmlWriter->xmlSerialize());
+        //echo '<hr>';
+       //echo '<h1>User test </h1>';
+       //var_dump($this);
+       
+        $data=$xmlWriter->xmlSerialize();
+        //echo '<hr/>';
+        return $data;
+    }
    
 }
 

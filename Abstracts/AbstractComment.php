@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Interfaces/VoteableInterface.php';
-require_once 'traits/DependebleTrait.php';
+//require_once 'traits/DependebleTrait.php';
 require_once 'Abstracts/AbstractContent.php';
 /**
  * Description of Comment
@@ -15,13 +15,15 @@ require_once 'Abstracts/AbstractContent.php';
 abstract class AbstractComment extends AbstractContent
     implements VoteableInterface
 {
-    use DependebleTrait;
+    //use DependebleTrait;
     //put your code here
+    protected $dependency;
     
     public function __construct(AbstractContent $content)
     {
         parent::__construct();
-        $this->setReference($content);
+        $this->dependency=$content;
+        $this->crud->setFieldCache((String) $content);
         //echo __METHOD__;
         //var_dump($this->fieldCache);
        

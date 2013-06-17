@@ -23,7 +23,7 @@ class AbstractQuestion extends AbstractContent{
     }
      public function setTitle($title)
     {
-        $this->setFieldCache('title');
+        $this->crud->setFieldCache('title');
         $this->title=$title;
     }
     

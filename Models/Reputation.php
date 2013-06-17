@@ -119,7 +119,7 @@ class Reputation extends AbstractContent
         
         
         
-        $reps=[];
+        $reps=array();
         
         foreach($this->setting->get()->module as $module)
         {

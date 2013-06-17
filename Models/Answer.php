@@ -20,26 +20,29 @@ require_once 'commentStorage.php';
 require_once 'RevisionStorage.php';
 require_once 'QuestionStorage.php';
 require_once 'interfaces/RenderbleInterface.php';
-require_once 'traits/DependebleTrait.php';
+require_once 'DependencyObject.php';
+//require_once 'traits/DependebleTrait.php';
 
 /**
  * Description of Answer
  *
  * @author Gourav Sarkar
  */
-class Answer extends AbstractContent implements RenderbleInterface
+class Answer extends AbstractContent 
+//implements RenderbleInterface
 //,Serializable
 //implements CommentableInterface,
 //ListbleInterface,
 //VoteableInterface  
 {
 
-    use \DependebleTrait;
+    //use \DependebleTrait;
 
     //put your code here
     //Object array or object storage
     private $commentList;
     private $vote;
+    private $dependency;
 
     /* Give answer to certain question
      *  An answer does not exist unless its parent class does not exist (eg question). So there should be a question before you create
@@ -48,7 +51,16 @@ class Answer extends AbstractContent implements RenderbleInterface
 
     public function Answer(Question $ques) {
         parent::__construct();
-        $this->setReference($ques);
+        
+        /*
+         * Create dependency on a object
+         * update its fieldcache
+         * @todo There should be an interface to dependency which can update field cache for
+         *  parent object. See DependencyObject
+         */
+        $this->dependency=new DependencyObject();
+        $this->dependency->setReference($ques);
+        $this->crud->setFieldCache((string)$ques);
 
         $this->commentList = new CommentStorage();
     }
