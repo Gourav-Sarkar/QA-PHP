@@ -5,8 +5,11 @@
  * and open the template in the editor.s
  * 
  */
+require_once "interfaces/CRUDLInterface.php";
+require_once "CRUDOBject.php";
+
 require_once 'models/ResourceStorage.php';
-require_once 'traits/CRUDLTrait.php';
+
 require_once 'databaseHandle.php';
 require_once 'models/Resource.php';
 require_once 'models/Role.php';
@@ -19,12 +22,9 @@ require_once 'models/Role.php';
  * @toDo Permission table has role object in database. Database permission table more of
  *  a mapper which map permission and resource
  */
-class permission{
+class permission implements CRUDLInterface{
     //put your code here
-    use CRUDLTrait
-    {
-        CRUDLTrait::create as proxyCreate; //
-    }
+    
     
     //private $role;
     
@@ -32,6 +32,7 @@ class permission{
     private $permission;
     private $role;
     
+    private $crud;
     static $connection;
     
     public function __construct() {
@@ -42,6 +43,7 @@ class permission{
          */
         $this->resource=new Resource();
         $this->resource=new Role();
+        $this->crud=new CRUDobject($this);
     }
     
     
@@ -94,7 +96,7 @@ class permission{
     
     public static function listing(DatabaseInteractbleInterface $content)
     {
-        $params=[];
+        $params=array();
         
         $permissionStore=new PermissionStorage();
         
@@ -147,6 +149,16 @@ class permission{
         }
         
         return $permissionStore;
+    }
+    public function read() {
+        ;
+    }
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
+        ;
+    }
+    
+    public function delete() {
+        ;
     }
 }
 ?>
