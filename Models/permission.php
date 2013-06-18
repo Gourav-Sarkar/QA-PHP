@@ -2,7 +2,7 @@
 
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor.s
  * 
  */
 require_once 'models/ResourceStorage.php';
