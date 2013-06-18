@@ -12,7 +12,7 @@
  */
 abstract class AbsractAuth 
     implements AuthenticationInterface
-    //implements AuthenticationInterface
+    //implements AuthenticationInterfaces
 {
     
     abstract public function auth();
