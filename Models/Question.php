@@ -549,10 +549,6 @@ class Question
         return $qstore;
     }
     
-    public function xmlSerialize() {
-        $xml=new XMLSerialize($this);
-        echo $xml->xmlSerialize();
-    }
     
 }
 

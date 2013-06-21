@@ -32,7 +32,7 @@ class XMLSerialize implements XMLSerializeble {
 
     public function xmlSerialize() {
         $depRefl = new ReflectionObject($this->dependency);
-        var_dump($this->dependency);
+        //var_dump($this->dependency);
         /*
          * get All property
          */
@@ -42,7 +42,7 @@ class XMLSerialize implements XMLSerializeble {
             $property->setAccessible(true);
 
             $propertyData = $property->getValue($this->dependency);
-            //var_dump($propertyData);
+            //var_dump((string)$propertyData);
             /*
              * If data is scalar type show the value
              */
@@ -70,6 +70,8 @@ class XMLSerialize implements XMLSerializeble {
         
         return $this->xmlResource->outputMemory(true);
     }
+    
+    
 
 }
 

@@ -22,7 +22,7 @@ abstract class AbstractComment extends AbstractContent
     public function __construct(AbstractContent $content)
     {
         parent::__construct();
-        $this->dependency=$content;
+        $this->dependency=new DependencyObject($content);
         $this->crud->setFieldCache((String) $content);
         //echo __METHOD__;
         //var_dump($this->fieldCache);
@@ -41,7 +41,9 @@ abstract class AbstractComment extends AbstractContent
      */
      public function __toString() {
         return 'comment';
-    }
+    } 
+    
+    
    
 }
 ?>

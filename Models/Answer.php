@@ -58,8 +58,7 @@ class Answer extends AbstractContent
          * @todo There should be an interface to dependency which can update field cache for
          *  parent object. See DependencyObject
          */
-        $this->dependency=new DependencyObject();
-        $this->dependency->setReference($ques);
+        $this->dependency=new DependencyObject($ques);
         $this->crud->setFieldCache((string)$ques);
 
         $this->commentList = new CommentStorage();

@@ -12,7 +12,7 @@
  */
 class Tag extends AbstractContent{
     //put your code here
-    private $question;
+    private $dependency;
     private $name;
     
     //AbstractContent::$content used here as description of tag
@@ -21,9 +21,8 @@ class Tag extends AbstractContent{
     {
         parent::__construct();
 
-        $this->question=$reference;
+        $this->dependency=new DependencyObject($reference);
         $this->crud->setFieldCache(get_class($reference));
-        $this->dependency=  strtolower(get_class($reference));
     }
     
     public function setName($name)
@@ -39,12 +38,12 @@ class Tag extends AbstractContent{
     
     public function getQuestion()
     {
-        return $this->question;
+        return $this->dependency;
     }
     
     public function getLink($action)
     {
-        return $this->question->getLink("getList")."&amp;tags[]={$this->name}";
+        return $this->dependency->getLink("getList")."&amp;tags[]={$this->name}";
     }
     
    

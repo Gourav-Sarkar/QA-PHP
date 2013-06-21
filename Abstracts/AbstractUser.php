@@ -399,7 +399,6 @@ abstract class AbstractUser
     
     
     public function xmlSerialize() {
-        echo "<b>Question xml serialize </b>";
         //var_dump($this);
         $xmlWriter=new XMLSerialize($this);
         //var_dump('foo ',$xmlWriter->xmlSerialize());
