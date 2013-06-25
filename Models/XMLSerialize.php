@@ -29,6 +29,10 @@ class XMLSerialize implements XMLSerializeble {
     private function initXML() {
         $this->xmlResource->startDocument(static::XML_VERSION, static::XML_ENCODING);
     }
+    
+    /*
+     * Handle null value
+     */
 
     public function xmlSerialize() {
         $depRefl = new ReflectionObject($this->dependency);

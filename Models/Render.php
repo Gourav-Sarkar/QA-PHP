@@ -28,9 +28,16 @@ class Render{
         
         //$node=$this->model->createDocumentFragment()->appendXml($modelData);
         
-        
+        /*
+         * Root element
+         */
         $page=$this->model->createElement('page');
-        $page=$this->model->appendChild($page);
+        $this->model->appendChild($page);
+        
+        /*
+         * Object based root element
+         */
+        //$objRoot=$this->model->createElement((String))
         
         $fragment=$this->model->createDocumentFragment();
         $fragment->appendXML($modelData);

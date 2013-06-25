@@ -136,14 +136,14 @@ class QuestionController {
         //echo __METHOD__;
 
         $this->question->setID($_GET['question']);
-        $this->question->setConnection(DatabaseHandle::getConnection());
 
         //Read should update the object instead of return any object
         try {
             $question = $this->question->read();
             //var_dump($question);
             //$question->updateView();
-            echo $this->question->xmlSerialize();
+            $this->view->setModel($question->xmlSerialize());
+            echo $this->view->render();
 
             /*
              * @debug

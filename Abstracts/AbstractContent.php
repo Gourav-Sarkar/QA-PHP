@@ -55,7 +55,7 @@ abstract class AbstractContent implements CRUDLInterface
     protected $content;
     protected $setting;
     protected $crud;
-    protected $render;
+    //protected $render;
     protected static $connection;
 
     public function AbstractContent() {
@@ -215,8 +215,17 @@ abstract class AbstractContent implements CRUDLInterface
     
     
     public function xmlSerialize() {
-        $xmlSer = new XMLSerialize($this);
-        return $xmlSer->xmlSerialize();
+        
+        $writer=new XMLWriter();
+        $writer->openMemory();
+        
+        $writer->startElement((string) $this);
+            $xmlSer = new XMLSerialize($this);
+            $writer->writeRaw($xmlSer->xmlSerialize());
+        $writer->endElement();
+        
+        
+        return $writer->outputMemory(true);
     }
 
 }
