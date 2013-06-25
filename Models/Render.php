@@ -12,8 +12,6 @@ require_once 'Interfaces/RenderbleInterface.php';
  */
 class Render{
     //put your code here
-    const RENDER_MODE_DETAILS=1;
-    const RENDER_MODE_SUMMAR=2;
     
     
     private $model;
@@ -68,11 +66,6 @@ class Render{
         echo $this->model->saveXML();
     }
     
-    
-    public function setMode($mode)
-    {
-        $this->mode=$mode;
-    }
 }
 
 ?>

@@ -16,7 +16,7 @@
     Mode details
     Used in detailed Question view. Like when used to view questions
     -->
-    <xsl:template match="page" mode="details">
+    <xsl:template match="question">
         <div class="row-fluid container-fluid">
             <!-- Question Template  -->
                 <h1 class="span10 page-header">
