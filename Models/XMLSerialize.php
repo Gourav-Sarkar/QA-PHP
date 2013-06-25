@@ -48,7 +48,7 @@ class XMLSerialize implements XMLSerializeble {
             $propertyData = $property->getValue($this->dependency);
             //var_dump((string)$propertyData);
             /*
-             * If data is scalar type show the value
+             * If data is scalar type show the valu
              */
             //echo 'Setting ' . $property->getName() . '<br/>';
             if ($propertyData instanceof XMLSerializeble) {
