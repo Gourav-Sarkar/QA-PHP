@@ -89,6 +89,10 @@ class Question
     private $pager;
     
     
+    
+    private $views;
+    private $votes;
+    
     //need verification about passing id param
     public function Question()
     {
@@ -547,6 +551,28 @@ class Question
         }
         
         return $qstore;
+    }
+    
+    
+    
+    public function setViews($views)
+    {
+        $this->views=$views;
+    }
+    public function setVotes($votes)
+    {
+        $this->votes=$votes;
+    }
+    
+    
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+    
+    public function getViews()
+    {
+        return $this->viiews;
     }
     
     

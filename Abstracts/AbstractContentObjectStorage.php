@@ -88,7 +88,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
         //$subWriter->startElement((string)$this);
         
          foreach ($this as $element) {
-            echo "<b>$element</b>" . $element->getID() . "<br/>";
+            //echo "<b>$element</b>" . $element->getID() . "<br/>";
             //var_dump($element);
             //$writer->startElement((string)$element);
             $writer=new XMLSerialize($element);

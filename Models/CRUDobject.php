@@ -398,7 +398,7 @@ class CRUDobject implements CRUDLInterface{
         
         
         //var_dump($reference);
-        var_dump($query);
+        //var_dump($query);
         
         //Execute query
         $id=$this->dependency->getID();

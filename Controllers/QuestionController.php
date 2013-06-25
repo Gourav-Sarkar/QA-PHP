@@ -18,8 +18,11 @@ class QuestionController {
 
     //put your code here
     private $question;
+    private $view;
 
     public function QuestionController() {
+        
+        $this->view= new Render();
         //Without question There can't have any other action
         //There is though exception like when asking question those should be handled in static method
         /*
@@ -140,7 +143,7 @@ class QuestionController {
             $question = $this->question->read();
             //var_dump($question);
             //$question->updateView();
-            echo $question->render(new Template('Question'));
+            echo $this->question->xmlSerialize();
 
             /*
              * @debug
@@ -163,8 +166,7 @@ class QuestionController {
         //echo $template->render();
         
         
-        var_dump($this->question);
-        echo $this->question->xmlSerialize();
+        //var_dump($this->question);
     }
 
     public function getList() {
