@@ -12,10 +12,16 @@ require_once 'Interfaces/RenderbleInterface.php';
  */
 class Render{
     //put your code here
+    const RENDER_MODE_DETAILS=1;
+    const RENDER_MODE_SUMMAR=2;
+    
     
     private $model;
     private $transformer;
     private $baseTemplate;
+    
+    
+    private $mode;
     
     public function __construct() {
         
@@ -60,6 +66,12 @@ class Render{
         echo $transformer->transformToXml($this->model);
         
         echo $this->model->saveXML();
+    }
+    
+    
+    public function setMode($mode)
+    {
+        $this->mode=$mode;
     }
 }
 

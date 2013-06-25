@@ -23,6 +23,7 @@
             <xsl:value-of select='//content' ></xsl:value-of>
             -
             <span><xsl:value-of select='//time' ></xsl:value-of></span>
+            <!--
             <span class="btn-group">
                 <a href="<?php echo $this->getLink("edit"); ?>">
                     <i class='icon-edit'></i>
@@ -35,6 +36,7 @@
                 </a>
                 <b><?php //echo $this->getLink("delete"); ?></b>
             </span>
+            -->
         </p>
         
     </div>
