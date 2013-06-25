@@ -142,9 +142,11 @@ class QuestionController {
             $question = $this->question->read();
             //var_dump($question);
             //$question->updateView();
+            
             $this->view->setModel($question->xmlSerialize());
+            $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
             echo $this->view->render();
-
+            
             /*
              * @debug
              * Test question serializing

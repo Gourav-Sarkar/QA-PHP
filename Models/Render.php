@@ -18,6 +18,11 @@ class Render{
     private $transformer;
     private $baseTemplate;
     
+    /*
+     * Dumper location dump and debug Raw data
+     */
+    private $dumper;
+    
     
     private $mode;
     
@@ -63,7 +68,33 @@ class Render{
         $transformer->importStylesheet($this->transformer);
         echo $transformer->transformToXml($this->model);
         
-        echo $this->model->saveXML();
+        //echo $this->model->saveXML();
+        
+        /*
+         * Debug dumper
+         */
+        $this->dump($this->model->saveXMl());
+    }
+    
+    /*
+     * @todo ensure correct file location
+     */
+    public function setDumper($file)
+    {
+        $this->dumper=$file;
+    }
+    public function getDumper()
+    {
+        return $this->dumper;
+    }
+    
+    
+    private function dump($data)
+    {
+        if(!is_null($this->dumper))
+        {
+            file_put_contents($this->dumper, $data);
+        }
     }
     
 }

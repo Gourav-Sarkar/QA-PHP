@@ -13,6 +13,8 @@
     
     <xsl:include  href='QuestionTemplate.xsl'/>
     <xsl:include  href='CommentTemplate.xsl'/>
+    <xsl:include  href='AnswerTemplate.xsl'/>
+    <xsl:include  href='UserTemplate.xsl'/>
     
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
