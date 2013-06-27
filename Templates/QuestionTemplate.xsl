@@ -24,21 +24,22 @@
                 </h1>
             </div>
             
-        <div class="row-fluid">
+            <div class="row-fluid">
                 
                 <div id="question" class="span6 container-fluid">
                     <div class="span1">
                         <p>
-                            <xsl:apply-templates match="/user" mode="summary" />
+                            <!-- user could have nested values -->
+                            <xsl:apply-templates select="user" />
                         </p>
                         
                         <!--Vote interface -->
                         <div>
-                            <a class="btn" href="#">
+                            <a class="btn" href="">
                                 up vote
                             </a>
                              <p class="text-center lead" style="margin:0px"><xsl:value-of select="votes" /></p>
-                             <a class="btn" href="#">
+                             <a class="btn" href="">
                                  down vote
                              </a>
                              
@@ -55,56 +56,78 @@
                             <div class="span7">
                                 <div class="container-fluid">
                                     <!-- get tag template -->
-                                    
-<!--
+                                    <!--
                                     <?php echo $this->getTags()->count(); ?>
                                     <?php echo $this->getTags()->render(new Template("tag-list")); ?>
                                     -->
                                 </div>
                             </div>
                             <div class="span4">
-                                - 
-                                <xsl:value-of select="time" />
+                                - <xsl:value-of select="time" />
                             </div>
                         </div>
                     
                         <div class="row-fluid">
                         <!-- Revision data -->
-                        
-<!--
+                        <!--
                             <?php if($this->getRevisions()->count()):?>
                             <a href="<?php echo $this->getLink("getRevision"); ?>">Show rev</a>
                             <?php else: echo '&nbsp;'; ?>
                             <?php endif; ?>
-                            -->
-                       
+                       -->
                         </div>
                     
                         <div class="row-fluid">
                         <!--Action link/button goes here -->
+                        <!--
                             <div class="broup">
-                                <!--
                                 <a href="<?php echo $this->getLink("close"); ?>">Close</a>
                                 <a href="<?php echo $this->getLink("edit"); ?>">Edit</a>
                                 <a href="<?php echo $this->getLink("delete"); ?>">Delete</a>
-                                -->
                             </div>
+                        -->
                         </div>
                     </div>
                     
                     <!-- Comment section of Question -->
                     <div class="row-fluid offset1 span11">
                        <!--comment template goes here -->
-                       <xsl:apply-templates match="QuestionComment" mode="details" />
+                       <xsl:apply-templates select="commentList/comment" />
+                        <!-- <?php require "/../comment/comment-form-view.php"; ?> -->
                     </div>
                     
                 </div>
                 
                 
                 <!-- <h2>Best Answer</h2> -->
+                <!-- implement later -->
                 
-                <!-- Answer list -->
-                <xsl:apply-templates match="answer" />
+            </div>
+         
+          
+            <div class="row-fluid">
+                
+                <div class="offset2 span7">
+                    <hr/>
+                        
+                         
+                        <div class="pagination pagination-medium">
+                            <ul>
+                                <li><a href="#">Prev</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- <?php require '/../Answer/Answer-form-view.html'; ?> -->
+                        <xsl:apply-templates select="answerList/answer" />
+                     
+                </div>
+                
             </div>
     </xsl:template>
 
@@ -151,8 +174,8 @@ Used to show question in summary style
 </article>
 <hr/>    
 
-</xsl:template>
--->
+    </xsl:template>
+    -->
 
 
 </xsl:stylesheet>

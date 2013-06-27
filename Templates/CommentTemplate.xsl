@@ -20,9 +20,9 @@
     
     <div class="span11">
         <p>
-            <xsl:value-of select='//content' ></xsl:value-of>
+            <xsl:value-of select='content' ></xsl:value-of>
             -
-            <span><xsl:value-of select='//time' ></xsl:value-of></span>
+            <span><xsl:value-of select='time' ></xsl:value-of></span>
             <!--
             <span class="btn-group">
                 <a href="<?php echo $this->getLink("edit"); ?>">
@@ -46,11 +46,4 @@
     
     
     
-    
-    <xsl:template match="commentList">
-        <div class="row-fluid offset1 span11">
-            <xsl:apply-templates match="comment" />
-        </div>
-    </xsl:template>
-
 </xsl:stylesheet>

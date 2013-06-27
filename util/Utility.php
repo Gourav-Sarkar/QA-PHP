@@ -57,6 +57,29 @@ class Utility {
             }
         }
     }
+    
+    
+    /*
+     * Link to any object
+     */
+    public static function getLink(AbstractContent $object,$action)
+    {
+          $query=array(
+            'module'=>(string) $object
+            ,'action'=>$action
+            ,"$object"=>$object->getID()
+          );
+          
+          if($object->hasDependency())
+          {
+              $query=array_merge($query,array((string) $object->getDependency()));
+          }
+          
+        return sprintf("/stackoverflow/index.php?%s"
+                    ,http_build_query($query,null,"&amp;")
+                    );
+         
+    }
 }
 
 ?>

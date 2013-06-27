@@ -147,6 +147,8 @@ class QuestionController {
             $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
             echo $this->view->render();
             
+            //echo Utility::getLink($this->question,'doSomething');
+            
             /*
              * @debug
              * Test question serializing

@@ -47,7 +47,7 @@
         </div>
         
         <div class="span12">
-            <xsl:apply-templates match="comment" />
+            <xsl:apply-templates select="commentList/comment" />
             <br/>
         </div>
         

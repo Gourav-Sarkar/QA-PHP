@@ -17,6 +17,9 @@ class Render{
     private $model;
     private $transformer;
     private $baseTemplate;
+    private $stylsheet;
+    
+    private $mappedClass=array('utility');
     
     /*
      * Dumper location dump and debug Raw data
@@ -28,8 +31,15 @@ class Render{
     
     public function __construct() {
         
-        $this->transformer=new DOMDocument();
-        $this->transformer->load('templates/ProjectBaseTemplate.xsl');
+        
+        $this->transformer=new XSLTProcessor();
+        
+        $this->stylsheet=new DOMDocument();
+        $this->stylsheet->load('templates/ProjectBaseTemplate.xsl');
+        
+        /*
+         * Load utility functions
+         */
     }
     
      public function setModel($modelData) {
@@ -58,15 +68,14 @@ class Render{
      * Transform
      */
     public function Render() {
-        $transformer=new XSLTProcessor();
         
         /*
         $b=$transformer->hasExsltSupport();
         var_dump($b);
         */
         
-        $transformer->importStylesheet($this->transformer);
-        echo $transformer->transformToXml($this->model);
+        $this->transformer->importStylesheet($this->stylsheet);
+        echo $this->transformer->transformToXml($this->model);
         
         //echo $this->model->saveXML();
         
@@ -95,6 +104,26 @@ class Render{
         {
             file_put_contents($this->dumper, $data);
         }
+    }
+    
+    
+    /*
+     * @incomplete
+     */
+    private function loadUtilityModule()
+    {
+        
+        assert("$this->transformer instanceof XSLTProcessor");
+        
+        foreach($this->mappedClass as $class)
+        {
+            
+            //Assume all methods are static
+            $staticMethods=  get_class_methods($class);
+            
+            
+        }
+        
     }
     
 }

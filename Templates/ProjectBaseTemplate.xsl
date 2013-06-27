@@ -8,11 +8,11 @@
         Purpose of transformation follows.
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xslt" version="1.0">
     <xsl:output method="html"/>
     
     <xsl:include  href='QuestionTemplate.xsl'/>
-    <xsl:include  href='CommentTemplate.xsl'/>
+    <xsl:include  href='UserTemplate.xsl'/>
     <xsl:include  href='AnswerTemplate.xsl'/>
     <xsl:include  href='UserTemplate.xsl'/>
     
@@ -30,9 +30,12 @@
                     <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
                 </head>
                 <body>
-                    <xsl:apply-templates match="/" />
+                    <!-- Header -->
+                    <section class="row-fluid">
+                        <xsl:apply-templates match="/" />
+                    </section>
     
-    
+                    <!-- footer -->
                     <script src="jquery/jquery-min.js"></script>
                     <script src="Bootstrap/js/bootstrap.min.js"></script>
                 </body>

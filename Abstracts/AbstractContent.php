@@ -32,7 +32,6 @@ require_once 'interfaces/XMLserializeble.php';
  * @author Gourav Sarkar
  */
 abstract class AbstractContent implements CRUDLInterface
-, RenderbleInterface
 , XMLSerializeble
 //,Serializable
 , DatabaseInteractbleInterface {
@@ -204,14 +203,6 @@ abstract class AbstractContent implements CRUDLInterface
     public static function listing(DatabaseInteractbleInterface $reference) {
         return $this->crud->listing();
     }
-
-    public function Render(\Template $template) {
-        ;
-    }
-
-    public function getLink($action) {
-        ;
-    }
     
     
     public function xmlSerialize() {
@@ -226,6 +217,11 @@ abstract class AbstractContent implements CRUDLInterface
         
         
         return $writer->outputMemory(true);
+    }
+    
+    public function hasDependency()
+    {
+        return (bool) isset($this->dependency);
     }
 
 }

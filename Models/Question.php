@@ -43,7 +43,6 @@ require_once 'Reputation.php';
 class Question 
     extends AbstractQuestion
     implements SplSubject
-                ,RenderbleInterface
                 ,RelayInterface
                 //VoteableInterface,
                 //CommentableInterface,
@@ -385,7 +384,7 @@ class Question
          * If there is tag set in reference map it
          */
         $tags=$reference->getTags();
-        if($totTag=$tags->count())
+        if($totTag==$tags->count())
         {
           
             $tagString=implode(',' , array_fill(0,$totTag,'?'));
