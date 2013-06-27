@@ -43,5 +43,14 @@
     
 </div>
     </xsl:template>
+    
+    
+    
+    
+    <xsl:template match="commentList">
+        <div class="row-fluid offset1 span11">
+            <xsl:apply-templates match="comment" />
+        </div>
+    </xsl:template>
 
 </xsl:stylesheet>

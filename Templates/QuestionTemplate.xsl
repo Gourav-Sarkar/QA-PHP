@@ -34,15 +34,13 @@
                         
                         <!--Vote interface -->
                         <div>
-                            <!--
-                            <a class="btn" href="<?php echo $this->getLink("upvote"); ?>">
+                            <a class="btn" href="#">
                                 up vote
                             </a>
-                             <p class="text-center lead" style="margin:0px"><?php echo $this->getVotes(); ?></p>
-                             <a class="btn" href="<?php echo $this->getLink("downvote"); ?>">
+                             <p class="text-center lead" style="margin:0px"><xsl:value-of select="votes" /></p>
+                             <a class="btn" href="#">
                                  down vote
                              </a>
-                             -->
                              
                         </div>
                         
@@ -104,6 +102,9 @@
                 
                 
                 <!-- <h2>Best Answer</h2> -->
+                
+                <!-- Answer list -->
+                <xsl:apply-templates match="answer" />
             </div>
     </xsl:template>
 
