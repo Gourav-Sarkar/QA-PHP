@@ -17,7 +17,8 @@
     <xsl:template match="answer">
         <div class="container-fluid">
         <div class="row-fluid span1">
-            <img src="/image/avatar/default.png" class="img-rounded" />
+            <!-- user could have nested values -->
+            <xsl:apply-templates select="user" />
         
         <!--Vote interface -->
         <!--

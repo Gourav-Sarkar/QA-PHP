@@ -17,7 +17,7 @@
     <xsl:template match="user">
         <div class="owner">
         <a href="#">
-            <img src="#" class="img-rounded"/>
+            <img src="/image/avatar/default.png" class="img-rounded" />
         </a>
         <div class="text-center">
             <h4>
