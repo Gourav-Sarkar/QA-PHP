@@ -13,7 +13,7 @@
 
     <!-- 
     Question template
-    Mode details
+    Mode default
     Used in detailed Question view. Like when used to view questions
     -->
     <xsl:template match="question">
@@ -146,16 +146,27 @@
                 
         </div>
     </xsl:template>
-
+<!-- ========================================================================-->
     
-    <xsl:template match="QuestionStorage">
-        <xsl:apply-templates select="question" mode="summary"/>
-    </xsl:template>
     
     
     <!--
-    Summary mode
-    Used to show question in summary style
+    # Question storage
+    # Holds question in one place
+    -->
+    <xsl:template match="QuestionStorage">
+        <xsl:apply-templates select="question" mode="summary"/>
+    </xsl:template>
+ <!-- ========================================================================-->   
+    
+    
+    
+    
+    
+    <!--
+    # Question Template
+    # Mode Summary
+    # Used to show question in summary mode
     -->
     <xsl:template match="question" mode="summary">
         <article class="row-fluid">
@@ -199,5 +210,7 @@
         <hr/>    
 
     </xsl:template>
+<!-- ========================================================================-->
+
 
 </xsl:stylesheet>

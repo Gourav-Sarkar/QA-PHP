@@ -11,8 +11,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html"/>
 
-    <!-- TODO customize transformation rules 
-         syntax recommendation http://www.w3.org/TR/xslt 
+    <!-- 
+    # Template comment
+    # Mode Default
+    # Used to show default comments
     -->
     <xsl:template match="comment">
        <div class="row-fluid">
@@ -39,12 +41,18 @@
             </div>
        </div>
     </xsl:template>
+ <!-- ========================================================================-->
+ 
     
+    <!--
+    # Template CommentStorage
+    # Holds list of comment
+    -->   
     
     <xsl:template match="CommentStorage">
         <xsl:apply-templates select="comment" />
     </xsl:template>
-    
+<!-- ========================================================================-->    
     
     
     

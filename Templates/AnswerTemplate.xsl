@@ -11,8 +11,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html"/>
 
-    <!-- TODO customize transformation rules 
-         syntax recommendation http://www.w3.org/TR/xslt 
+    <!--
+    # Template Answer
+    # Mode  Default
+    # Used to show answer in detailed mode
     -->
     <xsl:template match="answer">
         <div class="container-fluid">
@@ -57,15 +59,25 @@
     </xsl:template>
     
     
-    <!-- Answer Storage -->
+    <!-- 
+    # Template AnswerStorage
+    # Mode Default
+    # Used to hold numbers of comment
+    -->
     <xsl:template match='AnswerStorage'>
         <xsl:apply-templates select="answer" />
     </xsl:template>
+    <!-- ========================================================================-->
     
     
     
-    
-    <!--Best answer template -->
+    <!--
+    # Template Answer
+    # Mode BestAnswer
+    # Used to format best answer look and feel
+    #
+    # Default: Could be used as copy of Answer default mode template
+    -->
     <!--
     <xsl:template  match="bestAnswer">
      <div class="span6 container-fluid">
@@ -96,5 +108,7 @@
     </form>
     </xsl:template>
     -->
+<!-- ========================================================================-->
+
 
 </xsl:stylesheet>
