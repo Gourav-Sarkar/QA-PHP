@@ -139,7 +139,7 @@
                 </div>
                         
                 <!-- <?php require '/../Answer/Answer-form-view.html'; ?> -->
-                <xsl:apply-templates select="answerList/answer" />
+                <xsl:apply-templates select="answerStorage" />
                      
             </div>
                 
@@ -151,7 +151,7 @@
     Summary mode
     Used to show question in summary style
     -->
-
+<!--
     <xsl:template match="question" mode="summary">
         <article class="row-fluid">
             <div class="span3">
@@ -194,6 +194,6 @@
         <hr/>    
 
     </xsl:template>
-
+-->
 
 </xsl:stylesheet>

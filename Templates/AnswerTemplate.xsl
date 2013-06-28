@@ -57,6 +57,16 @@
     </xsl:template>
     
     
+    <!-- Answer Storage -->
+    <!--
+    <xsl:template match='answerStorage'>
+        <xsl:apply-templates select="answer" />
+    </xsl:template>
+    -->
+    
+    
+    
+    
     <!--Best answer template -->
     <!--
     <xsl:template  match="bestAnswer">

@@ -51,17 +51,11 @@ class XMLSerialize implements XMLSerializeble {
              * If data is scalar type show the valu
              */
             //echo 'Setting ' . $property->getName() . '<br/>';
-            if ($propertyData instanceof XMLSerializeble) {
-                
-                //var_dump((string)$propertyData, $this->xmlResource->writeRaw($propertyData->xmlSerialize()));
-                //echo "Setting object  ";
-                //var_dump('Nested data ' , $propertyData->xmlSerialize());
-                //$property->getName();
-                //var_dump('Dumping',(string)$propertyData,$propertyData->xmlSerialize());
-               $this->xmlResource->startElement($property->getName());
-               $this->xmlResource->writeRaw($propertyData->xmlSerialize());
-               $this->xmlResource->endElement();
-               
+            
+            
+            if ($propertyData instanceof XMLSerializeble) 
+            {
+                $this->xmlResource->writeRaw($propertyData->xmlSerialize());
             }
             elseif(!is_object($propertyData))
             {

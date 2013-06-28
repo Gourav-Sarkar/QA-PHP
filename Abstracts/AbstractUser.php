@@ -398,17 +398,19 @@ abstract class AbstractUser
     }
     
     
+   
     public function xmlSerialize() {
-        //var_dump($this);
-        $xmlWriter=new XMLSerialize($this);
-        //var_dump('foo ',$xmlWriter->xmlSerialize());
-        //echo '<hr>';
-       //echo '<h1>User test </h1>';
-       //var_dump($this);
-       
-        $data=$xmlWriter->xmlSerialize();
-        //echo '<hr/>';
-        return $data;
+        
+        $writer=new XMLWriter();
+        $writer->openMemory();
+        
+        $writer->startElement((string) $this);
+            $xmlSer = new XMLSerialize($this);
+            $writer->writeRaw($xmlSer->xmlSerialize());
+        $writer->endElement();
+        
+        
+        return $writer->outputMemory(true);
     }
    
 }
