@@ -6,7 +6,25 @@
     Author     : Gourav Sarkar
     Description:
         It formats xml data to HTML page. All transformation will go through this
-        transformation
+        transformation.
+        
+        Usage: All objects have seperate transformation file. Transformation files
+        are named same as class name. To access a SCALAR type property of object
+        you need to use <xsl:value-of select="PROPERTY_NAME" /> (consult object API
+        for list of available property)
+        Currently unavailble property does not generate any error . it just skips
+        the filed. [This behaviour could be changed later so that it can show any error]
+        All associated REFERENCE type property can not be accessed via 'value-of'. Appropiate
+        Template should be applied there. After that thos template can access its SCALAR type data
+        as usual. Basically it itereate through each associated object untill it have only 
+        scalar type value which can be printed using 'value-of'.
+        
+         Some static classes will be availble for direct usage in XSLT page. All PHP
+         class and function usage may not be optimal (Discremnation needed). Currently
+         'Utility' and 'User' Class seem to like a appropiate candidate for XSLT-PHP
+         function registering 
+         
+         @see See Object specific API and XSLT document for any further detailed information
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
