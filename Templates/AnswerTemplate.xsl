@@ -48,7 +48,7 @@
         </div>
         
         <div class="span12">
-            <xsl:apply-templates select="commentList/comment" />
+            <xsl:apply-templates select="CommentStorage" />
             <br/>
         </div>
         
@@ -58,11 +58,9 @@
     
     
     <!-- Answer Storage -->
-    <!--
-    <xsl:template match='answerStorage'>
+    <xsl:template match='AnswerStorage'>
         <xsl:apply-templates select="answer" />
     </xsl:template>
-    -->
     
     
     

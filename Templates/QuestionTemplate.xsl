@@ -57,12 +57,13 @@
                     <div class="row-fluid">
                         <div class="span7">
                             <div class="container-fluid">
-                                <xsl:apply-templates select="tagList/tag" />
+                                <!-- Tag template -->
+                                <xsl:apply-templates select="tagStorage" />
                             </div>
                         </div>
                         <div class="span4">
                             - 
-                            <xsl:value-of select="php:function('utility::timeDiff',time)" />
+                            <!--<xsl:value-of select="php:function('utility::timeDiff',time)" /> -->
                             - 
                             <xsl:value-of select="time" />
                         </div>
@@ -93,7 +94,7 @@
                 <!-- Comment section of Question -->
                 <div class="row-fluid offset1 span11">
                     <!--comment template goes here -->
-                    <xsl:apply-templates select="commentList/comment" />
+                    <xsl:apply-templates select="CommentStorage" />
                     <!-- <?php require "/../comment/comment-form-view.php"; ?> -->
                 </div>
                     
@@ -139,19 +140,23 @@
                 </div>
                         
                 <!-- <?php require '/../Answer/Answer-form-view.html'; ?> -->
-                <xsl:apply-templates select="answerStorage" />
+                <xsl:apply-templates select="AnswerStorage" />
                      
             </div>
                 
         </div>
     </xsl:template>
 
-
+    
+    <xsl:template match="QuestionStorage">
+        <xsl:apply-templates select="question" mode="summary"/>
+    </xsl:template>
+    
+    
     <!--
     Summary mode
     Used to show question in summary style
     -->
-<!--
     <xsl:template match="question" mode="summary">
         <article class="row-fluid">
             <div class="span3">
@@ -194,6 +199,5 @@
         <hr/>    
 
     </xsl:template>
--->
 
 </xsl:stylesheet>

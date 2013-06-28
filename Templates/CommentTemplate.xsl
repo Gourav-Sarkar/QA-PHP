@@ -41,5 +41,11 @@
     </xsl:template>
     
     
+    <xsl:template match="CommentStorage">
+        <xsl:apply-templates select="comment" />
+    </xsl:template>
+    
+    
+    
     
 </xsl:stylesheet>
