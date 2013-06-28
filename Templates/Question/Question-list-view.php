@@ -19,20 +19,7 @@
                     <?php
                     //$ans=$this->getSelectedAnswer();
                     //var_dump($this);
-                    try {
-                        $ques = new Question();
-
-                        $pager = new Pagination($ques);
-                        $pager->setPage($_GET['page']);
-
-
-                        if (isset($_GET['tags'])) {
-                            $ques->setTags(implode(',', $_GET['tags']));
-                        }
-                    } catch (Exception $e) {
-                        //Ignore exception
-                    }
-                    $questions = Question::listing($ques);
+                    
                     echo ($questions->count()) ? $questions->render(new Template("Question-summary")) : 'No questions ahs been asked yet';
                     ?>
                 </div>

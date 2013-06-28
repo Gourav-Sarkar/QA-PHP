@@ -179,9 +179,29 @@ class QuestionController {
         /*
          * new Pagaination()
          */
-        echo __METHOD__;
+       try {
+            $ques = new Question();
+
+            $pager = new Pagination($ques);
+            $pager->setPage($_GET['page']);
+
+
+                if (isset($_GET['tags'])) 
+                {
+                $ques->setTags(implode(',', $_GET['tags']));
+                }
+            } 
+            catch (Exception $e) 
+            {
+                        //Ignore exception
+            }
+            
+            $questions = Question::listing($ques);
         
-        echo $this->question->render(new Template('Question-list'));
+            $this->view->setModel($questions->xmlSerialize());
+            $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
+            
+            echo $this->view->render();
     }
 
     public function selectAnswer() {

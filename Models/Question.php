@@ -333,6 +333,7 @@ class Question
     public static function listing(DatabaseInteractbleInterface $reference)
     {
         //$calcFoundRows='';
+        $totTag=0;
         $questions = new QuestionStorage();
         
         $query="
@@ -384,7 +385,7 @@ class Question
          * If there is tag set in reference map it
          */
         $tags=$reference->getTags();
-        if($totTag==$tags->count())
+        if($totTag=$tags->count())
         {
           
             $tagString=implode(',' , array_fill(0,$totTag,'?'));

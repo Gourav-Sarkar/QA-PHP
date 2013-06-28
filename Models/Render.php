@@ -40,6 +40,7 @@ class Render{
         /*
          * Load utility functions
          */
+        $this->loadUtilityModule();
     }
     
      public function setModel($modelData) {
@@ -112,17 +113,24 @@ class Render{
      */
     private function loadUtilityModule()
     {
+        $methods=array();
         
-        assert("$this->transformer instanceof XSLTProcessor");
+        assert('$this->transformer instanceof XSLTProcessor');
         
         foreach($this->mappedClass as $class)
         {
             
             //Assume all methods are static
             $staticMethods=  get_class_methods($class);
-            
+            foreach($staticMethods as $method)
+            {
+                $methods[]="$class::$method";
+            }
             
         }
+        
+        //var_dump($methods);
+        $this->transformer->registerPHPFunctions();
         
     }
     

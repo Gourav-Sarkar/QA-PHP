@@ -55,5 +55,38 @@
     </div>
 </div>
     </xsl:template>
+    
+    
+    <!--Best answer template -->
+    <!--
+    <xsl:template  match="bestAnswer">
+     <div class="span6 container-fluid">
+    <div class="span1">
+        <img src="/image/avatar/anonymousUserAvatar.png" class="img-rounded" />
+        <p class="text-center text-success">31</p>
+    </div>
+                    
+    <div class="span11">
+        <p class="lead"><?php echo $this->getContent();?></p>
+        <hr>
+    </div>
+    </div>    
+        
+    </xsl:template>
+    -->
+   
+
+
+    <!-- Answer form -->
+    <!--
+    <xsl:template>
+        <form action="/stackoverflow/index.php?module=question&action=answer&question=<?php echo $_GET['question']; ?>" method="post">
+    <textarea class="span12" name="answer">
+    Answering question
+    </textarea>
+    <input type="submit" name="Answer" value="Answer" />
+    </form>
+    </xsl:template>
+    -->
 
 </xsl:stylesheet>
