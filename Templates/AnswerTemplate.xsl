@@ -52,6 +52,11 @@
         <div class="span12">
             <xsl:apply-templates select="CommentStorage" />
             <br/>
+            <xsl:call-template name="commentForm" />
+                <xsl:call-template name="getLink">
+                    <xsl:with-param name="foo" select="."></xsl:with-param>
+                </xsl:call-template>
+            <br/>
         </div>
         
     </div>
@@ -109,6 +114,21 @@
     </xsl:template>
     -->
 <!-- ========================================================================-->
+
+
+
+
+<!-- Template Answer form -->
+<xsl:template name="answerForm">
+    <form action="/stackoverflow/index.php?module=question&amp;action=answer" method="post">
+    <textarea class="span12" name="answer">
+    Answering question
+    </textarea>
+    <input type="submit" name="Answer" value="Answer" />
+    </form>
+</xsl:template>
+    
+
 
 
 </xsl:stylesheet>

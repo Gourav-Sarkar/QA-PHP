@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bootstrap 101 Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    </head>
-    <body>
-        <?php require_once 'templates/Header-view.php';?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ArticleTemplate.xsl
+    Created on : June 29, 2013, 12:02 PM
+    Author     : Gourav Sarkar
+    Description:
+        Purpose of transformation follows.
+-->
+
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:output method="html"/>
+
+    <!-- TODO customize transformation rules 
+         syntax recommendation http://www.w3.org/TR/xslt 
+    -->
+    <xsl:template match="/">
         <div class="container-fluid row-fluid">
 
             <!--Article heading -->
@@ -83,7 +90,6 @@
 
             </div>
         </div>
+    </xsl:template>
 
-        <script src="Bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+</xsl:stylesheet>

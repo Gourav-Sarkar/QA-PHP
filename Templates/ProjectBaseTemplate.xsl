@@ -25,6 +25,11 @@
          function registering 
          
          @see See Object specific API and XSLT document for any further detailed information
+         
+         DEVELOPER NOTE
+         same form can be used for CREATE and EDIT
+         LISTING and READING Dont need form
+         DELETE May or may not need form
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -62,6 +67,7 @@
         </html>
     </xsl:template>
     <!-- ========================================================================-->
+    
     
     
     
@@ -121,6 +127,8 @@
     <!-- ========================================================================-->
     
     
+    
+    
     <!--
     # Global Page footer
     # Just like Global page header. It will be used in all pages in one applicatiomn
@@ -137,5 +145,11 @@
     </xsl:template>
     
     <!-- ========================================================================-->
-
+    
+    
+    <!-- GET link -->
+    <xsl:template name="getLink">
+        <xsl:param name="foo"/>
+        <b><xsl:value-of select="$foo/id" /></b>
+    </xsl:template>
 </xsl:stylesheet>

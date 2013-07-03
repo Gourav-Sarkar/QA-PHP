@@ -63,9 +63,12 @@
                         </div>
                         <div class="span4">
                             - 
-                            <!--<xsl:value-of select="php:function('utility::timeDiff',time)" /> -->
+                            <xsl:value-of select="php:function('utility::timeDiff',time)" />
+                            <!-- <xsl:value-of select="php:function('utility::getLink',String(.),'action')" /> -->
+                            <!--
                             - 
                             <xsl:value-of select="time" />
+                            -->
                         </div>
                     </div>
                     
@@ -139,7 +142,7 @@
                     </ul>
                 </div>
                         
-                <!-- <?php require '/../Answer/Answer-form-view.html'; ?> -->
+                <xsl:call-template name="answerForm" />
                 <xsl:apply-templates select="AnswerStorage" />
                      
             </div>

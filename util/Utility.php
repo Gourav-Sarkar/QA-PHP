@@ -12,8 +12,18 @@
  */
 class Utility {
     //put your code here
+    /*
+     *@issue XSLT passes node in array
+     */
     public static function timeDiff($timestamp)
     {
+        //var_dump($timestamp[0]->nodeValue);
+        if(is_array($timestamp))
+        {
+            assert('$timestamp[0] instanceof DOMNode');
+            $timestamp=$timestamp[0]->nodeValue;
+        }
+        
         $dateString='';
         $d= new DateTime();
         
@@ -62,8 +72,13 @@ class Utility {
     /*
      * Link to any object
      */
-    public static function getLink(AbstractContent $object,$action)
+    /*
+    public static function getLink($objectNode,$action)
     {
+        var_dump($objectNode);
+        $object=$objectNode[0]->getValue;
+        
+        
           $query=array(
             'module'=>(string) $object
             ,'action'=>$action
@@ -80,6 +95,8 @@ class Utility {
                     );
          
     }
+     * 
+     */
 }
 
 ?>
