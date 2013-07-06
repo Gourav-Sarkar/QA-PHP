@@ -21,8 +21,8 @@ class QuestionController {
     private $view;
 
     public function QuestionController() {
-        
-        $this->view= new Render();
+
+        $this->view = new Render();
         //Without question There can't have any other action
         //There is though exception like when asking question those should be handled in static method
         /*
@@ -35,10 +35,8 @@ class QuestionController {
          */
         //Set global connection
         //require_once ''
-        AbstractContent::setConnection(DatabaseHandle::getConnection());
         //Question Controller must have Question object
         $this->question = new Question();
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
 
 
@@ -67,7 +65,7 @@ class QuestionController {
         if (isset($_POST['ask'])) {
             $this->question->setTitle($_POST['title']);
             $this->question->setContent($_POST['content']);
-            $this->question->setUser($_SESSION['self']);
+            $this->question->setUser(User::getActiveUser());
             $this->question->setTags($_POST['tags']);
             $this->question->setTime();
             //var_dump($this->question);
@@ -78,7 +76,6 @@ class QuestionController {
     }
 
     public function edit() {
-        require_once 'templates/Question-form-edit-view.html';
 
         $queryObj = new Question();
         $queryObj->setID($_GET['question']);
@@ -98,7 +95,8 @@ class QuestionController {
     public function answer() {
 
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $ans = new Answer($this->question);
         $ans->setUser($_SESSION['self']);
@@ -116,7 +114,8 @@ class QuestionController {
 
     public function addComment() {
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $comment = new QuestionComment($this->question);
         $comment->setContent($_POST['content']);
@@ -135,20 +134,21 @@ class QuestionController {
         //echo _("GETTEXT");
         //echo __METHOD__;
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         //Read should update the object instead of return any object
         try {
             $question = $this->question->read();
             //var_dump($question);
             //$question->updateView();
-            
+
             $this->view->setModel($question->xmlSerialize());
             $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
             echo $this->view->render();
-            
+
             //echo Utility::getLink($this->question,'doSomething');
-            
+
             /*
              * @debug
              * Test question serializing
@@ -168,8 +168,6 @@ class QuestionController {
             die("404 PAGE NOT FOUND");
         }
         //echo $template->render();
-        
-        
         //var_dump($this->question);
     }
 
@@ -179,34 +177,32 @@ class QuestionController {
         /*
          * new Pagaination()
          */
-       try {
+        try {
             $ques = new Question();
 
             $pager = new Pagination($ques);
             $pager->setPage($_GET['page']);
 
 
-                if (isset($_GET['tags'])) 
-                {
+            if (isset($_GET['tags'])) {
                 $ques->setTags(implode(',', $_GET['tags']));
-                }
-            } 
-            catch (Exception $e) 
-            {
-                        //Ignore exception
             }
-            
-            $questions = Question::listing($ques);
-        
-            $this->view->setModel($questions->xmlSerialize());
-            $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
-            
-            echo $this->view->render();
+        } catch (Exception $e) {
+            //Ignore exception
+        }
+
+        $questions = Question::listing($ques);
+
+        $this->view->setModel($questions->xmlSerialize());
+        $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
+
+        echo $this->view->render();
     }
 
     public function selectAnswer() {
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $ans = new Answer();
         $ans->setID($_GET['answer']);
@@ -229,7 +225,8 @@ class QuestionController {
     public function delete() {
         echo __METHOD__;
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $this->question->setUser($_SESSION['self']);
         $this->question->delete();
@@ -237,7 +234,8 @@ class QuestionController {
 
     public function getRevisions() {
 
-        $this->question->setID($_GET['question']);
+
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $qrev = new QuestionRevision($this);
         echo $qrev->render(new Template("templates/question-revision-view.php"));

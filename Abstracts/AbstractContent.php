@@ -183,7 +183,8 @@ abstract class AbstractContent implements CRUDLInterface
      */
 
     public function create() {
-        return $this->crud->create();
+        $e=$this->crud->create();
+         return $e;
     }
 
     //public function delete();
@@ -203,7 +204,12 @@ abstract class AbstractContent implements CRUDLInterface
     public static function listing(DatabaseInteractbleInterface $reference) {
         return $this->crud->listing();
     }
-    
+    public function softRead()
+    {
+        return $this->crud->softRead();
+    }
+
+
     
     public function xmlSerialize() {
         

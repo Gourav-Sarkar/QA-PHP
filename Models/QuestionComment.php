@@ -31,7 +31,7 @@ class QuestionComment extends AbstractComment{
                 *
                 FROM questionComment
                 WHERE question=?";
-         $stmt=AbstractContent::$connection->prepare($query);
+         $stmt=  DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1,$reference->getID());
         
         $stmt->execute();

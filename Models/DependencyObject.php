@@ -12,11 +12,11 @@
  */
 class DependencyObject {
     //put your code hereprotected $reference;
-    protected $dependency;
+    protected $reference;
     
-    public function setReference(AbstractContent $content)
+    public function __construct(AbstractContent $content)
     {
-        $this->dependency=$content;
+        $this->reference=$content;
         //set field cache for $content object
         /*
          * @TODO ensure fieldcache is available
@@ -25,6 +25,7 @@ class DependencyObject {
         //set dependency
         
     }
+    
     
     /*
      * #CAUTION#

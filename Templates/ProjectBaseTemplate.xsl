@@ -130,7 +130,7 @@
     
     
     <!--
-    # Global Page footer
+    # Global Page footer 
     # Just like Global page header. It will be used in all pages in one applicatiomn
     # as a footer
     -->
@@ -149,7 +149,29 @@
     
     <!-- GET link -->
     <xsl:template name="getLink">
-        <xsl:param name="foo"/>
-        <b><xsl:value-of select="$foo/id" /></b>
+        
+        <xsl:param name="currentNode" select="."/>
+        <xsl:param name="action"/>
+            <xsl:text>? module=</xsl:text>
+            <xsl:value-of select="local-name($currentNode)" />
+            <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
+            <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
     </xsl:template>
+    
+    <!-- Get anchor --> 
+    <!--
+    <xsl:template name="getAnchor">
+        
+        <xsl:param name="currentNode" select="."/>
+        <xsl:param name="action"/>
+           <a>
+                <xsl:attribute name="href">
+                <xsl:call-template name="getLink">
+                    <xsl:with-param name="action">$action</xsl:with-param>
+                </xsl:call-template>
+                </xsl:attribute>
+            <span>$action</span>
+            </a>
+    </xsl:template>
+    -->
 </xsl:stylesheet>

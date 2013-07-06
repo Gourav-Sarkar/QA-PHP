@@ -108,7 +108,7 @@ class Answer extends AbstractContent
         //Debug test
         //$query="SELECT * FROM answer";
 
-        $stmt = static::$connection->prepare($query);
+        $stmt =  DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1, $question->getid());
         $stmt->execute();
 

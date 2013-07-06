@@ -53,7 +53,9 @@ Each module could have seperate setting file to include
                 <min>1</min>
             </tag>
         </categorizingScheme>
-        <format>threaded</format> <!-- Threaded or tagged -->
+        <format>tagged</format> <!-- Threaded or tagged -->
+        
+        <allowGuestQuestion meta="Guest can ask question or not">0</allowGuestQuestion>
     </question>   
      
     <answer type="module">

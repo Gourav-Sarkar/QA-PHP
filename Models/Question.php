@@ -90,7 +90,6 @@ class Question
     
     
     private $views;
-    private $votes;
     
     //need verification about passing id param
     public function Question()
@@ -411,7 +410,7 @@ class Question
         //@DEBUG
         //var_dump($query);
         
-        $stmt=static::$connection->prepare($query);
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
               
         $i=1;
          foreach($tags as $tag)
@@ -456,6 +455,9 @@ class Question
         return $questions;
     }
     
+    /*
+     * @deprecated
+     */
     public function getLink($action)
     {
         $query=array();
@@ -575,6 +577,12 @@ class Question
         return $this->viiews;
     }
     
+    public function upVote(\VoteableInterface $vote) {
+        ;
+    }
+    public function downVote(\VoteableInterface $vote) {
+        ;
+    }
     
 }
 

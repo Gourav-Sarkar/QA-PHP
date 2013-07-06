@@ -4,15 +4,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'interfaces/VoteableInterface.php';
+require_once 'interfaces/CRUDLInterface.php';
+require_once 'models/crudObject.php';
 /**
  * Description of AbstractVote
  * @todo change name to weightedvote
  * @author Gourav Sarkar
  */
-class AbstractVote {
-    //put your code here
-    use CRUDLTrait;
+abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
     
     const VOTE_UP="+";
     const VOTE_DOWN="-";
@@ -26,9 +26,22 @@ class AbstractVote {
     protected $time;
     protected $weight;
     
+    protected $crud;
+
+
+
+
+    protected $votes;
+    
+    
     public function __construct(AbstractContent $content) {
-        $this->setFieldCache("ip");
+        
+        $this->crud=new CRUDobject($this);
+        
+        
+        $this->crud->setFieldCache("ip");
         $this->ip=  ip2long($_SERVER['REMOTE_ADDR']);
+        //Should be replaced with User::getAactiveUser() . default to current user
         $this->user=new User();
         
         
@@ -36,20 +49,26 @@ class AbstractVote {
     }
     
     
+    
+    public function setVotes($votes)
+    {
+        $this->votes=$votes;
+    }
+    
     public function setID($id)
     {
         $this->id=$id;
-        $this->setFieldCache('id');
+        $this->crud->setFieldCache('id');
     }
      public function setTime()
     {
         $this->time=time();
-        $this->setFieldCache('time');
+        $this->crud->setFieldCache('time');
     }
      public function setUser(AbstractUser $user)
     {
         $this->user=$user;
-        $this->setFieldCache('user');
+        $this->crud->setFieldCache('user');
     }
     
     //Should be removed instead of use databasehandleTrait
@@ -69,7 +88,7 @@ class AbstractVote {
         
         //assert("!is_object($this->user)");
         
-        $this->setFieldCache('weight');
+        $this->crud->setFieldCache('weight');
         //echo $this->user->getReputation();
         $this->weight=$this->type.$this->user->getReputation();
     }
@@ -96,6 +115,36 @@ class AbstractVote {
     public function getID()
     {
         return $this->id;
+    }
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+    
+    public function upVote(\VoteableInterface $vote) {
+        ;
+    }
+    
+    public function downVote(\VoteableInterface $vote) {
+        ;
+    }
+    
+    
+    public function read() {
+        ;
+    }
+    public function delete() {
+        ;
+    }
+    public function edit(\DatabaseInteractbleInterface $tempObj) {
+        ;
+    }
+    public function create() {
+        ;
+    }
+
+    public static function listing(\DatabaseInteractbleInterface $reference) {
+        ;
     }
 }
 

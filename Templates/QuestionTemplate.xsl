@@ -16,7 +16,7 @@
     Mode default
     Used in detailed Question view. Like when used to view questions
     -->
-    <xsl:template match="question">
+    <xsl:template match ="question">
         <div class="row-fluid container-fluid">
             <!-- Question Template  -->
             <h1 class="span10 page-header">
@@ -84,13 +84,33 @@
                     
                     <div class="row-fluid">
                         <!--Action link/button goes here -->
-                        <!--
-                            <div class="broup">
-                                <a href="<?php echo $this->getLink("close"); ?>">Close</a>
-                                <a href="<?php echo $this->getLink("edit"); ?>">Edit</a>
-                                <a href="<?php echo $this->getLink("delete"); ?>">Delete</a>
-                            </div>
-                        -->
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:call-template name="getLink">
+                                    <xsl:with-param name="currentNode" select="." />
+                                    <xsl:with-param name="action">close</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <span>Close</span>
+                        </a>
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:call-template name="getLink">
+                                    <xsl:with-param name="currentNode" select="." />
+                                    <xsl:with-param name="action">delete</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <span>Delete</span>
+                        </a>
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:call-template name="getLink">
+                                    <xsl:with-param name="currentNode" select="." />
+                                    <xsl:with-param name="action">edit</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <span>Edit</span>
+                        </a>
                     </div>
                 </div>
                     
@@ -98,7 +118,7 @@
                 <div class="row-fluid offset1 span11">
                     <!--comment template goes here -->
                     <xsl:apply-templates select="CommentStorage" />
-                    <!-- <?php require "/../comment/comment-form-view.php"; ?> -->
+                    <xsl:call-template name="commentForm" />
                 </div>
                     
             </div>
@@ -149,7 +169,7 @@
                 
         </div>
     </xsl:template>
-<!-- ========================================================================-->
+    <!-- ========================================================================-->
     
     
     
@@ -160,7 +180,7 @@
     <xsl:template match="QuestionStorage">
         <xsl:apply-templates select="question" mode="summary"/>
     </xsl:template>
- <!-- ========================================================================-->   
+    <!-- ========================================================================-->   
     
     
     
@@ -172,6 +192,9 @@
     # Used to show question in summary mode
     -->
     <xsl:template match="question" mode="summary">
+        <!--call Question form-->
+        <xsl:call-template name="QuestionCreate" />
+        
         <article class="row-fluid">
             <div class="span3">
                 <div class="container-fluid">
@@ -195,7 +218,13 @@
                     
             <div class="span9">
                 <div class="row-fluid container-fluid">
-                    <a href="# "> 
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">show</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
                         <h3>
                             <xsl:value-of select="title" />
                         </h3>
@@ -213,7 +242,36 @@
         <hr/>    
 
     </xsl:template>
-<!-- ========================================================================-->
+    <!-- ========================================================================-->
+    
+    <!-- form template -->
+    <xsl:template name="QuestionCreate">
+        <form method="post" class="form-horizontal">
+            <xsl:attribute name="action">
+                <xsl:call-template name="getLink">
+                    <xsl:with-param name="action">ask</xsl:with-param>
+                </xsl:call-template>
+            </xsl:attribute>
+            <fieldset>
+                <legend>Ask Question</legend>
+                <div class="control-group">
+                    <label>Title</label>
+                    <input class="span9" type="text" name="title" />
+                </div>
+                <div class="control-group">
+                    <label>Question</label>
+                    <textarea class="span9" name="content" rows="20"></textarea>
+                </div>
+                <div class="control-group">
+                    <label>Tags</label>
+                    <input class="span9" type="text" name="tags" />
+                </div>
+                <div class="control-group">
+                    <input type="submit" class="btn btn-primary btn-large" name="ask" value="ask"/>
+                </div>
+            </fieldset>
+        </form>
+    </xsl:template>
 
 
 </xsl:stylesheet>

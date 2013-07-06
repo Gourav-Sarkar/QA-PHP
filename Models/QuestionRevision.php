@@ -75,7 +75,7 @@ class QuestionRevision
             WHERE qrev.question=?
             ";
         
-        $stmt=  static::$connection->prepare($query);
+        $stmt= DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1,$content->getID());
         $stmt->execute();
         
@@ -123,6 +123,13 @@ class QuestionRevision
     }
      /* 
      */
+    
+    public function upVote(\VoteableInterface $vote) {
+        ;
+    }
+    public function downVote(\VoteableInterface $vote) {
+        ;
+    }
 }
 
 ?>

@@ -74,7 +74,7 @@ class CRUDobject implements CRUDLInterface{
                                     /* get id of objects who have an private identifier
                                      * Could be constrained to an interface or abstract class Later
                                      */
-                                    if(is_object($conjObj=$this->{"get{$key}"}()))
+                                    if(is_object($conjObj=$this->dependency->{"get{$key}"}()))
                                     {
                                         $value=$conjObj->getID();
                                     }
@@ -98,8 +98,8 @@ class CRUDobject implements CRUDLInterface{
         
                                         
         var_dump($data);
-        $query=sprintf("INSERT INTO %s SET $data",get_class($this),$data);
-        $stmt=static::$connection->prepare($query);
+        $query=sprintf("INSERT INTO %s SET $data",get_class($this->dependency),$data);
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
          var_dump($fieldCache);
         
          foreach($fieldCache as $idf=>$val)
@@ -113,12 +113,11 @@ class CRUDobject implements CRUDLInterface{
         //Ensures format last inserted ID
         //Dont use setter method because it does not needed to be cached for re database entry
         //$this->setID(static::$connection->lastInsertId());
-        $this->id=static::$connection->lastInsertId();
+        $this->dependency->setID(DatabaseHandle::getConnection()->lastInsertId());
                 
                 
         //unset fieldCache after each CRUDE operation
         $this->fieldCache=array();
-        return $retVal;
     }
     
     
@@ -504,7 +503,7 @@ class CRUDobject implements CRUDLInterface{
     
     public function softRead()
     {
-        $query=sprintf("SELECT * FROM %s ",  get_class($this));
+        $query=sprintf("SELECT * FROM %s ",  get_class($this->dependency));
         
         //If there is any conditional structute
         if(!empty($this->fieldCache))
@@ -526,7 +525,7 @@ class CRUDobject implements CRUDLInterface{
         echo $query;
         var_dump($fieldCache);
         
-        $stmt=static::$connection->prepare($query);
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
         
         
@@ -558,7 +557,7 @@ class CRUDobject implements CRUDLInterface{
              */
             if(is_object($value))
             {
-                if($value instanceof AbstractContent)
+                if($value instanceof AbstractContent && $name!='dependency')
                 {
                     $this->dependency->{"get{$name}"}()->setID($data[$name]);
                 }

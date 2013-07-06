@@ -30,7 +30,7 @@ class Role extends AbstractContent{
     //put your code here
     public function setTitle($title)
     {
-        $this->setFieldCache("title");
+        $this->crud->setFieldCache("title");
         $this->title=$title;
     }
     /*
