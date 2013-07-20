@@ -54,8 +54,6 @@ abstract class AbstractContent implements CRUDLInterface
     protected $content;
     protected $setting;
     protected $crud;
-    //protected $render;
-    protected static $connection;
 
     public function AbstractContent() {
         $this->user = new User();
@@ -121,13 +119,6 @@ abstract class AbstractContent implements CRUDLInterface
         return false;
     }
 
-    /*
-     * Setter method for DAtabase connection
-     */
-
-    public static function setConnection(PDO $con) {
-        static::$connection = $con;
-    }
 
     /* Getter methods to access private properties
      * 

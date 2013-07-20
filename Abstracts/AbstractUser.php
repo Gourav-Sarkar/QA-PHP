@@ -51,7 +51,6 @@ abstract class AbstractUser
     protected $crud;
     
     //protected $authType;
-    protected static $connection;
     protected $auth;    //Authentication object
     
     protected $roleList;
