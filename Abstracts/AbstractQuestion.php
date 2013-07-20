@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractContent.php';
-require_once 'models/questionVote.php';
+require_once 'models/voteStorage.php';
 require_once 'interfaces/VoteableInterface.php';
 /**
  * Description of AbstractQuestion
@@ -20,11 +20,9 @@ implements VoteableInterface
 {
     //put your code here
     protected $title;
-    protected $votes;
     
     public function __construct() {
         parent::__construct();
-        $this->votes=new QuestionVote($this);
         
     }
      public function setTitle($title)

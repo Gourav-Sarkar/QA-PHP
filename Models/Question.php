@@ -91,6 +91,8 @@ class Question
     
     private $views;
     
+    private $votes;
+    
     //need verification about passing id param
     public function Question()
     {
@@ -105,6 +107,7 @@ class Question
         $this->commentList=new CommentStorage();
         $this->revisionList=new RevisionStorage();
         $this->tagList=new tagStorage();
+        $this->votes=new VoteStorage();
         //
         $this->revisions=new QuestionStorage();
         $this->selectedAnswer=new Answer($this);
@@ -454,36 +457,7 @@ class Question
         
         return $questions;
     }
-    
-    /*
-     * @deprecated
-     */
-    public function getLink($action)
-    {
-        $query=array();
-        
-        $queryString = parent::getLink($action);
-        
-        //return $queryString;
-        /*
-        foreach($this->tagList as $tag)
-        {
-            $query[]="tags[]=" . $tag->getName();
-        }
-        
-        if(!empty($query))
-        {
-            $queryString .= '&amp;' . implode("&amp;" , $query);
-        }
-        echo $queryString . '<hr/>';
-        /*
-        if(!empty($this->pager))
-        {
-            $queryString .= http_build_query(["page"=>  $this->pager->getPage()]);
-        }
-        */
-        return $queryString;
-    }
+   
     
     public function setSelectedAnswer($ans)
     {
@@ -563,13 +537,13 @@ class Question
     }
     public function setVotes($votes)
     {
-        $this->votes=$votes;
+        $this->votes->setVotes($votes);
     }
     
     
     public function getVotes()
     {
-        return $this->votes;
+        return $this->votes->getVotes();
     }
     
     public function getViews()

@@ -16,16 +16,27 @@
     -->
     <xsl:template match="votes">
         <div>
-            <a class="btn" href="">
-                up vote
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="action">upvote</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <span>Upvote</span>
             </a>
             <p class="text-center lead" style="margin:0px">
                 <xsl:value-of select="votes" />
             </p>
-            <a class="btn" href="">
-                down vote
-            </a>
-                             
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="action">downvote</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <span>Downvote</span>
+            </a> 
         </div>
     </xsl:template>
 

@@ -14,7 +14,7 @@ require_once 'Interfaces/XMLserializeble.php';
  *
  * @author Gourav Sarkar
  */
-abstract class AbstractContentObjectStorage extends SplObjectStorage implements RenderbleInterface, XMLSerializeble
+abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble
 //implements ListbleInterface 
 {
 
@@ -34,54 +34,27 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
     public function __toString() {
         return get_class($this);
     }
-    /*
-      public function setReference(AbstractContent $obj)
-      {
-      $this->reference=$obj;
-      }
-      public function setConnection(PDO $con)
-      {
-      $this->connection=$con;
-      }
 
-      abstract function getList();
-     */
-    /*
-     * It could be implemeted into iterator too
-     * Just looping the objectstorage will make the data render
-     */
-
-    public function render(Template $template) {
-        $output = '';
-        //$i=0;
-        //No entry in database
-        /*
-          if($this->count()<=0)
-          {
-          return "Default message";
-          }
-         */
-        //echo $this->count();
-
-        foreach ($this as $object) {
-            //++$i;
-            //var_dump(get_Class($object));
-            //var_dump($object->getName());
-            $output .= $object->render($template);
-            //$output .= "VOILA";
-            //$output .= printr_($object,true);
-            //echo $output;
-        }
-        //echo $i;
-        return $output;
-    }
-
-    public function getLink($action) {
-        trigger_error(__METHOD__ . "Blocked", E_USER_ERROR);
-    }
 
     public function xmlSerialize() {
+        
          $output='';
+         
+        /*
+         * Handle regular property
+         */
+        $writer=new XMLWriter();
+        $writer->openMemory();
+        
+        $writer->startElement((string) $this);
+            $xmlSer = new XMLSerialize($this);
+            $writer->writeRaw($xmlSer->xmlSerialize());
+        $writer->endElement();
+        
+        $output=$writer->outputMemory(true);
+        /*
+         * Handle object storage data structure
+         */
          $subWriter=new XMLWriter();
          $subWriter->openMemory();
          
@@ -101,7 +74,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
         $subWriter->endElement();
         
         
-        return $subWriter->outputMemory(true);
+        return $output . $subWriter->outputMemory(true);
     }
 
 }

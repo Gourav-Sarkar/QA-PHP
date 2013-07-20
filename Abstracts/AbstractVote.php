@@ -31,7 +31,7 @@ abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
 
 
 
-    protected $votes;
+    //protected $votes;
     
     
     public function __construct(AbstractContent $content) {
@@ -48,13 +48,6 @@ abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
         
     }
     
-    
-    
-    public function setVotes($votes)
-    {
-        $this->votes=$votes;
-    }
-    
     public function setID($id)
     {
         $this->id=$id;
@@ -69,12 +62,6 @@ abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
     {
         $this->user=$user;
         $this->crud->setFieldCache('user');
-    }
-    
-    //Should be removed instead of use databasehandleTrait
-    public static function setConnection()
-    {
-        static::$connection=  DatabaseHandle::getConnection();
     }
     
     public function setType($type)
@@ -116,11 +103,6 @@ abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
     {
         return $this->id;
     }
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-    
     public function upVote(\VoteableInterface $vote) {
         ;
     }

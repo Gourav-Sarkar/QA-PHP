@@ -17,10 +17,10 @@
     Used in detailed Question view. Like when used to view questions
     -->
     <xsl:template match ="question">
-        <div class="inline-edit-group">
+        <div class="inline-edit-group-origin-question">
             <div class="row-fluid container-fluid">
                 <!-- Question Template  -->
-                <h1 class="span10 page-header inline-edit-field" data-field-name="title" data-field-type="text">
+                <h1 class="span10 page-header inline-edit-group-question" data-field-name="title" data-field-type="text">
                     <xsl:value-of select="title" />
                 </h1>
             </div>
@@ -53,7 +53,7 @@
                     <div class="span11">
                     
                         <!--inline edit field -->
-                        <div class="inline-edit-field" data-field-name="content" data-field-type="textarea">
+                        <div class="inline-edit-group-question">
                             <p class="lead">
                                 <xsl:value-of select="content" />
                             </p>
@@ -107,7 +107,7 @@
                                 </xsl:attribute>
                                 <span>Delete</span>
                             </a>
-                            <a class="inline-edit-button">
+                            <a class="inline-edit-button" data-inline-edit-group="question">
                                 <xsl:attribute name="href">
                                     <xsl:call-template name="getLink">
                                         <xsl:with-param name="currentNode" select="." />
@@ -118,60 +118,59 @@
                             </a>
                         </div>
                     </div>
-                    
-                    <!-- Comment section of Question -->
-                    <div class="row-fluid offset1 span11">
-                        <!--comment template goes here -->
-                        <xsl:apply-templates select="CommentStorage" />
-                        <xsl:call-template name="commentForm" />
-                    </div>
-                    
                 </div>
-                
-                
-                <!-- <h2>Best Answer</h2> -->
-                <!-- implement later -->
-                
+                    
+                <!-- Comment section of Question -->
+                <div class="row-fluid offset1 span11">
+                    <!--comment template goes here -->
+                    <xsl:apply-templates select="CommentStorage" />
+                    <xsl:call-template name="commentForm" />
+                </div>
+                    
             </div>
+                
+                
+            <!-- <h2>Best Answer</h2> -->
+            <!-- implement later -->
+                
+        </div>
          
           
-            <div class="row-fluid">
+        <div class="row-fluid">
                 
-                <div class="offset2 span7">
-                    <hr/>
+            <div class="offset2 span7">
+                <hr/>
                         
                          
-                    <div class="pagination pagination-medium">
-                        <ul>
-                            <li>
-                                <a href="#">Prev</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">Next</a>
-                            </li>
-                        </ul>
-                    </div>
-                        
-                    <xsl:call-template name="answerForm" />
-                    <xsl:apply-templates select="AnswerStorage" />
-                     
+                <div class="pagination pagination-medium">
+                    <ul>
+                        <li>
+                            <a href="#">Prev</a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                        <li>
+                            <a href="#">5</a>
+                        </li>
+                        <li>
+                            <a href="#">Next</a>
+                        </li>
+                    </ul>
                 </div>
-                
+                        
+                <xsl:call-template name="answerForm" />
+                <xsl:apply-templates select="AnswerStorage" />
+                     
             </div>
         </div>
     </xsl:template>
@@ -184,6 +183,8 @@
     # Holds question in one place
     -->
     <xsl:template match="QuestionStorage">
+        <!--call Question form-->
+        <xsl:call-template name="QuestionCreate" />
         <xsl:apply-templates select="question" mode="summary"/>
     </xsl:template>
     <!-- ========================================================================-->   
@@ -198,8 +199,6 @@
     # Used to show question in summary mode
     -->
     <xsl:template match="question" mode="summary">
-        <!--call Question form-->
-        <xsl:call-template name="QuestionCreate" />
         
         <article class="row-fluid">
             <div class="span3">

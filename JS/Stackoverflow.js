@@ -19,96 +19,53 @@
  * </inline-form>
  * 
  */
-$(".inline-edit-group .inline-edit-button")
+$(".inline-edit-button")
     .click(function(e)
     {
-        //Get all field inside it
-               
-        node=$(e.currentTarget).parents(".inline-edit-group").first();
-        console.log(node.html());
-        //Hides nodes make it visible if cancel is clicked
-        node.hide();
-                
-        form=jQuery("<form>"
-            ,{
-                "method":"post"
-                ,
-                "action":node.get("inline-edit-target")
-                    
-            }
-            );
-                
-                
-        $(node).after(form);
-        //console.log($(node).html());
+        //Get group name
+        groupName=$(e.currentTarget).data("inline-edit-group");
+        //console.log(groupName);
         
-        fieldNode=$(node).find(".inline-edit-field");
+        //clone node and create form
+         inlineform=$(".inline-edit-group-origin"+groupName).clone();
+         $(".inline-edit-group-origin"+groupName).hide();
         
-        //console.log(fieldNode.length);
-        
-        fieldNode.each(function(index,elem)
+        //Get all element which have same group name
+        $(".inline-edit-group-"+groupName)
+        .each(function(index,elem)
         {
-            //console.log($(elem).data("field-name"));
+            type=$(elem).data("field-type");
                 
-            $(form).append($("<span>").html($(elem).data("field-name")));  
-                            
-            if($(elem).data("field-type")=="textarea")
+            /*
+             * if type is textarea render one
+             * other wise render input box
+             */    
+            if(type=="textarea")
             {
-                $(form).append($("<textarea>"
-                    ,{
-                        "name":$(elem).data("field-name")
-                    })
-                    .text($(elem).text())
-                );                 
+                $(elem)
+                .replaceWith($("<textarea>",{
+                    "name":$(elem).data("field-name")
+                }
+                ).text($(elem).text())
+                    );
             }
-            else if($(elem).data("field-type")=="text")
+            else if(type=="text")
             {
-                $(form).append($("<input>"
-                    ,{
-                        "type":$(elem).data("field-type")
-                        ,
-                        "name":$(elem).data("field-name")
-                        ,
-                        "value":$(elem).text()
-                    })
-                );       
+                $(elem)
+                .replaceWith($("<input>",{
+                    "type":"text"
+                    ,
+                    "name":$(elem).data("field-name")
+                    ,
+                    "value":$(elem).text()
+                }
+                )
+                );
             }
-           
+                
         }
         );
-                
-        $(form).append($("<input>"
-            ,{
-                "type":"button"
-                ,
-                "name":"Save"
-                ,
-                "value":"Save"
-            })
-        .click(function(e)
-        {
-            alert("process form");
-        //e.preventDefault();
-        })
-        );       
-                            
-        $(form).append($("<input>"
-            ,{
-                "type":"button"
-                ,
-                "name":"Cancel"
-                ,
-                "value":"Cancel"
-            })
-        .click(function(e)
-        {
-            node.show();
-            form.hide();
-        })
-        );       
-               
-        //Debug
-        //console.log($(form).html());
+        
         e.preventDefault();
         
         
