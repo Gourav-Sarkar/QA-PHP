@@ -18,18 +18,25 @@
     -->
     <xsl:template match="comment">
         <div class="row-fluid">
-            <div class="span11">
+            <div class="span11 inline-edit-group">
                 <p>
-                    <xsl:value-of select='content' ></xsl:value-of>
+                    <span class="inline-edit-field" data-field-name="content" data-field-type="text">
+                        <xsl:value-of select='content' ></xsl:value-of>
+                    </span>
                     -
                     <span>
                         <xsl:value-of select='time' ></xsl:value-of>
                     </span>
+                        <a class="inline-edit-button">
+                            <xsl:attribute name="href">
+                                <xsl:call-template name="getLink">
+                                    <xsl:with-param name="currentNode" select="." />
+                                    <xsl:with-param name="action">edit</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <span>Edit</span>
+                        </a>
                     <!--
-                    <span class="btn-group">
-                    <a href="<?php echo $this->getLink("edit"); ?>">
-                        <i class='icon-edit'></i>
-                    </a>
                     <a href="<?php echo $this->getLink("delete"); ?>">
                         <i class='icon-remove'></i>
                     </a>

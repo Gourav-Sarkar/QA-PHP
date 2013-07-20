@@ -56,13 +56,16 @@
             </head>
             <body>
                 <!-- Header -->
+                <xsl:call-template name="pageHeader"></xsl:call-template>
+                
+                <!--Content -->
+                
                 <section class="row-fluid">
                     <xsl:apply-templates />
                 </section>
     
                 <!-- footer -->
-                <script src="jquery/jquery-min.js"></script>
-                <script src="Bootstrap/js/bootstrap.min.js"></script>
+                <xsl:call-template name="pageFooter"></xsl:call-template>
             </body>
         </html>
     </xsl:template>
@@ -76,7 +79,7 @@
     # It is an application specific header. Which means in one application there
     # would be this header in all pages
     -->
-    <xsl:template match="pageHeader">
+    <xsl:template name="pageHeader">
         
     <div class="navbar navbar-inverse navbar-static-top">
 
@@ -134,24 +137,31 @@
     # Just like Global page header. It will be used in all pages in one applicatiomn
     # as a footer
     -->
-    <xsl:template match="pageFooter">
+    <xsl:template name="pageFooter">
         <footer class="row-fluid">
-
+            <a class='test'>click</a>
         </footer>
         <script src="/jquery/jquery-min.js"></script>
         <script src="/Bootstrap/js/bootstrap.min.js"></script>
         <script src="/Bootstrap/js/bootstrapSwitch.js"></script>
-        <script src="js/realtime.js"></script>
+        <script src="js/stackoverflow.js"></script>
     </xsl:template>
     
     <!-- ========================================================================-->
     
     
-    <!-- GET link -->
+    <!-- 
+    GET link
+    @PARAM currentNode Either a node or a string represnting node name
+    @PARAM action String 
+    -->
     <xsl:template name="getLink">
         
         <xsl:param name="currentNode" select="."/>
         <xsl:param name="action"/>
+        
+        <!-- IF currentNode is string Dont add id part and use string directly-->
+        
             <xsl:text>? module=</xsl:text>
             <xsl:value-of select="local-name($currentNode)" />
             <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
@@ -174,4 +184,15 @@
             </a>
     </xsl:template>
     -->
+    
+    <!-- ========================================================================-->
+    
+    <!-- INLINE form -->
+    <xsl:template match="form-inline">
+        <form method="post">
+            
+            <input type="submit" class="btn" />
+            <input type="submit" class="btn" />
+        </form>
+    </xsl:template>
 </xsl:stylesheet>

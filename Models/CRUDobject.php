@@ -240,6 +240,7 @@ class CRUDobject implements CRUDLInterface{
         
         
         $condition='';
+        $params=array();
         /*
          * Go through the data
          * Check if it is valid identifier ot not
@@ -259,14 +260,14 @@ class CRUDobject implements CRUDLInterface{
                                     /* get id of objects who have an private identifier
                                      * Could be constrained to an interface or abstract class Later
                                      */
-                                    if(is_object($conjObj=$this->dependency{"get{$key}"}()))
+                                    if(is_object($conjObj=$this->dependency->{"get{$key}"}()))
                                     {
                                         
                                        $value=$conjObj->getID();
                                     }
                                     else 
                                     {
-                                        $value=$this->dependency{"get{$key}"}();
+                                        $value=$this->dependency->{"get{$key}"}();
                                         echo $value;
                                     }
                                 }
@@ -286,22 +287,23 @@ class CRUDobject implements CRUDLInterface{
         
         var_dump($data);
         
-        $query=sprintf("DELETE FROM %s WHERE %s",get_class($this),$data);
-        $stmt=static::$connection->prepare($query);
+        $query=sprintf("DELETE FROM %s WHERE %s",get_class($this->dependency),$data);
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
         
         //var_dump($fieldCache);
         
          foreach($fieldCache as $idf=>$val)
         {
             var_dump(":$idf=>$val");
-            $stmt->bindValue(":$idf",$val);
+            //$stmt->bindValue(":$idf",$val);
+            $params[":$idf"]=$val;
         }
         
         
         echo $stmt->queryString;
         
         $this->fieldCache=array();
-        return $stmt->execute();
+        return $stmt->execute($params);
     }
     
     

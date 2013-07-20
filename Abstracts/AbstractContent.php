@@ -101,7 +101,7 @@ abstract class AbstractContent implements CRUDLInterface
      * Setter method for Owenr
      */
 
-    public function setUser(User $owner) {
+    public function setUser(User $owner=null) {
         $this->crud->setFieldCache("user");
         $this->user = $owner;
     }
@@ -230,6 +230,10 @@ abstract class AbstractContent implements CRUDLInterface
         return (bool) isset($this->dependency);
     }
 
+    public function isEmpty()
+    {
+        return empty($this->id);
+    }
 }
 
 ?>

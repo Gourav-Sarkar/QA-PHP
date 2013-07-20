@@ -228,7 +228,7 @@ class QuestionController {
 
         (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
-        $this->question->setUser($_SESSION['self']);
+        //$this->question->setUser(User::getActiveUser());
         $this->question->delete();
     }
 
