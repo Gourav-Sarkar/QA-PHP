@@ -16,7 +16,6 @@ class UserController {
     
     public function __construct() {
         $this->user=new User();
-        $this->user->setConnection(DatabaseHandle::getConnection());
     }
     
     public function create()

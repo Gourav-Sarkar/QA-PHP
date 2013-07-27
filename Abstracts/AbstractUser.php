@@ -140,10 +140,6 @@ abstract class AbstractUser
         $this->crud->setFieldCache("email");
         $this->email=$email;
     }
-    public function setConnection(PDO $con)
-    {
-        static::$connection=$con;
-    }
     public function setAuthModule(AuthenticationInterface $auth)
     {
         $this->auth=$auth;
@@ -242,7 +238,7 @@ abstract class AbstractUser
         //var_dump($this);
         try {
             $this->hash();
-            $this->softRead();
+            $this->crud->softRead();
             $this->setRoles(RoleUserMapper::listing($this));
         }
         catch(NoEntryFoundException $e)
