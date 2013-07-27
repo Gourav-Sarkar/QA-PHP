@@ -72,6 +72,10 @@ class Answer extends AbstractContent
     public function getComments() {
         return $this->commentList;
     }
+    public function getQuestion()
+    {
+        return $this->dependency->getReference();
+    }
 
     //Interface wont have id
     //Returns objectStorage

@@ -28,10 +28,10 @@ abstract class AbstractComment extends AbstractContent
         //var_dump($this->fieldCache);
        
     }
-    public function upVote(VoteableInterface $vote){
+    public function upVote($vote){
         
     }
-     public function downVote(VoteableInterface $vote){
+     public function downVote($vote){
         
     }
     /*

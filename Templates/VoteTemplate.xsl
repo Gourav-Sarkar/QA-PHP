@@ -14,12 +14,12 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
-    <xsl:template match="votes">
+    <xsl:template match="VoteStorage">
         <div>
             <a>
                 <xsl:attribute name="href">
                     <xsl:call-template name="getLink">
-                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="currentNode" select="parent::*" />
                         <xsl:with-param name="action">upvote</xsl:with-param>
                     </xsl:call-template>
                 </xsl:attribute>
@@ -31,7 +31,7 @@
             <a>
                 <xsl:attribute name="href">
                     <xsl:call-template name="getLink">
-                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="currentNode" select="parent::*" />
                         <xsl:with-param name="action">downvote</xsl:with-param>
                     </xsl:call-template>
                 </xsl:attribute>

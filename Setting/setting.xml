@@ -45,6 +45,9 @@ Each module could have seperate setting file to include
         <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
         <flagEnable  heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"></flagEnable>
         <privateConversation meta="Toggle" type="toggle">1</privateConversation>
+        <selfEditeEnable meta="User can edit his post" type="toggle">1</selfEditeEnable>
+        <selfDeleteEnable meta="User can edit his post" type="toggle">1</selfDeleteEnable>
+        
         
         <itemPerPage>10</itemPerPage>
         <categorizingScheme toggle='tag'> <!-- toggle value tag/category Now only tag is available-->

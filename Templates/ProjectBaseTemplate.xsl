@@ -30,6 +30,8 @@
          same form can be used for CREATE and EDIT
          LISTING and READING Dont need form
          DELETE May or may not need form
+         
+         @ISSUUES Handling unmatched tags for debugging
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -40,8 +42,9 @@
     <xsl:include  href='AnswerTemplate.xsl'/>
     <xsl:include  href='commentTemplate.xsl'/>
     <xsl:include  href='tagTemplate.xsl'/>
-    
-    <!-- 
+    <xsl:include  href='VoteTemplate.xsl'/>
+    <xsl:include  href='staticTemplate.xsl'/>
+    <!--
     # Core page structure
     -->
     <xsl:template match="/">
@@ -61,7 +64,14 @@
                 <!--Content -->
                 
                 <section class="row-fluid">
-                    <xsl:apply-templates />
+                    <xsl:choose>
+                        <xsl:when test="/page/@static!=''">
+                            <xsl:apply-templates select="page" mode="static"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates />
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </section>
     
                 <!-- footer -->
@@ -166,6 +176,12 @@
             <xsl:value-of select="local-name($currentNode)" />
             <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
             <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
+            
+            <xsl:if test="local-name($currentNode/dependency) ='dependency'">
+                <xsl:for-each select="$currentNode/dependency">
+                    <xsl:text>&amp;</xsl:text> <xsl:value-of select="local-name(.)" /> = <xsl:value-of select="$currentNode/dependency" />
+                </xsl:for-each>
+            </xsl:if>
     </xsl:template>
     
     <!-- Get anchor --> 
@@ -195,4 +211,17 @@
             <input type="submit" class="btn" />
         </form>
     </xsl:template>
+    
+    
+    
+    
+    
+    <xsl:template match="node()|@*" mode="static">
+        <xsl:message>
+            <b>Warning 
+                <xsl:value-of select="local-name()" />
+            </b>
+        </xsl:message>
+    </xsl:template>
+    
 </xsl:stylesheet>

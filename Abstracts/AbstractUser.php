@@ -360,7 +360,6 @@ abstract class AbstractUser
         if(!isset($_SESSION['self']))
         {
             $role=new Role();
-            $role->setConnection(DatabaseHandle::getConnection());
             $role->setTitle(static::USER_DEFAULT_ROLE);
             $role->softRead();
             

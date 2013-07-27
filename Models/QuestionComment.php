@@ -51,6 +51,10 @@ class QuestionComment extends AbstractComment{
         
         return $commentStore;
     }
+    public function getQuestion()
+    {
+        return $this->dependency->getReference();
+    }
     
    
 }

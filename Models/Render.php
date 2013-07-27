@@ -21,6 +21,8 @@ class Render{
     
     private $mappedClass=array('utility');
     
+    const STATIC_PAGE_IDENTIFIER="static";
+    
     /*
      * Dumper location dump and debug Raw data
      */
@@ -52,6 +54,21 @@ class Render{
          * Root element
          */
         $page=$this->model->createElement('page');
+        
+        /* IMPORTANT NOTE
+         * If document is not xml based and just a static page
+         * static should be a signle page consist of fragment document in xsl
+         * stylesheet. 
+         * This can be moved into Controller part. More appropiately AbstractController
+         * HArd code of GET variable should be inside controller part for better management
+         */
+        if(!empty($_GET[static::STATIC_PAGE_IDENTIFIER]))
+        {
+            $staticAttr=$this->model->createAttribute("static");
+            $staticAttr->value=$_GET[static::STATIC_PAGE_IDENTIFIER];
+            $page->appendChild($staticAttr);
+        }
+        
         $this->model->appendChild($page);
         
         /*

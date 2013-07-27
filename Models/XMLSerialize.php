@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Interfaces/XMLSerializeble.php';
+
 /**
  * Description of XMLSerialize
  *
@@ -29,7 +30,7 @@ class XMLSerialize implements XMLSerializeble {
     private function initXML() {
         $this->xmlResource->startDocument(static::XML_VERSION, static::XML_ENCODING);
     }
-    
+
     /*
      * Handle null value
      */
@@ -51,25 +52,24 @@ class XMLSerialize implements XMLSerializeble {
              * If data is scalar type show the valu
              */
             //echo 'Setting ' . $property->getName() . '<br/>';
-            
-            
-            if ($propertyData instanceof XMLSerializeble) 
-            {
+
+
+            if ($propertyData instanceof XMLSerializeble) {
                 $this->xmlResource->writeRaw($propertyData->xmlSerialize());
-            }
-            elseif(!is_object($propertyData))
-            {
+            } elseif (!is_object($propertyData)) {
                 //echo " Setting scalar data";
-                $this->xmlResource->writeElement($property->getName(),$propertyData);
+                $this->xmlResource->writeElement($property->getName(), $propertyData);
+            } elseif ($propertyData instanceof DependencyObject) {
+                $this->xmlResource->startElement("Dependency");
+                $this->xmlResource->writeElement((string) $propertyData->getReference(), (string) $propertyData->getReference()->getID());
+                $this->xmlResource->endElement();
             }
-            
+
             //echo '<hr/>';
         }
-        
+
         return $this->xmlResource->outputMemory(true);
     }
-    
-    
 
 }
 

@@ -35,18 +35,7 @@
                         </p>
                         
                         <!--Vote interface -->
-                        <div>
-                            <a class="btn" href="">
-                                up vote
-                            </a>
-                            <p class="text-center lead" style="margin:0px">
-                                <xsl:value-of select="votes" />
-                            </p>
-                            <a class="btn" href="">
-                                down vote
-                            </a>
-                             
-                        </div>
+                        <xsl:apply-templates select="VoteStorage" />
                         
                     </div>
                     

@@ -7,12 +7,13 @@
 require_once 'interfaces/VoteableInterface.php';
 require_once 'interfaces/CRUDLInterface.php';
 require_once 'models/crudObject.php';
+require_once 'Abstracts/AbstractContent.php';
 /**
  * Description of AbstractVote
  * @todo change name to weightedvote
  * @author Gourav Sarkar
  */
-abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
+abstract class AbstractVote extends AbstractContent{
     
     const VOTE_UP="+";
     const VOTE_DOWN="-";
@@ -103,31 +104,7 @@ abstract class AbstractVote implements CRUDLInterface,VoteableInterface{
     {
         return $this->id;
     }
-    public function upVote(\VoteableInterface $vote) {
-        ;
-    }
-    
-    public function downVote(\VoteableInterface $vote) {
-        ;
-    }
-    
-    
-    public function read() {
-        ;
-    }
-    public function delete() {
-        ;
-    }
-    public function edit(\DatabaseInteractbleInterface $tempObj) {
-        ;
-    }
-    public function create() {
-        ;
-    }
-
-    public static function listing(\DatabaseInteractbleInterface $reference) {
-        ;
-    }
+  
 }
 
 ?>

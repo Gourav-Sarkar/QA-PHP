@@ -120,10 +120,12 @@ class QuestionController {
         $comment = new QuestionComment($this->question);
         $comment->setContent($_POST['content']);
         $comment->setTime();
-        $comment->setUser($_SESSION['self']);
+        $comment->setUser(User::getActiveUser());
 
         $this->question->addComment($comment);
         $this->question->relay(__FUNCTION__);
+        
+        echo $comment->xmlSerialize();
 
         /*
          * Relay event
@@ -213,13 +215,15 @@ class QuestionController {
         echo __METHOD__;
 
         //it needs transaction
-        $this->question->upvote();
+        $this->question->setID($_GET['question']);
+        $this->question->upvote(null);
     }
 
     public function downVote() {
         echo __METHOD__;
-
-        $this->question->downvote();
+        
+        $this->question->setID($_GET['question']);
+        $this->question->downvote(null);
     }
 
     public function delete() {

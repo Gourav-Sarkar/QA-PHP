@@ -27,15 +27,15 @@
                     <span>
                         <xsl:value-of select='time' ></xsl:value-of>
                     </span>
-                        <a class="inline-edit-button">
-                            <xsl:attribute name="href">
-                                <xsl:call-template name="getLink">
-                                    <xsl:with-param name="currentNode" select="." />
-                                    <xsl:with-param name="action">edit</xsl:with-param>
-                                </xsl:call-template>
-                            </xsl:attribute>
-                            <span>Edit</span>
-                        </a>
+                    <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">edit</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <span>Edit</span>
+                    </a>
                     <!--
                     <a href="<?php echo $this->getLink("delete"); ?>">
                         <i class='icon-remove'></i>
@@ -67,7 +67,14 @@
     
     
     <xsl:template name="commentForm">
-        <form action="#" method="post">
+        <form method="post">
+            <xsl:attribute name="action">
+                <xsl:call-template name="getLink">
+                    <xsl:with-param name="currentNode" select="." />
+                    <xsl:with-param name="action">addComment</xsl:with-param>
+                </xsl:call-template>
+            </xsl:attribute>
+            
             <textarea name="content" class="span12"></textarea>
             <input type="submit" name="comment" value="comment" />
         </form>

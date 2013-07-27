@@ -15,7 +15,6 @@ require_once 'Interfaces/XMLserializeble.php';
  * @author Gourav Sarkar
  */
 abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble
-//implements ListbleInterface 
 {
 
     //put your code here
@@ -35,45 +34,46 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
         return get_class($this);
     }
 
-
     public function xmlSerialize() {
-        
-         $output='';
-         
-        /*
-         * Handle regular property
-         */
-        $writer=new XMLWriter();
-        $writer->openMemory();
-        
-        $writer->startElement((string) $this);
-            $xmlSer = new XMLSerialize($this);
-            $writer->writeRaw($xmlSer->xmlSerialize());
-        $writer->endElement();
-        
-        $output=$writer->outputMemory(true);
+
+        $output = '';
+
         /*
          * Handle object storage data structure
          */
-         $subWriter=new XMLWriter();
-         $subWriter->openMemory();
-         
-         $subWriter->startElement((String) $this);
-        
-         foreach ($this as $element) {
+        $subWriter = new XMLWriter();
+        $subWriter->openMemory();
+
+        $subWriter->startElement((String) $this);
+
+
+        /*
+         * Handle regular property
+         */
+        $writer = new XMLWriter();
+        $writer->openMemory();
+
+        $xmlSer = new XMLSerialize($this);
+        $writer->writeRaw($xmlSer->xmlSerialize());
+
+        $subWriter->writeRaw($writer->outputMemory(true));
+        unset($writer);
+
+
+        foreach ($this as $element) {
             //echo "<b>$element</b>" . $element->getID() . "<br/>";
             //var_dump($element);
             //$writer->startElement((string)$element);
-            $writer=new XMLSerialize($element);
-            $subWriter->startElement((String)$element);
+            $writer = new XMLSerialize($element);
+            $subWriter->startElement((String) $element);
             $subWriter->writeRaw($writer->xmlSerialize());
             $subWriter->endElement();
             //$writer->endElement();
         }
-        
+
         $subWriter->endElement();
-        
-        
+
+
         return $output . $subWriter->outputMemory(true);
     }
 

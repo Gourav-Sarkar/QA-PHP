@@ -19,7 +19,6 @@ class AnswerController {
         
         $this->answer= new Answer($question);
         $this->answer->setID($_GET['answer']);
-        Answer::setConnection(DatabaseHandle::getConnection());
     }
     
     public function addComment()

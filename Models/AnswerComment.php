@@ -19,6 +19,11 @@ class AnswerComment extends AbstractComment{
         //echo __METHOD__;
         
     }
+    
+    public function getAnswer()
+    {
+        return $this->dependency->getReference();
+    }
 }
 
 ?>

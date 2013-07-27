@@ -21,6 +21,7 @@ require_once 'RevisionStorage.php';
 require_once 'QuestionRevision.php';
 require_once 'tagQuestionMapper.php';
 require_once 'tagStorage.php';
+require_once 'QuestionVote.php';
 require_once 'QuestionStorage.php';
 require_once 'interfaces/RelayInterface.php';
 require_once 'QuestionCache.php';
@@ -44,7 +45,7 @@ class Question
     extends AbstractQuestion
     implements SplSubject
                 ,RelayInterface
-                //VoteableInterface,
+                ,VoteableInterface
                 //CommentableInterface,
                 //AnswerableInterface,
                 //ListbleInterface,
@@ -89,9 +90,8 @@ class Question
     
     
     
-    private $views;
-    
     private $votes;
+    private $views;
     
     //need verification about passing id param
     public function Question()
@@ -121,6 +121,14 @@ class Question
     
     
     
+   public function setViews($views)
+   {
+       $this->views=$views;
+   }
+   public function getViews()
+   {
+       return $views;
+   }
    
     public function setAnswerCount($count)
     {
@@ -531,10 +539,6 @@ class Question
     
     
     
-    public function setViews($views)
-    {
-        $this->views=$views;
-    }
     public function setVotes($votes)
     {
         $this->votes->setVotes($votes);
@@ -546,16 +550,28 @@ class Question
         return $this->votes->getVotes();
     }
     
-    public function getViews()
-    {
-        return $this->viiews;
-    }
     
-    public function upVote(\VoteableInterface $vote) {
-        ;
+    public function upVote($vote) {
+        
+        $vote=new QuestionVote($this);
+        $vote->setTime();
+        $vote->setWeight();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_UP);
+        $vote->create();
+        
+        $this->votes->attach($vote,$vote);
     }
-    public function downVote(\VoteableInterface $vote) {
-        ;
+    public function downVote($vote) {
+         $vote=new QuestionVote($this);
+        $vote->setTime();
+        $vote->setWeight();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_DOWN);
+        
+        $vote->create();
+        
+        $this->votes->attach($vote,$vote);
     }
     
 }

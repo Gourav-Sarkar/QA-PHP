@@ -16,7 +16,6 @@ require_once 'interfaces/VoteableInterface.php';
 
 abstract class AbstractQuestion 
 extends AbstractContent 
-implements VoteableInterface
 {
     //put your code here
     protected $title;
