@@ -44,10 +44,24 @@
     <xsl:include  href='tagTemplate.xsl'/>
     <xsl:include  href='VoteTemplate.xsl'/>
     <xsl:include  href='staticTemplate.xsl'/>
+    
+    
+    <xsl:template match="page">
+        <xsl:choose>
+            <xsl:when test="current()/@mode='FRAGMENT'">
+            <xsl:call-template name="document-fragment"></xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:call-template name="document"></xsl:call-template>
+        </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    
     <!--
     # Core page structure
     -->
-    <xsl:template match="/">
+    <xsl:template name="document">
         <html>
             <head>
                 <title>
@@ -82,7 +96,9 @@
     <!-- ========================================================================-->
     
     
-    
+    <xsl:template name="document-fragment">
+        <xsl:apply-templates />
+    </xsl:template>
     
     <!--
     # Global Page header
@@ -124,7 +140,7 @@
                         <a data-toggle="modal" href="#">nick</a>
                     </li>
                 <!-- <?php else: ?> -->
-                    <li><a href="#hover">Login</a></li>
+                    <li><a href="?static=staticUserLogin">Login</a></li>
                 <!-- <?php endif; ?> -->
 
                 <li><a href='#'><i class="icon-globe"></i></a></li>
@@ -148,9 +164,6 @@
     # as a footer
     -->
     <xsl:template name="pageFooter">
-        <footer class="row-fluid">
-            <a class='test'>click</a>
-        </footer>
         <script src="/jquery/jquery-min.js"></script>
         <script src="/Bootstrap/js/bootstrap.min.js"></script>
         <script src="/Bootstrap/js/bootstrapSwitch.js"></script>
@@ -169,10 +182,17 @@
         
         <xsl:param name="currentNode" select="."/>
         <xsl:param name="action"/>
+        <xsl:param name="module"></xsl:param>
         
         <!-- IF currentNode is string Dont add id part and use string directly-->
-        
-            <xsl:text>? module=</xsl:text>
+        <xsl:choose>
+            <xsl:when test="string($module)!=''">
+                <xsl:text>?module=</xsl:text><xsl:value-of select="$module" />
+                <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
+            </xsl:when>
+            
+            <xsl:otherwise>
+                <xsl:text>? module=</xsl:text>
             <xsl:value-of select="local-name($currentNode)" />
             <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
             <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
@@ -182,6 +202,9 @@
                     <xsl:text>&amp;</xsl:text> <xsl:value-of select="local-name(.)" /> = <xsl:value-of select="$currentNode/dependency" />
                 </xsl:for-each>
             </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+            
     </xsl:template>
     
     <!-- Get anchor --> 

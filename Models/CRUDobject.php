@@ -538,18 +538,18 @@ class CRUDobject implements CRUDLInterface{
         {
             throw new NoEntryFoundException("No entry in Database");
         }
-        
+        var_dump($data);
         /*
          * Initialize self
          */
-        $class= new ReflectionClass($this);
+        $class= new ReflectionClass($this->dependency);
         $properties=$class->getProperties(ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED);
         
         foreach($properties as $property)
         {
             $property->setAccessible(true);
             $name=$property->getName();
-            $value=$property->getValue($this);
+            $value=$property->getValue($this->dependency);
             
             //echo "init $name value $value<br/>";
             
@@ -579,7 +579,7 @@ class CRUDobject implements CRUDLInterface{
         }
         
         $this->fieldCache=array();
-        //var_dump($this);
+        //var_dump('Db',$this);
     }
     
    public static function Listing(DatabaseInteractbleInterface $reference)

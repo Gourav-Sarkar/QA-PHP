@@ -209,13 +209,15 @@ class Question
             //trigger_error('Comenting closed by admin');
             throw new PermissionDeniedException("Commenting is closed by admin");
         }
-        //Add comments to current question
-        $this->commentList->attach($comment,$comment);
         
         //Create Comment
         $comment->create();
         
         $comment->getQuestion()->read();
+        
+        
+        //Add comments to current question
+        $this->commentList->attach($comment,$comment);
         
         /*
          * Set meessage for relaying message to observers

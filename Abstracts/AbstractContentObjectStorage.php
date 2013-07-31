@@ -26,7 +26,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
         $id = $object->getID();
         //echo $id;
         //Ensure id is there
-        //assert('empty($id);');
+        assert('!empty($id);');
         return (string) $id;
     }
 

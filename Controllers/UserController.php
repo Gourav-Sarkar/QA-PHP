@@ -13,9 +13,10 @@
 class UserController {
     //put your code here
     private $user;
-    
+    private $view;
     public function __construct() {
         $this->user=new User();
+        $this->view=new Render();
     }
     
     public function create()
@@ -23,8 +24,7 @@ class UserController {
         echo __METHOD__;
         $this->user->setNick($_POST['nick']);
         $this->user->setPassword($_POST['password']);
-        $this->user->setEmail($_POST['email']);     
-        $this->user->setConnection(DatabaseHandle::getConnection());        
+        $this->user->setEmail($_POST['email']);    
         $this->user->create();
     }
     public function auth()
@@ -39,8 +39,12 @@ class UserController {
         $this->user->setID($_GET['user']);
         //$this->user->read();
         $this->user->Softread();
+        var_dump($this->user);
         
-        echo $this->user->render(new Template('user-profile'));
+        $this->view->setModel($this->user->xmlSerialize());
+        $this->view->setDumper('dumper.xml');
+        echo $this->view->Render();
+        
     }
 }
 

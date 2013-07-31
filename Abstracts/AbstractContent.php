@@ -33,7 +33,7 @@ require_once 'interfaces/XMLserializeble.php';
  */
 abstract class AbstractContent implements CRUDLInterface
 , XMLSerializeble
-//,Serializable
+,Serializable
 , DatabaseInteractbleInterface {
 
     //put your code here
@@ -54,6 +54,7 @@ abstract class AbstractContent implements CRUDLInterface
     protected $content;
     protected $setting;
     protected $crud;
+    protected $removed=false; //Every content can be removed softly
 
     public function AbstractContent() {
         $this->user = new User();
@@ -79,6 +80,16 @@ abstract class AbstractContent implements CRUDLInterface
         return strtolower(get_class($this));
     }
 
+    public function setRemoved($remove)
+    {
+        $this->crud->setFieldCache("removed");
+        $this->removed=$remove;
+    }
+    public function getRemoved()
+    {
+        return $this->removed;
+    }
+    
     public function setID($id) {
 
         $this->crud->setFieldCache("id");
@@ -224,6 +235,22 @@ abstract class AbstractContent implements CRUDLInterface
     public function isEmpty()
     {
         return empty($this->id);
+    }
+    
+    
+    public function serialize() {
+        unset($this->setting);
+        serialize($this);
+    }
+    
+    public function unserialize($serialized) {
+        
+        $this->user = new User();
+        $this->setting = new SettingHandler($this);
+        $this->crud = new CRUDobject($this);
+        
+        
+        unserialize($serialized);
     }
 }
 

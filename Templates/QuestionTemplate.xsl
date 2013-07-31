@@ -17,10 +17,10 @@
     Used in detailed Question view. Like when used to view questions
     -->
     <xsl:template match ="question">
-        <div class="inline-edit-group-origin-question">
-            <div class="row-fluid container-fluid">
+        <div class="container-fluid inline-edit-group-origin-question">
+            <div class="row-fluid">
                 <!-- Question Template  -->
-                <h1 class="span10 page-header inline-edit-group-question" data-field-name="title" data-field-type="text">
+                <h1 class="span10 page-header" data-field-name="title" data-field-type="text">
                     <xsl:value-of select="title" />
                 </h1>
             </div>
@@ -31,7 +31,7 @@
                     <div class="span1">
                         <p>
                             <!-- user could have nested values -->
-                            <xsl:apply-templates select="user" />
+                            <xsl:apply-templates select="user" mode="inline-summary" />
                         </p>
                         
                         <!--Vote interface -->
@@ -42,11 +42,9 @@
                     <div class="span11">
                     
                         <!--inline edit field -->
-                        <div class="inline-edit-group-question">
-                            <p class="lead">
-                                <xsl:value-of select="content" />
-                            </p>
-                        </div>
+                        <p class="lead">
+                            <xsl:value-of select="content" />
+                        </p>
                         
                         <div class="row-fluid">
                             <div class="span7">
@@ -107,21 +105,19 @@
                             </a>
                         </div>
                     </div>
-                </div>
                     
-                <!-- Comment section of Question -->
-                <div class="row-fluid offset1 span11">
-                    <!--comment template goes here -->
-                    <xsl:apply-templates select="CommentStorage" />
-                    <xsl:call-template name="commentForm" />
+                    <!-- Comment section of Question -->
+                    <div class="row-fluid offset1 span11">
+                        <!--comment template goes here -->
+                        <xsl:apply-templates select="CommentStorage" />
+                        <xsl:call-template name="commentForm" />
+                    </div>
                 </div>
-                    
+           
             </div>
-                
-                
+            
             <!-- <h2>Best Answer</h2> -->
             <!-- implement later -->
-                
         </div>
          
           
@@ -173,7 +169,9 @@
     -->
     <xsl:template match="QuestionStorage">
         <!--call Question form-->
-        <xsl:call-template name="QuestionCreate" />
+        <xsl:call-template name="QuestionCreate">
+        </xsl:call-template>
+        
         <xsl:apply-templates select="question" mode="summary"/>
     </xsl:template>
     <!-- ========================================================================-->   
@@ -242,7 +240,8 @@
     <xsl:template name="QuestionCreate">
         <form method="post" class="form-horizontal">
             <xsl:attribute name="action">
-                <xsl:call-template name="getLink">
+                <xsl:call-template name="getLink"> 
+                    <xsl:with-param name="module">question</xsl:with-param>
                     <xsl:with-param name="action">ask</xsl:with-param>
                 </xsl:call-template>
             </xsl:attribute>

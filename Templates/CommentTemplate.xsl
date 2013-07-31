@@ -36,16 +36,27 @@
                         </xsl:attribute>
                         <span>Edit</span>
                     </a>
-                    <!--
-                    <a href="<?php echo $this->getLink("delete"); ?>">
-                        <i class='icon-remove'></i>
+                    
+                     <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">delete</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <span>delete</span>
                     </a>
-                    <a href="<?php echo $this->getLink("flag"); ?>">
-                        <i class='icon-flag'></i>
+                    
+                     <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">flag</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <span>flag</span>
                     </a>
-                    <b><?php //echo $this->getLink("delete"); ?></b>
-                    </span>
-                    -->
+                    
                 </p>
             </div>
         </div>

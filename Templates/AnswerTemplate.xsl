@@ -20,7 +20,7 @@
         <div class="container-fluid">
         <div class="row-fluid span1">
             <!-- user could have nested values -->
-            <xsl:apply-templates select="user" />
+            <xsl:apply-templates select="user" mode="inline-summary"/>
         
         <!--Vote interface -->
         <!--

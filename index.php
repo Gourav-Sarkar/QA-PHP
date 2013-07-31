@@ -48,8 +48,7 @@ session_start();
  * 
  */
 
-
-//var_dump($_SESSION);
+var_dump('session',$_SESSION);
 
 /*
  * Initialize system setting,error,message files
@@ -97,6 +96,7 @@ try
 {
     //User::getActiveUser()->hasPermission($resource); //Throw Permission denied
     $resource->get();
+    var_dump(User::getActiveUser());
 }
  catch (PermissionDeniedException $e)
  {

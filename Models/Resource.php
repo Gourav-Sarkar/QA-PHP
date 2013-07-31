@@ -74,6 +74,21 @@ class Resource implements CRUDLInterface{
     public function get()
     {
         /*
+         * Handle static resource
+         * if static parameter is passed call the static template and get out of the
+         * rendering process
+         */
+        if(isset($_GET['static']))
+        {
+            $render=new Render();
+            $render->setModel(null);
+            $render->render();
+            
+            return null;
+        }
+        
+        
+        /*
          * Validate IF module is there and has permssion to acccess it
          */
         if(empty($this->module))

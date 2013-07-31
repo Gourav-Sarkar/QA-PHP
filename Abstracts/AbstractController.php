@@ -13,20 +13,12 @@ require_once 'DependencyObject.php';
  */
 abstract class AbstractController {
     //put your code here
-    protected $dependency;
+    protected $model;
+    protected $view;
     
-    public function __constrcut($model,$depedency=null)
+    public function __constrcut()
     {
-        if(!is_null($depedency))
-        {
-            $this->model=new $model($dependency);
-        }
-        else
-        {
-            $this->model=new $model();
-        }
-        
-        AbstractContent::setConnection(DatabaseHandle::getConnection());
+        $this->view=new Render();
     }
     abstract public function create();
     abstract public function delete();

@@ -37,6 +37,8 @@ class QuestionController {
         //require_once ''
         //Question Controller must have Question object
         $this->question = new Question();
+        
+        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
 
 
@@ -96,8 +98,6 @@ class QuestionController {
 
 
 
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
-
         $ans = new Answer($this->question);
         $ans->setUser($_SESSION['self']);
         $ans->setContent($_POST['answer']);
@@ -115,8 +115,6 @@ class QuestionController {
     public function addComment() {
 
 
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
-
         $comment = new QuestionComment($this->question);
         $comment->setContent($_POST['content']);
         $comment->setTime();
@@ -125,7 +123,10 @@ class QuestionController {
         $this->question->addComment($comment);
         $this->question->relay(__FUNCTION__);
         
-        echo $comment->xmlSerialize();
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->setModel($comment->xmlSerialize());
+        echo '<hr/>';
+        echo $this->view->render();
 
         /*
          * Relay event
@@ -136,8 +137,6 @@ class QuestionController {
         //echo _("GETTEXT");
         //echo __METHOD__;
 
-
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         //Read should update the object instead of return any object
         try {
@@ -204,8 +203,6 @@ class QuestionController {
     public function selectAnswer() {
 
 
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
-
         $ans = new Answer();
         $ans->setID($_GET['answer']);
         $this->question->setSelectedAnswer($ans);
@@ -215,14 +212,12 @@ class QuestionController {
         echo __METHOD__;
 
         //it needs transaction
-        $this->question->setID($_GET['question']);
         $this->question->upvote(null);
     }
 
     public function downVote() {
         echo __METHOD__;
         
-        $this->question->setID($_GET['question']);
         $this->question->downvote(null);
     }
 
@@ -230,16 +225,13 @@ class QuestionController {
         echo __METHOD__;
 
 
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         //$this->question->setUser(User::getActiveUser());
-        $this->question->delete();
     }
 
     public function getRevisions() {
 
 
-        (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
         $qrev = new QuestionRevision($this);
         echo $qrev->render(new Template("templates/question-revision-view.php"));
