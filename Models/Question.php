@@ -202,7 +202,7 @@ class Question
     public function addComment(AbstractComment $comment)
     {
         //echo($this->setting->get('commentEnable'));
-        //Check Setting for adding comments
+        //Check Setting for adding commentss
         if(!$this->setting->get('commentEnable'))
         {
             //Debug purpose
