@@ -23,17 +23,7 @@
             <xsl:apply-templates select="user" mode="inline-summary"/>
         
         <!--Vote interface -->
-        <!--
-        <div class="span12">
-            <a href="<?php echo $this->getLink("upvote"); ?>">
-                <img src="/image/icon/ui/arrow-up-64.png" />
-            </a>
-            <p class="text-center lead" style="margin:0px">34k</p>
-            <a href="<?php echo $this->getLink("downvote"); ?>">
-                <img src="/image/icon/ui/arrow-down-64.png" />
-            </a>
-        </div>
-        -->
+            <xsl:apply-templates select="VoteStorage" />
         
     </div>
                     

@@ -236,7 +236,7 @@ abstract class AbstractUser implements DatabaseInteractbleInterface
             $this->hash();
             $this->crud->softRead();
             //$this->setRoles(RoleUserMapper::listing($this));
-            $this->addRole($defaultrole);
+            //$this->addRole($defaultrole);
             //$this->setRoles($rs);
 
             var_dump("Roles", $this->getRoles()->count());
@@ -276,6 +276,7 @@ abstract class AbstractUser implements DatabaseInteractbleInterface
         /*
          * DEBUG
          */
+        /*
         echo '<hr/>';
         foreach ($_SESSION['self']->getRoles() as $role) {
             echo '<b>' . $role->getTitle() . '</b>';
@@ -289,6 +290,8 @@ abstract class AbstractUser implements DatabaseInteractbleInterface
         }
 
         echo '<hr/>';
+         * 
+         */
 
         //var_dump('auth object',$this);
         //var_dump('auth session',$_SESSION);

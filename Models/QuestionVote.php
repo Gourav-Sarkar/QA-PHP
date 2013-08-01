@@ -12,12 +12,10 @@ require_once 'Abstracts/AbstractVote.php';
  */
 class QuestionVote extends AbstractVote{
     //put your code here
-    protected $question;
     
     public function __construct(Question $content) {
         parent::__construct($content);
         //var_dump($content);
-        $this->question=$content;
         $this->crud->setFieldCache(get_class($content));
         
         //$this->question->SetfieldCache("votes");
@@ -25,7 +23,7 @@ class QuestionVote extends AbstractVote{
     
     public function getQuestion()
     {
-        return $this->question;
+        return $this->dependency->getReference();
     }
 }
 

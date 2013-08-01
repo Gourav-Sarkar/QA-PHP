@@ -80,7 +80,7 @@
                 <section class="row-fluid">
                     <xsl:choose>
                         <xsl:when test="/page/@static!=''">
-                            <xsl:apply-templates select="page" mode="static"/>
+                            <xsl:apply-templates select="/page" mode="static"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates />

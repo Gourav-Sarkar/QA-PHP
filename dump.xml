@@ -1,162 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page mode="DOCUMENT"><question><answerCount>0</answerCount>
-<AnswerStorage><answer><CommentStorage><comment><Dependency>
- <answer>4</answer>
-</Dependency>
-<id>7</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375261939</time>
-<content>add comment</content>
-<removed/>
-</comment><comment><Dependency>
- <answer>4</answer>
-</Dependency>
-<id>8</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375262023</time>
-<content>add comment</content>
-<removed/>
-</comment></CommentStorage><vote/>
-<Dependency>
- <question>22</question>
-</Dependency>
-<id>4</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question sad&#13;
-            </content>
-<removed/>
-</answer><answer><CommentStorage/><vote/>
-<Dependency>
- <question>22</question>
-</Dependency>
-<id>6</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<removed/>
-</answer></AnswerStorage><CommentStorage><comment><Dependency>
- <question>22</question>
-</Dependency>
-<id>26</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375262052</time>
-<content>adding comment</content>
-<removed/>
-</comment><comment><Dependency>
- <question>22</question>
-</Dependency>
-<id>27</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375265185</time>
-<content>add comment</content>
-<removed/>
-</comment><comment><Dependency>
- <question>22</question>
-</Dependency>
-<id>28</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375265210</time>
-<content>add comment</content>
-<removed/>
-</comment><comment><Dependency>
- <question>22</question>
-</Dependency>
-<id>29</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375284157</time>
-<content>adding comments</content>
-<removed/>
-</comment><comment><Dependency>
- <question>22</question>
-</Dependency>
-<id>30</id>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1375284447</time>
-<content>adding comments</content>
-<removed/>
-</comment></CommentStorage><RevisionStorage/><tagStorage><tag><Dependency>
- <question>22</question>
-</Dependency>
-<name>mysql</name>
-<id/>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content/>
-<removed/>
-</tag><tag><Dependency>
- <question>22</question>
-</Dependency>
-<name>php</name>
-<id/>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content/>
-<removed/>
-</tag></tagStorage><selectedAnswer/>
-<pager/>
-<VoteStorage><votes>0</votes>
-</VoteStorage><views>1</views>
-<title>New question</title>
-<id>22</id>
-<user/>
-<time>1373293651</time>
-<content>new questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew question</content>
-<removed>0</removed>
-<QuestionStorage/></question></page>
+<page mode="DOCUMENT">
+    <question>
+        <answerCount>0</answerCount>
+        <AnswerStorage>
+            <answer>
+                <CommentStorage>
+                    <comment>
+                        <Dependency>
+                            <answer>4</answer>
+                        </Dependency>
+                        <id>7</id>
+                        <user>
+                            <id/>
+                            <nick/>
+                            <reputation>1</reputation>
+                            <password/>
+                            <email/>
+                            <auth/>
+                        </user>
+                        <time>1375261939</time>
+                        <content>add comment</content>
+                        <removed/>
+                    </comment>
+                    <comment>
+                        <Dependency>
+                            <answer>4</answer>
+                        </Dependency>
+                        <id>8</id>
+                        <user>
+                            <id/>
+                            <nick/>
+                            <reputation>1</reputation>
+                            <password/>
+                            <email/>
+                            <auth/>
+                        </user>
+                        <time>1375262023</time>
+                        <content>add comment</content>
+                        <removed/>
+                    </comment>
+                </CommentStorage>
+                <vote/>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>4</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time/>
+                <content>                Answering question sad&#13;
+                </content>
+                <removed/>
+            </answer>
+            <answer>
+                <CommentStorage/>
+                <vote/>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>6</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time/>
+                <content>                Answering question&#13;
+                </content>
+                <removed/>
+            </answer>
+        </AnswerStorage>
+        <CommentStorage>
+            <comment>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>26</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time>1375262052</time>
+                <content>adding comment</content>
+                <removed/>
+            </comment>
+            <comment>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>27</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time>1375265185</time>
+                <content>add comment</content>
+                <removed/>
+            </comment>
+            <comment>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>28</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time>1375265210</time>
+                <content>add comment</content>
+                <removed/>
+            </comment>
+            <comment>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>29</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time>1375284157</time>
+                <content>adding comments</content>
+                <removed/>
+            </comment>
+            <comment>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <id>30</id>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time>1375284447</time>
+                <content>adding comments</content>
+                <removed/>
+            </comment>
+        </CommentStorage>
+        <RevisionStorage/>
+        <tagStorage>
+            <tag>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <name>mysql</name>
+                <id/>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time/>
+                <content/>
+                <removed/>
+            </tag>
+            <tag>
+                <Dependency>
+                    <question>22</question>
+                </Dependency>
+                <name>php</name>
+                <id/>
+                <user>
+                    <id/>
+                    <nick/>
+                    <reputation>1</reputation>
+                    <password/>
+                    <email/>
+                    <auth/>
+                </user>
+                <time/>
+                <content/>
+                <removed/>
+            </tag>
+        </tagStorage>
+        <selectedAnswer/>
+        <pager/>
+        <VoteStorage>
+            <votes>0</votes>
+        </VoteStorage>
+        <views>1</views>
+        <title>New question</title>
+        <id>22</id>
+        <user/>
+        <time>1373293651</time>
+        <content>new questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew questionnew question</content>
+        <removed>0</removed>
+        <QuestionStorage/>
+    </question>
+</page>

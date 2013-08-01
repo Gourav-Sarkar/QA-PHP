@@ -235,6 +235,7 @@ class Question
     
     /*
      * @Deprecated in favor of objectstorage
+     * Should return only the answer from current question object
      */
     public function getAnswers()
     {
@@ -557,21 +558,18 @@ class Question
         
         $vote=new QuestionVote($this);
         $vote->setTime();
-        $vote->setWeight();
         $vote->setUser(User::getActiveUser());
         $vote->setType(QuestionVote::VOTE_UP);
-        $vote->create();
+        $vote->setWeight();
         
         $this->votes->attach($vote,$vote);
     }
     public function downVote($vote) {
          $vote=new QuestionVote($this);
         $vote->setTime();
-        $vote->setWeight();
         $vote->setUser(User::getActiveUser());
         $vote->setType(QuestionVote::VOTE_DOWN);
-        
-        $vote->create();
+        $vote->setWeight();
         
         $this->votes->attach($vote,$vote);
     }

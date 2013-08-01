@@ -82,6 +82,7 @@ class Resource implements CRUDLInterface{
         {
             $render=new Render();
             $render->setModel(null);
+            $render->setDumper('StaticDumper');
             $render->render();
             
             return null;

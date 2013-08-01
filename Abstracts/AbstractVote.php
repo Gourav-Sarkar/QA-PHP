@@ -18,16 +18,11 @@ abstract class AbstractVote extends AbstractContent{
     const VOTE_UP="+";
     const VOTE_DOWN="-";
     
-    protected static $connection;
     
-    protected $id;
-    protected $type; //Write only
-    protected $ip;
-    protected $user;
-    protected $time;
+    protected $type=''; //Write only
     protected $weight;
     
-    protected $crud;
+    protected $dependency;
 
 
 
@@ -37,8 +32,10 @@ abstract class AbstractVote extends AbstractContent{
     
     public function __construct(AbstractContent $content) {
         
+        parent::__construct();
+
         $this->crud=new CRUDobject($this);
-        
+        $this->dependency=new DependencyObject($content);
         
         $this->crud->setFieldCache("ip");
         $this->ip=  ip2long($_SERVER['REMOTE_ADDR']);
@@ -70,15 +67,19 @@ abstract class AbstractVote extends AbstractContent{
         $this->type=$type;
     }
     
-    
+    /*
+     * @todo introduce core object to intrpduce $object->isEmpty()
+     */
     public function setWeight()
     {
+        $userID=$this->user->getID();
+        assert('!empty($userID)');
         
-        //assert("!is_object($this->user)");
+        
+        assert('!empty($this->type)');
         
         $this->crud->setFieldCache('weight');
-        //echo $this->user->getReputation();
-        $this->weight=$this->type.$this->user->getReputation();
+        $this->weight= (string) $this->type . $this->user->getReputation();
     }
     
     
@@ -103,6 +104,8 @@ abstract class AbstractVote extends AbstractContent{
     public function getID()
     {
         return $this->id;
+    }
+    public static function listing(\DatabaseInteractbleInterface $reference) {
     }
   
 }

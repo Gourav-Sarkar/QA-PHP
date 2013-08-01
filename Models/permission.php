@@ -56,7 +56,7 @@ class permission implements CRUDLInterface{
     
     public function setPermission($permit)
     {
-        $this->setFieldCache('permission');
+        $this->crud->setFieldCache('permission');
         $this->permission=$permit;
     }
     public function setResource(Resource $resource)
@@ -107,12 +107,12 @@ class permission implements CRUDLInterface{
             ,res.module AS res_module
             ,res.action AS res_action
             ,perm.permission
-            ,role.id AS r_id
-            ,role.title AS r_title
-            ,role.content AS r_content
+            ,r.id AS r_id
+            ,r.title AS r_title
+            ,r.content AS r_content
             FROM permission AS perm
             INNER JOIN role AS r
-            ON per.role=r.id
+            ON perm.role=r.id
             INNER JOIN resource AS res
             ON perm.resource=res.id
             ";
