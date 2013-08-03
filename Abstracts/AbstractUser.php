@@ -20,6 +20,7 @@ require_once 'interfaces/AuthenticationInterface.php';
 require_once 'Interfaces/XMLserializeble.php';
 
 
+require_once 'models/BaseObject.php';
 require_once 'models/RoleStorage.php';
 require_once 'models/RoleUserMapper.php';
 require_once 'models/Role.php';
@@ -31,7 +32,7 @@ require_once 'Exception/PermissionDeniedException.php';
  * @author Gourav Sarkar
  */
 //require_once 'AbstractContent.php';
-abstract class AbstractUser implements DatabaseInteractbleInterface
+abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInterface
 , AuthenticationInterface
 , CRUDLInterface
 , XMLSerializeble {

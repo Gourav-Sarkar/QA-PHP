@@ -18,6 +18,7 @@ require_once 'Interfaces/DatabaseInteractbleInterface.php';
 require_once 'interfaces/RenderbleInterface.php';
 
 require_once 'models/SettingHandler.php';
+require_once 'models/BaseObject.php';
 
 
 require_once 'Models/XMLserialize.php';
@@ -31,7 +32,7 @@ require_once 'interfaces/XMLserializeble.php';
  * Must have a Textual content
  * @author Gourav Sarkar
  */
-abstract class AbstractContent implements CRUDLInterface
+abstract class AbstractContent extends BaseObject implements CRUDLInterface
 , XMLSerializeble
 ,Serializable
 , DatabaseInteractbleInterface {
@@ -76,9 +77,6 @@ abstract class AbstractContent implements CRUDLInterface
      * Another implementetion of this method can be done with reflection
      * 
      */
-    public function __toString() {
-        return strtolower(get_class($this));
-    }
 
     public function setRemoved($remove)
     {
@@ -230,11 +228,6 @@ abstract class AbstractContent implements CRUDLInterface
     public function hasDependency()
     {
         return (bool) isset($this->dependency);
-    }
-
-    public function isEmpty()
-    {
-        return empty($this->id);
     }
     
     
