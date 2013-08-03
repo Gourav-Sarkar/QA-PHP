@@ -39,5 +39,35 @@
             </a> 
         </div>
     </xsl:template>
+    
+    
+    
+    
+    
+    <xsl:template match="VoteStorage" mode="comment">
+        <span>
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="parent::*" />
+                        <xsl:with-param name="action">upvote</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <span>U</span>
+            </a>
+            <span class="text-center lead" style="margin:0px">
+                <xsl:value-of select="votes" />
+            </span>
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="parent::*" />
+                        <xsl:with-param name="action">downvote</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <span>D</span>
+            </a> 
+        </span>
+    </xsl:template>
 
 </xsl:stylesheet>

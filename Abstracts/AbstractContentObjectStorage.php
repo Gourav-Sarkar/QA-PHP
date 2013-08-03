@@ -29,6 +29,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
             $this->storage_type = $objType;
         }
         
+        //ObjectStorage must have declare its storage type
         assert('!empty($this->storage_type)');
     }
 

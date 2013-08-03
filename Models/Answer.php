@@ -43,7 +43,7 @@ class Answer extends AbstractContent
     //put your code here
     //Object array or object storage
     private $commentList;
-    private $vote;
+    private $votes;
     private $dependency;
 
     /* Give answer to certain question
@@ -64,6 +64,7 @@ class Answer extends AbstractContent
         $this->crud->setFieldCache((string)$ques);
 
         $this->commentList = new CommentStorage('AnswerComment');
+        $this->votes=new VoteStorage('AnswerCommentVote');
     }
 
     public function addComment(AbstractComment $comment) {

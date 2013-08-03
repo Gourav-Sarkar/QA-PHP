@@ -20,6 +20,9 @@
         <div class="row-fluid">
             <div class="span11 inline-edit-group">
                 <p>
+                    <!--Vote interface -->
+                    <xsl:apply-templates select="VoteStorage" mode="comment" />
+                    
                     <span class="inline-edit-field" data-field-name="content" data-field-type="text">
                         <xsl:value-of select='content' ></xsl:value-of>
                     </span>
