@@ -52,7 +52,7 @@ class TagQuestionMapper implements CRUDLInterface{
     }
     
     public static function listing(\DatabaseInteractbleInterface $reference) {
-        $tagStore=new TagStorage();
+        $tagStore=new TagStorage('tag');
         
         $query=sprintf("SELECT * FROM tagQuestionMapper WHERE question=?");
         $stmt=DatabaseHandle::getConnection()->prepare($query);

@@ -25,7 +25,7 @@ class QuestionComment extends AbstractComment{
      * returns object in a storage which have only comment object (AbstractComment)
      */
     public static function listing(\DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
-         $commentStore=new CommentStorage();
+         $commentStore=new CommentStorage('QuestionComment');
         
          $query="SELECT
                 *

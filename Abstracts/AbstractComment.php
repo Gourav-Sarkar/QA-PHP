@@ -7,6 +7,8 @@
 require_once 'Interfaces/VoteableInterface.php';
 //require_once 'traits/DependebleTrait.php';
 require_once 'Abstracts/AbstractContent.php';
+
+require_once 'Storages/VoteStorage.php';
 /**
  * Description of Comment
  *
@@ -18,12 +20,15 @@ abstract class AbstractComment extends AbstractContent
     //use DependebleTrait;
     //put your code here
     protected $dependency;
-    
+    protected $votes;
+
+
     public function __construct(AbstractContent $content)
     {
         parent::__construct();
         $this->dependency=new DependencyObject($content);
         $this->crud->setFieldCache((String) $content);
+        $this->votes=new VoteStorage('AbstractComment');
         //echo __METHOD__;
         //var_dump($this->fieldCache);
        

@@ -14,15 +14,26 @@ require_once 'Interfaces/XMLserializeble.php';
  *
  * @author Gourav Sarkar
  */
-abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble
-{
+abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble {
 
     //put your code here
     //use RenderbleTrait;
-    //protected $reference;
-    //protected $connection;
+    protected $storage_type;
+
+    /*
+     * @PARAM $objType must be a name of valid class
+     */
+
+    public function __construct($objType='') {
+        if (empty($this->storage_type)) {
+            $this->storage_type = $objType;
+        }
+        
+        assert('!empty($this->storage_type)');
+    }
 
     public function getHash($object) {
+        assert('$object instanceof ' . $this->storage_type);
         $id = $object->getID();
         //echo $id;
         //Ensure id is there
@@ -30,6 +41,9 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
         return (string) $id;
     }
 
+    /*
+     * @CAUTION Can break xml serialization
+     */
     public function __toString() {
         return get_class($this);
     }

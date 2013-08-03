@@ -17,6 +17,7 @@ class AnswerComment extends AbstractComment{
     {
         parent::__construct($answer);
         //echo __METHOD__;
+        $this->votes=new VoteStorage('AnswerComment');
         
     }
     

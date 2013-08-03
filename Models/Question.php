@@ -106,13 +106,13 @@ class Question
         /*
          * Set up a object storage for answer and comment list
          */
-        $this->answerList=new AnswerStorage();
-        $this->commentList=new CommentStorage();
-        $this->revisionList=new RevisionStorage();
-        $this->tagList=new tagStorage();
-        $this->votes=new VoteStorage();
+        $this->answerList=new AnswerStorage('Answer');
+        $this->commentList=new CommentStorage('QuestionComment');
+        $this->revisionList=new RevisionStorage('QuestionRevision');
+        $this->tagList=new tagStorage('tag');
+        $this->votes=new VoteStorage('QuestionVote');
         //
-        $this->revisions=new QuestionStorage();
+        $this->revisions=new QuestionStorage('Question');
         $this->selectedAnswer=new Answer($this);
         
         $this->observers=new RelayMediator();
@@ -350,7 +350,7 @@ class Question
     {
         //$calcFoundRows='';
         $totTag=0;
-        $questions = new QuestionStorage();
+        $questions = new QuestionStorage('Question');
         
         $query="
             SELECT

@@ -63,7 +63,7 @@ class Answer extends AbstractContent
         $this->dependency=new DependencyObject($ques);
         $this->crud->setFieldCache((string)$ques);
 
-        $this->commentList = new CommentStorage();
+        $this->commentList = new CommentStorage('AnswerComment');
     }
 
     public function addComment(AbstractComment $comment) {
@@ -87,7 +87,7 @@ class Answer extends AbstractContent
      */
     public static function listing(DatabaseInteractbleInterface $question, Pagination $pager = null) {
 
-        $answerStorage = new AnswerStorage();
+        $answerStorage = new AnswerStorage('Answer');
         // parent::get();
 
         /*
