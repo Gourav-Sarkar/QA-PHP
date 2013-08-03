@@ -15,14 +15,17 @@ require_once 'Pagination.php';
 require_once 'Answer.php';
 require_once 'QuestionComment.php';
 require_once 'AnswerComment.php';
-require_once 'AnswerStorage.php';
-require_once 'commentStorage.php';
-require_once 'RevisionStorage.php';
+
+
+require_once DOCUMENT_ROOT . 'Storages/AnswerStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/commentStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/RevisionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/QuestionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/tagStorage.php';
+
 require_once 'QuestionRevision.php';
 require_once 'tagQuestionMapper.php';
-require_once 'tagStorage.php';
 require_once 'QuestionVote.php';
-require_once 'QuestionStorage.php';
 require_once 'interfaces/RelayInterface.php';
 require_once 'QuestionCache.php';
 require_once 'RelayMediator.php';

@@ -8,7 +8,7 @@
 require_once "interfaces/CRUDLInterface.php";
 require_once "CRUDOBject.php";
 
-require_once 'models/ResourceStorage.php';
+require_once 'Storages/ResourceStorage.php';
 
 require_once 'databaseHandle.php';
 require_once 'models/Resource.php';

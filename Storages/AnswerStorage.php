@@ -15,12 +15,7 @@ class AnswerStorage extends AbstractContentObjectStorage{
    /*
     * Should constraint to only Answer Object later
     */
-    /*
-    public function getHash($object) {
-        return parent::getHash($object);
-    }
-     * 
-     */
+    
    
 }
 

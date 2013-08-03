@@ -12,7 +12,7 @@
  */
 require_once 'models/Question.php';
 require_once 'models/Notification.php';
-require_once 'models/NotificationStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/NotificationStorage.php';
 
 class QuestionController {
 

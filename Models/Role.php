@@ -11,7 +11,7 @@
  * User will be able to add more roles as needed and can give permission to access certain resource
  */
 require_once 'Abstracts/Abstractcontent.php';
-require_once 'models/PermissionStorage.php';
+require_once 'Storages/PermissionStorage.php';
 /**
  * Description of Role
  *

@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 require_once "Abstracts/AbstractContentObjectStorage.php";
-require_once 'tag.php';
+require_once 'models/tag.php';
 /**
  * Description of tagStorage
  *

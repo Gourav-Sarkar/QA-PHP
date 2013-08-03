@@ -15,10 +15,12 @@
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Pagination.php';
 require_once 'AnswerComment.php';
-require_once 'AnswerStorage.php';
-require_once 'commentStorage.php';
-require_once 'RevisionStorage.php';
-require_once 'QuestionStorage.php';
+
+require_once DOCUMENT_ROOT .'Storages/AnswerStorage.php';
+require_once DOCUMENT_ROOT .'Storages/commentStorage.php';
+require_once DOCUMENT_ROOT .'Storages/RevisionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/QuestionStorage.php';
+
 require_once 'interfaces/RenderbleInterface.php';
 require_once 'DependencyObject.php';
 //require_once 'traits/DependebleTrait.php';

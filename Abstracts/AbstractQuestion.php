@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractContent.php';
-require_once 'models/voteStorage.php';
+require_once 'Storages/voteStorage.php';
 require_once 'interfaces/VoteableInterface.php';
 /**
  * Description of AbstractQuestion

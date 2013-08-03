@@ -20,8 +20,9 @@ require_once 'interfaces/AuthenticationInterface.php';
 require_once 'Interfaces/XMLserializeble.php';
 
 
+require_once 'Storages/RoleStorage.php';
+
 require_once 'models/BaseObject.php';
-require_once 'models/RoleStorage.php';
 require_once 'models/RoleUserMapper.php';
 require_once 'models/Role.php';
 require_once 'Exception/PermissionDeniedException.php';
