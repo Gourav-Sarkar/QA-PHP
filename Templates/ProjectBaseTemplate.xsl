@@ -197,9 +197,9 @@
             <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
             <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
             
-            <xsl:if test="local-name($currentNode/dependency) ='dependency'">
-                <xsl:for-each select="$currentNode/dependency">
-                    <xsl:text>&amp;</xsl:text> <xsl:value-of select="local-name(.)" /> = <xsl:value-of select="$currentNode/dependency" />
+            <xsl:if test="local-name($currentNode/Dependency) ='Dependency'">
+                <xsl:for-each select="$currentNode/Dependency/*">
+                    <xsl:text>&amp;</xsl:text> <xsl:value-of select="local-name(.)" />=<xsl:value-of select="." />
                 </xsl:for-each>
             </xsl:if>
             </xsl:otherwise>
