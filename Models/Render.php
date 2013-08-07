@@ -92,11 +92,36 @@ class Render {
          */
         //$objRoot=$this->model->createElement((String))
 
+        
         /*
          * Append if there is model data
          */
+       $this->addSubModel($modelData);
+    }
+    
+    /*
+     * @todo should add attribute 'name' to distinguish same type of objects AKA same node name
+     */
+    public function addSubModel($modelData,$name=null)
+    {
+        $page=$this->model->documentElement;
+        assert('$page instanceof DOMElement');
+        
         if (!empty($modelData)) {
             $fragment = $this->model->createDocumentFragment();
+            
+            /*
+             * If there is name for model append the it as attribute
+             * It will help to distinguish different node which have same node name
+             */
+            if(!empty($name))
+            {
+                $nameAttr=$fragment->createAttribute("name");
+                $nameAttr->value=$name;
+                
+                $fragment->appendChild($nameAttr);
+            }
+            
             $fragment->appendXML($modelData);
 
             $page->appendChild($fragment);
