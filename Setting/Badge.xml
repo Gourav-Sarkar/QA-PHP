@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<badges>
+    <module name="question">
+        <action name="create">
+            <badge name="Enforcer">
+                <condition property="somePropertyofModuleQuestion">
+                    Value
+                </condition>
+            </badge>
+        
+        </action>
+        <action name="update">
+        
+        </action>
+        <action name="delete">
+        
+        </action>
+        <action name="flag">
+        
+        </action>
+        <action name="upvote">
+        
+        </action>
+        <action name="downvote">
+        
+        </action>
+        <action name="read">
+        
+        </action>
+    </module>
+    
+</badges>

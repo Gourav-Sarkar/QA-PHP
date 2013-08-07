@@ -59,7 +59,9 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
 
     public function AbstractContent() {
         $this->user = new User();
-        $this->setting = new SettingHandler($this);
+        
+        $this->setting = SettingHandler::initSettingHandler($this);
+        
         $this->crud = new CRUDobject($this);
 
 
@@ -239,7 +241,8 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     public function unserialize($serialized) {
         
         $this->user = new User();
-        $this->setting = new SettingHandler($this);
+        $this->setting = SettingHandler::initSettingHandler($this);
+        
         $this->crud = new CRUDobject($this);
         
         

@@ -19,16 +19,22 @@ Each module could have seperate setting file to include
                 <appKey type="string">73a48848a53a948e6f78fd96448406e1</appKey>
             </facebook>
             
-            <facebook meta="Intigrate twitter application with the system">
-                <appID></appID>
-                <appKey></appKey>
-            </facebook>
-            
             <google meta="Intigrate google plus group with the system">
-                <appID></appID>
-                <appKey></appKey>
+                <!-- 
+                # endpoint: api.sandbox.paypal.com 
+                # Test account: gourav.sarkar13-facilitator@yahoo.com
+                -->
+                <appID>AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
+                <appKey>ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
             </google>
         </social>
+        
+        <merchent>
+            <paypal>
+                <appID></appID>
+                <appKey></appKey>
+            </paypal>
+        </merchent>
     </core>
     
     <file type="module">
