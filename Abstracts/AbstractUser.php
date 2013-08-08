@@ -265,7 +265,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         session_regenerate_id(true);
 
 
-        $_SESSION['self'] = $this;
+        $_SESSION['self'] = serialize($this);
         
         /*
         $data=session_encode();
@@ -376,12 +376,14 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
             $user = new User();
             //$user->addRole($role);
             
-            $_SESSION['self']=$user;
+            $_SESSION['self']=serialize($user);
+            
+            return $user; //Reduce session write count
         }
         /*
          */
 
-        return $_SESSION['self'];
+        return unserialize($_SESSION['self']);
     }
 
     public function updateReputation() {
