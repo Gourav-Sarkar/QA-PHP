@@ -18,19 +18,17 @@ class SettingHandler {
 
     private static $singleInstance;
     private $settingObject;
-    private $module;
 
-    public static function initSettingHandler(AbstractContent $tobj) {
+    public static function initSettingHandler() {
 
         //If settingHandler is not initialized do the initialization
         if (!static::$singleInstance instanceof SettingHandler) {
-            static::$singleInstance = new SettingHandler($tobj);
+            static::$singleInstance = new SettingHandler();
 
             static::$singleInstance->settingObject = new SimpleXMLElement(SETTING_ROOT . 'setting.xml', NULL, TRUE);
         }
         
         //new or old object Reference for object setting should be changed everytime
-        static::$singleInstance->module = (string) $tobj;
         
         return static::$singleInstance;
     }
@@ -39,12 +37,16 @@ class SettingHandler {
      * @todo Should have throw exception in case of noNodefound error
      */
 
-    public function get($node) {
+    public function get($xpath) {
         //if node not found throw exception
         //var_dump($this->module, $node);
-        assert('!empty($this->module)');
+        $settingList= $this->settingObject->xpath($xpath);
+        
+        //Ensure unique setting per module
+        //var_dump(count($settingList));
+        assert('count($settingList) == 1');
 
-        return (string) $this->settingObject->{$this->module}->$node;
+        return (string) $settingList[0];
     }
 
     /*

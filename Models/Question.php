@@ -204,9 +204,8 @@ class Question
     
     public function addComment(AbstractComment $comment)
     {
-        //echo($this->setting->get('commentEnable'));
         //Check Setting for adding commentss
-        if(!$this->setting->get('commentEnable'))
+        if(!$this->setting->get("$this/commentEnable"))
         {
             //Debug purpose
             //trigger_error('Comenting closed by admin');
