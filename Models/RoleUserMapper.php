@@ -84,32 +84,42 @@ class RoleUserMapper implements CRUDLInterface {
                 //*/
 
 
+
+                /*
+                 * Permission object is actually role resource mapper with granted permission
+                 */
+                //If role is already fetched get the resource and permission
+                //$roles->attach($role,$role);   
+
+
+                $perm = new permission();
+                $perm->setResource($res);
+                $perm->setPermission((bool) $data['permission']); //cast to false on invalid data
+                //$perm->setRole($role); /* Permission does not need to know role */
+
+                /*
+                 * Make permission list on each iteration
+                 */
+                $permissions->attach($perm, $perm);
+            }
+
+            /*
+             * No matter role has permission or resource still it needs to enlist
+             * for general information showing
+             */
+
             $role = new Role();
             $role->setID($data['role_id']);
             $role->setTitle($data['role_title']);
-            /*
-             * Permission object is actually role resource mapper with granted permission
-             */
-            //If role is already fetched get the resource and permission
-            //$roles->attach($role,$role);   
-
-
-            $perm = new permission();
-            $perm->setResource($res);
-            $perm->setPermission((bool) $data['permission']);
-            //$perm->setRole($role); /* Permission does not need to know role */
-
-            /*
-             * Make permission list on each iteration
-             */
-            $permissions->attach($perm, $perm);
-            }
+            
             
             /*
              * Store it in rolestorge
              * First always add role to role storage
              * It will overwrite any role
              */
+            //var_dump('role BP' ,$role);
+
             if (!$roles->contains($role)) {
                 $roles->attach($role, $role);
             }

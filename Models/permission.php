@@ -13,6 +13,7 @@ require_once 'Storages/ResourceStorage.php';
 require_once 'databaseHandle.php';
 require_once 'models/Resource.php';
 require_once 'models/Role.php';
+require_once 'models/baseObject.php';
 
 /**
  * Description of permission
@@ -22,7 +23,7 @@ require_once 'models/Role.php';
  * @toDo Permission table has role object in database. Database permission table more of
  *  a mapper which map permission and resource
  */
-class permission implements CRUDLInterface{
+class permission extends BaseObject implements CRUDLInterface{
     //put your code here
     
     

@@ -1,17 +1,17 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 require_once 'Interfaces/CRUDLInterface.php';
 require_once 'models/CRUDobject.php';
+require_once 'models/BaseObject.php';
 /**
  * Description of Resource
  * @todo possible issue with case sensivity []
  * @author Gourav Sarkar
  */
-class Resource implements CRUDLInterface{
+class Resource extends BaseObject implements CRUDLInterface{
     
     //In favor PHP 5.3 compatible
     //use CRUDLTrait;
