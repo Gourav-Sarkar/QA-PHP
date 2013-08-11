@@ -38,7 +38,7 @@ class Role extends AbstractContent{
      */
     public function addPermission(Permission $permission)
     {
-        $this->permissions->attach($permission,$permission);
+        $this->permissions->attach($permission);
     }
     public function setPermissions(PermissionStorage $permission)
     {

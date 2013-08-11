@@ -4,13 +4,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Abstracts/AbstractPseudoObjectStorage.php';
 /**
  * Description of PermissionStorage
  *
  * @author Gourav Sarkar
  */
-class PermissionStorage extends SplObjectStorage{
+class PermissionStorage extends AbstractPseudoObjectStorage{
     //put your code here
     
     /*
@@ -33,12 +33,7 @@ class PermissionStorage extends SplObjectStorage{
         
         
         
-        return (string)sprintf('%s',$resourceID);
-    }
-    
-    public function attach($object, $data = null) {
-        var_dump(__METHOD__);
-        parent::attach($object, $data);
+        return (string) $resourceID;
     }
 }
 

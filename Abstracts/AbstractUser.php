@@ -109,7 +109,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
       $this->crud->setFieldCache("name");
       $this->name=$name;
       }
-     * 
+     *  
      */
 
     public function setNick($nick) {
@@ -237,15 +237,15 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         try {
             $this->hash();
             $this->crud->softRead();
-            //$this->setRoles(RoleUserMapper::listing($this));
+            var_dump('roles list',RoleUserMapper::listing($this));
+            $this->setRoles(RoleUserMapper::listing($this));
             //$this->addRole($defaultrole);
             //$this->setRoles($rs);
 
-            var_dump("Roles", $this->getRoles()->count());
+            //var_dump('object ok',$this);
         } catch (NoEntryFoundException $e) {
             throw new NoEntryFoundException("Wrong user Credentials");
         }
-
 
 
 
@@ -265,8 +265,10 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         session_regenerate_id(true);
 
 
-        $_SESSION['self'] = serialize($this);
-        
+        $_SESSION['self'] = $this;
+        var_dump('Serialize before',$this);
+        var_dump('Serialize after',$_SESSION['self']);
+        var_dump('unserialize',$_SESSION['self']);
         /*
         $data=session_encode();
         var_dump($data);
@@ -376,14 +378,14 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
             $user = new User();
             //$user->addRole($role);
             
-            $_SESSION['self']=serialize($user);
+            $_SESSION['self']=$user;
             
             return $user; //Reduce session write count
         }
         /*
          */
 
-        return unserialize($_SESSION['self']);
+        return $_SESSION['self'];
     }
 
     public function updateReputation() {

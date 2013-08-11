@@ -96,11 +96,11 @@ try
 {
     //User::getActiveUser()->hasPermission($resource); //Throw Permission denied
     $resource->get();
-    var_dump(User::getActiveUser());
+    //var_dump(User::getActiveUser());
 }
  catch (PermissionDeniedException $e)
  {
-    //var_dump($e->getMessage());
+    var_dump($e->getMessage());
     
     /*
     if($resource->getModule()=='adminpanel')
@@ -115,7 +115,7 @@ try
      */
     $resource->get();
  } 
- 
+// var_dump(User::getActiveUser());
  
 //*/
 
