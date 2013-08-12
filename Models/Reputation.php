@@ -17,7 +17,6 @@ require_once 'DefaultSettingObject.php';
  */
 class Reputation extends AbstractContent
     implements SplObserver
-               ,Serializable
 {
     
     //put your code here
@@ -156,16 +155,6 @@ class Reputation extends AbstractContent
         $this->reputation=$rep;
     }
     
-    public function serialize() {
-        //unset($this->settiing);
-        var_dump("Serializing....");
-        return serialize($this);
-    }
-    
-    public function unserialize($serialized) {
-        var_dump("UnSerializing....");
-        self::__construct();
-    }
     
     /*
      * update reputation cache of user

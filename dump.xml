@@ -16,6 +16,7 @@
 <auth/>
 </user><time>1369886584</time>
 <content>comment adding</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <answer>1</answer>
@@ -31,6 +32,7 @@
 <auth/>
 </user><time>1370312431</time>
 <content>comment adding twice</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <answer>1</answer>
@@ -46,6 +48,7 @@
 <auth/>
 </user><time>1370332179</time>
 <content>adding comment 2</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <answer>1</answer>
@@ -61,6 +64,7 @@
 <auth/>
 </user><time>1375950288</time>
 <content>cm</content>
+<setting/>
 <removed/>
 </comment></CommentStorage><VoteStorage><votes>0</votes>
 <storage_type>AnswerCommentVote</storage_type>
@@ -77,6 +81,7 @@
 </user><time/>
 <content>    Answering question&#13;
     </content>
+<setting/>
 <removed/>
 </answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
 <comment><Dependency>
@@ -93,6 +98,7 @@
 <auth/>
 </user><time>1374462753</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <answer>2</answer>
@@ -108,6 +114,7 @@
 <auth/>
 </user><time>1374462777</time>
 <content>adding comment again</content>
+<setting/>
 <removed/>
 </comment></CommentStorage><VoteStorage><votes>0</votes>
 <storage_type>AnswerCommentVote</storage_type>
@@ -124,6 +131,7 @@
 </user><time/>
 <content>    Answering question again&#13;
     </content>
+<setting/>
 <removed/>
 </answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
 </CommentStorage><VoteStorage><votes>0</votes>
@@ -141,6 +149,7 @@
 </user><time/>
 <content>    Answering question 2&#13;
      </content>
+<setting/>
 <removed/>
 </answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
 </CommentStorage><VoteStorage><votes>0</votes>
@@ -158,6 +167,7 @@
 </user><time/>
 <content>                Answering question&#13;
             3456</content>
+<setting/>
 <removed/>
 </answer></AnswerStorage><CommentStorage><storage_type>QuestionComment</storage_type>
 <comment><Dependency>
@@ -174,6 +184,7 @@
 <auth/>
 </user><time>1369884793</time>
 <content>&lt;b&gt;commenting&lt;/b&gt;</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -189,6 +200,7 @@
 <auth/>
 </user><time>1371052949</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -204,6 +216,7 @@
 <auth/>
 </user><time>1371052977</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -219,6 +232,7 @@
 <auth/>
 </user><time>1371052982</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -234,6 +248,7 @@
 <auth/>
 </user><time>1371053542</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -249,6 +264,7 @@
 <auth/>
 </user><time>1371053773</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -264,6 +280,7 @@
 <auth/>
 </user><time>1371053891</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -279,6 +296,7 @@
 <auth/>
 </user><time>1371053927</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -294,6 +312,7 @@
 <auth/>
 </user><time>1371053957</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -309,6 +328,7 @@
 <auth/>
 </user><time>1371054026</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -324,6 +344,7 @@
 <auth/>
 </user><time>1371054129</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -339,6 +360,7 @@
 <auth/>
 </user><time>1371054708</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -354,6 +376,7 @@
 <auth/>
 </user><time>1371055003</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -369,6 +392,7 @@
 <auth/>
 </user><time>1371055701</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -384,6 +408,7 @@
 <auth/>
 </user><time>1371055782</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -399,6 +424,7 @@
 <auth/>
 </user><time>1371055820</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -414,6 +440,7 @@
 <auth/>
 </user><time>1371069982</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -429,6 +456,7 @@
 <auth/>
 </user><time>1371070524</time>
 <content>adding comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -444,6 +472,7 @@
 <auth/>
 </user><time>1371104412</time>
 <content>add</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -459,6 +488,7 @@
 <auth/>
 </user><time>1374644265</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -474,6 +504,7 @@
 <auth/>
 </user><time>1374644266</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -489,6 +520,7 @@
 <auth/>
 </user><time>1374644330</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -504,6 +536,7 @@
 <auth/>
 </user><time>1374644333</time>
 <content>comment</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -519,6 +552,7 @@
 <auth/>
 </user><time>1375950790</time>
 <content>ads</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -534,6 +568,7 @@
 <auth/>
 </user><time>1375950915</time>
 <content>ads</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -549,6 +584,7 @@
 <auth/>
 </user><time>1375951002</time>
 <content>sadwasaw</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -564,6 +600,7 @@
 <auth/>
 </user><time>1375956159</time>
 <content>sdaw</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -579,6 +616,7 @@
 <auth/>
 </user><time>1375956269</time>
 <content>saew</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -594,6 +632,7 @@
 <auth/>
 </user><time>1375956305</time>
 <content>saew</content>
+<setting/>
 <removed/>
 </comment><comment><Dependency>
  <question>1</question>
@@ -609,6 +648,7 @@
 <auth/>
 </user><time>1375956328</time>
 <content>saew</content>
+<setting/>
 <removed/>
 </comment></CommentStorage><RevisionStorage><storage_type>QuestionRevision</storage_type>
 </RevisionStorage><tagStorage><storage_type>tag</storage_type>
@@ -625,6 +665,7 @@
 <auth/>
 </user><time/>
 <content/>
+<setting/>
 <removed/>
 </tag></tagStorage><selectedAnswer/>
 <pager/>
@@ -641,6 +682,7 @@
 <auth/>
 </user><time>1369884763</time>
 <content>ASking  questionASking  questionASking  questionASking  questionASking  questionASking  questionASking  questionASking  question</content>
+<setting/>
 <removed>0</removed>
 <QuestionStorage><storage_type>Question</storage_type>
 </QuestionStorage></question></page>

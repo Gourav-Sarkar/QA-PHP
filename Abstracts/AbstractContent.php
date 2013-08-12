@@ -31,6 +31,9 @@ require_once 'interfaces/XMLserializeble.php';
  * Must have time of object spawn
  * Must have a Textual content
  * @author Gourav Sarkar
+ * 
+ * @issue Serializeble interface is breaking the serialization process in
+ *  child methods-Fails session serialization
  */
 abstract class AbstractContent extends BaseObject implements CRUDLInterface
 , XMLSerializeble
@@ -57,10 +60,10 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     protected $crud;
     protected $removed=false; //Every content can be removed softly
 
-    public function AbstractContent() {
+    public function __construct() {
         $this->user = new User();
         
-        $this->setting = SettingHandler::initSettingHandler($this);
+        //$this->setting = SettingHandler::initSettingHandler($this);
         
         $this->crud = new CRUDobject($this);
 
@@ -235,18 +238,12 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     
     public function serialize() {
         unset($this->setting);
-        serialize($this);
+        
+        return serialize($this);
     }
     
     public function unserialize($serialized) {
-        
-        $this->user = new User();
-        $this->setting = SettingHandler::initSettingHandler($this);
-        
-        $this->crud = new CRUDobject($this);
-        
-        
-        unserialize($serialized);
+        static::__construct();
     }
 }
 
