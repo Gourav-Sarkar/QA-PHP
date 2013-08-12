@@ -36,6 +36,7 @@ class Tag extends AbstractContent{
         return $this->name;
     }
     
+    /*
     public function getQuestion()
     {
         return $this->dependency;
@@ -45,6 +46,8 @@ class Tag extends AbstractContent{
     {
         return $this->dependency->getLink("getList")."&amp;tags[]={$this->name}";
     }
+     * 
+     */
     
    
     

@@ -151,6 +151,8 @@ class Question
     
     /*
      * @PARAM $tags comma seperated string 
+     * @todo Verify tag do exists in database which is being mapped. mysql error
+     *  1452
      */
     public function setTags($tags)
     {
@@ -257,11 +259,33 @@ class Question
     
     public function create()
     {
-        
+        //Call parent Constructor
         parent::create();
         
+        /*
+         * Create the tag map of the question
+         */
+        try
+        {
         $tagMap=new TagQuestionMapper($this);
         $tagMap->create();
+        }
+        catch(PDOException $e)
+        {
+            /*
+             * If foreign key constraints fails in 'TAG' column, That means that specified
+             * Tag is not available anymore.
+             * Either create that tag and try once more
+             *      User can create tag if certain rules and permission is true
+             * Or throw Some error and skip that insertion
+             * @Details TagQuestionMapper
+             */
+            //sscanf($e->getMessage(), " %s FOREIGN KEY (`%s`) REFERENCES `tag` (`name`) %s", $foo,$columnName,$bar);
+            var_dump('Exception error',$e->getMessage());
+        }
+        
+        
+        
         /*
         $cache =new QuestionCache($this);
         $cache->create();

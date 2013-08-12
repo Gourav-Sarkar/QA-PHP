@@ -145,6 +145,7 @@ class QuestionController {
             //$question->updateView();
 
             $this->view->setModel($question->xmlSerialize());
+            //$this->view->addSubModel(new Tag($reference));
             $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
             echo $this->view->render();
 
