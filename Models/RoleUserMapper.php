@@ -82,10 +82,6 @@ class RoleUserMapper implements CRUDLInterface {
              */
             //var_dump('role BP' ,$role);
 
-            if (!$roles->contains($role)) {
-                $roles->attach($role, $role);
-            }
-
 
             /*
              * Every data set has resource data
@@ -100,41 +96,45 @@ class RoleUserMapper implements CRUDLInterface {
 
             //if($roles->contains($role))
 
-            if (!empty($data['resource_id'])) {
-                $res = new Resource();
-                $res->setAction($data['action']);
-                $res->setModule($data['module']);
-                $res->setID($data['resource_id']);
-                //*/
+            $res = new Resource();
+            $res->setAction($data['action']);
+            $res->setModule($data['module']);
+            $res->setID($data['resource_id']);
+            //*/
 
 
 
-                /*
-                 * Permission object is actually role resource mapper with granted permission
-                 */
-                //If role is already fetched get the resource and permission
-                //$roles->attach($role,$role);   
+            /*
+             * Permission object is actually role resource mapper with granted permission
+             */
+            //If role is already fetched get the resource and permission
+            //$roles->attach($role,$role);   
 
 
-                $perm = new permission();
-                $perm->setResource($res);
-                $perm->setPermission((bool) $data['permission']); //cast to false on invalid data
-                //$perm->setRole($role); /* Permission does not need to know role */
+            $perm = new permission();
+            $perm->setResource($res);
+            $perm->setPermission((bool) $data['permission']); //cast to false on invalid data
+            //$perm->setRole($role); /* Permission does not need to know role */
 
-                /*
-                 * Make permission list on each iteration
-                 */
-                $permissions->attach($perm);
-                
-                //var_dump($permissions);
-                
-                /*
-                 * add permission list to role where role matches
-                 * Role should be pulled from roleStorage
-                 */
-                //var_dump($roles->offsetGet($role));
-                $roles->offsetGet($role)->setPermissions($permissions);
+            /*
+             * Make permission list on each iteration
+             */
+
+            //$permissions->attach($perm);
+            //var_dump($permissions);
+
+            /*
+             * add permission list to role where role matches
+             * Role should be pulled from roleStorage
+             */
+            //var_dump($roles->offsetGet($role));
+            
+            if (!$roles->contains($role)) {
+                $roles->attach($role, $role);
             }
+
+            $roles->offsetGet($role)->addPermission($perm);
+            
 
 
 
@@ -150,9 +150,8 @@ class RoleUserMapper implements CRUDLInterface {
         }
 
         //var_dump("Count roles", $roles->count());
-        
         //var_dump($roles);
-        
+
         return $roles;
     }
 
