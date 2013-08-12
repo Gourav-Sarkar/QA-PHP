@@ -245,6 +245,20 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     public function unserialize($serialized) {
         static::__construct();
     }
+    
+    /*
+     * @todo part of database interactble interface
+     */
+    public function getStrcuture()
+    {
+        
+        array_filter(get_object_vars($this),function($property)
+                                            {
+            return $property instanceof DatabaseInteractbleInterface || !is_object($property);
+                                            }
+        
+                                    );
+    }
 }
 
 ?>
