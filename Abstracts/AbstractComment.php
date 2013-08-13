@@ -20,15 +20,16 @@ abstract class AbstractComment extends AbstractContent
     //use DependebleTrait;
     //put your code here
     protected $dependency;
+    
     protected $votes;
-
+    protected $hasVoted=false;
 
     public function __construct(AbstractContent $content)
     {
         parent::__construct();
         $this->dependency=new DependencyObject($content);
         $this->crud->setFieldCache((String) $content);
-        $this->votes=new VoteStorage('AbstractComment');
+        //$this->votes=new VoteStorage('AbstractComment');
         //echo __METHOD__;
         //var_dump($this->fieldCache);
        
@@ -47,6 +48,23 @@ abstract class AbstractComment extends AbstractContent
      public function __toString() {
         return 'comment';
     } 
+    
+    public function setVotes($votes)
+    {
+        $this->votes=$votes;
+    }
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+    public function setHasVoted($isVoted)
+    {
+        $this->hasVoted=(bool)$isVoted;
+    }
+    public function getHasVoted()
+    {
+        return $this->hasVoted;   
+    }
     
     
    

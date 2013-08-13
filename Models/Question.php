@@ -207,12 +207,15 @@ class Question
     public function addComment(AbstractComment $comment)
     {
         //Check Setting for adding commentss
+        /*
         if(!$this->setting->get("$this/commentEnable"))
         {
             //Debug purpose
             //trigger_error('Comenting closed by admin');
             throw new PermissionDeniedException("Commenting is closed by admin");
         }
+         * 
+         */
         
         //Create Comment
         $comment->create();

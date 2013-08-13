@@ -43,9 +43,12 @@ class Answer extends AbstractContent
     //put your code here
     //Object array or object storage
     private $commentList;
-    private $votes;
     private $dependency;
-
+    
+    
+    private $hasVoted=false;
+    private $votes;
+    
     /* Give answer to certain question
      *  An answer does not exist unless its parent class does not exist (eg question). So there should be a question before you create
      *  an answer
@@ -64,9 +67,27 @@ class Answer extends AbstractContent
         $this->crud->setFieldCache((string)$ques);
 
         $this->commentList = new CommentStorage('AnswerComment');
-        $this->votes=new VoteStorage('AnswerCommentVote');
+        //$this->votes=new VoteStorage('AnswerCommentVote');
     }
 
+      
+    public function setVotes($votes)
+    {
+        $this->votes=$votes;
+    }
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+    public function setHasVoted($isVoted)
+    {
+        $this->hasVoted=(bool)$isVoted;
+    }
+    public function getHasVoted()
+    {
+        return $this->hasVoted;   
+    }
+    
     public function addComment(AbstractComment $comment) {
         //Change it to object storage for better object handling
         $this->commentList->attach($comment, $comment);
@@ -99,33 +120,49 @@ class Answer extends AbstractContent
         $query = "
                 SELECT
                 Answer.*
+                ,answerComment.*
                 ,AC.id AS commentID
                ,AC.content AS commentContent
                ,AC.time AS commentTime
                FROM
                 (
-                SELECT
-                A.id AS id
-               ,A.content
-               ,A.time
-               ,A.question
-               ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
-               ,AVselfVote.user AS selfVote
-                FROM question AS Q
-                LEFT OUTER JOIN Answer AS A
-                ON Q.id=A.question
-                LEFT OUTER JOIN AnswerVote AS AV
-                ON AV.answer=A.id
-                LEFT OUTER JOIN AnswerVote AS AVselfVote
-                ON AVselfVote.answer=A.id AND AVselfVote.user=14
-                WHERE A.question=30
-                GROUP BY A.id
+                    SELECT
+                    A.id AS answerID
+                    ,A.content
+                    ,A.time
+                    ,A.question
+                    ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
+                    ,AVselfVote.user AS selfVote
+                    FROM question AS Q
+                    LEFT OUTER JOIN Answer AS A
+                    ON Q.id=A.question
+                    LEFT OUTER JOIN AnswerVote AS AV
+                    ON AV.answer=A.id
+                    LEFT OUTER JOIN AnswerVote AS AVselfVote
+                    ON AVselfVote.answer=A.id AND AVselfVote.user= ?
+                    WHERE A.question= ?
+                    GROUP BY A.id
                 )
                 AS Answer
                LEFT OUTER JOIN
                AnswerComment AS AC
-               ON AC.answer=Answer.id
-                WHERE Answer.question=30
+               ON AC.answer=Answer.answerID
+                LEFT OUTER JOIN
+               (
+                    SELECT
+                    ACV.comment
+                    ,ACV.id
+                    ,COUNT(ACV.id) AS answerCommentVote         #strategy
+                     ,ACVselfVote.user AS answerCommentselfVote
+                     FROM
+                     AnswerCommentVote AS ACV
+                     LEFT OUTER JOIN AnswerCommentVote AS ACVselfVote
+                     ON ACV.id=ACVselfVote.id AND ACV.user= ?
+                     GROUP BY ACV.comment
+                )
+                AS answerComment
+                ON AnswerComment.comment=AC.id
+                WHERE Answer.question= ?
                 ";
 
         /*
@@ -133,28 +170,39 @@ class Answer extends AbstractContent
         //Debug test
         //$query="SELECT * FROM answer";
 
+        var_dump($query,$question->getid(),User::getActiveUser()->getID());
+        
         $stmt =  DatabaseHandle::getConnection()->prepare($query);
-        $stmt->bindValue(1, $question->getid());
-        $stmt->execute();
+        $stmt->execute(array(
+                        User::getActiveUser()->getID()
+                        ,$question->getid()
+                        ,User::getActiveUser()->getID()
+                        ,$question->getid()
+        ));
 
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
         //$i=$j=0;
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            //var_dump('data',$data);
+            var_dump('Answer data',$data);
             //Setup answer
 
             $answer = new Answer($question);
-            $answer->setID($data['id']);
+            $answer->setID($data['answerID']);
             $answer->setContent($data['content']);
+            $answer->setVotes($data['answerVote']);
+            $answer->setHasVoted($data['answerCommentVote']);
+
             //$answer->setContent($data['time']);
             //get comments
 
-            $comments = new AnswerComment($answer);
-            $comments->setID($data['commentID']);
-            $comments->setContent($data['commentContent']);
-            $comments->setTime($data['commentTime']);
+            $comment = new AnswerComment($answer); 
+            $comment->setID($data['commentID']);
+            $comment->setContent($data['commentContent']);
+            $comment->setTime($data['commentTime']);
+            $comment->setVotes($data['answerCommentVote']);
+            $comment->setHasVoted($data['answerCommentselfVote']);
 
             //$meta=$stmt->getColumnMeta(2);
             //var_dump($meta);
@@ -172,8 +220,8 @@ class Answer extends AbstractContent
                 //echo ++$j . 'Distinct entries <br/>';
             }
 
-            if ($comments->getID() != NULL) {
-                $answerStorage->offsetGet($answer)->addComment($comments);
+            if ($comment->getID() != NULL) {
+                $answerStorage->offsetGet($answer)->addComment($comment);
             }
         }
         /*
