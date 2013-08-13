@@ -46,7 +46,7 @@
     <xsl:include  href='staticTemplate.xsl'/>
     
     
-    <xsl:template match="page">
+    <xsl:template match="pageRoot">
         <xsl:choose>
             <xsl:when test="current()/@mode='FRAGMENT'">
             <xsl:call-template name="document-fragment"></xsl:call-template>

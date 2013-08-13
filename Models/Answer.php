@@ -86,7 +86,7 @@ class Answer extends AbstractContent
      * @todo IT now fetches comment all togeteher. It can be replaced with
      * two query
      */
-    public static function listing(DatabaseInteractbleInterface $question, Pagination $pager = null) {
+    public static function listing(DatabaseInteractbleInterface $question) {
 
         $answerStorage = new AnswerStorage('Answer');
         // parent::get();
@@ -96,19 +96,37 @@ class Answer extends AbstractContent
          * 
          */
 
-        $query = "SELECT 
-               A.id
-               ,A.content
-               ,A.time
-               ,AC.id AS commentID
+        $query = "
+                SELECT
+                Answer.*
+                ,AC.id AS commentID
                ,AC.content AS commentContent
                ,AC.time AS commentTime
+               FROM
+                (
+                SELECT
+                A.id AS id
+               ,A.content
+               ,A.time
+               ,A.question
+               ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
+               ,AVselfVote.user AS selfVote
                 FROM question AS Q
                 LEFT OUTER JOIN Answer AS A
                 ON Q.id=A.question
-                LEFT OUTER JOIN AnswerComment AS AC
-                ON A.id=AC.answer
-                WHERE A.question=?";
+                LEFT OUTER JOIN AnswerVote AS AV
+                ON AV.answer=A.id
+                LEFT OUTER JOIN AnswerVote AS AVselfVote
+                ON AVselfVote.answer=A.id AND AVselfVote.user=14
+                WHERE A.question=30
+                GROUP BY A.id
+                )
+                AS Answer
+               LEFT OUTER JOIN
+               AnswerComment AS AC
+               ON AC.answer=Answer.id
+                WHERE Answer.question=30
+                ";
 
         /*
          */
@@ -124,7 +142,7 @@ class Answer extends AbstractContent
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            //var_dump($data);
+            //var_dump('data',$data);
             //Setup answer
 
             $answer = new Answer($question);

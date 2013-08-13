@@ -315,7 +315,7 @@ class CRUDobject implements CRUDLInterface {
 
     public function read() {
         
-        var_dump('Object strcut',$this->dependency->getStructure());
+        var_dump('Object strcut',$this->dependency->getStrcuture());
         
         $reference = array();
         //echo __CLASS__;

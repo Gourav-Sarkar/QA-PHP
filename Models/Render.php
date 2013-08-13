@@ -61,7 +61,7 @@ class Render {
 
         //$node=$this->model->createDocumentFragment()->appendXml($modelData);
 
-        $page = $this->model->createElement('page');
+        $page = $this->model->createElement('pageRoot');
 
 
         /*

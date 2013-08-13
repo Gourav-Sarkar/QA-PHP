@@ -251,13 +251,18 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
      */
     public function getStrcuture()
     {
+        var_dump(get_object_vars($this));
+        $structure=get_object_vars($this);
         
-        array_filter(get_object_vars($this),function($property)
+        $structure=array_filter($structure,function($property)
                                             {
-            return $property instanceof DatabaseInteractbleInterface || !is_object($property);
+                    var_dump($property);
+                                                return $property instanceof DatabaseInteractbleInterface or !is_object($property);
                                             }
         
                                     );
+                                    
+                                    return $structure;
     }
 }
 

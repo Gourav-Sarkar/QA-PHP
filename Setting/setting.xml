@@ -88,6 +88,14 @@ Each module could have seperate setting file to include
         </target>
     </notification>
     
+    <flag type="module">
+        <falgReason>
+            <reason id="1">
+                <name>Offensive</name>
+            </reason>
+        </falgReason>
+    </flag>
+    
     <!--
     Notiification used to notify user if some action is taken on some object
     So it is good to atatch notification message attached to either object or objectController AKA action
