@@ -42,7 +42,6 @@ class UserController {
         var_dump($this->user);
         
         $this->view->setModel($this->user->xmlSerialize());
-        $this->view->setDumper('dumper.xml');
         echo $this->view->Render();
         
     }
