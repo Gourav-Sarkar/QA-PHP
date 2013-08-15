@@ -147,6 +147,7 @@ class Render {
         /*
          * Debug dumper
          */
+       $this->setDumper('dump.xml');
         $this->dump($this->model->saveXMl());
     }
 

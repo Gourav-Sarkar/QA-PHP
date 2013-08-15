@@ -58,6 +58,29 @@ class XMLSerialize implements XMLSerializeble {
                 $this->xmlResource->writeRaw($propertyData->xmlSerialize());
             } elseif (!is_object($propertyData)) {
                 //echo " Setting scalar data";
+                
+                /*
+                 * @NeedThinking
+                 * Handle Boolean value. As False does not get printed it needs to
+                 * convey its value. Boolean equivalant 1 or 0
+                 * 
+                 * Reason for commented:
+                 * Though it is intended for XSLT stylesheet it may not be nesacry to do this
+                 * As XSLT false represents empty nodes
+                 */
+                /*
+                if(is_bool($propertyData))
+                {
+                    $propertyData=1;
+                    if(!$propertyData)
+                    {
+                        $propertyData=0;
+                    }
+                }
+                 * 
+                 */
+                
+                
                 $this->xmlResource->writeElement($property->getName(), $propertyData);
             } elseif ($propertyData instanceof DependencyObject) {
                 $this->xmlResource->startElement("Dependency");

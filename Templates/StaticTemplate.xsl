@@ -14,7 +14,7 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
-    <xsl:template match="page[@static='staticUserLogin']" mode="static">
+    <xsl:template match="pageRoot[@static='staticUserLogin']" mode="static">
         <div class="container-fluid">
             <div class="row-fluid offset2 span8">
                 <div class="row-fluid offset1 span4">

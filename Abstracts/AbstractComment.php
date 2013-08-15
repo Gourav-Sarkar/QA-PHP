@@ -22,24 +22,21 @@ abstract class AbstractComment extends AbstractContent
     protected $dependency;
     
     protected $votes;
-    protected $hasVoted=false;
 
     public function __construct(AbstractContent $content)
     {
         parent::__construct();
         $this->dependency=new DependencyObject($content);
         $this->crud->setFieldCache((String) $content);
-        //$this->votes=new VoteStorage('AbstractComment');
+        $this->votes=new VoteStorage('AbstractComment');
+        
         //echo __METHOD__;
         //var_dump($this->fieldCache);
        
     }
-    public function upVote($vote){
-        
-    }
-     public function downVote($vote){
-        
-    }
+    
+    
+    
     /*
      * Overidden
      * It will be changed to parent method when derived classes will need seperate
@@ -49,21 +46,24 @@ abstract class AbstractComment extends AbstractContent
         return 'comment';
     } 
     
-    public function setVotes($votes)
+    
+    
+    
+    
+    public function upVote( $vote){
+        
+    }
+     public function downVote( $vote){
+        
+    }
+    
+    public function setVotes(VoteStorage $votes)
     {
         $this->votes=$votes;
     }
     public function getVotes()
     {
         return $this->votes;
-    }
-    public function setHasVoted($isVoted)
-    {
-        $this->hasVoted=(bool)$isVoted;
-    }
-    public function getHasVoted()
-    {
-        return $this->hasVoted;   
     }
     
     

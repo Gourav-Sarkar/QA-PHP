@@ -45,8 +45,6 @@ class Answer extends AbstractContent
     private $commentList;
     private $dependency;
     
-    
-    private $hasVoted=false;
     private $votes;
     
     /* Give answer to certain question
@@ -67,25 +65,17 @@ class Answer extends AbstractContent
         $this->crud->setFieldCache((string)$ques);
 
         $this->commentList = new CommentStorage('AnswerComment');
-        //$this->votes=new VoteStorage('AnswerCommentVote');
+        $this->votes=new VoteStorage('AnswerCommentVote');
     }
 
       
-    public function setVotes($votes)
+    public function setVotes(VoteStorage $votes)
     {
         $this->votes=$votes;
     }
     public function getVotes()
     {
         return $this->votes;
-    }
-    public function setHasVoted($isVoted)
-    {
-        $this->hasVoted=(bool)$isVoted;
-    }
-    public function getHasVoted()
-    {
-        return $this->hasVoted;   
     }
     
     public function addComment(AbstractComment $comment) {
@@ -132,7 +122,7 @@ class Answer extends AbstractContent
                     ,A.time
                     ,A.question
                     ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
-                    ,AVselfVote.user AS selfVote
+                    ,AVselfVote.user AS answerSelfVote
                     FROM question AS Q
                     LEFT OUTER JOIN Answer AS A
                     ON Q.id=A.question
@@ -144,6 +134,7 @@ class Answer extends AbstractContent
                     GROUP BY A.id
                 )
                 AS Answer
+                
                LEFT OUTER JOIN
                AnswerComment AS AC
                ON AC.answer=Answer.answerID
@@ -153,7 +144,7 @@ class Answer extends AbstractContent
                     ACV.comment
                     ,ACV.id
                     ,COUNT(ACV.id) AS answerCommentVote         #strategy
-                     ,ACVselfVote.user AS answerCommentselfVote
+                     ,ACVselfVote.user AS answerCommentSelfVote
                      FROM
                      AnswerCommentVote AS ACV
                      LEFT OUTER JOIN AnswerCommentVote AS ACVselfVote
@@ -161,6 +152,7 @@ class Answer extends AbstractContent
                      GROUP BY ACV.comment
                 )
                 AS answerComment
+                
                 ON AnswerComment.comment=AC.id
                 WHERE Answer.question= ?
                 ";
@@ -191,8 +183,13 @@ class Answer extends AbstractContent
             $answer = new Answer($question);
             $answer->setID($data['answerID']);
             $answer->setContent($data['content']);
-            $answer->setVotes($data['answerVote']);
-            $answer->setHasVoted($data['answerCommentVote']);
+            
+            $votes=new VoteStorage('votes'); //@should throw assertion because votes is not valid object
+            $votes->setHasVoted($data['answerVote']);
+            $votes->setVotes($data['answerSelfVote']);
+            
+            $answer->setVotes($votes);
+            
 
             //$answer->setContent($data['time']);
             //get comments
@@ -201,8 +198,15 @@ class Answer extends AbstractContent
             $comment->setID($data['commentID']);
             $comment->setContent($data['commentContent']);
             $comment->setTime($data['commentTime']);
-            $comment->setVotes($data['answerCommentVote']);
-            $comment->setHasVoted($data['answerCommentselfVote']);
+            
+            
+            
+            $votes=new VoteStorage('votes');
+            $votes->setHasVoted($data['answerCommentVote']);
+            $votes->setVotes($data['answerCommentSelfVote']);
+            
+            $comment->setVotes($votes);
+            
 
             //$meta=$stmt->getColumnMeta(2);
             //var_dump($meta);

@@ -45,7 +45,6 @@
     <xsl:include  href='VoteTemplate.xsl'/>
     <xsl:include  href='staticTemplate.xsl'/>
     
-    
     <xsl:template match="pageRoot">
         <xsl:choose>
             <xsl:when test="current()/@mode='FRAGMENT'">
@@ -79,8 +78,8 @@
                 
                 <section class="row-fluid">
                     <xsl:choose>
-                        <xsl:when test="/page/@static!=''">
-                            <xsl:apply-templates select="/page" mode="static"/>
+                        <xsl:when test="current()/@static!=''">
+                            <xsl:apply-templates select="/" mode="static"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates />

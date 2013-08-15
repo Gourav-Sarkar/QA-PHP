@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page mode="DOCUMENT" static="staticUserLogin"/>
+<pageRoot mode="DOCUMENT" static="staticUserLogin"/>

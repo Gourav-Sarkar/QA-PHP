@@ -237,7 +237,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         try {
             $this->hash();
             $this->crud->softRead();
-            var_dump('roles list',RoleUserMapper::listing($this));
+            //var_dump('roles list',RoleUserMapper::listing($this));
             $this->setRoles(RoleUserMapper::listing($this));
             //$this->addRole($defaultrole);
             //$this->setRoles($rs);

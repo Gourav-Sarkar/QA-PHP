@@ -16,6 +16,10 @@
     -->
     <xsl:template match="VoteStorage">
         <div>
+            <xsl:if test="hasVoted!=''">
+                <b>Has Voted</b>    
+            </xsl:if>
+            
             <a>
                 <xsl:attribute name="href">
                     <xsl:call-template name="getLink">
