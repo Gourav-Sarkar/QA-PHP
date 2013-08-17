@@ -80,8 +80,9 @@ class XMLSerialize implements XMLSerializeble {
                  * 
                  */
                 
-                
+                //@todo $property data can be get via getter to get data constantly
                 $this->xmlResource->writeElement($property->getName(), $propertyData);
+                
             } elseif ($propertyData instanceof DependencyObject) {
                 $this->xmlResource->startElement("Dependency");
                 $this->xmlResource->writeElement((string) $propertyData->getReference(), (string) $propertyData->getReference()->getID());

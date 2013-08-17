@@ -97,6 +97,23 @@ class Utility {
     }
      * 
      */
+    
+    public static function formatVote($vote)
+    {
+        
+         if(is_array($vote))
+        {
+            assert('$vote[0] instanceof DOMNode');
+            $vote=$vote[0]->nodeValue;
+            $formatVote=$vote;
+        }
+        
+        
+        $vote=number_format($vote, 1);
+        
+        
+        return $vote;
+    }
 }
 
 ?>

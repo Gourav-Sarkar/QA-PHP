@@ -16,7 +16,7 @@ class VoteStorage extends AbstractContentObjectStorage {
     //put your code here
     protected $votes = 0;
     protected $hasVoted = false;
-    protected $formatedVotes=0;
+    //protected $formatedVotes=0;
 
     /*
       private $dependency;
@@ -46,14 +46,17 @@ class VoteStorage extends AbstractContentObjectStorage {
         if (!empty($votes)) {
 
             $this->votes = $votes;
-            $this->formatVote();
+            //$this->votes = number_format($votes,1);
+            //$this->formatVote();
         }
     }
     
-     
+    /* 
     private function formatVote() {
          $this->formatedVotes=number_format($this->votes,2);
     }
+     * 
+     */
     
     
     

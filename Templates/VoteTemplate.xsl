@@ -8,7 +8,7 @@
         Purpose of transformation follows.
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0">
     <xsl:output method="html"/>
 
     <!-- TODO customize transformation rules 
@@ -41,7 +41,7 @@
                 <span>Upvote</span>
             </a>
             <p class="text-center lead" style="margin:0px">
-                <xsl:value-of select="votes" />
+                <xsl:value-of select="php:function('utility::formatVote',votes)" />
             </p>
             <a>
                 <xsl:attribute name="href">
