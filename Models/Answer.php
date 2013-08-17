@@ -15,10 +15,11 @@
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Pagination.php';
 require_once 'AnswerComment.php';
+require_once 'AnswerVote.php';
 
-require_once DOCUMENT_ROOT .'Storages/AnswerStorage.php';
-require_once DOCUMENT_ROOT .'Storages/commentStorage.php';
-require_once DOCUMENT_ROOT .'Storages/RevisionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/AnswerStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/commentStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/RevisionStorage.php';
 require_once DOCUMENT_ROOT . 'Storages/QuestionStorage.php';
 
 require_once 'interfaces/RenderbleInterface.php';
@@ -30,23 +31,21 @@ require_once 'DependencyObject.php';
  *
  * @author Gourav Sarkar
  */
-class Answer extends AbstractContent 
-//implements RenderbleInterface
-//,Serializable
-//implements CommentableInterface,
+class Answer extends AbstractContent
+implements 
+//RenderbleInterface
+//,Serializable implements
+//CommentableInterface,
 //ListbleInterface,
-//VoteableInterface  
-{
+VoteableInterface {
 
     //use \DependebleTrait;
-
     //put your code here
     //Object array or object storage
     private $commentList;
     private $dependency;
-    
     private $votes;
-    
+
     /* Give answer to certain question
      *  An answer does not exist unless its parent class does not exist (eg question). So there should be a question before you create
      *  an answer
@@ -54,30 +53,28 @@ class Answer extends AbstractContent
 
     public function Answer(Question $ques) {
         parent::__construct();
-        
+
         /*
          * Create dependency on a object
          * update its fieldcache
          * @todo There should be an interface to dependency which can update field cache for
          *  parent object. See DependencyObject
          */
-        $this->dependency=new DependencyObject($ques);
-        $this->crud->setFieldCache((string)$ques);
+        $this->dependency = new DependencyObject($ques);
+        $this->crud->setFieldCache((string) $ques);
 
         $this->commentList = new CommentStorage('AnswerComment');
-        $this->votes=new VoteStorage('AnswerCommentVote');
+        $this->votes = new VoteStorage('AnswerCommentVote');
     }
 
-      
-    public function setVotes(VoteStorage $votes)
-    {
-        $this->votes=$votes;
+    public function setVotes(VoteStorage $votes) {
+        $this->votes = $votes;
     }
-    public function getVotes()
-    {
+
+    public function getVotes() {
         return $this->votes;
     }
-    
+
     public function addComment(AbstractComment $comment) {
         //Change it to object storage for better object handling
         $this->commentList->attach($comment, $comment);
@@ -86,8 +83,8 @@ class Answer extends AbstractContent
     public function getComments() {
         return $this->commentList;
     }
-    public function getQuestion()
-    {
+
+    public function getQuestion() {
         return $this->dependency->getReference();
     }
 
@@ -111,18 +108,25 @@ class Answer extends AbstractContent
                 SELECT
                 Answer.*
                 ,answerComment.*
+                ,ACU.id AS answerCommentUserID
+                ,ACU.nick AS answerCommentUserNick
+                ,ACU.reputation AS answerCommentUserRep
                 ,AC.id AS commentID
                ,AC.content AS commentContent
                ,AC.time AS commentTime
                FROM
                 (
                     SELECT
-                    A.id AS answerID
+                    AU.id AS answerUserID
+                    ,AU.nick AS answerUserNick
+                    ,AU.reputation AS answerUserRep
+                    ,A.id AS answerID
                     ,A.content
                     ,A.time
                     ,A.question
                     ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
-                    ,AVselfVote.user AS answerSelfVote
+                    ,AVselfVote.weight AS answerSelfVote
+                    ,AVselfVote.weight as answerVoteWeight
                     FROM question AS Q
                     LEFT OUTER JOIN Answer AS A
                     ON Q.id=A.question
@@ -130,6 +134,8 @@ class Answer extends AbstractContent
                     ON AV.answer=A.id
                     LEFT OUTER JOIN AnswerVote AS AVselfVote
                     ON AVselfVote.answer=A.id AND AVselfVote.user= ?
+                    LEFT OUTER JOIN User AS AU
+                    ON A.user=AU.id
                     WHERE A.question= ?
                     GROUP BY A.id
                 )
@@ -154,6 +160,9 @@ class Answer extends AbstractContent
                 AS answerComment
                 
                 ON AnswerComment.comment=AC.id
+                LEFT OUTER JOIN User AS ACU
+                ON AC.user=ACU.id
+                
                 WHERE Answer.question= ?
                 ";
 
@@ -162,14 +171,14 @@ class Answer extends AbstractContent
         //Debug test
         //$query="SELECT * FROM answer";
 
-        var_dump($query,$question->getid(),User::getActiveUser()->getID());
-        
-        $stmt =  DatabaseHandle::getConnection()->prepare($query);
+        var_dump($query, $question->getid(), User::getActiveUser()->getID());
+
+        $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute(array(
-                        User::getActiveUser()->getID()
-                        ,$question->getid()
-                        ,User::getActiveUser()->getID()
-                        ,$question->getid()
+            User::getActiveUser()->getID()
+            , $question->getid()
+            , User::getActiveUser()->getID()
+            , $question->getid()
         ));
 
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
@@ -177,36 +186,49 @@ class Answer extends AbstractContent
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            var_dump('Answer data',$data);
+            var_dump('Answer data', $data);
             //Setup answer
 
             $answer = new Answer($question);
             $answer->setID($data['answerID']);
             $answer->setContent($data['content']);
-            
-            $votes=new VoteStorage('votes'); //@should throw assertion because votes is not valid object
-            $votes->setHasVoted($data['answerVote']);
-            $votes->setVotes($data['answerSelfVote']);
-            
+
+            $user = new User();
+            $user->setID($data['answerUserID']);
+            $user->setNick($data['answerUserNick']);
+            $user->setReputation($data['answerUserRep']);
+
+            $answer->setUser($user);
+
+            $votes = new VoteStorage('votes'); //@should throw assertion because votes is not valid object 
+            $votes->setHasVoted($data['answerSelfVote']);
+            $votes->setVotes($data['answerVote']);
+
             $answer->setVotes($votes);
-            
+
 
             //$answer->setContent($data['time']);
             //get comments
 
-            $comment = new AnswerComment($answer); 
+            $comment = new AnswerComment($answer);
             $comment->setID($data['commentID']);
             $comment->setContent($data['commentContent']);
             $comment->setTime($data['commentTime']);
+
+
+            $user = new User();
+            $user->setID($data['answerCommentUserID']);
+            $user->setNick($data['answerCommentUserNick']);
+            $user->setReputation($data['answerCommentUserRep']);
             
-            
-            
-            $votes=new VoteStorage('votes');
-            $votes->setHasVoted($data['answerCommentVote']);
-            $votes->setVotes($data['answerCommentSelfVote']);
-            
+            $comment->setUser($user);
+
+            $votes = new VoteStorage('votes');
+            $votes->setHasVoted($data['answerCommentSelfVote']);
+            $votes->setVotes($data['answerCommentVote']);
+
             $comment->setVotes($votes);
-            
+
 
             //$meta=$stmt->getColumnMeta(2);
             //var_dump($meta);
@@ -266,9 +288,28 @@ class Answer extends AbstractContent
       }
 
      */
+
+    public function upVote($vote) {
+
+        $vote = new AnswerVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_UP);
+        $vote->setWeight();
+
+        $this->votes->attach($vote, $vote);
+    }
+
+    public function downVote($vote) {
+        $vote = new AnswerVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_DOWN);
+        $vote->setWeight();
+
+        $this->votes->attach($vote, $vote);
+    }
+
 }
 
-/* TEST
- * 
- */
 ?>

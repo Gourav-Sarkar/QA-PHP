@@ -43,9 +43,6 @@
             <xsl:apply-templates select="CommentStorage" />
             <br/>
             <xsl:call-template name="commentForm" />
-                <xsl:call-template name="getLink">
-                    <xsl:with-param name="foo" select="."></xsl:with-param>
-                </xsl:call-template>
             <br/>
         </div>
         

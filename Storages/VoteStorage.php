@@ -16,6 +16,7 @@ class VoteStorage extends AbstractContentObjectStorage {
     //put your code here
     protected $votes = 0;
     protected $hasVoted = false;
+    protected $formatedVotes=0;
 
     /*
       private $dependency;
@@ -29,8 +30,7 @@ class VoteStorage extends AbstractContentObjectStorage {
 
     public function setHasVoted($isVoted) {
         if (!empty($isVoted)) {
-            assert('is_bool($isVoted);');
-            $this->hasVoted = (bool) $isVoted;
+            $this->hasVoted = $isVoted;
         }
     }
 
@@ -39,15 +39,24 @@ class VoteStorage extends AbstractContentObjectStorage {
     }
 
     public function getVotes() {
-        return $this->formatVote();
+        return $this->votes; 
     }
 
     public function setVotes($votes) {
         if (!empty($votes)) {
 
             $this->votes = $votes;
+            $this->formatVote();
         }
     }
+    
+     
+    private function formatVote() {
+         $this->formatedVotes=number_format($this->votes,2);
+    }
+    
+    
+    
 
     public function attach($object, $data = null) {
         $object->create();
@@ -67,24 +76,16 @@ class VoteStorage extends AbstractContentObjectStorage {
          */
         $query = sprintf("SELECT SUM(weight)/COUNT(weight) FROM %s  WHERE %s=? GROUP BY weight"
                 , $vote
-                , $vote->getQuestion()
+                , $vote->getReference()
         );
 
         $stmt = DatabaseHandle::getConnection()->prepare($query);
-        $stmt->execute(array($vote->getQuestion()->getID()));
+        $stmt->execute(array($vote->getReference()->getID()));
 
         $this->votes = $stmt->fetch(PDO::FETCH_NUM)[0];
     }
 
-    /*
-     * return short form of votes
-     * two decimel number
-     * G,K,M,B
-     */
 
-    private function formatVote() {
-        return $this->votes;
-    }
 
 }
 

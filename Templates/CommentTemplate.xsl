@@ -23,6 +23,9 @@
                     <!--Vote interface -->
                     <xsl:apply-templates select="VoteStorage" mode="comment" />
                     
+                    <!--User Interface -->
+                    <xsl:apply-templates select="user" mode="inline-min-summary" />
+                    
                     <span class="inline-edit-field" data-field-name="content" data-field-type="text">
                         <xsl:value-of select='content' ></xsl:value-of>
                     </span>

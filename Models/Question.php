@@ -200,8 +200,8 @@ class Question
     
     public function addAnswer(Answer $answer)
     {
-        $this->answerList->attach($answer,$answer);
         $answer->create();
+        $this->answerList->attach($answer,$answer);
     }
     
     public function addComment(AbstractComment $comment)

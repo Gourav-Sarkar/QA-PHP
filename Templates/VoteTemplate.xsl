@@ -16,9 +16,20 @@
     -->
     <xsl:template match="VoteStorage">
         <div>
-            <xsl:if test="hasVoted!=''">
-                <b>Has Voted</b>    
-            </xsl:if>
+            <!--
+            Conditional check for vote
+            It test if current user has voted already or not
+            If it is negetive number user had Down Voted if positive user UPvoted
+            -->
+            <xsl:choose>
+                <xsl:when test="hasVoted &gt; 0">
+                    <b>Has UpVoted</b>
+                </xsl:when>
+                <xsl:when test="hasVoted &lt; 0">
+                    <b>Has downVoted</b>
+                </xsl:when>
+            </xsl:choose>
+            
             
             <a>
                 <xsl:attribute name="href">
@@ -50,6 +61,10 @@
     
     <xsl:template match="VoteStorage" mode="comment">
         <span>
+            <xsl:if test="hasVoted!=''">
+                <b>Has Voted</b>    
+            </xsl:if>
+            
             <a>
                 <xsl:attribute name="href">
                     <xsl:call-template name="getLink">

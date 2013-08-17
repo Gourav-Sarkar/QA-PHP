@@ -5,29 +5,28 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractVote.php';
+
 /**
- * Description of QuestionVote
+ * Description of AnswerVote
  *
  * @author Gourav Sarkar
  */
-class QuestionVote extends AbstractVote{
+class AnswerVote extends AbstractVote {
+
     //put your code here
-    
-    public function __construct(Question $content) {
+
+    public function __construct(Answer $content) {
         parent::__construct($content);
         //var_dump($content);
         $this->crud->setFieldCache(get_class($content));
-        
+
         //$this->question->SetfieldCache("votes");
     }
-    
-    /*
-     * Mapper method
-     */
-    public function getQuestion()
-    {
+
+    public function getAnswer() {
         return $this->dependency->getReference();
     }
+
 }
 
 ?>

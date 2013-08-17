@@ -6,6 +6,8 @@
  */
 require_once 'interfaces/VoteableInterface.php';
 require_once 'interfaces/CRUDLInterface.php';
+require_once 'interfaces/DependencyInterface.php';
+
 require_once 'models/crudObject.php';
 require_once 'Abstracts/AbstractContent.php';
 /**
@@ -13,7 +15,7 @@ require_once 'Abstracts/AbstractContent.php';
  * @todo change name to weightedvote
  * @author Gourav Sarkar
  */
-abstract class AbstractVote extends AbstractContent{
+abstract class AbstractVote extends AbstractContent implements DependencyInterface{
     
     const VOTE_UP="+";
     const VOTE_DOWN="-";
@@ -106,6 +108,11 @@ abstract class AbstractVote extends AbstractContent{
         return $this->id;
     }
     public static function listing(\DatabaseInteractbleInterface $reference) {
+    }
+    
+    public function getReference()
+    {
+        return $this->dependency->getReference();
     }
   
 }

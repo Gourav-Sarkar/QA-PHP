@@ -141,6 +141,36 @@
     
     
     
+    
+    <xsl:template match="user" mode="inline-min-summary">
+            <xsl:choose>
+                
+                <xsl:when test="string(id)=''">
+                    <span class="text-center">
+                        Guest
+                    </span>
+                </xsl:when> 
+                
+                <xsl:otherwise>
+                    <!-- Registered User avatar -->
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="action">show</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        
+                        
+                        <span class="text-center">
+                            <xsl:value-of select="nick" />
+                        </span>
+                    </a> 
+                </xsl:otherwise>
+                
+            </xsl:choose>
+    </xsl:template>
+    
+    
     <!--
     # Template User
     # Mode summary (@todo)
