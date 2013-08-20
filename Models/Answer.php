@@ -171,7 +171,7 @@ VoteableInterface {
         //Debug test
         //$query="SELECT * FROM answer";
 
-        var_dump($query, $question->getid(), User::getActiveUser()->getID());
+        //var_dump($query, $question->getid(), User::getActiveUser()->getID());
 
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute(array(
@@ -186,7 +186,7 @@ VoteableInterface {
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            var_dump('Answer data', $data);
+            //var_dump('Answer data', $data);
             //Setup answer
 
             $answer = new Answer($question);

@@ -5,18 +5,21 @@
  * and open the template in the editor.
  */
 require_once 'models/Question.php';
+require_once 'Abstracts/AbstractController.php';
 
 /**
  * Description of AnswerController
  *
  * @author Gourav Sarkar
  */
-class AnswerController {
+class AnswerController extends AbstractController {
 
     //put your code here
     private $answer;
 
     public function __construct() {
+        parent::__construct();
+
         $question = new Question();
 
         $this->answer = new Answer($question);
@@ -32,6 +35,11 @@ class AnswerController {
         //var_dump($this->answer);
         $comment->create();
         $this->answer->addComment($comment);
+        
+        
+         $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->setModel($comment->xmlSerialize());
+        echo $this->view->render();
     }
 
     public function selectAnswer() {

@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'DependencyObject.php';
+require_once 'models/DependencyObject.php';
 /**
  * Description of AbstractController
  * @todo layout basic controller set up
@@ -16,14 +16,17 @@ abstract class AbstractController {
     protected $model;
     protected $view;
     
-    public function __constrcut()
+    public function __construct()
     {
         $this->view=new Render();
     }
+    /*
     abstract public function create();
     abstract public function delete();
     abstract public function show();
     abstract public function edit();
+     * 
+     */
 }
 
 ?>

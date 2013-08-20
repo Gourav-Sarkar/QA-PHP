@@ -71,3 +71,49 @@ $(".inline-edit-button")
         
     }
     )
+        
+        
+        
+        /*
+         * Real time commenting
+         */
+        $("form input[type='submit']")
+        .click(
+            function(e)
+            {
+                console.log(e);
+                //Target of the button which is being clicked
+                var  target= $(e.currentTarget).data("target");
+                //Clicked button data attribute which points to holder which is a unique id
+                //Holder will store the resulatant data
+                var holderTarget=$(e.currentTarget).data("holder");
+                
+                //form where the button has been pressed and which is needed to be submited
+                var form=$(e.currentTarget).data("form");
+                //Attribute of target location in form
+                var url=$(form).attr("action");
+                
+                //Toggle loading mode
+                $(e.currentTarget).button("loading");
+                
+                //@Debaug statrements
+                console.log(target);
+                console.log(holderTarget);
+                console.log($(form).html());
+                console.log(url);
+                console.log($(form).serialize());
+                
+                $.post(url
+                        ,$(form).serialize()
+                        ,function(data)
+                        {
+                            //get the data and append it in holder
+                            $(holderTarget).append(data);
+                            //Reset loading mode
+                            $(e.currentTarget).button("reset");
+                        }
+                      );
+                
+                e.preventDefault();
+            }
+        )

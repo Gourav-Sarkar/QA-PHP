@@ -48,7 +48,7 @@ session_start();
  * 
  */
 
-var_dump('session',$_SESSION);
+//var_dump('session',$_SESSION);
 
 /*
  * Initialize system setting,error,message files

@@ -39,7 +39,7 @@ class CRUDobject implements CRUDLInterface {
     }
 
     public function create() {
-        var_dump(__METHOD__);
+        //var_dump(__METHOD__);
         /*
          * if fieldcache is null try to insert all row
          */
@@ -60,7 +60,7 @@ class CRUDobject implements CRUDLInterface {
          * hieggherchy
          */
         //Flip array
-        var_dump($this->fieldCache);
+        //var_dump($this->fieldCache);
         $fieldCache = array_flip($this->fieldCache);
         //walk through array and set value by the key name
         array_walk($fieldCache, function(&$value, $key) {
@@ -75,7 +75,7 @@ class CRUDobject implements CRUDLInterface {
                 }
         );
 
-        var_dump($fieldCache);
+        //var_dump($fieldCache);
         //var_dump(static::$connection);
 
         $data = implode(',', array_map(function($key) {
@@ -87,16 +87,16 @@ class CRUDobject implements CRUDLInterface {
         );
 
 
-        var_dump($data);
+        //var_dump($data);
         $query = sprintf("INSERT INTO %s SET $data", get_class($this->dependency), $data);
         $stmt = DatabaseHandle::getConnection()->prepare($query);
-        var_dump($fieldCache);
+        //var_dump($fieldCache);
 
         foreach ($fieldCache as $idf => $val) {
-            var_dump(":$idf=>$val");
+            //var_dump(":$idf=>$val");
             $stmt->bindValue(":$idf", $val);
         }
-        echo $stmt->queryString;
+        //echo $stmt->queryString;
         $retVal = $stmt->execute();
 
         //Ensures format last inserted ID
@@ -141,7 +141,7 @@ class CRUDobject implements CRUDLInterface {
                 }
         );
 
-        var_dump($fieldCache);
+       //var_dump($fieldCache);
         //var_dump(static::$connection);
 
         $data = implode(',', array_map(function($key) {
@@ -159,7 +159,7 @@ class CRUDobject implements CRUDLInterface {
 
 
         foreach ($fieldCache as $idf => $val) {
-            var_dump(":$idf=>$val");
+            //var_dump(":$idf=>$val");
             $stmt->bindValue(":$idf", $val);
         }
 
@@ -187,7 +187,7 @@ class CRUDobject implements CRUDLInterface {
         /*
          * Debug statement
          */
-        echo $stmt->queryString;
+        //var_dump($stmt->queryString);
 
 
         /*
@@ -233,12 +233,12 @@ class CRUDobject implements CRUDLInterface {
                         $value = $conjObj->getID();
                     } else {
                         $value = $this->dependency->{"get{$key}"}();
-                        echo $value;
+                        //var_dump($value);
                     }
                 }
         );
 
-        var_dump($fieldCache);
+        //var_dump($fieldCache);
         //var_dump(static::$connection);
 
         $data = implode(' AND ', array_map(function($key) {
@@ -250,7 +250,7 @@ class CRUDobject implements CRUDLInterface {
         );
 
 
-        var_dump($data);
+        //var_dump($data);
 
         $query = sprintf("DELETE FROM %s WHERE %s", get_class($this->dependency), $data);
         $stmt = DatabaseHandle::getConnection()->prepare($query);
@@ -258,13 +258,13 @@ class CRUDobject implements CRUDLInterface {
         //var_dump($fieldCache);
 
         foreach ($fieldCache as $idf => $val) {
-            var_dump(":$idf=>$val");
+            //var_dump(":$idf=>$val");
             //$stmt->bindValue(":$idf",$val);
             $params[":$idf"] = $val;
         }
 
 
-        echo $stmt->queryString;
+        //var_dump($stmt->queryString);
 
         $this->fieldCache = array();
         return $stmt->execute($params);
@@ -315,7 +315,7 @@ class CRUDobject implements CRUDLInterface {
 
     public function read() {
         
-        var_dump('Object strcut',$this->dependency->getStrcuture());
+        //var_dump('Object strcut',$this->dependency->getStrcuture());
         
         $reference = array();
         //echo __CLASS__;
@@ -454,8 +454,8 @@ class CRUDobject implements CRUDLInterface {
         }
 
 
-        echo $query;
-        var_dump($fieldCache);
+       // echo $query;
+       // var_dump($fieldCache);
 
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
@@ -467,7 +467,8 @@ class CRUDobject implements CRUDLInterface {
         if (!$data = $stmt->fetch(PDO::FETCH_ASSOC)) {
             throw new NoEntryFoundException("No entry in Database");
         }
-        var_dump($data);
+        
+        //var_dump($data);
         /*
          * Initialize self
          */

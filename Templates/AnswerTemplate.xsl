@@ -17,7 +17,12 @@
     # Used to show answer in detailed mode
     -->
     <xsl:template match="answer">
-        <div class="container-fluid">
+        <div class="container-fluid" >
+            <xsl:attribute name="id">
+                <xsl:text>answer-</xsl:text><xsl:value-of select="id" />
+            </xsl:attribute>
+                
+            
         <div class="row-fluid span1">
             <!-- user could have nested values -->
             <xsl:apply-templates select="user" mode="inline-summary"/>
@@ -40,10 +45,27 @@
         </div>
         
         <div class="span12">
-            <xsl:apply-templates select="CommentStorage" />
-            <br/>
-            <xsl:call-template name="commentForm" />
-            <br/>
+            <!--Comment list --> 
+            <div>  
+                
+                <xsl:attribute name="id">
+                <xsl:text>AnswerCommentStorage-</xsl:text><xsl:value-of select="id" />
+                </xsl:attribute>
+                
+                <xsl:apply-templates select="CommentStorage" />
+            </div>
+            
+             <xsl:call-template name="commentForm" >
+                <xsl:with-param name="holder"> 
+                    <xsl:text>AnswerCommentStorage-</xsl:text>
+                    <xsl:value-of select="id" />
+                </xsl:with-param>
+                <xsl:with-param name="formID">
+                  <xsl:text>AnswerCommentForm-</xsl:text>
+                    <xsl:value-of select="id" />
+                </xsl:with-param>
+            </xsl:call-template>
+            
         </div>
         
     </div>
@@ -107,7 +129,7 @@
 
     <!-- Template Answer form -->
     <xsl:template name="answerForm">
-        <form method="post">
+        <form method="post" id="answerForm">
             <xsl:attribute name="action">
                 <xsl:call-template name="getLink">
                     <xsl:with-param name="currentNode" select="." />
@@ -118,7 +140,13 @@
             <textarea class="span12" name="answer">
                 Answering question
             </textarea>
-            <input type="submit" name="Answer" value="Answer" />
+            <input type="submit" name="Answer" value="Answer" class="btn" data-loading-text="Answering.." data-holder="#answerStorage" data-form="#answerForm">
+                <xsl:attribute name="data-target">
+                    <xsl:value-of select="local-name(.)" />
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="id" />
+                </xsl:attribute>
+            </input>
         </form>
     </xsl:template>
     

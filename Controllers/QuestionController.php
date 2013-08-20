@@ -106,6 +106,10 @@ class QuestionController {
 
         //var_dump($this->question);
         $this->question->addAnswer($ans);
+        
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->setModel($ans->xmlSerialize());
+        echo $this->view->render();
     }
 
     /*
@@ -125,7 +129,6 @@ class QuestionController {
         
         $this->view->setMode(RENDER::MODE_FRAGMENT);
         $this->view->setModel($comment->xmlSerialize());
-        echo '<hr/>';
         echo $this->view->render();
 
         /*

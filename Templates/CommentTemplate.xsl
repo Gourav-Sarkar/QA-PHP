@@ -19,13 +19,14 @@
     <xsl:template match="comment">
         <div class="row-fluid">
             <div class="span11 inline-edit-group">
-                <p>
-                    <!--Vote interface -->
+                <!--Vote interface -->
+                <span class="pull-left">
                     <xsl:apply-templates select="VoteStorage" mode="comment" />
+                </span>
                     
-                    <!--User Interface -->
+                <!--User Interface -->
+                <span class="pull-left text-center">
                     <xsl:apply-templates select="user" mode="inline-min-summary" />
-                    
                     <span class="inline-edit-field" data-field-name="content" data-field-type="text">
                         <xsl:value-of select='content' ></xsl:value-of>
                     </span>
@@ -41,30 +42,30 @@
                                 <xsl:with-param name="action">edit</xsl:with-param>
                             </xsl:call-template>
                         </xsl:attribute>
-                        <span>Edit</span>
+                        <i class="icon-edit"></i>
                     </a>
                     
-                     <a class="inline-edit-button">
+                    <a class="inline-edit-button">
                         <xsl:attribute name="href">
                             <xsl:call-template name="getLink">
                                 <xsl:with-param name="currentNode" select="." />
                                 <xsl:with-param name="action">delete</xsl:with-param>
                             </xsl:call-template>
                         </xsl:attribute>
-                        <span>delete</span>
+                        <i class="icon-remove"></i>
                     </a>
                     
-                     <a class="inline-edit-button">
+                    <a class="inline-edit-button">
                         <xsl:attribute name="href">
                             <xsl:call-template name="getLink">
                                 <xsl:with-param name="currentNode" select="." />
                                 <xsl:with-param name="action">flag</xsl:with-param>
                             </xsl:call-template>
                         </xsl:attribute>
-                        <span>flag</span>
+                        <i class="icon-flag"></i>
                     </a>
                     
-                </p>
+                </span>
             </div>
         </div>
     </xsl:template>
@@ -85,7 +86,15 @@
     
     
     <xsl:template name="commentForm">
+        <xsl:param name="holder"/>
+        <xsl:param name="formID"/>
+        
         <form method="post">
+            <!-- uniqly identify form -->
+            <xsl:attribute name="id">
+                <xsl:value-of select="$formID" />
+            </xsl:attribute>
+            
             <xsl:attribute name="action">
                 <xsl:call-template name="getLink">
                     <xsl:with-param name="currentNode" select="." />
@@ -93,8 +102,30 @@
                 </xsl:call-template>
             </xsl:attribute>
             
-            <textarea name="content" class="span12"></textarea>
-            <input type="submit" name="comment" value="comment" />
+            <textarea name="content" class="span12">
+                <xsl:value-of select="id" />
+            </textarea>
+            
+            <input type="submit" data-loading-text="Commenting.." class="btn" name="comment" value="comment">
+                <!-- Place holder of reponse data. points to a unique id -->
+                <xsl:attribute name="data-holder">
+                    <xsl:text>#</xsl:text>
+                    <xsl:value-of select="$holder" />
+                </xsl:attribute>
+                
+                <!-- same as form id to uniqly identify form -->
+                <xsl:attribute name="data-form">
+                    <xsl:text>#</xsl:text>
+                    <xsl:value-of select="$formID" />
+                </xsl:attribute>
+                
+                
+                <xsl:attribute name="data-target">
+                    <xsl:value-of select="local-name(.)" />
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="id" />
+                </xsl:attribute>
+            </input>
         </form>
     </xsl:template>
     

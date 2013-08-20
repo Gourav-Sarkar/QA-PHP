@@ -21,37 +21,47 @@
             It test if current user has voted already or not
             If it is negetive number user had Down Voted if positive user UPvoted
             -->
+            
             <xsl:choose>
-                <xsl:when test="hasVoted &gt; 0">
-                    <b>Has UpVoted</b>
+                <xsl:when test="hasVoted &gt; 0 or hasVoted='' " >
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="parent::*" />
+                                <xsl:with-param name="action">upvote</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <i class="icon-chevron-up icon-4x" />
+                    </a>
                 </xsl:when>
-                <xsl:when test="hasVoted &lt; 0">
-                    <b>Has downVoted</b>
-                </xsl:when>
+                <xsl:otherwise>
+                    <i class="icon-chevron-up icon-4x" />
+                </xsl:otherwise>
             </xsl:choose>
+           
             
-            
-            <a>
-                <xsl:attribute name="href">
-                    <xsl:call-template name="getLink">
-                        <xsl:with-param name="currentNode" select="parent::*" />
-                        <xsl:with-param name="action">upvote</xsl:with-param>
-                    </xsl:call-template>
-                </xsl:attribute>
-                <span>Upvote</span>
-            </a>
             <p class="text-center lead" style="margin:0px">
                 <xsl:value-of select="php:function('utility::formatVote',votes)" />
             </p>
-            <a>
-                <xsl:attribute name="href">
-                    <xsl:call-template name="getLink">
-                        <xsl:with-param name="currentNode" select="parent::*" />
-                        <xsl:with-param name="action">downvote</xsl:with-param>
-                    </xsl:call-template>
-                </xsl:attribute>
-                <span>Downvote</span>
-            </a> 
+            
+            <xsl:choose>
+                <xsl:when test="hasVoted &lt; 0 or hasVoted='' ">
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="parent::*" />
+                                <xsl:with-param name="action">downvote</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <i class="icon-chevron-down icon-4x" />
+                    </a> 
+                </xsl:when> 
+                <xsl:otherwise>
+                    <i class="icon-chevron-down icon-4x" />
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            
         </div>
     </xsl:template>
     
@@ -60,7 +70,7 @@
     
     
     <xsl:template match="VoteStorage" mode="comment">
-        <span>
+        <div>
             <xsl:if test="hasVoted!=''">
                 <b>Has Voted</b>    
             </xsl:if>
@@ -72,21 +82,21 @@
                         <xsl:with-param name="action">upvote</xsl:with-param>
                     </xsl:call-template>
                 </xsl:attribute>
-                <span>U</span>
-            </a>
-            <span class="text-center lead" style="margin:0px">
-                <xsl:value-of select="votes" />
-            </span>
-            <a>
-                <xsl:attribute name="href">
-                    <xsl:call-template name="getLink">
-                        <xsl:with-param name="currentNode" select="parent::*" />
-                        <xsl:with-param name="action">downvote</xsl:with-param>
-                    </xsl:call-template>
-                </xsl:attribute>
-                <span>D</span>
-            </a> 
+            <i class="icon-chevron-up" />
+        </a>
+        <span class="text-center" style="margin:0px">
+            <small><xsl:value-of select="votes" /></small>
         </span>
+        <a>
+            <xsl:attribute name="href">
+                <xsl:call-template name="getLink">
+                    <xsl:with-param name="currentNode" select="parent::*" />
+                    <xsl:with-param name="action">downvote</xsl:with-param>
+                </xsl:call-template>
+            </xsl:attribute>
+            <i class="icon-chevron-down" />
+        </a> 
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>

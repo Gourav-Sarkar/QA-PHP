@@ -18,6 +18,11 @@
     -->
     <xsl:template match ="question">
         <div class="container-fluid inline-edit-group-origin-question">
+            <xsl:attribute name="id">
+                <xsl:text>question-</xsl:text>
+                <xsl:value-of select="id" />
+            </xsl:attribute>
+            
             <div class="row-fluid">
                 <!-- Question Template  -->
                 <h1 class="span10 page-header" data-field-name="title" data-field-type="text">
@@ -27,7 +32,7 @@
             
             <div class="row-fluid">
                 
-                <div id="question" class="span6 container-fluid">
+                <div class="span6 container-fluid">
                     <div class="span1">
                         <p>
                             <!-- user could have nested values -->
@@ -109,8 +114,14 @@
                     <!-- Comment section of Question -->
                     <div class="row-fluid offset1 span11">
                         <!--comment template goes here -->
-                        <xsl:apply-templates select="CommentStorage" />
-                        <xsl:call-template name="commentForm" />
+                        <div id="QuestionCommentStorage">
+                            <xsl:apply-templates select="CommentStorage" />
+                        </div>
+                        
+                        <xsl:call-template name="commentForm" >
+                            <xsl:with-param name="holder">QuestionCommentStorage</xsl:with-param>
+                            <xsl:with-param name="formID">QuestionCommentForm</xsl:with-param>
+                        </xsl:call-template>
                     </div>
                 </div>
            
@@ -152,9 +163,13 @@
                         </li>
                     </ul>
                 </div>
-                        
+                    
                 <xsl:call-template name="answerForm" />
-                <xsl:apply-templates select="AnswerStorage" />
+                
+                <!-- Answer Storage -->
+                <div id="answerStorage">
+                    <xsl:apply-templates select="AnswerStorage" />
+                </div>
                      
             </div>
         </div>
