@@ -129,7 +129,7 @@ VoteableInterface {
                     ,AVselfVote.weight as answerVoteWeight
                     FROM question AS Q
                     LEFT OUTER JOIN Answer AS A
-                    ON Q.id=A.question
+                    ON Q.id=A.question AND A.invisible=0        # filter visivle answer
                     LEFT OUTER JOIN AnswerVote AS AV
                     ON AV.answer=A.id
                     LEFT OUTER JOIN AnswerVote AS AVselfVote
@@ -143,7 +143,7 @@ VoteableInterface {
                 
                LEFT OUTER JOIN
                AnswerComment AS AC
-               ON AC.answer=Answer.answerID
+               ON AC.answer=Answer.answerID AND AC.invisible=0      #Filter visibilty of answer comments
                 LEFT OUTER JOIN
                (
                     SELECT
@@ -157,7 +157,7 @@ VoteableInterface {
                      ON ACV.id=ACVselfVote.id AND ACV.user= ?
                      GROUP BY ACV.comment
                 )
-                AS answerComment
+                AS answerComment        # Should be named to Answer comment vote
                 
                 ON AnswerComment.comment=AC.id
                 LEFT OUTER JOIN User AS ACU

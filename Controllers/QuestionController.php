@@ -13,14 +13,16 @@
 require_once 'models/Question.php';
 require_once 'models/Notification.php';
 require_once DOCUMENT_ROOT . 'Storages/NotificationStorage.php';
+require_once 'Abstracts/AbstractController.php';
 
-class QuestionController {
+class QuestionController extends AbstractController{
 
     //put your code here
     private $question;
-    private $view;
 
     public function QuestionController() {
+
+        parent::__construct();
 
         $this->view = new Render();
         //Without question There can't have any other action
@@ -37,6 +39,7 @@ class QuestionController {
         //require_once ''
         //Question Controller must have Question object
         $this->question = new Question();
+        $this->question->setInvisible(0);
         
         (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 

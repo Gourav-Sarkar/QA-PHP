@@ -42,9 +42,12 @@ abstract class AbstractComment extends AbstractContent
      * It will be changed to parent method when derived classes will need seperate
      * identity (templates)
      */
+    /*
      public function __toString() {
         return 'comment';
     } 
+     * 
+     */
     
     
     

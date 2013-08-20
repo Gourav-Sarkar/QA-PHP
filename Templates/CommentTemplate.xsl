@@ -16,7 +16,69 @@
     # Mode Default
     # Used to show default comments
     -->
-    <xsl:template match="comment">
+    <xsl:template match="answercomment">
+        <div class="row-fluid">
+            <div class="span11 inline-edit-group">
+                <!--Vote interface -->
+                <span class="pull-left">
+                    <xsl:apply-templates select="VoteStorage" mode="comment" />
+                </span>
+                    
+                <!--User Interface -->
+                <span class="pull-left text-center">
+                    <xsl:apply-templates select="user" mode="inline-min-summary" />
+                    <span class="inline-edit-field" data-field-name="content" data-field-type="text">
+                        <xsl:value-of select='content' ></xsl:value-of>
+                    </span>
+                    -
+                    <span>
+                        <xsl:value-of select="php:function('utility::timeDiff',time)" />
+                    </span>
+                    
+                    <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">edit</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <i class="icon-edit"></i>
+                    </a>
+                    
+                    <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">delete</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <i class="icon-remove"></i>
+                    </a>
+                    
+                    <a class="inline-edit-button">
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="." />
+                                <xsl:with-param name="action">flag</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <i class="icon-flag"></i>
+                    </a>
+                    
+                </span>
+            </div>
+        </div>
+    </xsl:template>
+    <!-- ========================================================================-->
+    
+    
+    
+    <!-- 
+    # Template comment for Question
+    # Mode Default
+    # Used to show default comments
+    -->
+    <xsl:template match="questioncomment">
         <div class="row-fluid">
             <div class="span11 inline-edit-group">
                 <!--Vote interface -->
@@ -75,10 +137,15 @@
     <!--
     # Template CommentStorage
     # Holds list of comment
-    -->   
-    
+    -->
     <xsl:template match="CommentStorage">
-        <xsl:apply-templates select="comment" />
+        <!-- 
+        # select elements which are stored in commentStorage
+        # Add more element to represent storeble object in commentStorage
+        # incase elements needs seperate Storage remove the related element and
+        # implement it in seperate Storage template
+        -->
+        <xsl:apply-templates select="questioncomment | answercomment" />
     </xsl:template>
     <!-- ========================================================================-->    
     

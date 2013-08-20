@@ -401,6 +401,7 @@ class Question
                         A.question AS id
                         ,A.time AS time
                          FROM answer AS A
+                         WHERE A.invisible=0
                         )
                         UNION ALL
                         (
@@ -408,6 +409,7 @@ class Question
                         Q.id AS id
                         ,Q.time AS time
                         FROM question Q
+                        WHERE Q.invisible=0
                         )
                     )
                     AS tempTable

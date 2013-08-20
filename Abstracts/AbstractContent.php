@@ -58,7 +58,7 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     protected $content;
     protected $setting;
     protected $crud;
-    protected $removed=false; //Every content can be removed softly
+    protected $invisible=0; //Every content can be removed softly
 
     public function __construct() {
         $this->user = new User();
@@ -83,14 +83,18 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
      * 
      */
 
-    public function setRemoved($remove)
+    public function setInvisible($remove='')
     {
-        $this->crud->setFieldCache("removed");
-        $this->removed=$remove;
+        $this->crud->setFieldCache("invisible");
+        if(empty($remove))
+        {
+            $remove=time();
+        }
+        $this->invisible=$remove;
     }
-    public function getRemoved()
+    public function getInvisible()
     {
-        return $this->removed;
+        return $this->invisible;
     }
     
     public function setID($id) {
@@ -199,7 +203,7 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     }
 
     public function edit(DatabaseInteractbleInterface $tempObj) {
-        return $this->crud->edit();
+        return $this->crud->edit($tempObj);
     }
 
     public function delete() {
@@ -207,7 +211,7 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     }
 
     public static function listing(DatabaseInteractbleInterface $reference) {
-        return $this->crud->listing();
+        return $this->crud->listing($reference);
     }
     public function softRead()
     {

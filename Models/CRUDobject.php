@@ -127,6 +127,7 @@ class CRUDobject implements CRUDLInterface {
          */
         //$query=sprintf("UPDATE %s SET %s %s",get_class($this),$data,$condition);
         //Flip array
+        //var_dump($this->fieldCache);
         $fieldCache = array_flip($this->fieldCache);
         //walk through array and set value by the key name
         array_walk($fieldCache, function(&$value, $key) {
@@ -136,7 +137,7 @@ class CRUDobject implements CRUDLInterface {
                     if (is_object($conjObj = $this->dependency->{"get{$key}"}())) {
                         $value = $conjObj->getID();
                     } else {
-                        $value = $this->dependency{"get{$key}"}();
+                        $value = $this->dependency->{"get{$key}"}();
                     }
                 }
         );
@@ -154,7 +155,7 @@ class CRUDobject implements CRUDLInterface {
 
 
 
-        $query = sprintf("UPDATE %s SET %s WHERE id=:id", get_class($this), $data);
+        $query = sprintf("UPDATE %s SET %s WHERE id=:id", get_class($this->dependency), $data);
         $stmt = DatabaseHandle::getConnection()->prepare($query);
 
 

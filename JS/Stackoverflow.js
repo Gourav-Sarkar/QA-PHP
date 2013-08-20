@@ -19,6 +19,7 @@
  * </inline-form>
  * 
  */
+/*
 $(".inline-edit-button")
     .click(function(e)
     {
@@ -36,10 +37,9 @@ $(".inline-edit-button")
         {
             type=$(elem).data("field-type");
                 
-            /*
-             * if type is textarea render one
-             * other wise render input box
-             */    
+            //if type is textarea render one
+            //other wise render input box
+               
             if(type=="textarea")
             {
                 $(elem)
@@ -71,11 +71,12 @@ $(".inline-edit-button")
         
     }
     )
+    */
         
         
         
         /*
-         * Real time commenting
+         * Real time content adding
          */
         $("form input[type='submit']")
         .click(
