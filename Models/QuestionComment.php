@@ -30,7 +30,7 @@ class QuestionComment extends AbstractComment{
          $query="SELECT
                 *
                 FROM questionComment
-                WHERE question=?";
+                WHERE question=? AND invisible=0";
          $stmt=  DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1,$reference->getID());
         

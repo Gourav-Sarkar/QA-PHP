@@ -158,9 +158,11 @@ class CRUDobject implements CRUDLInterface {
         $query = sprintf("UPDATE %s SET %s WHERE id=:id", get_class($this->dependency), $data);
         $stmt = DatabaseHandle::getConnection()->prepare($query);
 
-
+        /*
+         * @DEBUG Field debugging
+         */
         foreach ($fieldCache as $idf => $val) {
-            //var_dump(":$idf=>$val");
+            var_dump(":$idf=>$val");
             $stmt->bindValue(":$idf", $val);
         }
 
