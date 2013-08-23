@@ -162,7 +162,7 @@ class CRUDobject implements CRUDLInterface {
          * @DEBUG Field debugging
          */
         foreach ($fieldCache as $idf => $val) {
-            var_dump(":$idf=>$val");
+            //var_dump(":$idf=>$val");
             $stmt->bindValue(":$idf", $val);
         }
 

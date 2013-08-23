@@ -118,3 +118,14 @@ $(".inline-edit-button")
                 e.preventDefault();
             }
         )
+            
+            $(".btn")
+            .click(function(event)
+                    {
+                        /*
+                         * Check button action needs confirmation
+                         */
+                        event.preventDefault();
+                    }
+                
+                );

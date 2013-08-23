@@ -35,7 +35,7 @@
                         <xsl:value-of select="php:function('utility::timeDiff',time)" />
                     </span>
                     
-                    <a class="inline-edit-button">
+                    <a class="btn btn-mini">
                         <xsl:attribute name="href">
                             <xsl:call-template name="getLink">
                                 <xsl:with-param name="currentNode" select="." />
@@ -45,7 +45,7 @@
                         <i class="icon-edit"></i>
                     </a>
                     
-                    <a class="inline-edit-button">
+                    <a class="btn btn-mini">
                         <xsl:attribute name="href">
                             <xsl:call-template name="getLink">
                                 <xsl:with-param name="currentNode" select="." />
@@ -55,7 +55,7 @@
                         <i class="icon-remove"></i>
                     </a>
                     
-                    <a class="inline-edit-button">
+                    <a class="btn btn-mini">
                         <xsl:attribute name="href">
                             <xsl:call-template name="getLink">
                                 <xsl:with-param name="currentNode" select="." />
