@@ -14,16 +14,24 @@ require_once 'Abstracts/AbstractContent.php';
 abstract class AbstractPageComponent
     extends AbstractContent
 {
-    private $title;
+    protected $title;
+    public function __construct() {
+        parent::__construct();
+    }
     
     public function setTitle($title)
     {
-        $this->setFieldCache('title');
+        $this->crud->setFieldCache('title');
         $this->title=$title;
     }
     public function getTitle()
     {
         return $this->title;
+    }
+    public function xmlSerialize() {
+        unset($this->user);
+        
+        parent::xmlSerialize();
     }
 }
 

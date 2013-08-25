@@ -34,10 +34,8 @@
                 
                 <div class="span6 container-fluid">
                     <div class="span1">
-                        <p>
-                            <!-- user could have nested values -->
-                            <xsl:apply-templates select="user" mode="inline-summary" />
-                        </p>
+                        <!-- user could have nested values -->
+                        <xsl:apply-templates select="user" mode="inline-summary" />
                         
                         <!--Vote interface -->
                         <xsl:apply-templates select="VoteStorage" />
@@ -163,12 +161,11 @@
                         </li>
                     </ul>
                 </div>
-                    
                 <xsl:call-template name="answerForm" />
                 
                 <!-- Answer Storage -->
                 <div id="answerStorage">
-                    <xsl:apply-templates select="AnswerStorage" />
+                    <xsl:apply-templates select="AnswerStorage/answer" />
                 </div>
                      
             </div>

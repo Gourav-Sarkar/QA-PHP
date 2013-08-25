@@ -1,0 +1,22 @@
+/* 
+    Document   : default
+    Created on : Aug 24, 2013, 2:53:23 PM
+    Author     : Gourav Sarkar
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.custom-radio
+{
+    display: none;
+}
+.custom-radio:after
+{
+    content: "foo";
+}
+
+.mod-btn
+{
+    text-decoration: none;
+}
+

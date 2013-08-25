@@ -45,7 +45,7 @@ class RelayMediator
         parent::detach($observer);
     }
     public function notify() {
-        echo "Relaying message";
+        //echo "Relaying message";
         //var_dump($this->target);
         
         foreach($this as $observer)

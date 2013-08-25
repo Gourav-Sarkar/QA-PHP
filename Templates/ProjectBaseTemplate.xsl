@@ -47,7 +47,7 @@
     
     <xsl:template match="pageRoot">
         <xsl:choose>
-            <xsl:when test="current()/@mode='FRAGMENT'">
+            <xsl:when  test="current()/@mode='FRAGMENT'">
             <xsl:call-template name="document-fragment"></xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
@@ -70,15 +70,31 @@
                 <!-- Bootstrap -->
                 <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
                 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+                <link rel="stylesheet" href="/stackoverflow/css/stackoverflow.css" />
 
             </head>
             <body>
+                <!-- Modal default -->
+                    <div id="myModal" class="modal fade hide">
+                    
+                        <div class="modal-body">
+                            <p>One fine body…</p>
+                        </div>
+                    
+                        <div class="modal-footer">
+                            <a href="#" class="btn" data-dismiss="modal">No</a>
+                            <a id="modalAffirm" href="#" class="btn btn-primary">Yes</a>
+                        </div>
+                        
+                    </div>
+    
                 <!-- Header -->
                 <xsl:call-template name="pageHeader"></xsl:call-template>
                 
                 <!--Content -->
                 
-                <section class="row-fluid">
+                <div class="row-fluid">
+                    
                     <xsl:choose>
                         <xsl:when test="current()/@static!=''">
                             <xsl:apply-templates select="/" mode="static"/>
@@ -87,7 +103,7 @@
                             <xsl:apply-templates />
                         </xsl:otherwise>
                     </xsl:choose>
-                </section>
+                </div>
     
                 <!-- footer -->
                 <xsl:call-template name="pageFooter"></xsl:call-template>

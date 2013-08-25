@@ -15,7 +15,7 @@ require_once 'models/Notification.php';
 require_once DOCUMENT_ROOT . 'Storages/NotificationStorage.php';
 require_once 'Abstracts/AbstractController.php';
 
-class QuestionController extends AbstractController{
+class QuestionController extends AbstractController {
 
     //put your code here
     private $question;
@@ -40,7 +40,7 @@ class QuestionController extends AbstractController{
         //Question Controller must have Question object
         $this->question = new Question();
         $this->question->setInvisible(0);
-        
+
         (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
 
@@ -77,6 +77,11 @@ class QuestionController extends AbstractController{
 
 
             $this->question->create();
+
+
+            $this->view->setMode(RENDER::MODE_FRAGMENT);
+            $this->view->setModel($this->question->xmlSerialize());
+            echo $this->view->render();
         }
     }
 
@@ -109,7 +114,7 @@ class QuestionController extends AbstractController{
 
         //var_dump($this->question);
         $this->question->addAnswer($ans);
-        
+
         $this->view->setMode(RENDER::MODE_FRAGMENT);
         $this->view->setModel($ans->xmlSerialize());
         echo $this->view->render();
@@ -129,7 +134,7 @@ class QuestionController extends AbstractController{
 
         $this->question->addComment($comment);
         $this->question->relay(__FUNCTION__);
-        
+
         $this->view->setMode(RENDER::MODE_FRAGMENT);
         $this->view->setModel($comment->xmlSerialize());
         echo $this->view->render();
@@ -142,8 +147,6 @@ class QuestionController extends AbstractController{
     public function show() {
         //echo _("GETTEXT");
         //echo __METHOD__;
-
-
         //Read should update the object instead of return any object
         try {
             $question = $this->question->read();
@@ -152,7 +155,6 @@ class QuestionController extends AbstractController{
 
             $this->view->setModel($question->xmlSerialize());
             //$this->view->addSubModel(new Tag($reference));
-            $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
             echo $this->view->render();
 
             //echo Utility::getLink($this->question,'doSomething');
@@ -224,7 +226,7 @@ class QuestionController extends AbstractController{
 
     public function downVote() {
         echo __METHOD__;
-        
+
         $this->question->downvote(null);
     }
 

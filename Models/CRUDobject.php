@@ -10,6 +10,7 @@
  * @todo Create function to parse structure of object
  * @todo Parse availble fields from field cache
  * @todo Parse result set and map to object structure to create a object
+ * @todo Add auto creeation of model table
  * @author Gourav Sarkar
  */
 class CRUDobject implements CRUDLInterface {

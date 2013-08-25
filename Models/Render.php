@@ -10,6 +10,8 @@ require_once 'Interfaces/RenderbleInterface.php';
  * Description of Render
  * @todo multiple model setting on single view
  * @author Gourav Sarkar
+ * 
+ * @todo Give a interface to set page core title meta and other information
  */
 class Render {
     //put your code here
@@ -190,6 +192,7 @@ class Render {
         //var_dump($methods);
         $this->transformer->registerPHPFunctions();
     }
+    
 
 }
 

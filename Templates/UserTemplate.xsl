@@ -103,7 +103,7 @@
     # Used to show summarize user info (inline)
     -->
     <xsl:template match="user" mode="inline-summary">
-        <div class="owner">
+        <div class="row-fluid">
             <xsl:choose>
                 
                 <xsl:when test="string(id)=''">

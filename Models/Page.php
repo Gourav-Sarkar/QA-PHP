@@ -6,7 +6,7 @@
  */
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Models/PageComponent.php';
-require_once 'Models/pageComponentStorage.php';
+require_once 'Storages/pageComponentStorage.php';
 /**
  * Description of Page
  * 
@@ -17,18 +17,19 @@ require_once 'Models/pageComponentStorage.php';
  */
 class Page extends AbstractContent{
     //put your code here
-    private $meta;
     private $componentList;
     private $title;
     
     
     public function __construct() {
-        $this->componentList=new PageComponentStorage();
+        parent::__construct();
+
+        $this->componentList=new PageComponentStorage('pageComponent');
     }
     
     public function setTitle($title)
     {
-        $this->setFieldCache('title');
+        $this->crud->setFieldCache('title');
         $this->title=$title;
     }
     
@@ -62,7 +63,7 @@ class Page extends AbstractContent{
     
     private function getComponents()
     {
-        $componentStorage=new PageComponentStorage();
+        $componentStorage=new PageComponentStorage('pageComponent');
         
         $query="SELECT
             pc.* FROM
@@ -92,9 +93,6 @@ class Page extends AbstractContent{
     /*
      * Do not serialize pager object
      */
-    public function xmlSerialize() {
-        //parent::xmlSerialize();
-    }
 }
 
 ?>

@@ -14,10 +14,7 @@ class PageComponentStorage extends AbstractContentObjectStorage {
     //put your code here
     
     public function getHash($object) {
-        
-        assert('$object instanceof PageComponent');
         $title=$object->getTitle();
-        assert('!empty($title)');
         
         return $title;
     }

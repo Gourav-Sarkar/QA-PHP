@@ -18,31 +18,45 @@
     -->
     <xsl:template match="answer">
         <div class="container-fluid" >
+            
             <xsl:attribute name="id">
                 <xsl:text>answer-</xsl:text><xsl:value-of select="id" />
             </xsl:attribute>
                 
             
         <div class="row-fluid span1">
-            <!-- user could have nested values -->
-            <xsl:apply-templates select="user" mode="inline-summary"/>
         
-        <!--Vote interface -->
+            <!--Vote interface -->
             <xsl:apply-templates select="VoteStorage" />
+            
+            <!-- Select answer interface -->
+            <input class="custom-radio" type="radio" name="selectedAnswer" />
+            
+            <!--Quick tool interface -->
+            <p>
+                <a href="#">
+                    <i class="icon-star-empty icon-2x mod-btn"></i>
+                </a>
+            </p>
         
-    </div>
+        </div>
                     
     <div class="row-fluid span11">
-        <p class="lead"><xsl:value-of select="content" /></p>
-        <hr/>
-        
         <div class="row-fluid">
-            <!--
-            Action link/button goes here
-            <a href="<?php echo $this->getLink("edit"); ?>"><span>Edit</span></a>
-            <a href="<?php echo $this->getLink("delete"); ?>">Delete</a>
-            -->
+             <p class="lead"><xsl:value-of select="content" /></p>
+            <hr/>
         </div>
+         
+        <div class="row-fluid">
+            <div class="span6">
+                Foobar
+            </div>
+            <div class="offset1 span5">
+                <!-- user could have nested values -->
+                <xsl:apply-templates select="user" mode="inline-summary"/>
+            </div>
+        </div>
+        
         
         <div class="span12">
             <!--Comment list --> 
@@ -73,15 +87,6 @@
     </xsl:template>
     
     
-    <!-- 
-    # Template AnswerStorage
-    # Mode Default
-    # Used to hold numbers of comment
-    -->
-    <xsl:template match='AnswerStorage'>
-        <xsl:apply-templates select="answer" />
-    </xsl:template>
-    <!-- ========================================================================-->
     
     
     
