@@ -12,19 +12,31 @@ require_once 'Interfaces/RenderbleInterface.php';
  * @author Gourav Sarkar
  * 
  * @todo Give a interface to set page core title meta and other information
+ * 
+ * @todo
+ * Application specific header and footer
+ * Global heaeder and footer
+ * Wys to dynamically add header and footer
+ * 
+ * Template can be used either in context based or flat
+ * Context based temlate have benifit of non repeating code. Restricted template edit. rigid to common temp[late
+ *      Context template can be put inside root of template folder
+ * Flat template can be repeptetive. but gives frredom to manipulate template freely. lack common template
+ *      Flat templates are stored in seperate directory for each project. because each template differs froma nother (project specific)
+ * 
  */
 class Render {
     //put your code here
 
     const MODE_FRAGMENT = 'FRAGMENT';
     const MODE_DOCUMENT = 'DOCUMENT';
+    
+    const DEBUG_STYLE_LOC='styleDump.xml';
 
     private $model;
     private $transformer;
-    
     private $baseTemplate;
     private $templates; //Stores templates to be applied to model
-    
     private $stylsheet;
     private $mappedClass = array('utility');
 
@@ -43,8 +55,9 @@ class Render {
         $this->transformer = new XSLTProcessor();
 
         $this->stylsheet = new DOMDocument();
-        $this->stylsheet->load('templates/ProjectBaseTemplate.xsl');
-        $this->mode=static::MODE_DOCUMENT;
+        $this->stylsheet->load(DOCUMENT_ROOT . 'templates/ProjectBaseTemplate.xsl');
+        $this->mode = static::MODE_DOCUMENT;
+        $this->templates=array();
 
         /*
          * Load utility functions
@@ -97,36 +110,35 @@ class Render {
          */
         //$objRoot=$this->model->createElement((String))
 
-        
+
         /*
          * Append if there is model data
          */
-       $this->addSubModel($modelData);
+        $this->addSubModel($modelData);
     }
-    
+
     /*
      * @todo should add attribute 'name' to distinguish same type of objects AKA same node name
      */
-    public function addSubModel($modelData,$name=null)
-    {
-        $page=$this->model->documentElement;
+
+    public function addSubModel($modelData, $name = null) {
+        $page = $this->model->documentElement;
         assert('$page instanceof DOMElement');
-        
+
         if (!empty($modelData)) {
             $fragment = $this->model->createDocumentFragment();
-            
+
             /*
              * If there is name for model append the it as attribute
              * It will help to distinguish different node which have same node name
              */
-            if(!empty($name))
-            {
-                $nameAttr=$fragment->createAttribute("name");
-                $nameAttr->value=$name;
-                
+            if (!empty($name)) {
+                $nameAttr = $fragment->createAttribute("name");
+                $nameAttr->value = $name;
+
                 $fragment->appendChild($nameAttr);
             }
-            
+
             $fragment->appendXML($modelData);
 
             $page->appendChild($fragment);
@@ -152,7 +164,7 @@ class Render {
         /*
          * Debug dumper
          */
-       $this->setDumper('dump.xml');
+        $this->setDumper('dump.xml');
         $this->dump($this->model->saveXMl());
     }
 
@@ -168,10 +180,19 @@ class Render {
         return $this->dumper;
     }
 
+    /*
+     * Dumps model and stylesheet
+     */
+
     private function dump($data) {
+        /*
+         * Dump models
+         */
         if (!is_null($this->dumper)) {
             file_put_contents($this->dumper, $data);
         }
+        
+        $this->stylsheet->save(DOCUMENT_ROOT . static::DEBUG_STYLE_LOC);
     }
 
     /*
@@ -195,12 +216,23 @@ class Render {
         //var_dump($methods);
         $this->transformer->registerPHPFunctions();
     }
-    
-    public function addTemplate($name)
-    {
-        $this->templates[]=$name;
+
+    public function addTemplate($name,$namespace='') {
+        $formatedName=$name;
+        if(!empty($namespace))
+        {
+            $formatedName="$namespace/$name";
+        }
+        
+        $this->templates[] = $formatedName;
     }
-    
+
+    private function loadTemplate() {
+        foreach ($this->templates as $template) {
+            $stylesheet=DOCUMENT_ROOT . "{$template}Template.xsl";
+            $this->stylsheet->documentElement->insertBefore($this->stylsheet->documentElement->firstChild, $stylesheet);
+        }
+    }
 
 }
 

@@ -83,14 +83,14 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
      * 
      */
 
-    public function setInvisible($remove='')
+    public function setInvisible($invisible=FALSE)
     {
         $this->crud->setFieldCache("invisible");
-        if(empty($remove))
+        if(!empty($invisible))
         {
-            $remove=time();
+            $invisible=time();
         }
-        $this->invisible=$remove;
+        $this->invisible=$invisible;
     }
     public function getInvisible()
     {

@@ -28,7 +28,6 @@ class PageController extends AbstractController {
         
         $this->view->setModel($this->model->xmlSerialize());
         
-        $this->view->addTemplate($this->model->getTitle());
         echo $this->view->render();
     }
     

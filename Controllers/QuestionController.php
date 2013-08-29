@@ -39,7 +39,7 @@ class QuestionController extends AbstractController {
         //require_once ''
         //Question Controller must have Question object
         $this->question = new Question();
-        $this->question->setInvisible(0);
+        $this->question->setInvisible(false);
 
         (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 

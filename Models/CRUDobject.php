@@ -365,12 +365,20 @@ class CRUDobject implements CRUDLInterface {
 
             foreach ($fieldCache as $field => &$value) {
                 $value = $this->dependency->{"get{$field}"}();
-                $placeholders[] = " $field=:$field ";
+                $placeholders[] = "$this->dependency.$field=:$field ";
             }
             $query .= implode(" AND ", $placeholders);
         }
 
-        //echo $query;
+        /*
+         * @DEBUG
+         */
+        /*
+        echo $query;
+        var_dump($fieldCache);
+         * 
+         */
+        
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
 
