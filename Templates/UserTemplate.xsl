@@ -13,7 +13,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0">
     <xsl:output method="html"/>
 
-    <xsl:template match="user">
+    <xsl:template match="user" mode="profile">
         <div class="container-fluid">
             <div class="row-fluid span12">
                 
@@ -69,7 +69,7 @@
     
     
     
-     <!--
+    <!--
     # Template User
     # Mode summary List(@todo)
     # Used to show summarize list (like user searching user list)
@@ -108,28 +108,30 @@
                 
                 <xsl:when test="string(id)=''">
                     <!-- default User avatar -->
-                    <img src="/image/avatar/default.png" class="img-rounded" /> 
+                    <div class="thumbnail span3">
+                        <img src="/image/avatar/default.png" class="img-rounded" /> 
+                    </div>
                     <div class="text-center">
-                        <h4>
+                        <span>
                             Guest
-                        </h4>
+                        </span>
                     </div>
                 </xsl:when> 
                 
                 <xsl:otherwise>
                     <!-- Registered User avatar -->
-                    <a>
-                        <xsl:attribute name="href">
-                            <xsl:call-template name="getLink">
-                                <xsl:with-param name="action">show</xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:attribute>
-                        <img src="/image/avatar/default.png" class="img-rounded" />
-                    </a> 
-                    <div class="text-center">
-                        <h4>
+                    <div class="thumbnail span3">
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:call-template name="getLink">
+                                    <xsl:with-param name="action">show</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <img src="/image/avatar/default.png" class="img-rounded" />
+                        </a> 
+                        <span>
                             <xsl:value-of select="nick" />
-                        </h4>
+                        </span>
                     </div>
                 </xsl:otherwise>
                 
@@ -143,31 +145,31 @@
     
     
     <xsl:template match="user" mode="inline-min-summary">
-            <xsl:choose>
+        <xsl:choose>
                 
-                <xsl:when test="string(id)=''">
+            <xsl:when test="string(id)=''">
+                <span class="text-center">
+                    Guest
+                </span>
+            </xsl:when> 
+                
+            <xsl:otherwise>
+                <!-- Registered User avatar -->
+                <a>
+                    <xsl:attribute name="href">
+                        <xsl:call-template name="getLink">
+                            <xsl:with-param name="action">show</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                        
+                        
                     <span class="text-center">
-                        Guest
+                        <xsl:value-of select="nick" />
                     </span>
-                </xsl:when> 
+                </a> 
+            </xsl:otherwise>
                 
-                <xsl:otherwise>
-                    <!-- Registered User avatar -->
-                    <a>
-                        <xsl:attribute name="href">
-                            <xsl:call-template name="getLink">
-                                <xsl:with-param name="action">show</xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:attribute>
-                        
-                        
-                        <span class="text-center">
-                            <xsl:value-of select="nick" />
-                        </span>
-                    </a> 
-                </xsl:otherwise>
-                
-            </xsl:choose>
+        </xsl:choose>
     </xsl:template>
     
     

@@ -7,3 +7,22 @@ connection and id should be moved to seperate tait or class.
 Connection should resume to default if it cant make connection 
 ** Connection resume with object tracking using Exception
 Serialize and make an light weight object for session
+
+
+One page can have some elment which is sismilar and can resemble same type of element
+This type of list of object share same visual appearance. There is chance to have dynamic
+CRUD operation
+For the other part of page there is some element which is on his own and does not have resembles 
+any other element. There visual appearance and positioning is unpredictble and unique. So thus they need
+to be hardcoded in template. [This should not be mixed with same looking but different type of element. Those
+are enlisted as unique element and there appearance are applied via CSS]
+
+Grouped template have common and seperate template for each element
+Single unique element are hardcoded to template instead of subtemplate
+
+Simple pages which does not need to search through can be edited on the place (or in xml files)
+    {
+        data types=textarea,text,image
+        
+
+    }

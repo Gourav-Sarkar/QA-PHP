@@ -1,47 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT">
-    <page>
-        <PageComponentStorage>
-            <storage_type>pageComponent</storage_type>
-            <pagecomponent>
-                <title>name</title>
-                <id>1</id>
-                <user>
-                    <id/>
-                    <nick/>
-                    <reputation>1</reputation>
-                    <password/>
-                    <email/>
-                    <auth/>
-                </user>
-                <time/>
-                <content>Gourav Sarkar</content>
-                <setting/>
-                <invisible>0</invisible>
-            </pagecomponent>
-            <pagecomponent>
-                <title>address</title>
-                <id>2</id>
-                <user>
-                    <id/>
-                    <nick/>
-                    <reputation>1</reputation>
-                    <password/>
-                    <email/>
-                    <auth/>
-                </user>
-                <time/>
-                <content>India</content>
-                <setting/>
-                <invisible>0</invisible>
-            </pagecomponent>
-        </PageComponentStorage>
-        <title>home</title>
-        <id>1</id>
-        <user/>
-        <time>0</time>
-        <content/>
-        <setting/>
-        <invisible>1377444300</invisible>
-    </page>
-</pageRoot>
+<pageRoot mode="DOCUMENT"><page><PageComponentStorage><storage_type>pageComponent</storage_type>
+<pagecomponent><title>name</title>
+<group/>
+<id>1</id>
+<user><id/>
+<nick/>
+<reputation>1</reputation>
+<password/>
+<email/>
+<auth/>
+</user><time/>
+<content>Gourav Sarkar</content>
+<setting/>
+<invisible>0</invisible>
+</pagecomponent><pagecomponent><title>address</title>
+<group/>
+<id>2</id>
+<user><id/>
+<nick/>
+<reputation>1</reputation>
+<password/>
+<email/>
+<auth/>
+</user><time/>
+<content>India</content>
+<setting/>
+<invisible>0</invisible>
+</pagecomponent></PageComponentStorage><title>home</title>
+<id>1</id>
+<user/>
+<time>0</time>
+<content/>
+<setting/>
+<invisible>1377813513</invisible>
+</page></pageRoot>

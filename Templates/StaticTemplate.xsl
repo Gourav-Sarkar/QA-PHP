@@ -13,6 +13,9 @@
 
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
+         
+         Add template of each static page
+         Static pages are those who does not have database data
     -->
     <xsl:template match="pageRoot[@static='staticUserLogin']" mode="static">
         <div class="container-fluid">

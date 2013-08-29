@@ -17,6 +17,7 @@
     # Used to show answer in detailed mode
     -->
     <xsl:template match="answer">
+        <hr/>
         <div class="container-fluid" >
             
             <xsl:attribute name="id">
@@ -60,8 +61,9 @@
         
         <div class="span12">
             <!--Comment list --> 
-            <div>  
                 
+                <hr/>
+            <div>  
                 <xsl:attribute name="id">
                 <xsl:text>AnswerCommentStorage-</xsl:text><xsl:value-of select="id" />
                 </xsl:attribute>

@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Exception/noEntryFoundException.php';
 /**
  * Description of CRUDobject
  * @todo Create function to parse structure of object
@@ -356,22 +356,23 @@ class CRUDobject implements CRUDLInterface {
              */
         }
 
-        //Append for reading specific element
-        $query .= sprintf("WHERE %s.id=:id", (string) $this->dependency);
+        //If there is any conditional structute
+        if (!empty($this->fieldCache)) {
 
+            $query.=" WHERE ";
 
-        //var_dump($reference);
-        //var_dump($query);
-        //Execute query
-        $id = $this->dependency->getID();
-        assert(!empty($id));
+            $fieldCache = array_flip($this->fieldCache);
 
-        $stmt = DatabaseHandle::getConnection()->prepare($query);
-        $stmt->bindValue(":id", $id);
-        unset($id);
+            foreach ($fieldCache as $field => &$value) {
+                $value = $this->dependency->{"get{$field}"}();
+                $placeholders[] = " $field=:$field ";
+            }
+            $query .= implode(" AND ", $placeholders);
+        }
 
         //echo $query;
-        $stmt->execute();
+        $stmt = DatabaseHandle::getConnection()->prepare($query);
+        $stmt->execute($fieldCache);
 
         if (!$data = $stmt->fetch(PDO::FETCH_NUM)) {
             throw new NoEntryFoundException("No entry in Database");

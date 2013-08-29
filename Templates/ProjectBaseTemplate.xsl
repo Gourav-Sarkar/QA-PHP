@@ -43,6 +43,7 @@
     <xsl:include  href='commentTemplate.xsl'/>
     <xsl:include  href='tagTemplate.xsl'/>
     <xsl:include  href='VoteTemplate.xsl'/>
+    <xsl:include  href='TimeEverTemplate.xsl'/>
     <xsl:include  href='staticTemplate.xsl'/>
     
     <xsl:template match="pageRoot">
@@ -70,7 +71,7 @@
                 <!-- Bootstrap -->
                 <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
                 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
-                <link rel="stylesheet" href="/stackoverflow/css/stackoverflow.css" />
+                <link rel="stylesheet" href="/jquery/bootstrap-editable/css/bootstrap-editable.css" />
 
             </head>
             <body>
@@ -184,6 +185,7 @@
         <script src="/jquery/jquery-min.js"></script>
         <script src="/Bootstrap/js/bootstrap.min.js"></script>
         <script src="/Bootstrap/js/bootstrapSwitch.js"></script>
+        <script src="/jquery/bootstrap-editable/js/bootstrap-editable.js"></script>
         <script src="js/stackoverflow.js"></script>
     </xsl:template>
     
@@ -262,6 +264,50 @@
                 <xsl:value-of select="local-name()" />
             </b>
         </xsl:message>
+    </xsl:template>
+    
+    
+    <!--
+    Basic CRUDE panel
+    -->
+    <xsl:template name="CRUDpanel" mode="basic">
+        <div class="btn-group">
+            <xsl:attribute name="data-target-object">
+                <xsl:text>questioncomment-</xsl:text>
+                <xsl:value-of select="id"></xsl:value-of>
+            </xsl:attribute>
+            
+            <a class="btn btn-mini btn-inline-edit" data-action="edit" data-inline-edit-target=".inline-edit-field-content" >
+                        
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="action">edit</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <i class="icon-edit"></i>
+            </a>
+                    
+            <a class="btn btn-mini btn-confirm" data-action="delete" data-btn-msg="Are you really sure to delete this?">
+                <xsl:attribute name="href" >
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="action">delete</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <i class="icon-remove"></i>
+            </a>
+                    
+            <a class="btn btn-mini" data-action='flag'>
+                <xsl:attribute name="href">
+                    <xsl:call-template name="getLink">
+                        <xsl:with-param name="currentNode" select="." />
+                        <xsl:with-param name="action">flag</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <i class="icon-flag"></i>
+            </a>
+        </div>
     </xsl:template>
     
 </xsl:stylesheet>

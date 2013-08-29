@@ -36,9 +36,9 @@ class Utility {
         $dates=explode(',' , $diff->format("%h,%i,%s"));
         if($dates[0]<24)
         {
-        $dateString .=($dates[0])?"{$dates[0]} hour ":'';
-        $dateString .=($dates[1])?"{$dates[1]} minute ":'';
-        $dateString .=($dates[2])?"{$dates[2]} second ":'';
+        $dateString .=($dates[0])?"{$dates[0]} H ":'';
+        $dateString .=($dates[1])?"{$dates[1]} M ":'';
+        $dateString .=($dates[2])?"{$dates[2]} S ":'';
        
         $dateString .="ago ";
         }

@@ -138,11 +138,12 @@ $(".btn")
 $(".btn-inline-edit").click(
     function(e)
     {
-        var targetNode=$(e.currentTarget).data('target-origin')
-        //Make the original data hide
-        var btn=$(e.currentTarget).closest(".btn");
-        console.log(btn);
-    //$(targetNode + " .inline-edit-field")
+        //get target object
+        targetID='#'+$(e.currentTarget).closest(".btn-group").data("target-object");
+        
+        console.log(targetID);
+        e.stopPropagation();
+        $(".inline-edit-field").editable('toggle');
     }
                 
     );
@@ -187,6 +188,9 @@ $(".btn-confirm").click(
     );
     */
    
+   /*
+    * Ajax creation of content
+    */
    
    $("body").on(
    "click"
@@ -233,4 +237,4 @@ $(".btn-confirm").click(
     
 
     );
-          
+         $.fn.editable.defaults.mode = 'inline'; 

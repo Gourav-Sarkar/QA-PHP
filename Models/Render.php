@@ -21,7 +21,10 @@ class Render {
 
     private $model;
     private $transformer;
+    
     private $baseTemplate;
+    private $templates; //Stores templates to be applied to model
+    
     private $stylsheet;
     private $mappedClass = array('utility');
 
@@ -191,6 +194,11 @@ class Render {
 
         //var_dump($methods);
         $this->transformer->registerPHPFunctions();
+    }
+    
+    public function addTemplate($name)
+    {
+        $this->templates[]=$name;
     }
     
 

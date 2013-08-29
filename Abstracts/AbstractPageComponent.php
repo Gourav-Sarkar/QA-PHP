@@ -15,6 +15,8 @@ abstract class AbstractPageComponent
     extends AbstractContent
 {
     protected $title;
+    protected $group;
+    
     public function __construct() {
         parent::__construct();
     }
@@ -28,6 +30,17 @@ abstract class AbstractPageComponent
     {
         return $this->title;
     }
+    
+     public function setGroup($group)
+    {
+        $this->crud->setFieldCache('group');
+        $this->title=$group;
+    }
+    public function getgroup()
+    {
+        return $this->group;
+    }
+    
     public function xmlSerialize() {
         unset($this->user);
         

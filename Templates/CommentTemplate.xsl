@@ -22,11 +22,12 @@
     # Mode Default
     # Used to show default comments
     -->
-    <xsl:template match="answercomment">
+    <xsl:template match="answercomment | questioncomment">
         <div class="row-fluid">
             
             <xsl:attribute name="id">
-                <xsl:text>answercomment-</xsl:text>
+                <xsl:value-of select="local-name(.)"></xsl:value-of>
+                <xsl:text>-</xsl:text>
                 <xsl:value-of select="id"></xsl:value-of>
             </xsl:attribute>
             
@@ -40,7 +41,7 @@
                     
                 <!-- inline editeble content -->
                 <span class="inline-edit-form">
-                    <span class="inline-edit-field" data-field-type="text" data-field-name="content">
+                    <span class="inline-edit-field" data-type="text">
                         
                         <xsl:value-of select='content' ></xsl:value-of>
                     </span>
@@ -53,7 +54,8 @@
                 <!-- prefix with target tells it is class targeting nodes -->
                 <div class="btn-group">
                     <xsl:attribute name="data-target-object">
-                        <xsl:text>answercomment-</xsl:text>
+                        <xsl:value-of select="local-name(.)"></xsl:value-of>
+                        <xsl:text>-</xsl:text>
                         <xsl:value-of select="id"></xsl:value-of>
                     </xsl:attribute>
             
@@ -100,75 +102,7 @@
     # Mode Default
     # Used to show default comments
     -->
-    <xsl:template match="questioncomment">
-        <div class="row-fluid">
-            
-            <xsl:attribute name="id">
-                <xsl:text>questioncomment-</xsl:text>
-                <xsl:value-of select="id"></xsl:value-of>
-            </xsl:attribute>
-            
-            
-            <div class="span11 inline-edit-group">
-                <!--Vote interface -->
-                <xsl:apply-templates select="VoteStorage" mode="comment" />
-                    
-                <!--User Interface -->
-                <xsl:apply-templates select="user" mode="inline-min-summary" />
-                    
-                <!-- inline editeble content -->
-                <span class="inline-edit-form">
-                    <span class="inline-edit-field" data-field-type="text" data-field-name="content">
-                        
-                        <xsl:value-of select='content' ></xsl:value-of>
-                    </span>
-                </span>
-                -
-                <span>
-                    <xsl:value-of select="php:function('utility::timeDiff',time)" />
-                </span>
-                    
-                <!-- prefix with target tells it is class targeting nodes -->
-                <div class="btn-group">
-                    <xsl:attribute name="data-target-object">
-                        <xsl:text>questioncomment-</xsl:text>
-                        <xsl:value-of select="id"></xsl:value-of>
-                    </xsl:attribute>
-            
-                    <a class="btn btn-mini btn-inline-edit" data-inline-edit-target=".inline-edit-field-content" >
-                        
-                        <xsl:attribute name="href">
-                            <xsl:call-template name="getLink">
-                                <xsl:with-param name="currentNode" select="." />
-                                <xsl:with-param name="action">edit</xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:attribute>
-                        <i class="icon-edit"></i>
-                    </a>
-                    
-                    <a class="btn btn-mini btn-confirm" data-btn-msg="Are you really sure to delete this?">
-                        <xsl:attribute name="href" >
-                            <xsl:call-template name="getLink">
-                                <xsl:with-param name="currentNode" select="." />
-                                <xsl:with-param name="action">delete</xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:attribute>
-                        <i class="icon-remove"></i>
-                    </a>
-                    
-                    <a class="btn btn-mini">
-                        <xsl:attribute name="href">
-                            <xsl:call-template name="getLink">
-                                <xsl:with-param name="currentNode" select="." />
-                                <xsl:with-param name="action">flag</xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:attribute>
-                        <i class="icon-flag"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </xsl:template>
+   <!-- removed -->
     <!-- ========================================================================-->
  
     

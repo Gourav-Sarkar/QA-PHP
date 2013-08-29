@@ -34,8 +34,6 @@
                 
                 <div class="span6 container-fluid">
                     <div class="span1">
-                        <!-- user could have nested values -->
-                        <xsl:apply-templates select="user" mode="inline-summary" />
                         
                         <!--Vote interface -->
                         <xsl:apply-templates select="VoteStorage" />
@@ -48,33 +46,28 @@
                         <p class="lead">
                             <xsl:value-of select="content" />
                         </p>
+                        <hr/>
                         
                         <div class="row-fluid">
-                            <div class="span7">
+                            <div class="span4">
                                 <div class="container-fluid">
                                     <!-- Tag template -->
-                                    <xsl:apply-templates select="tagStorage" />
+                                    <xsl:apply-templates select="tagStorage/tag" />
                                 </div>
                             </div>
-                            <div class="span4">
+                            <div class="offset3 span5">
+                                <!-- user could have nested values -->
+                                <xsl:apply-templates select="user" mode="inline-summary" />
+                                <p>
                                 - 
                                 <xsl:value-of select="php:function('utility::timeDiff',time)" />
+                                </p>
                                 <!-- <xsl:value-of select="php:function('utility::getLink',String(.),'action')" /> -->
                                 <!--
                                 - 
                                 <xsl:value-of select="time" />
                                 -->
                             </div>
-                        </div>
-                    
-                        <div class="row-fluid">
-                            <!-- Revision data -->
-                            <!--
-                                 <?php if($this->getRevisions()->count()):?>
-                                 <a href="<?php echo $this->getLink("getRevision"); ?>">Show rev</a>
-                                 <?php else: echo '&nbsp;'; ?>
-                                 <?php endif; ?>
-                            -->
                         </div>
                     
                         <div class="row-fluid">
