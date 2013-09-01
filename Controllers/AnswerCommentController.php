@@ -40,7 +40,7 @@ class AnswerCommentController extends AbstractController{
         $comment = new AnswerComment(new Answer(new Question()));
         $comment->setID($_GET['answercomment']);
         
-        $this->model->setInvisible();
+        $this->model->setInvisible(TRUE);
         $this->model->edit($comment);
     }
 }

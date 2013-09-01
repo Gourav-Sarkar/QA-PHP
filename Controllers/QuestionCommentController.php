@@ -30,7 +30,7 @@ class QuestionCommentController extends AbstractController {
         $comment = new QuestionComment(new Question());
         $comment->setID($_GET['questioncomment']); //Add model __tostring()
         
-        $this->model->setInvisible();
+        $this->model->setInvisible(TRUE);
         $this->model->edit($comment);
     }
 }

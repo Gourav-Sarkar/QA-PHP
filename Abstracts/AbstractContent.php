@@ -58,7 +58,7 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     protected $content;
     protected $setting;
     protected $crud;
-    protected $invisible=0; //Every content can be removed softly
+    protected $invisible=0; //Every content can be removed softly [false=You can see]
 
     public function __construct() {
         $this->user = new User();

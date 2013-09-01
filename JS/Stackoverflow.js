@@ -84,26 +84,29 @@ $("body")
             var targetNode=$(e.currentTarget);
                             
             //Make the original data hide
-            var btn=$(e.currentTarget).closest(".btn");
-            msgBody=btn.data('btn-msg');
+            //var btn=$(e.currentTarget).closest(".btn");
+            msgBody=targetNode.data('btn-msg');
                             
                             
             $('#myModal .modal-body p').html(msgBody);
-            $('#myModal').modal('show');
+            $('#myModal').modal('toggle');
                                     
             $('#modalAffirm').click(
                 function(e)
                 {
-                    $.get(btn.attr('href')
+                    $.get(targetNode.attr('href') //should use post
                         ,null
                         ,function(data)
                         {
                             $('#myModal .modal-body p').html(data);
                             var targetID=targetNode.closest('.btn-group').data('target-object');
                             $("#"+targetID).remove();
-                            $('#myModal').modal('hide');
+                            console.log(data);
+                            $('#myModal').modal('toggle');
                         }
                         )
+                        
+                        e.preventDefault();
                 }
                 );
                 

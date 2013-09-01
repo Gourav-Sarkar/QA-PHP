@@ -77,8 +77,8 @@
                         </div>
                     
                         <div class="modal-footer">
-                            <a href="#" class="btn" data-dismiss="modal">No</a>
-                            <a id="modalAffirm" href="#" class="btn btn-primary">Yes</a>
+                            <a href="" class="btn" data-dismiss="modal">No</a>
+                            <a id="modalAffirm" href="" class="btn btn-primary">Yes</a>
                         </div>
                         
                     </div>
@@ -205,7 +205,7 @@
             </xsl:when>
             
             <xsl:otherwise>
-                <xsl:text>? module=</xsl:text>
+                <xsl:text>?module=</xsl:text>
             <xsl:value-of select="local-name($currentNode)" />
             <xsl:text>&amp;</xsl:text><xsl:value-of select="local-name($currentNode)" />=<xsl:value-of select="$currentNode/id" />
             <xsl:text>&amp;action=</xsl:text><xsl:value-of select="$action" />
