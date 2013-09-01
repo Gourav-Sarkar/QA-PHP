@@ -58,7 +58,7 @@ class Page extends AbstractContent{
         /*
          * Get component listed in page
          */
-        $this->getComponents();
+        //$this->getComponents();
     }
     
     private function getComponents()
@@ -74,7 +74,7 @@ class Page extends AbstractContent{
             ";
         
         $stmt=  DatabaseHandle::getConnection()->prepare($query);
-        $stmt->execute([$this->id]);
+        $stmt->execute(array($this->id));
         
         while($data=$stmt->fetch(PDO::FETCH_ASSOC))
         {

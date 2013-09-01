@@ -41,7 +41,7 @@
                     
                 <!-- inline editeble content -->
                 <span class="inline-edit-form">
-                    <span class="inline-edit-field" data-type="text">
+                    <span class="inline-edit" data-type="text">
                         
                         <xsl:value-of select='content' ></xsl:value-of>
                     </span>

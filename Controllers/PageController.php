@@ -28,13 +28,17 @@ class PageController extends AbstractController {
         
         $this->view->setModel($this->model->xmlSerialize());
         
+        $this->view->addTemplate($this->model->getTitle(),'project/timeEver');
         echo $this->view->render();
     }
-    
-    public function edit()
+    /*
+    public function addComponent()
     {
         
     }
+     * 
+     */
+    
 }
 
 ?>

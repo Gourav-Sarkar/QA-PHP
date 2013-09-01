@@ -7,6 +7,7 @@ connection and id should be moved to seperate tait or class.
 Connection should resume to default if it cant make connection 
 ** Connection resume with object tracking using Exception
 Serialize and make an light weight object for session
+Offline enable apps
 
 
 One page can have some elment which is sismilar and can resemble same type of element
@@ -19,6 +20,16 @@ are enlisted as unique element and there appearance are applied via CSS]
 
 Grouped template have common and seperate template for each element
 Single unique element are hardcoded to template instead of subtemplate
+
+Content visibility depending upon user role (needs another table of content-User to map the permission in content level)[It is already done in core permission system]
+(note: Who can create content can see them by default. Extra constraint applied from his ACL)
+
+    Locked interaction- Once one authrotive user do some action on content, later
+                        visibility or/and authorization locked into him and content creator
+    unlocked interaction- Even some interaction happens between content and one of authorised
+                          user. still other authoritive user can have visivlity or action authorisation
+                          
+                          *(Action authorization is custom. action permission is granted by core permission system. user association should be customizable in this module)
 
 Simple pages which does not need to search through can be edited on the place (or in xml files)
     {

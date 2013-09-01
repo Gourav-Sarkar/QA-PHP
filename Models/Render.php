@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Interfaces/RenderbleInterface.php';
+require_once 'Exception/IOException.php';
 
 /**
  * Description of Render
@@ -150,16 +151,14 @@ class Render {
      */
 
     public function Render() {
-
+        
         /*
-          $b=$transformer->hasExsltSupport();
-          var_dump($b);
+         * load additional template before applying stylsheet styling
          */
+        $this->loadTemplates();
 
         $this->transformer->importStylesheet($this->stylsheet);
         echo $this->transformer->transformToXml($this->model);
-
-        //echo $this->model->saveXML();
 
         /*
          * Debug dumper
@@ -227,10 +226,27 @@ class Render {
         $this->templates[] = $formatedName;
     }
 
-    private function loadTemplate() {
+    
+    /*
+     * @todo Throws NoFileFoundException instead of NoEntryFoundException
+     */
+    private function loadTemplates() {
         foreach ($this->templates as $template) {
-            $stylesheet=DOCUMENT_ROOT . "{$template}Template.xsl";
-            $this->stylsheet->documentElement->insertBefore($this->stylsheet->documentElement->firstChild, $stylesheet);
+            
+            $fileName=DOCUMENT_ROOT . "templates/{$template}Template.xsl";
+            
+            $styleAttr=$this->stylsheet->createAttribute("href");
+            $styleAttr->value=$fileName;
+            
+            if(!(file_exists($fileName)))
+            {
+                Throw new IOException("Unable to load template");
+            }
+            
+            $stylesheetNode=$this->stylsheet->createElementNS('http://www.w3.org/1999/XSL/Transform', 'xsl:include');
+            $stylesheetNode->appendChild($styleAttr);
+            
+            $this->stylsheet->documentElement->insertBefore($stylesheetNode,$this->stylsheet->documentElement->firstChild);
         }
     }
 

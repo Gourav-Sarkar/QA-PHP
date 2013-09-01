@@ -24,7 +24,15 @@ class QuestionController extends AbstractController {
 
         parent::__construct();
 
-        $this->view = new Render();
+        /*
+         * Load dependent modules
+         */
+        $this->view->addTemplate("question");
+        $this->view->addTemplate("answer");
+        $this->view->addTemplate("comment");
+        $this->view->addTemplate("user");
+        $this->view->addTemplate("vote");
+        $this->view->addTemplate("tag");
         //Without question There can't have any other action
         //There is though exception like when asking question those should be handled in static method
         /*

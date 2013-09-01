@@ -20,64 +20,13 @@
  * 
  */
 /*
-$(".inline-edit-button")
-    .click(function(e)
-    {
-        //Get group name
-        groupName=$(e.currentTarget).data("inline-edit-group");
-        //console.log(groupName);
-        
-        //clone node and create form
-         inlineform=$(".inline-edit-group-origin"+groupName).clone();
-         $(".inline-edit-group-origin"+groupName).hide();
-        
-        //Get all element which have same group name
-        $(".inline-edit-group-"+groupName)
-        .each(function(index,elem)
-        {
-            type=$(elem).data("field-type");
-                
-            //if type is textarea render one
-            //other wise render input box
-               
-            if(type=="textarea")
-            {
-                $(elem)
-                .replaceWith($("<textarea>",{
-                    "name":$(elem).data("field-name")
-                }
-                ).text($(elem).text())
-                    );
-            }
-            else if(type=="text")
-            {
-                $(elem)
-                .replaceWith($("<input>",{
-                    "type":"text"
-                    ,
-                    "name":$(elem).data("field-name")
-                    ,
-                    "value":$(elem).text()
-                }
-                )
-                );
-            }
-                
-        }
-        );
-        
-        e.preventDefault();
-        
-        
-    }
-    )
-    */
         
         
         
 /*
-         * Real time content adding
-         */
+* [VERIFIED]
+* Real time content adding
+*/
 $("form input[type='submit']")
     .click(
         function(e)
@@ -122,119 +71,81 @@ $("form input[type='submit']")
         )
             
             
-            
-$(".btn")
-    .click(function(event)
-    {
-        /*
-                         * Check button action needs confirmation
-                         */
-        event.preventDefault();
-    }
-                
-    );
-                    
-                    
-$(".btn-inline-edit").click(
-    function(e)
-    {
-        //get target object
-        targetID='#'+$(e.currentTarget).closest(".btn-group").data("target-object");
-        
-        console.log(targetID);
-        e.stopPropagation();
-        $(".inline-edit-field").editable('toggle');
-    }
-                
-    );
-
 
 /*
              * General Modal dialouge
              * Niche delete content
              */
-            /*
-$(".btn-confirm").click(
-    function(e)
-    {
-        var targetNode=$(e.currentTarget);
+$("body")
+    .on("click"
+        ,".btn-confirm"
+        ,function(e)
+        {
+            var targetNode=$(e.currentTarget);
                             
-        //Make the original data hide
-        var btn=$(e.currentTarget).closest(".btn");
-        console.log(btn);
-        msgBody=btn.data('btn-msg');
+            //Make the original data hide
+            var btn=$(e.currentTarget).closest(".btn");
+            msgBody=btn.data('btn-msg');
                             
                             
-        $('#myModal .modal-body p').html(msgBody);
-        $('#myModal').modal('show');
+            $('#myModal .modal-body p').html(msgBody);
+            $('#myModal').modal('show');
                                     
-        $('#modalAffirm').click(
-            function(e)
-            {
-                $.get(btn.attr('href')
-                    ,null
-                    ,function(data)
-                    {
-                        $('#myModal .modal-body p').html(data);
-                        var targetID=targetNode.closest('.btn-group').data('target-object');
-                        $("#"+targetID).remove();
-                        $('#myModal').modal('hide');
-                    }
-                    )
-            }
-            );
-    }
+            $('#modalAffirm').click(
+                function(e)
+                {
+                    $.get(btn.attr('href')
+                        ,null
+                        ,function(data)
+                        {
+                            $('#myModal .modal-body p').html(data);
+                            var targetID=targetNode.closest('.btn-group').data('target-object');
+                            $("#"+targetID).remove();
+                            $('#myModal').modal('hide');
+                        }
+                        )
+                }
+                );
                 
-    );
-    */
+            e.preventDefault();
+        }
+                
+        );
    
-   /*
+/*
     * Ajax creation of content
     */
    
-   $("body").on(
-   "click"
-   ,".btn-confirm"
+        
+$.fn.editable.defaults.toggle="manual";
+$.fn.editable.defaults.mode="inline";
+        
+/*
+ *[Verified]
+ * inline edit
+ */      
+$("body").on(
+    "click"
+    ,".btn-inline-edit" //marker
     ,function(e)
     {
-        var targetNode=$(e.currentTarget);
-                            
-        //Make the original data hide
-        var btn=$(e.currentTarget).closest(".btn");
-        console.log(btn);
-        msgBody=btn.data('btn-msg');
-                            
-                            
-        $('#myModal .modal-body p').html(msgBody);
-        $('#myModal').modal('show');
-                                    
-        $('#modalAffirm').click(
-            function(e)
-            {
-                $.get(btn.attr('href')
-                    ,null
-                    ,function(data)
-                    {
-                        $('#myModal .modal-body p').html(data);
-                        var targetID=targetNode.closest('.btn-group').data('target-object');
-                        $("#"+targetID).remove();
-                        $('#myModal').modal('hide');
-                    }
-                    )
-            }
-            );
-                e.preventDefault();
+        console.log("edit");
+        
+        //get Target id
+        var target=$(e.currentTarget).closest(".btn-group").data("target-object");  //marker
+        
+        //create anchor node
+        /*
+         * Click on document closes the popup. so when click is occured in any dom
+         * element it will popogate to upper node and when it reaches the body
+         * it will close the popup immidtately. so no popup will be shown there
+         * 
+         * In case of non 'manual' option it handles it internally
+         */
+        e.stopPropagation();
+        
+        $("#"+target).find(".inline-edit").editable('toggle');      //marker
+        
+        e.preventDefault();
     }
     );
-        
-        $("body").on(
-                'hover'
-                ,'.mod-btn'
-                ,function(e)
-                {
-                    console.log("foo");
-                }
-    
-
-    );
-         $.fn.editable.defaults.mode = 'inline'; 

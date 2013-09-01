@@ -6,11 +6,11 @@
  */
 
 /**
- * Description of CacheNotFoundException
+ * Description of IOException
  *
  * @author Gourav Sarkar
  */
-class NoEntryFoundException extends RuntimeException{
+class IOException extends Exception{
     //put your code here
 }
 

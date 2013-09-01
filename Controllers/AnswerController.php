@@ -20,6 +20,11 @@ class AnswerController extends AbstractController {
     public function __construct() {
         parent::__construct();
 
+        $this->view->addTemplate("comment");
+        $this->view->addTemplate("user");
+        $this->view->addTemplate("vote");
+        $this->view->addTemplate("answer");
+        
         $question = new Question();
 
         $this->answer = new Answer($question);

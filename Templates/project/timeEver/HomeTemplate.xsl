@@ -68,7 +68,7 @@ Page component can be styled together using group
                         </li>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Partners</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="http://localhost/stackoverflow/index.php?module=page&amp;action=show&amp;page=contact">Contact</a></li>
                         <li><a href="#">location</a></li>
                         <li>
                             <button class="btn btn-success" >Member</button></li>
@@ -91,8 +91,11 @@ Page component can be styled together using group
 
                         <p class="span12 content lead" data-name="showStopper">
                             <span>
+                                <a class="inline-edit" href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">
+                                    
                                 sit amet, tempus id, metus. Donec at nisi sit amet felis. Co, vehicula in, condimentum sit amet, tempus id, metus. Donec at nisi sit amet felis blandit posuere. Aliquam erat volutpat. Co, vehicula in, condimentum sit amet, tempus id, metus. Donec at nisi sit amet felis blandit posuere. Aliquam erat volutpat. C
 
+                                </a>
                             </span> 
                         </p>
                     </div>

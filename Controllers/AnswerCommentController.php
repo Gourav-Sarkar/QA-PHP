@@ -19,6 +19,11 @@ class AnswerCommentController extends AbstractController{
     public function __construct() {
         parent::__construct();
         
+        $this->view->addTemplate("comment");
+        $this->view->addTemplate("user");
+        $this->view->addTemplate("vote");
+        
+        
         $question=new Question();
         $answer=new Answer($question);
         
@@ -29,6 +34,7 @@ class AnswerCommentController extends AbstractController{
         $this->model=new AnswerComment($answer);
         $this->model->setID($_GET['answercomment']);
     }
+    
     public function delete()
     {
         $comment = new AnswerComment(new Answer(new Question()));

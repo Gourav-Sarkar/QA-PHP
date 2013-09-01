@@ -37,13 +37,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html"/>
     
-    <xsl:include  href='QuestionTemplate.xsl'/>
-    <xsl:include  href='UserTemplate.xsl'/>
-    <xsl:include  href='AnswerTemplate.xsl'/>
-    <xsl:include  href='commentTemplate.xsl'/>
-    <xsl:include  href='tagTemplate.xsl'/>
-    <xsl:include  href='VoteTemplate.xsl'/>
-    <xsl:include  href='TimeEverTemplate.xsl'/>
     <xsl:include  href='staticTemplate.xsl'/>
     
     <xsl:template match="pageRoot">
@@ -72,6 +65,7 @@
                 <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
                 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
                 <link rel="stylesheet" href="/jquery/bootstrap-editable/css/bootstrap-editable.css" />
+                <!-- <link rel="stylesheet" href="/work/raju/css/default.css" /> -->
 
             </head>
             <body>
