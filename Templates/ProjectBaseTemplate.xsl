@@ -132,6 +132,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a href="?module=adminPanel&amp;action=show">ACP</a></li>
                     <li><a href="?module=question&amp;action=ask">Write Article</a></li>
                     <li><a href="?module=question&amp;action=ask">Ask Question</a></li>
                     <li><a href="?module=question&amp;action=ask">Give Answer</a></li>

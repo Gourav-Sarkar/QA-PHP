@@ -1,453 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT"><question><answerCount>0</answerCount>
-<AnswerStorage><storage_type>Answer</storage_type>
-<answer><CommentStorage><storage_type>AnswerComment</storage_type>
-<answercomment><Dependency>
- <answer>8</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>101</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1377751681</time>
-<content>8</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>8</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>112</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378030514</time>
-<content>8</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>8</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>119</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378042371</time>
-<content>8</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment></CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>105.0000</votes>
-<hasVoted>105</hasVoted>
-<storage_type>votes</storage_type>
-</VoteStorage><id>8</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-<answercomment><Dependency>
- <answer>9</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>102</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1377761668</time>
-<content>9</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>9</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>107</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378014284</time>
-<content>9</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>9</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>108</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378014473</time>
-<content>9</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment></CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>9</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-<answercomment><Dependency>
- <answer>10</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>11</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1376496239</time>
-<content>add</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>10</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>104</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378010788</time>
-<content>10</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>10</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>105</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378011093</time>
-<content>10</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment><answercomment><Dependency>
- <answer>10</answer>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>106</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1378011156</time>
-<content>10</content>
-<setting/>
-<invisible>0</invisible>
-</answercomment></CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>10</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-</CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>11</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-</CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>12</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-</CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>1231231231.0000</votes>
-<hasVoted>1231231231</hasVoted>
-<storage_type>votes</storage_type>
-</VoteStorage><id>13</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question foo bar&#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-</CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>38</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question&#13;
-            ffff</content>
-<setting/>
-<invisible>0</invisible>
-</answer><answer><CommentStorage><storage_type>AnswerComment</storage_type>
-</CommentStorage><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>votes</storage_type>
-</VoteStorage><id>39</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content>                Answering question                Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-                            Answering question&#13;
-            &#13;
-            </content>
-<setting/>
-<invisible>0</invisible>
-</answer></AnswerStorage><CommentStorage><storage_type>QuestionComment</storage_type>
-<questioncomment><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>AbstractComment</storage_type>
-</VoteStorage><id>103</id>
-<user><id>14</id>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1377372194</time>
-<content>29</content>
-<setting/>
-<invisible>0</invisible>
-</questioncomment><questioncomment><Dependency>
- <question>29</question>
-</Dependency>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>AbstractComment</storage_type>
-</VoteStorage><id>105</id>
-<user><id>14</id>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time>1377751679</time>
-<content>29</content>
-<setting/>
-<invisible>0</invisible>
-</questioncomment></CommentStorage><RevisionStorage><storage_type>QuestionRevision</storage_type>
-</RevisionStorage><tagStorage><storage_type>tag</storage_type>
-<tag><Dependency>
- <question>29</question>
-</Dependency>
-<name>mysql</name>
-<id/>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content/>
-<setting/>
-<invisible>0</invisible>
-</tag><tag><Dependency>
- <question>29</question>
-</Dependency>
-<name>php</name>
-<id/>
-<user><id/>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
-<auth/>
-</user><time/>
-<content/>
-<setting/>
-<invisible>0</invisible>
-</tag></tagStorage><selectedAnswer/>
-<pager/>
-<VoteStorage><votes>0</votes>
-<hasVoted/>
-<storage_type>QuestionVote</storage_type>
-</VoteStorage><views>1</views>
-<title>Tag testsasaasa</title>
-<id>29</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
-<email>Gourav@gmail.com</email>
-<auth/>
-</user><time>1376319888</time>
-<content>Tag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag testTag test</content>
-<setting/>
-<invisible>0</invisible>
-<QuestionStorage><storage_type>Question</storage_type>
-</QuestionStorage></question></pageRoot>
+<pageRoot mode="DOCUMENT"><setting>
+    <core type="module" meta="Core setting for system">
+        <social type="tab">
+            <!--Social integration-->
+            <facebook type="" meta="Intigrate facebook application with the system">
+                <appID type="int">537717556265847</appID>
+                <appKey type="string">73a48848a53a948e6f78fd96448406e1</appKey>
+            </facebook>
+            
+            <google meta="Intigrate google plus group with the system">
+                <!-- 
+                # endpoint: api.sandbox.paypal.com 
+                # Test account: gourav.sarkar13-facilitator@yahoo.com
+                -->
+                <appID>AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
+                <appKey>ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
+            </google>
+        </social>
+        
+        <merchent>
+            <paypal>
+                <appID/>
+                <appKey/>
+            </paypal>
+        </merchent>
+    </core>
+    
+    <file type="module">
+        <movie>
+            <permitedExtension/>
+            <location/>
+            <maxSize/>
+            <permitedResolution/>
+        </movie>
+    </file>
+    
+    <question type="module">
+        <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
+        <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
+        <flagEnable heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"/>
+        <privateConversation meta="Toggle" type="toggle">1</privateConversation>
+        <selfEditeEnable meta="User can edit his post" type="toggle">1</selfEditeEnable>
+        <selfDeleteEnable meta="User can edit his post" type="toggle">1</selfDeleteEnable>
+        
+        
+        <itemPerPage>10</itemPerPage>
+        <categorizingScheme toggle="tag"> <!-- toggle value tag/category Now only tag is available-->
+            <tag>
+                <max>5</max> <!-- Maximum tag can be used -->
+                <min>1</min>
+            </tag>
+        </categorizingScheme>
+        <format>tagged</format> <!-- Threaded or tagged -->
+        
+        <allowGuestQuestion meta="Guest can ask question or not">0</allowGuestQuestion>
+    </question>   
+     
+    <answer type="module">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"/>
+        <flaggingEnable type="toggle"/>
+        <itemPerPage type="j">10</itemPerPage>
+    </answer>
+    
+    <comment type="module">
+        <votingEnable>true</votingEnable>
+        <flaggingEnable>true</flaggingEnable>
+        <itemPerPage>5</itemPerPage>
+    </comment>
+    
+    <notification type="module">
+        <target module="question">
+            <actor>true</actor>
+            <participant>true</participant>
+            <owner>true</owner>
+        </target>
+    </notification>
+    
+    <flag type="module">
+        <falgReason>
+            <reason id="1">
+                <name>Offensive</name>
+            </reason>
+        </falgReason>
+    </flag>
+    
+    <!--
+    Notiification used to notify user if some action is taken on some object
+    So it is good to atatch notification message attached to either object or objectController AKA action
+    -->
+    
+    <!--
+    <module name="notification">
+        <target module="question">
+            <action name="edit">
+                A comment has been added to %question
+            </action>
+            <action name="addComment">
+                %question has been modified
+            </action>
+        </target>
+    </module>
+    -->
+    
+    <!--
+    - Reputation will be on content base not directly to user
+    - Rputation holds information about reputation for different action in system
+    - Reputation will bee given or taken for action
+    - There is two elements  of each action actor and target
+    - Actor is User who is doing the action
+    - Target is also User. It is the owner of the content
+    - @TODO Self is special case to where target and actor same
+    - Reputation could be  any negetive or positive ineteger,zero or NULL for invalid case
+    - NULL will be treated as 0
+    -->
+    
+    <!--
+    <module name="reputation">
+        <target module="question">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+        </target>
+    
+        <target module="answer">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+            <action name="selectAnswer">
+                <actor>3</actor>
+                <target>10</target>
+            </action>
+        </target>
+    </module>
+    -->
+
+        
+</setting></pageRoot>

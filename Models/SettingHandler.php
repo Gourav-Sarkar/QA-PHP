@@ -10,6 +10,8 @@
  * Description of SettingHandler
  * Handles setting 
  * Settings are XML files
+ * 
+ * @todo Extends SimpleXML later
  * @author Gourav Sarkar
  */
 class SettingHandler {
@@ -49,6 +51,17 @@ class SettingHandler {
         return (string) $settingList[0];
     }
 
+    
+    public function getRawSetting()
+    {
+        //make DOM fragment
+        $dummyDom=new DOMDocument();
+        $dummyNode=$dummyDom->importNode(dom_import_simplexml($this->settingObject),true);
+        
+        $dummyDom->appendChild($dummyNode);
+        
+        return $dummyDom->saveXML($dummyDom->documentElement);
+    }
     /*
       private function isLeafNode($node)
       {

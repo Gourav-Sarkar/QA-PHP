@@ -42,6 +42,7 @@ class Render {
     private $mappedClass = array('utility');
 
     const STATIC_PAGE_IDENTIFIER = "static";
+    const RENDER_ROOT_NAME="pageRoot";
 
     /*
      * Dumper location dump and debug Raw data
@@ -80,7 +81,7 @@ class Render {
 
         //$node=$this->model->createDocumentFragment()->appendXml($modelData);
 
-        $page = $this->model->createElement('pageRoot');
+        $page = $this->model->createElement(static::RENDER_ROOT_NAME);
 
 
         /*

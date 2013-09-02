@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="setting.xsl"?>
 <!--
 Setting file will auto parseble and updateble
 each module (submodule) have tab
@@ -10,7 +9,7 @@ Each module could have seperate setting file to include
 -->
 
 
-<root>
+<setting>
     <core type="module" meta="Core setting for system">
         <social type="tab">
             <!--Social integration-->
@@ -165,4 +164,4 @@ Each module could have seperate setting file to include
     -->
 
         
-</root>
+</setting>
