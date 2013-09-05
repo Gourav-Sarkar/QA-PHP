@@ -43,6 +43,7 @@ class Render {
 
     const STATIC_PAGE_IDENTIFIER = "static";
     const RENDER_ROOT_NAME="pageRoot";
+    const RENDER_MODE_IDENTIFIER="renderMode";
 
     /*
      * Dumper location dump and debug Raw data
@@ -65,6 +66,7 @@ class Render {
          * Load utility functions
          */
         $this->loadUtilityModule();
+        $this->initRender();
     }
 
     /*
@@ -76,10 +78,8 @@ class Render {
         $this->mode = $mode;
     }
 
-    public function setModel($modelData) {
+    private function initRender() {
         $this->model = new DOMDocument('1.0', 'utf-8');
-
-        //$node=$this->model->createDocumentFragment()->appendXml($modelData);
 
         $page = $this->model->createElement(static::RENDER_ROOT_NAME);
 
@@ -106,44 +106,32 @@ class Render {
         }
 
         $this->model->appendChild($page);
-
-        /*
-         * Object based root element
-         */
-        //$objRoot=$this->model->createElement((String))
-
-
-        /*
-         * Append if there is model data
-         */
-        $this->addSubModel($modelData);
     }
 
     /*
      * @todo should add attribute 'name' to distinguish same type of objects AKA same node name
+     * @todo add Model tag as wrapper
      */
 
-    public function addSubModel($modelData, $name = null) {
+    public function addModel($modelData, $mode = null) {
         $page = $this->model->documentElement;
         assert('$page instanceof DOMElement');
 
         if (!empty($modelData)) {
             $fragment = $this->model->createDocumentFragment();
 
+
+            $fragment->appendXML($modelData);
+
+            $modelNode=$page->appendChild($fragment);
+            
             /*
              * If there is name for model append the it as attribute
              * It will help to distinguish different node which have same node name
              */
-            if (!empty($name)) {
-                $nameAttr = $fragment->createAttribute("name");
-                $nameAttr->value = $name;
-
-                $fragment->appendChild($nameAttr);
+            if (!empty($mode)) {
+                $modelNode->setAttribute('mode',$mode);
             }
-
-            $fragment->appendXML($modelData);
-
-            $page->appendChild($fragment);
         }
     }
 

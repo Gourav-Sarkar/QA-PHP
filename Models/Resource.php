@@ -81,8 +81,7 @@ class Resource extends BaseObject implements CRUDLInterface{
         if(isset($_GET['static']))
         {
             $render=new Render();
-            $render->setModel(null);
-            $render->setDumper('StaticDumper');
+            $render->addModel(null);
             $render->render();
             
             return null;

@@ -31,13 +31,30 @@ class PageController extends AbstractController {
         $this->view->addTemplate($this->model->getTitle(),'project/timeEver');
         echo $this->view->render();
     }
-    /*
+    
     public function addComponent()
     {
         
     }
-     * 
-     */
+    public function edit()
+    {
+        //Get all components
+        //List out all component
+        $this->model->setID($_GET['page']);
+        $this->model->read();
+        $this->view->setModel($this->model->xmlSerialize());
+        
+        echo $this->view->render();
+    }
+    
+    public function addPage()
+    {
+        
+    }
+    public function removePage()
+    {
+        
+    }
     
 }
 

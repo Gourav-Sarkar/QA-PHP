@@ -17,8 +17,13 @@ abstract class AbstractPageComponent
     protected $title;
     protected $group;
     
-    public function __construct() {
+    protected $dependency;
+    
+    public function __construct(AbstractContent $deps) {
         parent::__construct();
+        
+        $this->crud->setFieldCache("page");
+        $this->dependency=new DependencyObject($deps);
     }
     
     public function setTitle($title)
@@ -40,6 +45,22 @@ abstract class AbstractPageComponent
     {
         return $this->group;
     }
+    
+    public function setPage(Page $page)
+    {
+        $this->dependency=new DependencyObject($page);
+    }
+    public function getPage()
+    {
+        return $this->dependency->getReference();
+    }
+    
+    
+    public static function listing(\DatabaseInteractbleInterface $reference) {
+        $pageComp=new PageComponent($reference);
+        $pageComp->read();
+    }
+    
     
     public function xmlSerialize() {
         unset($this->user);

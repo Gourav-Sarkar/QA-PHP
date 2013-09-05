@@ -17,7 +17,7 @@ require_once 'Storages/pageComponentStorage.php';
  */
 class Page extends AbstractContent{
     //put your code here
-    private $componentList;
+    private $pageComponentList;
     private $title;
     
     
@@ -55,40 +55,14 @@ class Page extends AbstractContent{
     public function read()
     {
         parent::read();
+        
+        $this->pageComponentList=  PageComponent::listing($this);
         /*
          * Get component listed in page
          */
         //$this->getComponents();
     }
     
-    private function getComponents()
-    {
-        $componentStorage=new PageComponentStorage('pageComponent');
-        
-        $query="SELECT
-            pc.* FROM
-            PageComponentMapper AS pcm
-            INNER JOIN pageComponent as pc
-            ON pcm.component=pc.id
-            WHERE pcm.page=?
-            ";
-        
-        $stmt=  DatabaseHandle::getConnection()->prepare($query);
-        $stmt->execute(array($this->id));
-        
-        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
-        {
-            
-            $pageComponent=new PageComponent();
-            $pageComponent->setID($data['id']);
-            $pageComponent->setTitle($data['title']);
-            $pageComponent->setContent($data['content']);
-            
-            
-            //var_dump($pageComponent);
-            $this->componentList->attach($pageComponent,$pageComponent);
-        }
-    }
     
     /*
      * Do not serialize pager object

@@ -13,7 +13,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0">
     <xsl:output method="html"/>
 
-    <xsl:template match="user" mode="profile">
+    <xsl:template match="user">
         <div class="container-fluid">
             <div class="row-fluid span12">
                 
@@ -102,7 +102,7 @@
     # Mode summary (@todo)
     # Used to show summarize user info (inline)
     -->
-    <xsl:template match="user" mode="inline-summary">
+    <xsl:template match="user[@mode='inline-summary']">
         <div class="row-fluid">
             <xsl:choose>
                 

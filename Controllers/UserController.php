@@ -5,18 +5,23 @@
  * and open the template in the editor.
  */
 
+require_once 'Abstracts/AbstractController.php';
+require_once 'models/answer.php';
+require_once 'models/question.php';
 /**
  * Description of UserController
  *
  * @author Gourav Sarkar
  */
-class UserController {
+class UserController extends AbstractController{
     //put your code here
     private $user;
-    private $view;
+    
     public function __construct() {
+        parent::__construct();
+
         $this->user=new User();
-        $this->view=new Render();
+        $this->view->addTemplate("user");
     }
     
     public function create()
@@ -39,9 +44,22 @@ class UserController {
         $this->user->setID($_GET['user']);
         //$this->user->read();
         $this->user->Softread();
-        var_dump($this->user);
         
-        $this->view->setModel($this->user->xmlSerialize());
+        $this->view->addModel($this->user->xmlSerialize(),'inline-summary');
+        
+        /*
+         * Get answer by user
+         */
+        $answer=new Answer(new Question());
+        $answer->setUser(User::getActiveUser());
+        $answerStorage=Answer::listing($answer);
+        
+        $this->view->addModel($answerStorage->xmlSerialize());
+        /*
+         * Get question by user
+         */
+        //$this->view->addModel();
+        
         echo $this->view->Render();
         
     }

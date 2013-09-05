@@ -365,7 +365,13 @@ class CRUDobject implements CRUDLInterface {
 
             foreach ($fieldCache as $field => &$value) {
                 $value = $this->dependency->{"get{$field}"}();
+                if($value instanceof AbstractContent)
+                {
+                    $value=$value->getID();
+                }
                 $placeholders[] = "$this->dependency.$field=:$field ";
+               
+                //var_dump($field);
             }
             $query .= implode(" AND ", $placeholders);
         }
@@ -378,6 +384,9 @@ class CRUDobject implements CRUDLInterface {
         var_dump($fieldCache);
          * 
          */
+        
+        //var_dump($fieldCache);
+        //var_dump($query);
         
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
