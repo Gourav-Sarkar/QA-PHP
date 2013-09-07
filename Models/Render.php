@@ -31,8 +31,7 @@ class Render {
 
     const MODE_FRAGMENT = 'FRAGMENT';
     const MODE_DOCUMENT = 'DOCUMENT';
-    
-    const DEBUG_STYLE_LOC='styleDump.xml';
+    const DEBUG_STYLE_LOC = 'styleDump.xml';
 
     private $model;
     private $transformer;
@@ -42,8 +41,8 @@ class Render {
     private $mappedClass = array('utility');
 
     const STATIC_PAGE_IDENTIFIER = "static";
-    const RENDER_ROOT_NAME="pageRoot";
-    const RENDER_MODE_IDENTIFIER="renderMode";
+    const RENDER_ROOT_NAME = "pageRoot";
+    const RENDER_MODE_IDENTIFIER = "renderMode";
 
     /*
      * Dumper location dump and debug Raw data
@@ -51,6 +50,7 @@ class Render {
 
     private $dumper;
     private $mode;
+    private $wrapperNode;
 
     public function __construct() {
 
@@ -60,13 +60,21 @@ class Render {
         $this->stylsheet = new DOMDocument();
         $this->stylsheet->load(DOCUMENT_ROOT . 'templates/ProjectBaseTemplate.xsl');
         $this->mode = static::MODE_DOCUMENT;
-        $this->templates=array();
+        $this->templates = array();
 
         /*
          * Load utility functions
          */
         $this->loadUtilityModule();
         $this->initRender();
+    }
+
+    public function setWrapper($name) {
+        $this->wrapperNode = $name;
+    }
+
+    public function getWrapper() {
+        return $this->wrapperNode;
     }
 
     /*
@@ -113,7 +121,7 @@ class Render {
      * @todo add Model tag as wrapper
      */
 
-    public function addModel($modelData, $mode = null) {
+    public function addModel($modelData, $name = null) {
         $page = $this->model->documentElement;
         assert('$page instanceof DOMElement');
 
@@ -123,14 +131,10 @@ class Render {
 
             $fragment->appendXML($modelData);
 
-            $modelNode=$page->appendChild($fragment);
-            
-            /*
-             * If there is name for model append the it as attribute
-             * It will help to distinguish different node which have same node name
-             */
-            if (!empty($mode)) {
-                $modelNode->setAttribute('mode',$mode);
+            $modelNode = $page->appendChild($fragment);
+            if(!empty($name))
+            {
+                $modelNode->setAttribute("name",$name);
             }
         }
     }
@@ -140,7 +144,31 @@ class Render {
      */
 
     public function Render() {
-        
+
+        /*
+         * if wrapper node exist add it to
+         */
+        if (!empty($this->wrapperNode)) {
+           
+            /*
+             * Wrapper node
+             */
+            $wrapperNode = $this->model->createElement($this->wrapperNode);
+            
+            /*
+             * Traverse the child nodes till it has child nodes
+             * Copy the child node and wrap it inside wrapper node
+             * Remove the child node (always get the firstchild)
+             */
+            while($this->model->documentElement->hasChildNodes())
+            {
+                $wrapperNode->appendChild($this->model->documentElement->firstChild->cloneNode(true));
+                $this->model->documentElement->removeChild($this->model->documentElement->firstChild);
+            }
+            
+            //Append the wrapper node to root node
+            $this->model->documentElement->appendChild($wrapperNode);
+        }
         /*
          * load additional template before applying stylsheet styling
          */
@@ -179,7 +207,7 @@ class Render {
         if (!is_null($this->dumper)) {
             file_put_contents($this->dumper, $data);
         }
-        
+
         $this->stylsheet->save(DOCUMENT_ROOT . static::DEBUG_STYLE_LOC);
     }
 
@@ -205,37 +233,35 @@ class Render {
         $this->transformer->registerPHPFunctions();
     }
 
-    public function addTemplate($name,$namespace='') {
-        $formatedName=$name;
-        if(!empty($namespace))
-        {
-            $formatedName="$namespace/$name";
+    public function addTemplate($name, $namespace = '') {
+        $formatedName = $name;
+        if (!empty($namespace)) {
+            $formatedName = "$namespace/$name";
         }
-        
+
         $this->templates[] = $formatedName;
     }
 
-    
     /*
      * @todo Throws NoFileFoundException instead of NoEntryFoundException
      */
+
     private function loadTemplates() {
         foreach ($this->templates as $template) {
-            
-            $fileName=DOCUMENT_ROOT . "templates/{$template}Template.xsl";
-            
-            $styleAttr=$this->stylsheet->createAttribute("href");
-            $styleAttr->value=$fileName;
-            
-            if(!(file_exists($fileName)))
-            {
+
+            $fileName = DOCUMENT_ROOT . "templates/{$template}Template.xsl";
+
+            $styleAttr = $this->stylsheet->createAttribute("href");
+            $styleAttr->value = $fileName;
+
+            if (!(file_exists($fileName))) {
                 Throw new IOException("Unable to load template");
             }
-            
-            $stylesheetNode=$this->stylsheet->createElementNS('http://www.w3.org/1999/XSL/Transform', 'xsl:include');
+
+            $stylesheetNode = $this->stylsheet->createElementNS('http://www.w3.org/1999/XSL/Transform', 'xsl:include');
             $stylesheetNode->appendChild($styleAttr);
-            
-            $this->stylsheet->documentElement->insertBefore($stylesheetNode,$this->stylsheet->documentElement->firstChild);
+
+            $this->stylsheet->documentElement->insertBefore($stylesheetNode, $this->stylsheet->documentElement->firstChild);
         }
     }
 

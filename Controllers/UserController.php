@@ -41,6 +41,8 @@ class UserController extends AbstractController{
     }
     public function show()
     {
+        $this->view->setWrapper('userProfile');
+        
         $this->user->setID($_GET['user']);
         //$this->user->read();
         $this->user->Softread();

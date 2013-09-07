@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT"><user mode="inline-summary"><id>14</id>
+<pageRoot mode="DOCUMENT"><userProfile><user name="inline-summary"><id>14</id>
 <nick>gourav</nick>
 <reputation>105</reputation>
 <password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
 <email>Gourav@gmail.com</email>
 <auth/>
 </user><AnswerStorage><storage_type>Answer</storage_type>
-</AnswerStorage></pageRoot>
+</AnswerStorage></userProfile></pageRoot>

@@ -22,7 +22,7 @@
             <h4>
                 <xsl:value-of select="@heading" /> 
                 <small>
-                     <xsl:value-of select="@meta" />
+                    <xsl:value-of select="@meta" />
                 </small>
             </h4>
             <div class="switch switch-small">
@@ -43,6 +43,14 @@
             <pre>
                 <xsl:value-of select='local-name()' />
             </pre>
+            
+            <ul class="nav nav-tabs">
+                <xsl:apply-templates select="*[@type='module']" mode="tab"/>
+            </ul>
+            <div class="tab-content">
+                <xsl:apply-templates select="*[@type='module']" mode="tabContent"/>
+            </div>
+            
             
             <xsl:apply-templates select="*[@type='toggle']" />
         </div>
@@ -81,13 +89,13 @@
                     <div class="span2">
                         <!-- List of all modules -->
                         <ul class="nav nav-tabs nav-stacked">
-                            <xsl:apply-templates select="*" mode="tab"/>
+                            <xsl:apply-templates select="/" mode="tab"/>
                         </ul>
                     </div>
             
                     <div class="span10">
                         <div class="tab-content">
-                            <xsl:apply-templates select="*" mode="tabContent"/>
+                            <xsl:apply-templates select="/" mode="tabContent"/>
                         </div>
                     </div>
                     

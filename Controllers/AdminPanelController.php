@@ -18,7 +18,7 @@ class AdminPanelController extends AbstractController{
         parent::__construct();
         $this->view->addTemplate("adminPanel");
         
-        $this->view->setModel(SettingHandler::initSettingHandler()->getRawSetting());
+        $this->view->addModel(SettingHandler::initSettingHandler()->getRawSetting());
         
         echo $this->view->render();
     }

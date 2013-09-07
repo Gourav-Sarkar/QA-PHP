@@ -13,7 +13,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0">
     <xsl:output method="html"/>
 
-    <xsl:template match="user">
+    <xsl:template match="user" mode="profile">
         <div class="container-fluid">
             <div class="row-fluid span12">
                 
@@ -70,6 +70,29 @@
     
     
     <!--
+    # Template User profile
+    -->
+    <xsl:template match="userProfile">
+        <div class="row-fluid">
+            <xsl:apply-templates match="user" mode="profile"/>
+        </div>
+        
+        <div class="row-fluid">
+            <ul class="nav nav-tabs">
+                <li><a href="#myQuestion">Questions</a></li>
+                <li><a href="#myAnswer">Answers</a></li>
+                <li><a href="#myArticles">Articles</a></li>
+                <li><a href="#myVotes">Votes</a></li>
+                <li><a href="#myBadges">Badges</a></li>
+                <li><a href="#myReputation">Reputation</a></li>
+            </ul>
+        </div>
+    </xsl:template>
+    <!--=====================================================================-->
+    
+    
+    
+    <!--
     # Template User
     # Mode summary List(@todo)
     # Used to show summarize list (like user searching user list)
@@ -102,7 +125,7 @@
     # Mode summary (@todo)
     # Used to show summarize user info (inline)
     -->
-    <xsl:template match="user[@mode='inline-summary']">
+    <xsl:template match="user" mode="inline-summary">
         <div class="row-fluid">
             <xsl:choose>
                 

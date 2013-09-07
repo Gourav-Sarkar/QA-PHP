@@ -161,7 +161,7 @@ class QuestionController extends AbstractController {
             //var_dump($question);
             //$question->updateView();
 
-            $this->view->setModel($question->xmlSerialize());
+            $this->view->addModel($question->xmlSerialize());
             //$this->view->addSubModel(new Tag($reference));
             echo $this->view->render();
 

@@ -45,7 +45,7 @@ Each module could have seperate setting file to include
         </movie>
     </file>
     
-    <question type="module">
+    <question type="module" enable="true">
         <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
         <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
         <flagEnable  heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"></flagEnable>
@@ -66,20 +66,50 @@ Each module could have seperate setting file to include
         <allowGuestQuestion meta="Guest can ask question or not">0</allowGuestQuestion>
     </question>   
      
-    <answer type="module">
+    <answer type="module" enable="true">
         <commentEnable type="toggle">true</commentEnable>
         <votingEnable type="toggle"></votingEnable>
         <flaggingEnable type="toggle"></flaggingEnable>
         <itemPerPage type="j">10</itemPerPage>
     </answer>
+     <article type="module" enable="true">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"></votingEnable>
+        <flaggingEnable type="toggle"></flaggingEnable>
+        <itemPerPage type="j">10</itemPerPage>
+    </article>
     
-    <comment type="module">
+    
+    <comment type="module" enable="true">
+        <questionComment type="module">
+            
+            <votingEnable type="toggle">true</votingEnable>
+            <flaggingEnable type="toggle">true</flaggingEnable>
+            <itemPerPage>5</itemPerPage>
+        </questionComment> 
+        
+        <answerComment type="module">
+            
+            <votingEnable type="toggle">true</votingEnable>
+            <flaggingEnable type="toggle">true</flaggingEnable>
+            <itemPerPage>5</itemPerPage>
+        </answerComment>
+        
+        <!-- common setting for comment -->
         <votingEnable>true</votingEnable>
         <flaggingEnable>true</flaggingEnable>
         <itemPerPage>5</itemPerPage>
     </comment>
     
-    <notification type="module">
+    
+     <ticket type="module" enable="true">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"></votingEnable>
+        <flaggingEnable type="toggle"></flaggingEnable>
+        <itemPerPage type="j">10</itemPerPage>
+    </ticket>
+    
+    <notification type="module" enable="true">
         <target module="question">
             <actor>true</actor>
             <participant>true</participant>
@@ -87,7 +117,7 @@ Each module could have seperate setting file to include
         </target>
     </notification>
     
-    <flag type="module">
+    <flag type="module" enable="true">
         <falgReason>
             <reason id="1">
                 <name>Offensive</name>
