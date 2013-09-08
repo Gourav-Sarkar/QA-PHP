@@ -10,42 +10,42 @@ Each module could have seperate setting file to include
 
 
 <setting>
-    <core type="module" meta="Core setting for system">
-        <social type="tab">
+    <module name="core" enable="true" meta="Core setting for system">
+        <module name="social">
             <!--Social integration-->
-            <facebook type="" meta="Intigrate facebook application with the system">
-                <appID type="int">537717556265847</appID>
-                <appKey type="string">73a48848a53a948e6f78fd96448406e1</appKey>
-            </facebook>
+            <module name="facebook" meta="Intigrate facebook application with the system">
+                <appID  heading="Application ID" meta="Unique application ID" type="text">537717556265847</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">73a48848a53a948e6f78fd96448406e1</appKey>
+            </module>
             
-            <google meta="Intigrate google plus group with the system">
+            <module name="google" meta="Intigrate google plus group with the system">
                 <!-- 
                 # endpoint: api.sandbox.paypal.com 
                 # Test account: gourav.sarkar13-facilitator@yahoo.com
                 -->
                 <appID>AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
                 <appKey>ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
-            </google>
-        </social>
+            </module>
+        </module>
         
-        <merchent>
-            <paypal>
+        <module name="merchent">
+            <module name="paypal">
                 <appID></appID>
                 <appKey></appKey>
-            </paypal>
-        </merchent>
-    </core>
+            </module>
+        </module>
+    </module>
     
-    <file type="module">
+    <module name="file" enable="true">
         <movie>
             <permitedExtension></permitedExtension>
             <location></location>
             <maxSize></maxSize>
             <permitedResolution></permitedResolution>
         </movie>
-    </file>
+    </module>
     
-    <question type="module" enable="true">
+    <module name="question" enable="true">
         <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
         <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
         <flagEnable  heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"></flagEnable>
@@ -64,66 +64,73 @@ Each module could have seperate setting file to include
         <format>tagged</format> <!-- Threaded or tagged -->
         
         <allowGuestQuestion meta="Guest can ask question or not">0</allowGuestQuestion>
-    </question>   
+    </module>   
      
-    <answer type="module" enable="true">
+    <module name="answer" enable="true">
         <commentEnable type="toggle">true</commentEnable>
         <votingEnable type="toggle"></votingEnable>
         <flaggingEnable type="toggle"></flaggingEnable>
         <itemPerPage type="j">10</itemPerPage>
-    </answer>
-     <article type="module" enable="true">
+    </module>
+    
+    
+     <module name="article" enable="true">
         <commentEnable type="toggle">true</commentEnable>
         <votingEnable type="toggle"></votingEnable>
         <flaggingEnable type="toggle"></flaggingEnable>
         <itemPerPage type="j">10</itemPerPage>
-    </article>
+    </module>
     
     
-    <comment type="module" enable="true">
-        <questionComment type="module">
+    <module name="comment" enable="true">
+        <module name="questionComment">
             
             <votingEnable type="toggle">true</votingEnable>
             <flaggingEnable type="toggle">true</flaggingEnable>
             <itemPerPage>5</itemPerPage>
-        </questionComment> 
+        </module> 
         
-        <answerComment type="module">
+        <module name="answerComment">
             
             <votingEnable type="toggle">true</votingEnable>
             <flaggingEnable type="toggle">true</flaggingEnable>
             <itemPerPage>5</itemPerPage>
-        </answerComment>
+        </module>
         
         <!-- common setting for comment -->
         <votingEnable>true</votingEnable>
         <flaggingEnable>true</flaggingEnable>
         <itemPerPage>5</itemPerPage>
-    </comment>
+    </module>
     
     
-     <ticket type="module" enable="true">
+     <module name="ticket" enable="true">
         <commentEnable type="toggle">true</commentEnable>
         <votingEnable type="toggle"></votingEnable>
         <flaggingEnable type="toggle"></flaggingEnable>
         <itemPerPage type="j">10</itemPerPage>
-    </ticket>
+    </module>
     
-    <notification type="module" enable="true">
+    <module name="notification" enable="true">
         <target module="question">
             <actor>true</actor>
             <participant>true</participant>
             <owner>true</owner>
         </target>
-    </notification>
+    </module>
     
-    <flag type="module" enable="true">
+    <module name="flag" enable="true">
         <falgReason>
             <reason id="1">
                 <name>Offensive</name>
             </reason>
         </falgReason>
-    </flag>
+    </module>
+    
+      
+    <module name="user" enable="true">
+        
+    </module>
     
     <!--
     Notiification used to notify user if some action is taken on some object

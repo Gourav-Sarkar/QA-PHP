@@ -16,8 +16,13 @@
     -->
     
     
-    <!-- content of tab -->
-    <xsl:template match="*[@type='toggle']">
+    <!-- 
+    content of tab 
+    Handle toggle
+    -->
+    <!--
+    
+    <xsl:template match="*[@field='toggle']">
         <div class ="row-fluid">
             <h4>
                 <xsl:value-of select="@heading" /> 
@@ -34,80 +39,86 @@
             </div>    
         </div>
         
+ </xsl:template>
+    -->
+       
+       
+    <xsl:template match="*[@type='text']">
+        <xsl:value-of select='@name' />
+        <div class="row-fluid">
+            <h4> 
+                <xsl:value-of select="@heading" /> 
+            </h4>
+            <a href="#">
+                <xsl:value-of select="." /> 
+            </a>
+        </div>
     </xsl:template>
     
-    
     <!-- module tab content -->
-    <xsl:template match="*[@type='module']" mode="tabContent">
-        <div class="tab-pane" id="{local-name()}">
+    <xsl:template match="module" mode="tabContent">
+        <div class="tab-pane">
+            <xsl:attribute name="id">
+                <xsl:value-of select='@name' />
+            </xsl:attribute>
+            
+            
             <pre>
-                <xsl:value-of select='local-name()' />
+                <xsl:value-of select='@name' />
             </pre>
             
+            <!-- sub tab -->
             <ul class="nav nav-tabs">
-                <xsl:apply-templates select="*[@type='module']" mode="tab"/>
+                <xsl:apply-templates select="module" mode="tab"/>
             </ul>
             <div class="tab-content">
-                <xsl:apply-templates select="*[@type='module']" mode="tabContent"/>
+                <xsl:apply-templates select="module" mode="tabContent"/>
+                
+                <!-- [CAUTION] -->
+                <!-- Select child node which is not module -->
+                <xsl:apply-templates select="child::*[local-name()!='module']" />
             </div>
             
-            
-            <xsl:apply-templates select="*[@type='toggle']" />
         </div>
                             
     </xsl:template>
     
     <!-- module tablist -->
-    <xsl:template match="*[@type='module']" mode="tab">
+    <xsl:template match="module" mode="tab">
         <li>
-            <h3 class="text-center">
-                <a href="#{local-name()}" data-toggle="tab"> 
-                    <xsl:value-of select="local-name()" />
-                </a>
-            </h3>
+            <a data-toggle="tab"> 
+                <xsl:attribute name="href">
+                    <xsl:text>#</xsl:text>
+                    <xsl:value-of select='@name' />
+                </xsl:attribute>
+            
+                <h3>
+                    <xsl:value-of select="@name" />
+                </h3>
+            </a>
         </li>
     </xsl:template>
     <!-- Template for toggle -->
     
     
-    <!-- template for core -->
-    <xsl:template match="/">
-        <html>
-            <head>
-                <title>Admin Panel</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <!-- Bootstrap -->
-                <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-                <link href="/Bootstrap/css/bootstrapSwitch.css" rel="stylesheet" media="screen" type="text/css"/>
-            </head>
-            <body>
-                <div class="row-fluid container-fluid">
-                    <h1>Admin Panel</h1>
+    <xsl:template match="setting">
+        <div class="row-fluid">
+            <div class="span3">
+                <ul class="nav nav-tabs nav-stacked">
+                    <xsl:apply-templates select="child::module" mode="tab"/>
+                </ul>
+            </div>
+            <div class="span9">
+                <div class="tab-content">
+                    <xsl:apply-templates select="module" mode="tabContent" />
                 </div>
-            
-                <div class="row-fluid container-fluid">
-                    <div class="span2">
-                        <!-- List of all modules -->
-                        <ul class="nav nav-tabs nav-stacked">
-                            <xsl:apply-templates select="/" mode="tab"/>
-                        </ul>
-                    </div>
-            
-                    <div class="span10">
-                        <div class="tab-content">
-                            <xsl:apply-templates select="/" mode="tabContent"/>
-                        </div>
-                    </div>
-                    
-                </div>
+            </div>
+        </div>
         
-                
-                <script src="/jquery/jquery-min.js" type="text/javascript"></script>
-                <script src="/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-                <script src="/Bootstrap/js/bootstrapSwitch.js" type="text/javascript"></script>
-                <script src="js/realtime.js" type="text/javascript"></script>
-            </body>
-        </html>
     </xsl:template>
+    
+    
+    
+    
 
 </xsl:stylesheet>
