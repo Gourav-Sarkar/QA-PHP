@@ -20,9 +20,8 @@
     content of tab 
     Handle toggle
     -->
-    <!--
     
-    <xsl:template match="*[@field='toggle']">
+    <xsl:template match="*[@type='toggle']">
         <div class ="row-fluid">
             <h4>
                 <xsl:value-of select="@heading" /> 
@@ -38,9 +37,7 @@
                 </input>
             </div>    
         </div>
-        
  </xsl:template>
-    -->
        
        
     <xsl:template match="*[@type='text']">
