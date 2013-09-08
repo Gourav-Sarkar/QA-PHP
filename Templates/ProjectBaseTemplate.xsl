@@ -65,6 +65,7 @@
                 <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
                 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
                 <link rel="stylesheet" href="/jquery/bootstrap-editable/css/bootstrap-editable.css" />
+                <link href="/Bootstrap/css/bootstrapSwitch.css" rel="stylesheet" media="screen" type="text/css"/>
                 <!-- <link rel="stylesheet" href="/work/raju/css/default.css" /> -->
 
             </head>
