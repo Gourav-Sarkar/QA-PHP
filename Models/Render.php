@@ -251,6 +251,8 @@ class Render {
 
             $fileName = DOCUMENT_ROOT . "templates/{$template}Template.xsl";
 
+            var_dump($fileName);
+            
             $styleAttr = $this->stylsheet->createAttribute("href");
             $styleAttr->value = $fileName;
 

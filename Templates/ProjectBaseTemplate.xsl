@@ -139,10 +139,6 @@
                     <li><a href="?module=question&amp;action=ask">Give Answer</a></li>
                     <li><a href="?module=question&amp;action=ask">Add File</a></li>
                 </ul>
-
-                <div class="switch switch-small">
-            <input type="checkbox" />
-        </div>
             </div>
              
         </div>
@@ -306,4 +302,20 @@
         </div>
     </xsl:template>
     
+    
+    
+    <xsl:template name="genPath">
+        <xsl:param name="prevPath"/>
+        <xsl:variable name="currPath" select="concat('/',name(),'[',
+      count(preceding-sibling::*)+1,']',$prevPath)"/>
+        <xsl:for-each select="parent::*">
+            <xsl:call-template name="genPath">
+                <xsl:with-param name="prevPath" select="$currPath"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <xsl:if test="not(parent::*)">
+            <xsl:value-of select="$currPath"/>      
+        </xsl:if>
+    </xsl:template>
+  
 </xsl:stylesheet>

@@ -1,194 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT"><setting>
-    <module name="core" enable="true" meta="Core setting for system">
-        <module name="social">
-            <!--Social integration-->
-            <module name="facebook" meta="Intigrate facebook application with the system">
-                <appID heading="Application ID" meta="Unique application ID" type="text">537717556265847</appID>
-                <appKey heading="Application Key" meta="Uniqe application key" type="text">73a48848a53a948e6f78fd96448406e1</appKey>
-            </module>
-            
-            <module name="google" meta="Intigrate google plus group with the system">
-                <!-- 
-                # endpoint: api.sandbox.paypal.com 
-                # Test account: gourav.sarkar13-facilitator@yahoo.com
-                -->
-                <appID>AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
-                <appKey>ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
-            </module>
-        </module>
-        
-        <module name="merchent">
-            <module name="paypal">
-                <appID/>
-                <appKey/>
-            </module>
-        </module>
-    </module>
-    
-    <module name="file" enable="true">
-        <movie>
-            <permitedExtension/>
-            <location/>
-            <maxSize/>
-            <permitedResolution/>
-        </movie>
-    </module>
-    
-    <module name="question" enable="true">
-        <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
-        <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
-        <flagEnable heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"/>
-        <privateConversation meta="Toggle" type="toggle">1</privateConversation>
-        <selfEditeEnable meta="User can edit his post" type="toggle">1</selfEditeEnable>
-        <selfDeleteEnable meta="User can edit his post" type="toggle">1</selfDeleteEnable>
-        
-        
-        <itemPerPage>10</itemPerPage>
-        <categorizingScheme toggle="tag"> <!-- toggle value tag/category Now only tag is available-->
-            <tag>
-                <max>5</max> <!-- Maximum tag can be used -->
-                <min>1</min>
-            </tag>
-        </categorizingScheme>
-        <format>tagged</format> <!-- Threaded or tagged -->
-        
-        <allowGuestQuestion meta="Guest can ask question or not">0</allowGuestQuestion>
-    </module>   
-     
-    <module name="answer" enable="true">
-        <commentEnable type="toggle">true</commentEnable>
-        <votingEnable type="toggle"/>
-        <flaggingEnable type="toggle"/>
-        <itemPerPage type="j">10</itemPerPage>
-    </module>
-    
-    
-     <module name="article" enable="true">
-        <commentEnable type="toggle">true</commentEnable>
-        <votingEnable type="toggle"/>
-        <flaggingEnable type="toggle"/>
-        <itemPerPage type="j">10</itemPerPage>
-    </module>
-    
-    
-    <module name="comment" enable="true">
-        <module name="questionComment">
-            
-            <votingEnable type="toggle">true</votingEnable>
-            <flaggingEnable type="toggle">true</flaggingEnable>
-            <itemPerPage>5</itemPerPage>
-        </module> 
-        
-        <module name="answerComment">
-            
-            <votingEnable type="toggle">true</votingEnable>
-            <flaggingEnable type="toggle">true</flaggingEnable>
-            <itemPerPage>5</itemPerPage>
-        </module>
-        
-        <!-- common setting for comment -->
-        <votingEnable>true</votingEnable>
-        <flaggingEnable>true</flaggingEnable>
-        <itemPerPage>5</itemPerPage>
-    </module>
-    
-    
-     <module name="ticket" enable="true">
-        <commentEnable type="toggle">true</commentEnable>
-        <votingEnable type="toggle"/>
-        <flaggingEnable type="toggle"/>
-        <itemPerPage type="j">10</itemPerPage>
-    </module>
-    
-    <module name="notification" enable="true">
-        <target module="question">
-            <actor>true</actor>
-            <participant>true</participant>
-            <owner>true</owner>
-        </target>
-    </module>
-    
-    <module name="flag" enable="true">
-        <falgReason>
-            <reason id="1">
-                <name>Offensive</name>
-            </reason>
-        </falgReason>
-    </module>
-    
-      
-    <module name="user" enable="true">
-        
-    </module>
-    
-    <!--
-    Notiification used to notify user if some action is taken on some object
-    So it is good to atatch notification message attached to either object or objectController AKA action
-    -->
-    
-    <!--
-    <module name="notification">
-        <target module="question">
-            <action name="edit">
-                A comment has been added to %question
-            </action>
-            <action name="addComment">
-                %question has been modified
-            </action>
-        </target>
-    </module>
-    -->
-    
-    <!--
-    - Reputation will be on content base not directly to user
-    - Rputation holds information about reputation for different action in system
-    - Reputation will bee given or taken for action
-    - There is two elements  of each action actor and target
-    - Actor is User who is doing the action
-    - Target is also User. It is the owner of the content
-    - @TODO Self is special case to where target and actor same
-    - Reputation could be  any negetive or positive ineteger,zero or NULL for invalid case
-    - NULL will be treated as 0
-    -->
-    
-    <!--
-    <module name="reputation">
-        <target module="question">
-            <action name="create">
-                <actor></actor>
-                <target></target>
-            </action>
-            <action name="downVote">
-                <actor>-1</actor>
-                <target>-2</target>
-            </action>
-            <action name="upVote">
-                <actor>0</actor>
-                <target>3</target>
-            </action>
-        </target>
-    
-        <target module="answer">
-            <action name="create">
-                <actor></actor>
-                <target></target>
-            </action>
-            <action name="downVote">
-                <actor>-1</actor>
-                <target>-2</target>
-            </action>
-            <action name="upVote">
-                <actor>0</actor>
-                <target>3</target>
-            </action>
-            <action name="selectAnswer">
-                <actor>3</actor>
-                <target>10</target>
-            </action>
-        </target>
-    </module>
-    -->
-
-        
-</setting></pageRoot>
+<pageRoot mode="DOCUMENT">
+    <page>
+        <pageComponentList/>
+        <title>login</title>
+        <template>static</template>
+        <id>3</id>
+        <user>
+            <id>14</id>
+            <nick>gourav</nick>
+            <reputation>105</reputation>
+            <password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
+            <email>Gourav@gmail.com</email>
+            <auth/>
+        </user>
+        <time>1321231231</time>
+        <content/>
+        <setting/>
+        <invisible>0</invisible>
+        <PageComponentStorage>
+            <storage_type>pageComponent</storage_type>
+        </PageComponentStorage>
+    </page>
+</pageRoot>

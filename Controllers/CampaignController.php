@@ -4,20 +4,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'models/ArticleCommentStorage.php';
+
+require_once 'abstracts/abstractController.php';
 /**
- * Description of Article
+ * Description of CampaignController
  *
  * @author Gourav Sarkar
  */
-class Article extends AbstractContent{
+class CampaignController extends AbstractController{
     //put your code here
-    private $comments;
     
     public function __construct() {
         parent::__construct();
         
-        $this->comments=new ArticleCommentStorage("ArticleComment");
+        $this->model=new Campaign();
+    }
+    
+    public function getList()
+    {
+        var_dump(__METHOD__);
     }
 }
 

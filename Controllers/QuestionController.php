@@ -211,8 +211,7 @@ class QuestionController extends AbstractController {
 
         $questions = Question::listing($ques);
 
-        $this->view->setModel($questions->xmlSerialize());
-        $this->view->setDumper(DOCUMENT_ROOT . 'dump.xml');
+        $this->view->addModel($questions->xmlSerialize());
 
         echo $this->view->render();
     }

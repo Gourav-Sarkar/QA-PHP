@@ -19,6 +19,7 @@ class Page extends AbstractContent{
     //put your code here
     private $pageComponentList;
     private $title;
+    private $template;
     
     
     public function __construct() {
@@ -61,6 +62,20 @@ class Page extends AbstractContent{
          * Get component listed in page
          */
         //$this->getComponents();
+    }
+    
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+    
+    /*
+     * @PARAM $templateLocation location of template
+     */
+    public function setTemplate($templateLocation)
+    {
+        $this->crud->setFieldCache("template");
+        $this->template=$templateLocation;
     }
     
     

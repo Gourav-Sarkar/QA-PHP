@@ -62,23 +62,17 @@ class SettingHandler {
         
         return $dummyDom->saveXML($dummyDom->documentElement);
     }
-    /*
-      private function isLeafNode($node)
-      {
-      if(isset($node['type']))
-      {
-      return true;
-      }
-
-      return false;
-
-      }
-
-      public function Render(\Template $template) {
-      ;
-      }
-     *
-     */
+    
+    public function update($node,$value)
+    {
+        if(!$nodeList=$this->settingObject->xpath($node))
+        {
+            throw new RuntimeException("Unable to update setting");
+        }
+        
+        
+        $noeList[0]=$value;
+    }
 }
 
 ?>

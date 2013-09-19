@@ -26,9 +26,9 @@ class PageController extends AbstractController {
         $this->model->setTitle($_GET['page']);
         $this->model->read();
         
-        $this->view->setModel($this->model->xmlSerialize());
+        $this->view->addModel($this->model->xmlSerialize());
         
-        $this->view->addTemplate($this->model->getTitle(),'project/timeEver');
+        $this->view->addTemplate($this->model->getTitle(),$this->model->getTemplate());
         echo $this->view->render();
     }
     
@@ -42,7 +42,7 @@ class PageController extends AbstractController {
         //List out all component
         $this->model->setID($_GET['page']);
         $this->model->read();
-        $this->view->setModel($this->model->xmlSerialize());
+        $this->view->addModel($this->model->xmlSerialize());
         
         echo $this->view->render();
     }

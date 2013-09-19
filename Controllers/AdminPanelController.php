@@ -22,6 +22,14 @@ class AdminPanelController extends AbstractController{
         
         echo $this->view->render();
     }
+    
+    /*
+     * Up date each field
+     */
+    public function updateSetting()
+    {
+        SettingHandler::initSettingHandler()->update($_POST['field'],$_POST['value']);
+    }
 }
 
 ?>

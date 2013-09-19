@@ -106,7 +106,7 @@ $("body")
                         }
                         )
                         
-                        e.preventDefault();
+                    e.preventDefault();
                 }
                 );
                 
@@ -120,7 +120,7 @@ $("body")
     */
    
         
-$.fn.editable.defaults.toggle="manual";
+//$.fn.editable.defaults.toggle="manual";
 $.fn.editable.defaults.mode="inline";
         
 /*
@@ -133,6 +133,7 @@ $("body").on(
     ,function(e)
     {
         console.log("edit");
+        $.fn.editable.defaults.toggle="manual";
         
         //get Target id
         var target=$(e.currentTarget).closest(".btn-group").data("target-object");  //marker
@@ -152,3 +153,20 @@ $("body").on(
         e.preventDefault();
     }
     );
+        
+$(document).ready(function() {
+    var url="index.php?module=adminPanel&action=update";
+    
+    //Inline edit setting
+    $('.inline-edit').editable();
+    console.log("Edit mode");
+    
+    //In line switch setting
+    $(".switch").on("switch-change"
+        ,function(e,data)
+        {
+            console.log("switch");
+        }
+
+        );
+});   

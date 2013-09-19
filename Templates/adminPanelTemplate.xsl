@@ -37,16 +37,32 @@
                 </input>
             </div>    
         </div>
- </xsl:template>
+    </xsl:template>
        
        
     <xsl:template match="*[@type='text']">
         <xsl:value-of select='@name' />
         <div class="row-fluid">
             <h4> 
-                <xsl:value-of select="@heading" /> 
+                <xsl:value-of select="@heading" data-typr="text" /> 
             </h4>
-            <a href="#">
+            
+            
+            <a href="#" class="inline-edit">
+                <xsl:attribute name="data-title">
+                    <xsl:value-of select="@heading" />
+                </xsl:attribute>
+                
+                
+                <xsl:attribute name="data-xpath">
+                    <xsl:call-template name="genPath" />
+                </xsl:attribute>
+                
+                
+                <xsl:attribute name="data-type">
+                    <xsl:text>text</xsl:text>
+                </xsl:attribute>
+                    
                 <xsl:value-of select="." /> 
             </a>
         </div>
@@ -56,7 +72,7 @@
     <xsl:template match="module" mode="tabContent">
         <div class="tab-pane">
             <xsl:attribute name="id">
-                <xsl:value-of select='@name' />
+                <xsl:value-of select='@id' />
             </xsl:attribute>
             
             
@@ -86,7 +102,7 @@
             <a data-toggle="tab"> 
                 <xsl:attribute name="href">
                     <xsl:text>#</xsl:text>
-                    <xsl:value-of select='@name' />
+                    <xsl:value-of select='@id' />
                 </xsl:attribute>
             
                 <h3>

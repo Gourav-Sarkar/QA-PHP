@@ -75,10 +75,12 @@ class Resource extends BaseObject implements CRUDLInterface{
     {
         /*
          * Handle static resource
-         * if static parameter is passed call the static template and get out of the
-         * rendering process
+         * If module is static pass the rest of the code
          */
-        if(isset($_GET['static']))
+        //var_dump($this->module);
+        
+        /*
+        if($this->module=="page")
         {
             $render=new Render();
             $render->addModel(null);
@@ -86,6 +88,8 @@ class Resource extends BaseObject implements CRUDLInterface{
             
             return null;
         }
+         * 
+         */
         
         
         /*

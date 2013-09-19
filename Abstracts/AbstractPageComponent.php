@@ -57,8 +57,8 @@ abstract class AbstractPageComponent
     
     
     public static function listing(\DatabaseInteractbleInterface $reference) {
-        $pageComp=new PageComponent($reference);
-        $pageComp->read();
+        //$pageComp=new PageComponent($reference);
+        //$pageComp->read();
     }
     
     

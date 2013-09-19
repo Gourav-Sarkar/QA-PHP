@@ -79,13 +79,35 @@
         
         <div class="row-fluid">
             <ul class="nav nav-tabs">
-                <li><a href="#myQuestion">Questions</a></li>
-                <li><a href="#myAnswer">Answers</a></li>
-                <li><a href="#myArticles">Articles</a></li>
-                <li><a href="#myVotes">Votes</a></li>
-                <li><a href="#myBadges">Badges</a></li>
-                <li><a href="#myReputation">Reputation</a></li>
+                <li>
+                    <a data-toggle="tab" href="#myQuestion">Questions</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#myAnswer">Answers</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#myArticles">Articles</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#myVotes">Votes</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#myBadges">Badges</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#myReputation">Reputation</a>
+                </li>
             </ul>
+        </div>
+        
+        <div class="tab-content" >
+            <div class="tab-pane" id="myQuestion">
+                Questions    
+                <a href="#" id="foo" class="inline-edit" data-type="text" data-title="Enter username">superuser</a>
+            </div>
+            <div class="tab-pane" id="myAnswer">
+                Answers
+            </div>
         </div>
     </xsl:template>
     <!--=====================================================================-->
