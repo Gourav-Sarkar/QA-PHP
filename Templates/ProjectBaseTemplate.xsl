@@ -150,7 +150,8 @@
                         <a data-toggle="modal" href="#">nick</a>
                     </li>
                 <!-- <?php else: ?> -->
-                    <li><a href="?static=staticUserLogin">Login</a></li>
+                    <!-- [todo] could be changed into a modular function -->
+                    <li><a href="?module=page&amp;action=show&amp;page=login">Login</a></li>
                 <!-- <?php endif; ?> -->
 
                 <li><a href='#'><i class="icon-globe"></i></a></li>

@@ -32,7 +32,7 @@
          
          @ISSUUES Handling unmatched tags for debugging
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/static/loginTemplate.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/tagTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/voteTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/userTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/commentTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/answerTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/questionTemplate.xsl"/>
     <xsl:output method="html"/>
     
     <xsl:include href="staticTemplate.xsl"/>
@@ -148,7 +148,8 @@
                         <a data-toggle="modal" href="#">nick</a>
                     </li>
                 <!-- <?php else: ?> -->
-                    <li><a href="?static=staticUserLogin">Login</a></li>
+                    <!-- [todo] could be changed into a modular function -->
+                    <li><a href="?module=page&amp;action=show&amp;page=login">Login</a></li>
                 <!-- <?php endif; ?> -->
 
                 <li><a href="#"><i class="icon-globe"/></a></li>

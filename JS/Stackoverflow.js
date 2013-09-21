@@ -39,9 +39,10 @@ $("form input[type='submit']")
             var holderTarget=$(e.currentTarget).data("holder");
                 
             //form where the button has been pressed and which is needed to be submited
-            var form=$(e.currentTarget).data("form");
+            var form=$(e.currentTarget).closest("form");
             //Attribute of target location in form
             var url=$(form).attr("action");
+            //console.log(url);
                 
             //Toggle loading mode
             $(e.currentTarget).button("loading");
@@ -60,7 +61,7 @@ $("form input[type='submit']")
                     //get the data and append it in holder
                     $(holderTarget).append(data);
                     //@debug data
-                    console.log(data);
+                    console.log('data',data);
                     //Reset loading mode
                     $(e.currentTarget).button("reset");
                 }

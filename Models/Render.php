@@ -90,14 +90,8 @@ class Render {
         $this->model = new DOMDocument('1.0', 'utf-8');
 
         $page = $this->model->createElement(static::RENDER_ROOT_NAME);
+        $this->model->appendChild($page);
 
-
-        /*
-         * It is document fragment or whole document
-         */
-        $fragMode = $this->model->createAttribute("mode");
-        $fragMode->value = $this->mode;
-        $page->appendChild($fragMode);
 
 
         /* IMPORTANT NOTE
@@ -107,13 +101,14 @@ class Render {
          * This can be moved into Controller part. More appropiately AbstractController
          * HArd code of GET variable should be inside controller part for better management
          */
+        /*
         if (!empty($_GET[static::STATIC_PAGE_IDENTIFIER])) {
             $staticAttr = $this->model->createAttribute("static");
             $staticAttr->value = $_GET[static::STATIC_PAGE_IDENTIFIER];
             $page->appendChild($staticAttr);
         }
-
-        $this->model->appendChild($page);
+         * 
+         */
     }
 
     /*
@@ -144,6 +139,15 @@ class Render {
      */
 
     public function Render() {
+        
+         /*
+         * It is document fragment or whole document
+         */
+        $fragMode = $this->model->createAttribute("mode");
+        $fragMode->value = $this->mode;
+        $this->model->documentElement->appendChild($fragMode);
+
+        
 
         /*
          * if wrapper node exist add it to
@@ -251,7 +255,7 @@ class Render {
 
             $fileName = DOCUMENT_ROOT . "templates/{$template}Template.xsl";
 
-            var_dump($fileName);
+            //var_dump($fileName);
             
             $styleAttr = $this->stylsheet->createAttribute("href");
             $styleAttr->value = $fileName;

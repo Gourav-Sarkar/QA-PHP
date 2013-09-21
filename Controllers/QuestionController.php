@@ -88,7 +88,7 @@ class QuestionController extends AbstractController {
 
 
             $this->view->setMode(RENDER::MODE_FRAGMENT);
-            $this->view->setModel($this->question->xmlSerialize());
+            $this->view->addModel($this->question->xmlSerialize());
             echo $this->view->render();
         }
     }
@@ -123,8 +123,8 @@ class QuestionController extends AbstractController {
         //var_dump($this->question);
         $this->question->addAnswer($ans);
 
-        $this->view->setMode(RENDER::MODE_FRAGMENT);
-        $this->view->setModel($ans->xmlSerialize());
+        $this->view->addMode(RENDER::MODE_FRAGMENT);
+        $this->view->addModel($ans->xmlSerialize());
         echo $this->view->render();
     }
 
@@ -144,7 +144,7 @@ class QuestionController extends AbstractController {
         $this->question->relay(__FUNCTION__);
 
         $this->view->setMode(RENDER::MODE_FRAGMENT);
-        $this->view->setModel($comment->xmlSerialize());
+        $this->view->addModel($comment->xmlSerialize());
         echo $this->view->render();
 
         /*
@@ -265,10 +265,6 @@ class QuestionController extends AbstractController {
         echo __METHOD__;
     }
 
-    public function stream() {
-        header("content-type:text/xml");
-        echo $this->question->render(new Template('question-stream'));
-    }
 
     public function __destruct() {
         

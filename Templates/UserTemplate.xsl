@@ -224,12 +224,18 @@
     # Used to show summarize user info (inline)
     -->
     <xsl:template name="user-login-form">
-        <form action="/stackoverflow/index.php?module=user&amp;action=auth" method="post">
+        <form action="/stackoverflow/index.php?module=user&amp;action=auth" method="post" class="form-horizontal">
+            <div class ='control-group'>
+                
+                <span>Nick</span> 
+                <input type="text" name="nick" />
+            </div>
             
-            <span>Nick</span> 
-            <input type="text" name="nick" />
-            <span>Password</span> 
-            <input type="password" name="password" />
+            <div class ='control-group'>
+                
+                <span>Password</span> 
+                <input type="password" name="password" />
+            </div>
             <input class="btn" type="submit" name="login" value="login" />
         </form>
     </xsl:template>
@@ -240,25 +246,34 @@
     # Register form
     -->
     <xsl:template name="user-register-form">
-        <form action="/stackoverflow/index.php?module=user&amp;action=create" method="post">
+        <form action="/stackoverflow/index.php?module=user&amp;action=create" method="post" class="form-horizontal">
             <div class ='control-group'>
                 <span>User Name</span>
-                <input type="text" name="nick" />
+                <div class="control-action">
+                    <input type="text" name="nick" />
+                </div>
             </div>
             <div class ='control-group'>
                 <span>E-Mail</span>
-                <input type="text" name="email" />
+                <div class="control-action">
+                    <input type="text" name="email" />
+                </div>
             </div>
             <div class ='control-group'>
                 <span>Name</span>
-                <input type="text" name="name" />
+                <div class="control-action">
+                    <input type="text" name="name" />
+                </div>
             </div>
             <div class ='control-group'>
                 <span>Password</span>
-                <input type="text" name="password" />
+                <div class="control-action">
+                    
+                    <input type="password" name="password" />
+                </div>
             </div>
-            <div class ='control-group'>
-                <input type="submit" name="register" value="register"/>
+            <div class ='action-controls'>
+                <input type="submit" name="register" value="register" class="btn"/>
             </div>
         </form>
     </xsl:template>   

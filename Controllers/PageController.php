@@ -15,13 +15,14 @@ class PageController extends AbstractController {
     
     public function __construct() {
         parent::__construct();
-        $this->model=new Page();
+        $this->model=new Page(); 
+        $this->view->addTemplate('User');
         
     }
     
     public function show()
     {
-        echo 'SHOW simple CMS page';
+        //echo 'SHOW simple CMS page';
         
         $this->model->setTitle($_GET['page']);
         $this->model->read();

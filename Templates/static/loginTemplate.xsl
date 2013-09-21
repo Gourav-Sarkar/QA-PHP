@@ -15,7 +15,18 @@
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
     <xsl:template match="page[title='login']">
-        Login template loaded
+        <div class="row-fluid">
+            
+            <div class="offset1 span4">
+                
+                <xsl:call-template name="user-login-form"></xsl:call-template>
+            </div>
+            
+            <div class="offset1 span4">
+                <xsl:call-template name="user-register-form"></xsl:call-template>
+            </div>
+            
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>
