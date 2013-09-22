@@ -28,7 +28,9 @@ class UserController extends AbstractController{
         echo __METHOD__;
         $this->model->setNick($_POST['nick']);
         $this->model->setPassword($_POST['password']);
-        $this->model->setEmail($_POST['email']);    
+        $this->model->setEmail($_POST['email']);   
+        
+        //if(isset($_GET['refer']))
         
         $this->model->create();
         

@@ -137,7 +137,9 @@ module name is unique
     </module>   
      
    
-    
+    <module id="page" name="Page">
+        
+    </module>
     
      <module id="article" name="article" enable="true">
         <commentEnable type="toggle">true</commentEnable>

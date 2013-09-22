@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT">
-    <page>
-        <pageComponentList/>
-        <title>login</title>
-        <template>static</template>
-        <id>3</id>
-        <user>
-            <id>14</id>
-            <nick>gourav</nick>
-            <reputation>105</reputation>
-            <password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
-            <email>Gourav@gmail.com</email>
-            <auth/>
-        </user>
-        <time>1321231231</time>
-        <content/>
-        <setting/>
-        <invisible>0</invisible>
-        <PageComponentStorage>
-            <storage_type>pageComponent</storage_type>
-        </PageComponentStorage>
-    </page>
-</pageRoot>
+<pageRoot mode="DOCUMENT"><page><pageComponentList/>
+<title>login</title>
+<template>static</template>
+<id>3</id>
+<user><id>14</id>
+<nick>gourav</nick>
+<reputation>105</reputation>
+<password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
+<email>Gourav@gmail.com</email>
+<auth/>
+<referedBy/>
+</user><time>1321231231</time>
+<content/>
+<setting/>
+<invisible>0</invisible>
+<PageComponentStorage><storage_type>pageComponent</storage_type>
+</PageComponentStorage></page></pageRoot>

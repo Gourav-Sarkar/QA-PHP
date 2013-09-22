@@ -123,7 +123,7 @@ class QuestionController extends AbstractController {
         //var_dump($this->question);
         $this->question->addAnswer($ans);
 
-        $this->view->addMode(RENDER::MODE_FRAGMENT);
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
         $this->view->addModel($ans->xmlSerialize());
         echo $this->view->render();
     }

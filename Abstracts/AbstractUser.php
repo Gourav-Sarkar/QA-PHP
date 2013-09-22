@@ -51,10 +51,17 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
     //protected $authType;
     protected $auth;    //Authentication object
     protected $roleList;
+    
+    protected $referedBy;
 
     public function __construct() {
         //$this->auth=new LocalAuth();
         $this->roleList = new RoleStorage();
+        
+        //Exclude from automated query building
+        //$this->referedBy=new User();
+        
+        
         $this->crud = new CRUDobject($this);
 
         //Default role initiated for each suer
@@ -63,6 +70,17 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
 
     public function __toString() {
         return strtolower(get_class($this));
+    }
+    
+    public function setReferedBy($refBy)
+    {
+        $this->referedBy=$refBy;
+        $this->crud->setFieldCache("referedBy");
+    }
+    
+    public function getReferedBy()
+    {
+        return $this->referedBy;
     }
 
     /*
@@ -405,6 +423,21 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         );
     }
 
+    
+    
+    /*
+     * return list of user where user id is same current object id
+     */
+    
+    public function getReferals()
+    {
+        $user=new User();
+        $user->setID($this->getID());
+        
+        return User::listing($user);   
+        
+    }
+    
     public function xmlSerialize() {
 
         $writer = new XMLWriter();
