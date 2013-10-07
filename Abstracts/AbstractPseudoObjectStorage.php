@@ -10,11 +10,13 @@ require_once 'Interfaces/XmlSerializeble.php';
  *
  * @author Gourav Sarkar
  */
-abstract class AbstractPseudoObjectStorage 
+abstract class AbstractPseudoObjectStorage implements Iterator, ArrayAccess
 //implements XMLSerializeble
 {
     //put your code here
     protected $data=array();
+    
+    private $pointer=0;
     
     public function attach($object)
     {
@@ -28,10 +30,7 @@ abstract class AbstractPseudoObjectStorage
     
     abstract public function getHash($object);
     
-    public function offsetGet($object)
-    {
-        return $this->data[$this->getHash($object)];
-    }
+   
     public function count() 
     {
         return count($this->data);
@@ -47,6 +46,62 @@ abstract class AbstractPseudoObjectStorage
         return get_class($this);
     }
     
+    
+    /*
+     * Array Access overriding 
+     */
+     public function offsetGet($object)
+    {
+        return $this->data[$this->getHash($object)];
+    }
+    public function offsetExists($offset) {
+        return isset($this->data[$offset]);
+    }
+    public function offsetUnset($offset) {
+        unset($this->data[$offset]);
+    }
+    public function offsetSet($offset, $value) {
+        $this->data[$offset]=$value;
+    }
+    
+    
+    /*
+     * Iterator interface overriding 
+     */
+    public function current() {
+        //var_dump("current" , $this->pointer);
+        
+        
+        $keys=array_keys($this->data);
+        //var_dump($keys[$this->pointer]);
+        //var_dump($this->data);
+        
+        
+        return $this->data[$keys[$this->pointer]];
+    }
+    public function next() {
+        ++$this->pointer;
+        //var_dump("next" , $this->pointer );
+    }
+    public function key() {
+        //var_dump("key" , $this->pointer);
+        $keys=array_keys($this->data);
+        return $keys[$this->pointer];
+    }
+    public function valid() {
+        var_dump("valid" , $this->pointer);
+        $keys=array_keys($this->data);
+        
+        var_dump(isset($keys[$this->pointer]));
+        
+        return isset($keys[$this->pointer]);
+    }
+    public function rewind() {
+        //var_dump("rewind" , $this->pointer);
+        $this->pointer=0;
+    }
+
+
     /*
     public function xmlSerialize() {
 

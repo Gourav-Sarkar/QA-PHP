@@ -19,6 +19,10 @@ class Article extends AbstractContent{
         
         $this->comments=new ArticleCommentStorage("ArticleComment");
     }
+    
+    public static function listing(\DatabaseInteractbleInterface $reference) {
+        parent::listing($reference);
+    }
 }
 
 ?>

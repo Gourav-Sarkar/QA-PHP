@@ -31,7 +31,7 @@ class RoleUserMapper implements CRUDLInterface {
 
     public static function listing(\DatabaseInteractbleInterface $reference) {
         $roles = new RoleStorage();
-        $permissions = new PermissionStorage();
+        $permissions = new PermissionStorage("permission");
 
 
         $query = "SELECT
@@ -62,7 +62,7 @@ class RoleUserMapper implements CRUDLInterface {
          */
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            var_dump('Role data', $data);
+            //var_dump('Role data', $data);
 
 
             /*

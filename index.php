@@ -84,13 +84,15 @@ $resource->setAction($_GET['action']);
 //$resource->get();
 
 //var_dump($resource);
-//echo User::getActiveUser()->getRoles()->count();
-/*
+//var_dump(User::getActiveUser()->getRoles()->count());
+var_dump(User::getActiveUser()->getRoles());
+
+//var_dump(count(User::getActiveUser()->getRoles()));
+
 foreach(User::getActiveUser()->getRoles() as $role)
 {
-    var_dump($role->getTitle());
+    var_dump($role);
 }
-*/
 
 try
 {

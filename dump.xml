@@ -9,7 +9,8 @@
 <password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
 <email>Gourav@gmail.com</email>
 <auth/>
-<referedBy/>
+<UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
+</UserProfileFieldStorage><referedBy/>
 </user><time>1321231231</time>
 <content/>
 <setting/>

@@ -18,6 +18,14 @@ class RoleStorage extends AbstractPseudoObjectStorage{
         assert('$object instanceof Role');
         return (string) $object->getTitle();
     }
+    
+    
+    /*
+     * @return array of role id
+     */
+    public function getRoles()
+    {
+    }
 }
 
 ?>

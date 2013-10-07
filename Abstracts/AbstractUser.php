@@ -21,6 +21,7 @@ require_once 'Interfaces/XMLserializeble.php';
 
 
 require_once 'Storages/RoleStorage.php';
+require_once 'Storages/UserProfileFieldStorage.php';
 
 require_once 'models/BaseObject.php';
 require_once 'models/RoleUserMapper.php';
@@ -52,11 +53,15 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
     protected $auth;    //Authentication object
     protected $roleList;
     
+    protected $userProfile;
+    
+    
     protected $referedBy;
 
     public function __construct() {
         //$this->auth=new LocalAuth();
-        $this->roleList = new RoleStorage();
+        $this->roleList = new RoleStorage('Role');
+        $this->userProfile=new UserProfileFieldStorage("UserProfileField");
         
         //Exclude from automated query building
         //$this->referedBy=new User();
@@ -351,30 +356,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         return false;
     }
 
-    /*
-     * Iterate over role list
-     * check each role have certain resource permission or not
-     */
 
-    public function hasPermission(Resource $resource) {
-        /*
-         * get User roles and manipulate to get particular resource
-         * role object will have several resource object with permission
-         */
-
-        foreach ($this->roleList as $role) {
-            /*
-             * if a user has both permission true or false. it will be considered
-             * User has permission to that resource. by default permission to all 
-             * the resource is false
-             */
-            if ($role->hasPermission($resource) === true) {
-                return true;
-            }
-            //var_dump($permission);
-        }
-        throw new PermissionDeniedException("Permission denied");
-    }
 
     public static function getActiveUser() {
         /*
@@ -436,6 +418,29 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
         
         return User::listing($user);   
         
+    }
+    
+    
+    public function fetchDetailedUserProfile()
+    {
+        $query="SELECT
+            
+                pf.title
+                ,upf.content
+                
+                FROM
+                RoleUserMApper AS rum
+                LEFT OUTER JOIN 
+                userProfileField AS upf
+                ON rum.user=upf.user
+                
+                LEFT OUTER JOIN
+                profileField AS pf
+                ON pf.id=upf.profileField
+                
+                WHERE
+                rum.user=14
+                ";
     }
     
     public function xmlSerialize() {

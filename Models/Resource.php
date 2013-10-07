@@ -112,6 +112,12 @@ class Resource extends BaseObject implements CRUDLInterface{
          * check if methods are in module
          */
         
+        
+        /*
+         * Check current user has permission to access this resource
+         */
+        
+        
         $controller=new $controllerName();
         $controller->{$this->action}();
     }

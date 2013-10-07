@@ -8,14 +8,27 @@ require_once 'Abstracts/AbstractContent.php';
 
 /**
  * Description of Campaign
- *
  * @author Gourav Sarkar
  */
 class Campaign extends AbstractContent{
+    
+    const CAMPAIGN_TYPE_VISIT=1;
+    
     //put your code here
     private $fund; //SENSITIVE
     private $expectedTraffic;
     private $type; //Ad type like CPM, per register,per visit, per impression
+    private $approve;
+    
+    public function setAprrove($apr)
+    {
+        $this->approve=$apr;
+    }
+    
+    public function getApprove()
+    {
+        return $this->approve;
+    }
     
     public function setFund($fund)
     {

@@ -25,7 +25,7 @@ class Role extends AbstractContent{
     
     public function __construct() {
         parent::__construct();
-        $this->permissions=new PermissionStorage();
+        $this->permissions=new PermissionStorage("Permission");
     }
     //put your code here
     public function setTitle($title)
