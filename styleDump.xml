@@ -32,7 +32,7 @@
          
          @ISSUUES Handling unmatched tags for debugging
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/static/loginTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/UserTemplate.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/adminPanelTemplate.xsl"/>
     <xsl:output method="html"/>
     
     <xsl:include href="staticTemplate.xsl"/>

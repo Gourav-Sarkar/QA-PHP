@@ -1,19 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT"><page><pageComponentList/>
-<title>login</title>
-<template>static</template>
-<id>3</id>
-<user><id>14</id>
-<nick>gourav</nick>
-<reputation>105</reputation>
-<password>$2a$07$usesomesillystringforeIo8sT1NkGIqqmFURKkrDRuRIJ1XVz22</password>
-<email>Gourav@gmail.com</email>
-<auth/>
-<UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
-</UserProfileFieldStorage><referedBy/>
-</user><time>1321231231</time>
-<content/>
-<setting/>
-<invisible>0</invisible>
-<PageComponentStorage><storage_type>pageComponent</storage_type>
-</PageComponentStorage></page></pageRoot>
+<pageRoot mode="DOCUMENT"><setting>
+    
+    <!--
+    # Core system setting
+    -->
+    <module name="core" enable="true" meta="Core setting for system">
+        <module name="social">
+            <!--
+            # Social integration
+            # data can be post on users wall
+            #data can be post on application page or group
+            -->
+            <module name="facebook" meta="Intigrate facebook application with the system">
+                <appID heading="Application ID" meta="Unique application ID" type="text">537717556265847</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">73a48848a53a948e6f78fd96448406e1</appKey>
+            </module>
+            
+            <module name="google" meta="Intigrate google plus group with the system">
+                <!-- 
+                # endpoint: api.sandbox.paypal.com 
+                # Test account: gourav.sarkar13-facilitator@yahoo.com
+                -->
+                <appID heading="Application ID" meta="Unique application ID" type="text">AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
+            </module>
+        </module>
+        
+        <module name="merchent">
+            <module name="paypal">
+                <appID heading="Application ID" meta="Unique application ID" type="text">1213131</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">1212121212121</appKey>
+            </module>
+        </module>
+    </module>
+    
+    <module id="file" name="file" enable="true">
+        <movie>
+            <permitedExtension/>
+            <location/>
+            <maxSize/>
+            <permitedResolution/>
+        </movie>
+    </module>
+    
+    
+    <!--
+    # Question system setting
+    -->
+    <module id="question" name="question" enable="true">
+        <module id="questionCore" name="core">
+            <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
+            <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
+            <flagEnable heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"/>
+            <privateConversation meta="Toggle" type="toggle">1</privateConversation>
+            <selfEditeEnable heading="Flagging Enable" meta="User can edit his post" type="toggle">1</selfEditeEnable>
+            <selfDeleteEnable heading="Flagging Enable" meta="User can delete his post" type="toggle">1</selfDeleteEnable>
+            <allowGuestQuestion meta="Guest can ask question or not" type="toggle">0</allowGuestQuestion>
+            <itemPerPage heading="Item per page" type="text">10</itemPerPage>
+        </module>
+        
+        <module id="answer" name="answer" enable="true">
+            <module id="answerCore" name="core">
+                <commentEnable type="toggle">true</commentEnable>
+                <votingEnable type="toggle"/>
+                <flaggingEnable type="toggle"/>
+                <itemPerPage type="text">10</itemPerPage>
+            </module>
+            
+            
+            <module id="answerComment" name="comment">
+            
+                <module id="answerCommentCore" name="core">
+                    <votingEnable type="toggle">true</votingEnable>
+                    <flaggingEnable type="toggle">true</flaggingEnable>
+                    <itemPerPage>5</itemPerPage>
+                </module>
+            
+            
+                <module id="answerCommentVote" name="votes">
+                
+                </module>
+            
+            
+                <module id="answerCommentReputation" name="Reputation">
+                
+                </module>
+            
+            </module> 
+        
+            <module id="answerVote" name="votes">
+                
+            </module>
+            
+            
+            <module id="answerReputation" name="Reputation">
+                
+            </module>
+        
+        </module>
+            
+        
+        <module id="questionComment" name="Comment">
+            <module id="questionCommentCore" name="core">
+                <votingEnable type="toggle">true</votingEnable>
+                <flaggingEnable type="toggle">true</flaggingEnable>
+                <itemPerPage>5</itemPerPage>
+            </module>
+            
+            <module id="questionCommentVote" name="votes">
+                
+            </module>
+            
+            
+            <module id="questionCommentReputation" name="Reputation">
+                
+            </module>
+            
+        </module> 
+        
+         <module id="questionVote" name="votes">
+                
+         </module>
+            
+            
+        <module id="questionReputation" name="Reputation">
+                
+        </module>
+        
+    </module>   
+     
+   
+    <module id="page" name="Page">
+        
+    </module>
+    
+     <module id="article" name="article" enable="true">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"/>
+        <flaggingEnable type="toggle"/>
+        <itemPerPage type="j">10</itemPerPage>
+    </module>
+    
+    
+    
+    
+     <module id="ticket" name="ticket" enable="true">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"/>
+        <flaggingEnable type="toggle"/>
+        <itemPerPage type="j">10</itemPerPage>
+    </module>
+    
+    
+    <module id="flag" name="flag" enable="true">
+        <falgReason>
+            <reason id="1">
+                <name>Offensive</name>
+            </reason>
+        </falgReason>
+    </module>
+    
+      
+    <module id="user" name="user" enable="true">
+        
+    </module>
+    
+    <!--
+    Notiification used to notify user if some action is taken on some object
+    So it is good to atatch notification message attached to either object or objectController AKA action
+    -->
+    
+    <!--
+    <module name="notification">
+        <target module="question">
+            <action name="edit">
+                A comment has been added to %question
+            </action>
+            <action name="addComment">
+                %question has been modified
+            </action>
+        </target>
+    </module>
+    -->
+    
+    <!--
+    - Reputation will be on content base not directly to user
+    - Rputation holds information about reputation for different action in system
+    - Reputation will bee given or taken for action
+    - There is two elements  of each action actor and target
+    - Actor is User who is doing the action
+    - Target is also User. It is the owner of the content
+    - @TODO Self is special case to where target and actor same
+    - Reputation could be  any negetive or positive ineteger,zero or NULL for invalid case
+    - NULL will be treated as 0
+    -->
+    
+    <!--
+    <module name="reputation">
+        <target module="question">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+        </target>
+    
+        <target module="answer">
+            <action name="create">
+                <actor></actor>
+                <target></target>
+            </action>
+            <action name="downVote">
+                <actor>-1</actor>
+                <target>-2</target>
+            </action>
+            <action name="upVote">
+                <actor>0</actor>
+                <target>3</target>
+            </action>
+            <action name="selectAnswer">
+                <actor>3</actor>
+                <target>10</target>
+            </action>
+        </target>
+    </module>
+    -->
+
+        
+</setting></pageRoot>

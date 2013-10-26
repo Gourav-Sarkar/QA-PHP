@@ -224,6 +224,8 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
      */
 
     public function auth() {
+        //Ensure previous session get deleted and start new session
+        session_regenerate_id(true);
         /*
          * Only get default role permission
          */
@@ -233,7 +235,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
 
             //var_dump($role);
 
-            $defaultrole->setPermissions(Permission::Listing($defaultrole));
+            //$defaultrole->setPermissions(Permission::Listing($defaultrole));
 
         //$roleCache=static::getActiveUser()->getRoles()->offsetGet($defaultrole);
         //var_dump('role default',$roleCache);
@@ -261,7 +263,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
             $this->hash();
             $this->crud->softRead();
             //var_dump('roles list',RoleUserMapper::listing($this));
-            $this->setRoles(RoleUserMapper::listing($this));
+            $this->setRoles(Role::listing($this));
             //$this->addRole($defaultrole);
             //$this->setRoles($rs);
 
@@ -284,15 +286,18 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
 
 
         //var_dump($this);
-        //Ensure previous session get deleted and start new session
-        session_regenerate_id(true);
 
 
         $_SESSION['self'] = $this;
+        
+        
+        var_dump($_SESSION['self']->getRoles());
+        /*
         var_dump('Serialize before',$this);
         var_dump('Serialize after',$_SESSION['self']);
         var_dump('unserialize',$_SESSION['self']);
         /*
+         * 
         $data=session_encode();
         var_dump($data);
         $foo=session_decode($data);
@@ -380,6 +385,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
             
             $_SESSION['self']=$user;
             
+            var_dump('first visit');
             return $user; //Reduce session write count
         }
         /*

@@ -18,9 +18,9 @@ abstract class AbstractPseudoObjectStorage implements Iterator, ArrayAccess
     
     private $pointer=0;
     
-    public function attach($object)
+    public function attach($object,$data)
     {
-        $this->data[$this->getHash($object)]=$object;
+        $this->data[$this->getHash($object)]=$data;
     }
     
     public function detach($object)
@@ -89,10 +89,10 @@ abstract class AbstractPseudoObjectStorage implements Iterator, ArrayAccess
         return $keys[$this->pointer];
     }
     public function valid() {
-        var_dump("valid" , $this->pointer);
+       // var_dump("valid" , $this->pointer);
         $keys=array_keys($this->data);
         
-        var_dump(isset($keys[$this->pointer]));
+        //var_dump(isset($keys[$this->pointer]));
         
         return isset($keys[$this->pointer]);
     }
@@ -100,6 +100,8 @@ abstract class AbstractPseudoObjectStorage implements Iterator, ArrayAccess
         //var_dump("rewind" , $this->pointer);
         $this->pointer=0;
     }
+
+    
 
 
     /*

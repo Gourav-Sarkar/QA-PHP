@@ -85,13 +85,14 @@ $resource->setAction($_GET['action']);
 
 //var_dump($resource);
 //var_dump(User::getActiveUser()->getRoles()->count());
-var_dump(User::getActiveUser()->getRoles());
+var_dump(User::getActiveUser());
+var_dump('Roles session' , $_SESSION['roles']);
 
 //var_dump(count(User::getActiveUser()->getRoles()));
 
 foreach(User::getActiveUser()->getRoles() as $role)
 {
-    var_dump($role);
+    //var_dump($role);
 }
 
 try

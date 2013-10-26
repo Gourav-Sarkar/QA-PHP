@@ -64,7 +64,7 @@
                         <xsl:call-template name="commentForm" />
                     
                         <!-- Article comments -->
-                        <xsl:apply-templates match="ArticleCommentStorage/ArticleComment" />
+                        <xsl:apply-templates select="CommentStorage" />
                     
                     </div>
                 </div>

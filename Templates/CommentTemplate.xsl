@@ -22,7 +22,7 @@
     # Mode Default
     # Used to show default comments
     -->
-    <xsl:template match="answercomment | questioncomment">
+    <xsl:template match="answercomment | questioncomment |articlecomment">
         <div class="row-fluid">
             
             <xsl:attribute name="id">
@@ -109,6 +109,7 @@
     <!--
     # Template CommentStorage
     # Holds list of comment
+    defaulr comment storeage
     -->
     <xsl:template match="CommentStorage">
         <!-- 
@@ -117,7 +118,8 @@
         # incase elements needs seperate Storage remove the related element and
         # implement it in seperate Storage template
         -->
-        <xsl:apply-templates select="questioncomment | answercomment" />
+        
+        <xsl:apply-templates select="questioncomment | answercomment | articlecomment" />
     </xsl:template>
     <!-- ========================================================================-->    
     

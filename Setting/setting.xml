@@ -17,7 +17,11 @@ module name is unique
     -->
     <module name="core" enable="true" meta="Core setting for system">
         <module name="social">
-            <!--Social integration-->
+            <!--
+            # Social integration
+            # data can be post on users wall
+            #data can be post on application page or group
+            -->
             <module name="facebook" meta="Intigrate facebook application with the system">
                 <appID  heading="Application ID" meta="Unique application ID" type="text">537717556265847</appID>
                 <appKey heading="Application Key" meta="Uniqe application key" type="text">73a48848a53a948e6f78fd96448406e1</appKey>

@@ -68,6 +68,7 @@
                 <xsl:text>AnswerCommentStorage-</xsl:text><xsl:value-of select="id" />
                 </xsl:attribute>
                 
+                <!-- comments-->
                 <xsl:apply-templates select="CommentStorage" />
             </div>
             

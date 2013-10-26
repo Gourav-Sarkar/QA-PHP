@@ -4,7 +4,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'models/ArticleCommentStorage.php';
+require_once 'Models/ArticleCommentStorage.php';
+require_once 'Storages/CommentStorage.php';
 /**
  * Description of Article
  *
@@ -17,7 +18,7 @@ class Article extends AbstractContent{
     public function __construct() {
         parent::__construct();
         
-        $this->comments=new ArticleCommentStorage("ArticleComment");
+        $this->comments=new CommentStorage("ArticleComment");
     }
     
     public static function listing(\DatabaseInteractbleInterface $reference) {

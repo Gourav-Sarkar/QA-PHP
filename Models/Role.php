@@ -56,7 +56,30 @@ class Role extends AbstractContent{
     
     public static function listing(\DatabaseInteractbleInterface $reference) {
         
-       
+        $roleStore=new RoleStorage();
+        
+        $query="SELECT
+            r.*
+            FROM role AS r
+            INNER JOIN RoleUserMapper AS rumap
+            ON rumap.role=r.id
+            WHERE rumap.user=?";
+        
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        
+        $stmt->execute(array($reference->getID()));
+        
+        while($data=$stmt->fetch())
+        {
+            $role=new Role();
+            $role->setID($data['id']);
+            $role->setTitle($data['title']);
+            
+            $roleStore->attach($role,$role);
+        }
+        
+        $_SESSION['roles']=$roleStore;
+       return $roleStore;
     }
     
     

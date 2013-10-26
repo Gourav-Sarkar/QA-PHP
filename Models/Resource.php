@@ -121,6 +121,15 @@ class Resource extends BaseObject implements CRUDLInterface{
         $controller=new $controllerName();
         $controller->{$this->action}();
     }
+    
+    
+    public function hasPermission()
+    {
+        foreach(User::getActiveUser()->getRoles() as $role)
+        {
+            
+        }
+    }
    
     /*
      * @PARAM strin $module name of the module
