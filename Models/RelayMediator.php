@@ -14,12 +14,13 @@ require_once 'interfaces/RelayInterface.php';
  */
 class RelayMediator 
     extends AbstractUniqueClassObjectStorage
-    implements SplObserver
-                ,SplSubject
-                ,RelayInterface
+    implements RelayInterface
+                ,SplObserver 
+                //replace with custom subkect
+                //,SplSubject
 {
     //put your code here
-    private $origin;
+    private $origin; 
     private $message;
     
     public function Relay($msg) 
@@ -33,15 +34,17 @@ class RelayMediator
     
     /*
      * Emmits E_STRICT error
+     * assert $observer as splobserver
      */
-    public function attach(\SplObserver $observer) {
+    public function attach($observer,$inf=NULL) {
         parent::attach($observer, $observer);
     }
     
     /*
      * Emmits E_STRICT error
+     * assert $observer as splobserver
      */
-    public function detach(\SplObserver $observer) {
+    public function detach($observer) {
         parent::detach($observer);
     }
     public function notify() {

@@ -34,10 +34,11 @@ require_once 'Exception/PermissionDeniedException.php';
  * @author Gourav Sarkar
  */
 //require_once 'AbstractContent.php';
-abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInterface
-, AuthenticationInterface
-, CRUDLInterface
-, XMLSerializeble {
+abstract class AbstractUser 
+        extends AbstractContent 
+        implements
+        AuthenticationInterface 
+{
 
     const USER_DEFAULT_ROLE = 'guest';
 
@@ -48,6 +49,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
     protected $reputation = 1;
     protected $password;
     protected $email;
+    
     protected $crud;
     //protected $authType;
     protected $auth;    //Authentication object
@@ -182,6 +184,7 @@ abstract class AbstractUser extends BaseObject implements DatabaseInteractbleInt
     public function getRoles() {
         return $this->roleList;
     }
+    
 
     /*
       public function getName()

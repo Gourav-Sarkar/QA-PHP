@@ -52,16 +52,7 @@ abstract class AbstractVote extends AbstractContent implements DependencyInterfa
     {
         $this->id=$id;
         $this->crud->setFieldCache('id');
-    }
-     public function setTime()
-    {
-        $this->time=time();
-        $this->crud->setFieldCache('time');
-    }
-     public function setUser(AbstractUser $user)
-    {
-        $this->user=$user;
-        $this->crud->setFieldCache('user');
+    
     }
     
     public function setType($type)

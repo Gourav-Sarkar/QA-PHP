@@ -159,7 +159,7 @@ class Reputation extends AbstractContent
     /*
      * update reputation cache of user
      */
-    public function setUser(\User $owner) {
+    public function setUser(\User $owner=NULL) {
         //Get reputation from reputation object and assign it to user reputation
         $owner->setReputation($this->getReputation());
         //initiate user

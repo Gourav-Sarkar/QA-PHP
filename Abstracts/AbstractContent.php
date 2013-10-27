@@ -55,6 +55,7 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     protected $id; /* @DATABASE */
     protected $user; //test
     protected $time;
+    protected $ip;
     protected $content;
     protected $setting;
     protected $crud;
@@ -103,6 +104,13 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
         $this->id = intval($id);
     }
 
+      
+    public function setIP($ip) {
+
+        $this->crud->setFieldCache("ip");
+        $this->ip=  ip2long($_SERVER['REMOTE_ADDR']);
+    }
+    
     public function setTime($time = NULL) {
         $this->crud->setFieldCache("time");
 
@@ -146,6 +154,10 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
         return $this->content;
     }
 
+    public function getIP() {
+        return $this->ip;
+    }
+    
     public function getUser() {
         return $this->user;
     }
