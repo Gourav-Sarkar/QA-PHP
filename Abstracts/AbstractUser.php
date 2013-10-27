@@ -452,19 +452,6 @@ abstract class AbstractUser
                 ";
     }
     
-    public function xmlSerialize() {
-
-        $writer = new XMLWriter();
-        $writer->openMemory();
-
-        $writer->startElement((string) $this);
-        $xmlSer = new XMLSerialize($this);
-        $writer->writeRaw($xmlSer->xmlSerialize());
-        $writer->endElement();
-
-
-        return $writer->outputMemory(true);
-    }
 
 }
 
