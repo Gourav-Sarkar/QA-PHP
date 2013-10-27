@@ -27,7 +27,7 @@
 * [VERIFIED]
 * Real time content adding
 */
-$("form input[type='submit']")
+$("form input.realTime")
     .click(
         function(e)
         {
