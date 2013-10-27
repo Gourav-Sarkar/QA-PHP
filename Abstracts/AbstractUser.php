@@ -34,11 +34,8 @@ require_once 'Exception/PermissionDeniedException.php';
  * @author Gourav Sarkar
  */
 //require_once 'AbstractContent.php';
-abstract class AbstractUser 
-        extends AbstractContent 
-        implements
-        AuthenticationInterface 
-{
+abstract class AbstractUser extends AbstractContent implements
+AuthenticationInterface {
 
     const USER_DEFAULT_ROLE = 'guest';
 
@@ -49,26 +46,22 @@ abstract class AbstractUser
     protected $reputation = 1;
     protected $password;
     protected $email;
-    
     protected $crud;
     //protected $authType;
     protected $auth;    //Authentication object
     protected $roleList;
-    
     protected $userProfile;
-    
-    
     protected $referedBy;
 
     public function __construct() {
         //$this->auth=new LocalAuth();
         $this->roleList = new RoleStorage('Role');
-        $this->userProfile=new UserProfileFieldStorage("UserProfileField");
-        
+        $this->userProfile = new UserProfileFieldStorage("UserProfileField");
+
         //Exclude from automated query building
         //$this->referedBy=new User();
-        
-        
+
+
         $this->crud = new CRUDobject($this);
 
         //Default role initiated for each suer
@@ -78,15 +71,13 @@ abstract class AbstractUser
     public function __toString() {
         return strtolower(get_class($this));
     }
-    
-    public function setReferedBy($refBy)
-    {
-        $this->referedBy=$refBy;
+
+    public function setReferedBy($refBy) {
+        $this->referedBy = $refBy;
         $this->crud->setFieldCache("referedBy");
     }
-    
-    public function getReferedBy()
-    {
+
+    public function getReferedBy() {
         return $this->referedBy;
     }
 
@@ -125,6 +116,18 @@ abstract class AbstractUser
     public function setID($id) {
         $this->crud->setFieldCache("id");
         $this->id = $id;
+    }
+
+    public function setContent($content) {
+        throw new BadMethodCallException("Invalid method");
+    }
+
+    /* Getter methods to access private properties
+     * 
+     */
+
+    public function getContent() {
+        throw new BadMethodCallException("Invalid method");
     }
 
     /*
@@ -184,7 +187,6 @@ abstract class AbstractUser
     public function getRoles() {
         return $this->roleList;
     }
-    
 
     /*
       public function getName()
@@ -233,13 +235,11 @@ abstract class AbstractUser
          * Only get default role permission
          */
         $defaultrole = new Role();
-        $defaultrole->setTitle(static::USER_DEFAULT_ROLE); 
+        $defaultrole->setTitle(static::USER_DEFAULT_ROLE);
         $defaultrole->softRead();
 
-            //var_dump($role);
-
-            //$defaultrole->setPermissions(Permission::Listing($defaultrole));
-
+        //var_dump($role);
+        //$defaultrole->setPermissions(Permission::Listing($defaultrole));
         //$roleCache=static::getActiveUser()->getRoles()->offsetGet($defaultrole);
         //var_dump('role default',$roleCache);
 
@@ -269,7 +269,6 @@ abstract class AbstractUser
             $this->setRoles(Role::listing($this));
             //$this->addRole($defaultrole);
             //$this->setRoles($rs);
-
             //var_dump('object ok',$this);
         } catch (NoEntryFoundException $e) {
             throw new NoEntryFoundException("Wrong user Credentials");
@@ -292,39 +291,39 @@ abstract class AbstractUser
 
 
         $_SESSION['self'] = $this;
-        
-        
+
+
         var_dump($_SESSION['self']->getRoles());
         /*
-        var_dump('Serialize before',$this);
-        var_dump('Serialize after',$_SESSION['self']);
-        var_dump('unserialize',$_SESSION['self']);
-        /*
+          var_dump('Serialize before',$this);
+          var_dump('Serialize after',$_SESSION['self']);
+          var_dump('unserialize',$_SESSION['self']);
+          /*
          * 
-        $data=session_encode();
-        var_dump($data);
-        $foo=session_decode($data);
-        var_dump($foo);
-        */
-        
-        
+          $data=session_encode();
+          var_dump($data);
+          $foo=session_decode($data);
+          var_dump($foo);
+         */
+
+
         /*
          * DEBUG
          */
         /*
-        echo '<hr/>';
-        foreach ($_SESSION['self']->getRoles() as $role) {
-            echo '<b>' . $role->getTitle() . '</b>';
-            foreach ($role->getPermissions() as $perm) {
-                var_dump($perm);
+          echo '<hr/>';
+          foreach ($_SESSION['self']->getRoles() as $role) {
+          echo '<b>' . $role->getTitle() . '</b>';
+          foreach ($role->getPermissions() as $perm) {
+          var_dump($perm);
 
-                echo '<br/>';
-            }
-            var_dump($role);
-            echo '<br/>';
-        }
+          echo '<br/>';
+          }
+          var_dump($role);
+          echo '<br/>';
+          }
 
-        echo '<hr/>';
+          echo '<hr/>';
          * 
          */
 
@@ -364,8 +363,6 @@ abstract class AbstractUser
         return false;
     }
 
-
-
     public static function getActiveUser() {
         /*
          * Active user is not nessacrily authneticated user.
@@ -380,14 +377,13 @@ abstract class AbstractUser
             $role->softRead();
 
             //var_dump($role);
-
             //$role->setPermissions(Permission::Listing($role));
 
             $user = new User();
             //$user->addRole($role);
-            
-            $_SESSION['self']=$user;
-            
+
+            $_SESSION['self'] = $user;
+
             var_dump('first visit');
             return $user; //Reduce session write count
         }
@@ -414,25 +410,19 @@ abstract class AbstractUser
         );
     }
 
-    
-    
     /*
      * return list of user where user id is same current object id
      */
-    
-    public function getReferals()
-    {
-        $user=new User();
+
+    public function getReferals() {
+        $user = new User();
         $user->setID($this->getID());
-        
-        return User::listing($user);   
-        
+
+        return User::listing($user);
     }
-    
-    
-    public function fetchDetailedUserProfile()
-    {
-        $query="SELECT
+
+    public function fetchDetailedUserProfile() {
+        $query = "SELECT
             
                 pf.title
                 ,upf.content
@@ -451,7 +441,6 @@ abstract class AbstractUser
                 rum.user=14
                 ";
     }
-    
 
 }
 
