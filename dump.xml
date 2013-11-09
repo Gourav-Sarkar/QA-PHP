@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="FRAGMENT"><user><id>28</id>
-<nick/>
-<reputation>1</reputation>
-<password/>
-<email/>
+<pageRoot mode="DOCUMENT"><campaign><capital>12345</capital>
+<targetTraffic>100000</targetTraffic>
+<type/>
+<approve/>
+<area>kolkata,delhi</area>
+<title>Test Campaign</title>
+<id>1</id>
+<user><id>14</id>
+<nick>gourav</nick>
+<reputation>105</reputation>
+<password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
+<email>Gourav@gmail.com</email>
 <auth/>
 <UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
 <user/>
-<time/>
-<ip/>
+<time>0</time>
+<ip>0</ip>
 <content/>
 <setting/>
 <invisible>0</invisible>
-</user></pageRoot>
+</user><time>1212121212</time>
+<ip>4294967295</ip>
+<content>Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign Test Campaign</content>
+<setting/>
+<invisible>0</invisible>
+</campaign></pageRoot>

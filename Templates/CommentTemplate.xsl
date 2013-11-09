@@ -147,7 +147,7 @@
                 <xsl:value-of select="id" />
             </textarea>
             
-            <input type="submit" data-loading-text="Commenting.." class="btn" name="comment" value="comment">
+            <input type="submit" data-loading-text="Commenting.." class="btn realTime" name="comment" value="comment">
                 <!-- Place holder of reponse data. points to a unique id -->
                 <xsl:attribute name="data-holder">
                     <xsl:text>#</xsl:text>

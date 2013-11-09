@@ -455,7 +455,7 @@ class CRUDobject implements CRUDLInterface {
 
         //unset fieldCache after each CRUDE operation
         $this->fieldCache = array();
-        return $this;
+        return self;
     }
 
     public function softRead() {

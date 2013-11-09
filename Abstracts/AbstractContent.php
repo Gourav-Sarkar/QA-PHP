@@ -105,10 +105,14 @@ abstract class AbstractContent extends BaseObject implements CRUDLInterface
     }
 
       
-    public function setIP($ip) {
+    public function setIP($ip=NULL) {
 
         $this->crud->setFieldCache("ip");
-        $this->ip=  ip2long($_SERVER['REMOTE_ADDR']);
+         if (isset($ip) && is_numeric($ip)) {
+            $this->ip = $ip;
+            return null;
+        }
+        $this->ip = ip2long($_SERVER['REMOTE_ADDR']);
     }
     
     public function setTime($time = NULL) {
