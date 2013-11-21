@@ -15,6 +15,14 @@ var_dump($_SESSION);
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+class test
+{
+    private $foo;
+    
+    public function __construct($foo) {
+        $this->foo=$foo;
+    }
+}
 
 
 ?>

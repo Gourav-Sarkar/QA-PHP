@@ -15,7 +15,41 @@
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
     <xsl:template match="campaign">
-        
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="offset1 span9">
+                    <div class="row-fluid">
+                        <!-- -->
+                        <div class="span3">
+                            <div class="row-fluid">
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- -->
+                        <div class="offset1 span8">
+                            <h1>
+                                <xsl:value-of select="title" />
+                            </h1>
+                            <p>
+                                <xsl:value-of select="content" />
+                            </p>
+                            
+                            <div class="row-fluid">
+                                <xsl:apply-templates select="user" mode="inline-summary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- campaign stat -->
+            <div class="row-fluid">
+                <div class="offset1 span9">
+                    <a href="#" class="btn btn-large btn-primary">Download</a>
+                </div>
+            </div>
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>

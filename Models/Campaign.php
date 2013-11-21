@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractContent.php';
+require_once 'Models/Click.php';
 
 /**
  * Description of Campaign
@@ -12,7 +13,9 @@ require_once 'Abstracts/AbstractContent.php';
  */
 class Campaign extends AbstractContent{
     
-    const CAMPAIGN_TYPE_VISIT=1;
+    const CMP_TYPE_VISIT=1;
+    const CMP_TYPE_SM=2;
+    const CMP_TYPE_REG=3;
     
     //put your code here
     private $capital; //SENSITIVE
@@ -22,6 +25,7 @@ class Campaign extends AbstractContent{
     //private $uniqueIpTimeSpan=86400;
     private $area;
     private $title;
+    private $url;
     
     
     public function __construct() {
@@ -37,6 +41,29 @@ class Campaign extends AbstractContent{
     public function getTitle()
     {
         return $this->title;
+    }
+    
+    /*
+     * @todo Only allow constants of CPM_TYPE_*
+     */
+    public function setType($type)
+    {
+        $this->type=$type;
+    }
+    
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    public function setUrl($url)
+    {
+        $this->url=$url;
+    }
+    
+    public function getUrl()
+    {
+        return $this->url;
     }
     
     public function setArea($area)

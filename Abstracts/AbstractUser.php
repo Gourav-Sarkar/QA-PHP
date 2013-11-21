@@ -11,7 +11,7 @@
 //require_once 'traits/RenderbleTrait.php';
 //require_once 'traits/CRUDLTrait.php';
 
-
+ 
 require_once 'Interfaces/CRUDLInterface.php';
 require_once 'models/CRUDobject.php';
 
@@ -28,13 +28,15 @@ require_once 'models/RoleUserMapper.php';
 require_once 'models/Role.php';
 require_once 'Exception/PermissionDeniedException.php';
 
+require_once 'test.php';
+
 /**
  * Description of AbstractUser
  *
  * @author Gourav Sarkar
  */
 //require_once 'AbstractContent.php';
-abstract class AbstractUser extends AbstractContent implements
+abstract class AbstractUser extends AbstractAnnonymosContent implements
 AuthenticationInterface {
 
     const USER_DEFAULT_ROLE = 'guest';
@@ -55,8 +57,8 @@ AuthenticationInterface {
 
     public function __construct() {
         //$this->auth=new LocalAuth();
-        $this->roleList = new RoleStorage('Role');
-        $this->userProfile = new UserProfileFieldStorage("UserProfileField");
+        //$this->roleList = new RoleStorage('Role');
+        //$this->userProfile = new UserProfileFieldStorage("UserProfileField");
 
         //Exclude from automated query building
         //$this->referedBy=new User();
@@ -264,12 +266,12 @@ AuthenticationInterface {
         //var_dump($this);
         try {
             $this->hash();
-            $this->crud->softRead();
+            $user=$this->crud->softRead();
             //var_dump('roles list',RoleUserMapper::listing($this));
-            $this->setRoles(Role::listing($this));
+            //$this->setRoles(Role::listing($this));
             //$this->addRole($defaultrole);
             //$this->setRoles($rs);
-            //var_dump('object ok',$this);
+            var_dump('object ok',$this);
         } catch (NoEntryFoundException $e) {
             throw new NoEntryFoundException("Wrong user Credentials");
         }
@@ -287,13 +289,16 @@ AuthenticationInterface {
          */
 
 
-        //var_dump($this);
-
+        var_dump('user',$user);
+        
+        var_dump(serialize($user));
 
         $_SESSION['self'] = $this;
 
+        var_dump(session_encode());
+        var_dump('ses',$_SESSION['self']);
 
-        var_dump($_SESSION['self']->getRoles());
+        //var_dump($_SESSION['self']->getRoles());
         /*
           var_dump('Serialize before',$this);
           var_dump('Serialize after',$_SESSION['self']);
