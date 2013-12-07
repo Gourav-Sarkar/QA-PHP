@@ -23,6 +23,7 @@ require_once 'models/BaseObject.php';
 
 require_once 'Models/XMLserialize.php';
 require_once 'interfaces/XMLserializeble.php';
+
 /**
  * Description of AbstractContent
  * Content behaviour
@@ -57,12 +58,12 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
     protected $content;
     protected $setting;
     protected $crud;
-    protected $invisible=0; //Every content can be removed softly [false=You can see]
+    protected $invisible = 0; //Every content can be removed softly [false=You can see]
 
     public function __construct() {
-        
+
         //$this->setting = SettingHandler::initSettingHandler($this);
-        
+
         $this->crud = new CRUDobject($this);
 
 
@@ -80,38 +81,34 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
      * Another implementetion of this method can be done with reflection
      * 
      */
-
-    public function setInvisible($invisible=FALSE)
-    {
+    public function setInvisible($invisible = FALSE) {
         $this->crud->setFieldCache("invisible");
-        if(!empty($invisible))
-        {
-            $invisible=time();
+        if (!empty($invisible)) {
+            $invisible = time();
         }
-        $this->invisible=$invisible;
+        $this->invisible = $invisible;
     }
-    public function getInvisible()
-    {
+
+    public function getInvisible() {
         return $this->invisible;
     }
-    
+
     public function setID($id) {
 
         $this->crud->setFieldCache("id");
         $this->id = intval($id);
     }
 
-      
-    public function setIP($ip=NULL) {
+    public function setIP($ip = NULL) {
 
         $this->crud->setFieldCache("ip");
-         if (isset($ip) && is_numeric($ip)) {
+        if (isset($ip) && is_numeric($ip)) {
             $this->ip = $ip;
             return null;
         }
         $this->ip = ip2long($_SERVER['REMOTE_ADDR']);
     }
-    
+
     public function setTime($time = NULL) {
         $this->crud->setFieldCache("time");
 
@@ -137,7 +134,6 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
         return false;
     }
 
-
     /* Getter methods to access private properties
      * 
      */
@@ -149,7 +145,7 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
     public function getIP() {
         return $this->ip;
     }
-    
+
     public function getTime() {
         /*
          * 
@@ -192,8 +188,8 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
      */
 
     public function create() {
-        $e=$this->crud->create();
-         return $e;
+        $e = $this->crud->create();
+        return $e;
     }
 
     //public function delete();
@@ -211,64 +207,58 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
     }
 
     public static function listing(DatabaseInteractbleInterface $reference) {
-        return $this->crud->listing($reference);
     }
-    public function softRead()
-    {
+
+    public function softRead() {
         return $this->crud->softRead();
     }
 
-
-    
     public function xmlSerialize() {
-        
-        $writer=new XMLWriter();
+
+        $writer = new XMLWriter();
         $writer->openMemory();
-        
+
         $writer->startElement((string) $this);
-            $xmlSer = new XMLSerialize($this);
-            $writer->writeRaw($xmlSer->xmlSerialize());
+        $xmlSer = new XMLSerialize($this);
+        $writer->writeRaw($xmlSer->xmlSerialize());
         $writer->endElement();
-        
-        
+
+
         return $writer->outputMemory(true);
     }
-    
-    public function hasDependency()
-    {
+
+    public function hasDependency() {
         return (bool) isset($this->dependency);
     }
-    
-    
+
     public function serialize() {
         unset($this->setting);
         unset($this->crud);
-        
+
         return serialize($this);
     }
-    
+
     public function unserialize($serialized) {
         static::__construct();
     }
-    
+
     /*
      * @todo part of database interactble interface
      */
-    public function getStrcuture()
-    {
+
+    public function getStrcuture() {
         var_dump(get_object_vars($this));
-        $structure=get_object_vars($this);
-        
-        $structure=array_filter($structure,function($property)
-                                            {
+        $structure = get_object_vars($this);
+
+        $structure = array_filter($structure, function($property) {
                     var_dump($property);
-                                                return $property instanceof DatabaseInteractbleInterface or !is_object($property);
-                                            }
-        
-                                    );
-                                    
-                                    return $structure;
+                    return $property instanceof DatabaseInteractbleInterface or !is_object($property);
+                }
+        );
+
+        return $structure;
     }
+
 }
 
 ?>

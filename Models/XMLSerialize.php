@@ -33,6 +33,8 @@ class XMLSerialize implements XMLSerializeble {
 
     /*
      * Handle null value
+     * 
+     * @isssue array converting
      */
 
     public function xmlSerialize() {
@@ -81,6 +83,8 @@ class XMLSerialize implements XMLSerializeble {
                  */
                 
                 //@todo $property data can be get via getter to get data constantly
+                //var_dump($propertyData);
+                
                 $this->xmlResource->writeElement($property->getName(), $propertyData);
                 
             } elseif ($propertyData instanceof DependencyObject) {

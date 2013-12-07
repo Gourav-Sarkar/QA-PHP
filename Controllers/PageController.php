@@ -16,7 +16,12 @@ class PageController extends AbstractController {
     public function __construct() {
         parent::__construct();
         $this->model=new Page(); 
+        
+        /*
+         * Add static templates
+         */
         $this->view->addTemplate('User');
+        $this->view->addTemplate('Campaign');
         
     }
     

@@ -95,13 +95,21 @@ class permission extends BaseObject implements CRUDLInterface{
         $this->proxyCreate();
     }
     
+    
+    /*
+     * Get list of permission for roles
+     * If priority of role is same for two roles- negetive value will take advantage
+     * If priority of role is different highest priority will be choosen
+     * It will return an permission list of calculated permissions among roles
+     */
     public static function listing(DatabaseInteractbleInterface $content)
     {
+        
         $params=array();
         
         $permissionStore=new PermissionStorage();
         
-        assert('$content instanceof Role');
+        assert('$content instanceof AbstractUser');
         
         $query="SELECT
             res.id AS res_id
@@ -116,12 +124,14 @@ class permission extends BaseObject implements CRUDLInterface{
             ON perm.role=r.id
             INNER JOIN resource AS res
             ON perm.resource=res.id
+            INNER JOIN roleUserMapper AS rumap
+            ON r.id=rumap.role
             ";
         
         if(!empty($content))
         {
             
-            $query .= 'WHERE r.id=?';
+            $query .= 'WHERE rumap.user=?';
             $params[]=$content->getID();
         }
         

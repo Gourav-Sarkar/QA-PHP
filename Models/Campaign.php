@@ -6,6 +6,7 @@
  */
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Models/Click.php';
+require_once "Storages/CampaignStorage.php";
 
 /**
  * Description of Campaign
@@ -30,8 +31,6 @@ class Campaign extends AbstractContent{
     
     public function __construct() {
         parent::__construct();
-        
-        $this->area=array();
     }
     
     public function setTitle($title)
@@ -105,6 +104,51 @@ class Campaign extends AbstractContent{
     public function getTargetTraffic()
     {
         return $this->targetTraffic;
+    }
+    
+    /*
+     * Unique hit can be anything click,register,like, algorith changes accordingly at later
+     * parts depending on campaign type
+     */
+    public function getUniqueHit()
+    {
+        
+    }
+    public function getHits()    
+    {
+        
+    }
+    
+    
+    
+    public function getList()
+    {
+        
+    }
+    
+    public static function listing(\DatabaseInteractbleInterface $reference) {
+        $campaignList=new CampaignStorage("Campaign");
+        
+        $query="SELECT
+            *
+            FROM campaign
+            ";
+        
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        
+        $stmt->execute();
+        
+        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $cmp=new Campaign();
+            $cmp->setID($data['id']);
+            
+            //var_dump($cmp);
+            
+            $campaignList->attach($cmp, $cmp);
+        }
+        
+        return $campaignList;
     }
 }
 

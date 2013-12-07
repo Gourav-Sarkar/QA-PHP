@@ -11,7 +11,7 @@
 //require_once 'traits/RenderbleTrait.php';
 //require_once 'traits/CRUDLTrait.php';
 
- 
+
 require_once 'Interfaces/CRUDLInterface.php';
 require_once 'models/CRUDobject.php';
 
@@ -51,23 +51,22 @@ AuthenticationInterface {
     protected $crud;
     //protected $authType;
     protected $auth;    //Authentication object
-    protected $roleList;
+    protected $roleList; //Seperate pulling
     protected $userProfile;
     protected $referedBy;
+    protected $permissionList;
 
     public function __construct() {
+        parent::__construct();
+
         //$this->auth=new LocalAuth();
         //$this->roleList = new RoleStorage('Role');
         //$this->userProfile = new UserProfileFieldStorage("UserProfileField");
-
         //Exclude from automated query building
         //$this->referedBy=new User();
 
 
         $this->crud = new CRUDobject($this);
-
-        //Default role initiated for each suer
-        //$this->addRole($role);
     }
 
     public function __toString() {
@@ -222,6 +221,14 @@ AuthenticationInterface {
         return sprintf("/image/avatar/%s.%s", $identifier, $ext);
     }
 
+    public function setPermission(PermissionStorage $perm) {
+        $this->permissionList = $perm;
+    }
+
+    public function getPermission() {
+        return $this->permissionList;
+    }
+
     /*
      * Tries Database auth if no module is set up
      * If module is there use the interface to auth user
@@ -266,12 +273,15 @@ AuthenticationInterface {
         //var_dump($this);
         try {
             $this->hash();
-            $user=$this->crud->softRead();
+            $user = $this->crud->softRead();
             //var_dump('roles list',RoleUserMapper::listing($this));
-            //$this->setRoles(Role::listing($this));
-            //$this->addRole($defaultrole);
+            $this->setRoles(Role::listing($this));
             //$this->setRoles($rs);
-            var_dump('object ok',$this);
+
+            $this->setPermission(permission::listing($this));
+
+
+            var_dump('object ok', $this);
         } catch (NoEntryFoundException $e) {
             throw new NoEntryFoundException("Wrong user Credentials");
         }
@@ -289,14 +299,14 @@ AuthenticationInterface {
          */
 
 
-        var_dump('user',$user);
-        
+        var_dump('user', $user);
+
         var_dump(serialize($user));
 
         $_SESSION['self'] = $this;
 
         var_dump(session_encode());
-        var_dump('ses',$_SESSION['self']);
+        var_dump('ses', $_SESSION['self']);
 
         //var_dump($_SESSION['self']->getRoles());
         /*
@@ -379,13 +389,17 @@ AuthenticationInterface {
         if (!isset($_SESSION['self'])) {
             $role = new Role();
             $role->setTitle(static::USER_DEFAULT_ROLE);
-            $role->softRead();
 
             //var_dump($role);
             //$role->setPermissions(Permission::Listing($role));
 
             $user = new User();
-            //$user->addRole($role);
+            $user->addRole($role);
+            
+            
+            $role->softRead(); 
+            
+            var_dump('default role',$role);
 
             $_SESSION['self'] = $user;
 

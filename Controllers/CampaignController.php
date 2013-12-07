@@ -26,7 +26,17 @@ class CampaignController extends AbstractController{
     
     public function create()
     {
+        var_dump($_POST['area']);
         
+        $this->model->setTitle($_POST['title']);
+        $this->model->setContent($_POST['content']);
+        $this->model->setCapital($_POST['capital']);
+        //$this->model->setMoneyTransactID()
+        $this->model->setArea($_POST['area']);
+        $this->model->setTargetTraffic($_POST['target_traffic']);
+        $this->model->setInvisible(true);
+        
+        $this->model->create();
     }
     
     /*
@@ -42,11 +52,14 @@ class CampaignController extends AbstractController{
      */
     public function getListAll()
     {
+        $campaigns=Campaign::listing(new Campaign());
+        $this->view->addModel($campaigns->xmlSerialize(),"userModes");
         
+        echo $this->view->render();
     }
     
     /*
-     * General getlist
+     * General getlist (for owner/advertiser)
      */
     public function getList()
     {
@@ -106,8 +119,8 @@ class CampaignController extends AbstractController{
         
         var_dump($this->model->getUrl());
         
-        //header("Location:$url");
-        //exit();
+        header("Location:$url");
+        exit();
     }
 }
 

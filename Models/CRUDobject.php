@@ -386,7 +386,7 @@ class CRUDobject implements CRUDLInterface {
          */
         
         //var_dump($fieldCache);
-        //var_dump($query);
+        var_dump($query);
         
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
