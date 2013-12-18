@@ -94,7 +94,7 @@ VoteableInterface {
      * @todo IT now fetches comment all togeteher. It can be replaced with
      * two query
      */
-    public static function listing(DatabaseInteractbleInterface $question) {
+    public static function listing(DatabaseInteractbleInterface $question,$args=array()) {
 
         $answerStorage = new AnswerStorage('Answer');
         // parent::get();

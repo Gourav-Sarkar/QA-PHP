@@ -372,7 +372,7 @@ class Question
     /*
      *  
      */
-    public static function listing(DatabaseInteractbleInterface $reference)
+    public static function listing(DatabaseInteractbleInterface $reference,$args=array())
     {
         //$calcFoundRows='';
         $totTag=0;

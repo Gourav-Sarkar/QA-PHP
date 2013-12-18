@@ -206,7 +206,7 @@ abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInter
         return $this->crud->delete();
     }
 
-    public static function listing(DatabaseInteractbleInterface $reference) {
+    public static function listing(DatabaseInteractbleInterface $reference,$args=array()) {
     }
 
     public function softRead() {

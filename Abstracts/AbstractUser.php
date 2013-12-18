@@ -106,7 +106,7 @@ AuthenticationInterface {
         return $this->crud->delete();
     }
 
-    public static function listing(DatabaseInteractbleInterface $reference) {
+    public static function listing(DatabaseInteractbleInterface $reference,$args=array()) {
         return $this->crud->listing();
     }
 

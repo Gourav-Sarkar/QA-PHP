@@ -61,7 +61,7 @@ class QuestionRevision
     public function read() {
         return parent::read();
     }
-    public static function listing(DatabaseInteractbleInterface $content, Pagination $pager=null) {
+    public static function listing(DatabaseInteractbleInterface $content, $args=array()) {
         $revisionStorage= new RevisionStorage('QuestionRevision');
         
         $query="SELECT

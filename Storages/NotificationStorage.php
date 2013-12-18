@@ -41,7 +41,7 @@ implements SplObserver
     public function edit(\DatabaseInteractbleInterface $tempObj) {
         throw new BadMethodCallException("Invalid method call");
     }
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
         throw new BadMethodCallException("Invalid method call");
     }
     public function read() {

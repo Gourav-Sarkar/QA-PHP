@@ -102,7 +102,7 @@ class permission extends BaseObject implements CRUDLInterface{
      * If priority of role is different highest priority will be choosen
      * It will return an permission list of calculated permissions among roles
      */
-    public static function listing(DatabaseInteractbleInterface $content)
+    public static function listing(DatabaseInteractbleInterface $content,$args=  array())
     {
         
         $params=array();

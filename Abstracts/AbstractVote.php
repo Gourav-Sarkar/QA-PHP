@@ -98,7 +98,7 @@ abstract class AbstractVote extends AbstractContent implements DependencyInterfa
     {
         return $this->id;
     }
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
     }
     
     public function getReference()

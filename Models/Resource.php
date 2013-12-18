@@ -239,7 +239,7 @@ class Resource extends BaseObject implements CRUDLInterface{
     public function edit(\DatabaseInteractbleInterface $tempObj) {
         ;
     }
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference, $args=array()) {
         ;
     }
     

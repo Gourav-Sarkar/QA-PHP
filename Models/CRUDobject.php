@@ -525,7 +525,7 @@ class CRUDobject implements CRUDLInterface {
         return $this->dependency;
     }
 
-    public static function Listing(DatabaseInteractbleInterface $reference) {
+    public static function Listing(DatabaseInteractbleInterface $reference,$args=array()) {
         
     }
 

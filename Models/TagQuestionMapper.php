@@ -51,7 +51,7 @@ class TagQuestionMapper implements CRUDLInterface{
         throw new BadMethodCallException();;
     }
     
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
         $tagStore=new TagStorage('tag');
         
         $query=sprintf("SELECT * FROM tagQuestionMapper WHERE question=?");

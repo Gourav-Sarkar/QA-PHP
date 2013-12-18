@@ -63,7 +63,7 @@ class Role extends AbstractContent {
         return $this->priority;
     }
 
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
 
         $roleStore = new RoleStorage();
 

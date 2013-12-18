@@ -21,7 +21,12 @@ interface CRUDLInterface {
     public function read();
     public function edit(DatabaseInteractbleInterface $tempObj);
     public function delete();
-    public static function listing(DatabaseInteractbleInterface $reference);
+    
+    /*
+     * @PARAM fixed $reference Object reference which should be matched
+     * @PARAM $args Variable criteria
+     */
+    public static function listing(DatabaseInteractbleInterface $reference, $args=array());
     //public function delete();
 }
 

@@ -29,7 +29,7 @@ class RoleUserMapper implements CRUDLInterface {
          */
     }
 
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
         $roles = new RoleStorage();
         $permissions = new PermissionStorage("permission");
 

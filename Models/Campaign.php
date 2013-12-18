@@ -126,7 +126,7 @@ class Campaign extends AbstractContent{
         
     }
     
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=  array()) {
         $campaignList=new CampaignStorage("Campaign");
         
         $query="SELECT
