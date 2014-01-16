@@ -65,7 +65,7 @@ class Role extends AbstractContent {
 
     public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
 
-        $roleStore = new RoleStorage();
+        $roleStore = new RoleStorage("Role");
 
         $query = "SELECT
             r.*

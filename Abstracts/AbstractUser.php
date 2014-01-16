@@ -62,6 +62,7 @@ AuthenticationInterface {
         //$this->auth=new LocalAuth();
         $this->roleList = new RoleStorage('Role');
         $this->userProfile = new UserProfileFieldStorage("UserProfileField");
+        $this->permissionList=new PermissionStorage("Permission");
         
         //Exclude from automated query building
         //$this->referedBy=new User();

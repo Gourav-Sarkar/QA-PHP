@@ -24,6 +24,8 @@ require_once 'models/BaseObject.php';
 require_once 'Models/XMLserialize.php';
 require_once 'interfaces/XMLserializeble.php';
 
+require_once 'Abstracts/AbstractRenderbleObject.php';
+
 /**
  * Description of AbstractContent
  * Content behaviour
@@ -36,7 +38,7 @@ require_once 'interfaces/XMLserializeble.php';
  * @issue Serializeble interface is breaking the serialization process in
  *  child methods-Fails session serialization
  */
-abstract class AbstractAnnonymosContent extends BaseObject implements CRUDLInterface
+abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implements CRUDLInterface
 , XMLSerializeble
 , DatabaseInteractbleInterface {
 

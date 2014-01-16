@@ -23,7 +23,7 @@ require_once 'models/baseObject.php';
  * @toDo Permission table has role object in database. Database permission table more of
  *  a mapper which map permission and resource
  */
-class permission extends BaseObject implements CRUDLInterface {
+class permission extends AbstractRenderbleObject implements CRUDLInterface {
 
     //put your code here
     //private $role;
@@ -35,7 +35,7 @@ class permission extends BaseObject implements CRUDLInterface {
     static $connection;
 
     public function __construct() {
-        $this->resourceStorage = new ResourceStorage();
+        $this->resourceStorage = new ResourceStorage("Resource");
 
         /*
          * @todo [BUG]Possible cause of infinite loop
@@ -99,7 +99,7 @@ class permission extends BaseObject implements CRUDLInterface {
 
         $params = array();
 
-        $permissionStore = new PermissionStorage();
+        $permissionStore = new PermissionStorage("Permission");
 
         assert('$content instanceof AbstractUser');
 

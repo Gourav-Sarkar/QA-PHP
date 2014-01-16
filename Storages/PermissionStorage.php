@@ -5,12 +5,13 @@
  * and open the template in the editor.
  */
 require_once 'Abstracts/AbstractPseudoObjectStorage.php';
+require_once 'Abstracts/AbstractContentObjectStorage.php';
 /**
  * Description of PermissionStorage
  *
  * @author Gourav Sarkar
  */
-class PermissionStorage extends AbstractPseudoObjectStorage{
+class PermissionStorage extends AbstractContentObjectStorage{
     //put your code here
     
     /*
