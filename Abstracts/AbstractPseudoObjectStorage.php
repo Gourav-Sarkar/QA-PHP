@@ -52,7 +52,13 @@ abstract class AbstractPseudoObjectStorage implements Iterator, ArrayAccess
      */
      public function offsetGet($object)
     {
-        return $this->data[$this->getHash($object)];
+         //$data=$this->data[$this->getHash($object)]);
+         if(isset($this->data[$this->getHash($object)]))
+         {
+             return $this->data[$this->getHash($object)];
+         }
+         
+         throw new UnexpectedValueException();
     }
     public function offsetExists($offset) {
         return isset($this->data[$offset]);

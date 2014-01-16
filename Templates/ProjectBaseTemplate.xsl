@@ -318,5 +318,14 @@
             <xsl:value-of select="$currPath"/>      
         </xsl:if>
     </xsl:template>
-  
+    
+    
+    
+    <!-- 
+    #for handling different meta data viewing use seperate meta xsl sheet
+    -->
+    <xsl:template match="meta/*">
+        <!-- Meta node are not meant be displayed directly -->
+    </xsl:template>
+    
 </xsl:stylesheet>

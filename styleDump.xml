@@ -32,7 +32,7 @@
          
          @ISSUUES Handling unmatched tags for debugging
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/userTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/campaignTemplate.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/static/loginTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/CampaignTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/UserTemplate.xsl"/>
     <xsl:output method="html"/>
     
     <xsl:include href="staticTemplate.xsl"/>
@@ -315,5 +315,14 @@
             <xsl:value-of select="$currPath"/>      
         </xsl:if>
     </xsl:template>
-  
+    
+    
+    
+    <!-- 
+    #for handling different meta data viewing use seperate meta xsl sheet
+    -->
+    <xsl:template match="meta/*">
+        <!-- Meta node are not meant be displayed directly -->
+    </xsl:template>
+    
 </xsl:stylesheet>

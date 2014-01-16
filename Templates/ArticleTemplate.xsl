@@ -15,6 +15,7 @@
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
     <xsl:template match="article">
+        <xsl:call-template name="article-form" />
         <div class="container-fluid row-fluid">
 
             <!--Article heading -->
@@ -93,6 +94,45 @@
                 </div>
             </div>
         </div>
+    </xsl:template>
+    
+    
+    <xsl:template name="article-form">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Article</legend>
+                
+                <div class="control-group" >
+                    <input type="text" name="title" class="span7" />
+                </div>
+                <div class="control-group">
+                    <textarea name="content" class="span7"></textarea>
+                </div>
+            
+                <div class="control-group">
+                    <label>timespan</label>
+                    <span>From</span>
+                    <input type="checkbox" name="draft" />
+                    <span>To</span>
+                    <input type="checkbox" name="draft" />
+                </div>
+            
+                <!--auto publish-->
+                <!-- visibility -->
+                <!-- comment enable-->
+                <!-- comment Notfication -->
+            
+                <div class="control-group">
+                    <label>Password</label>
+                    <input type="text" name="locked" />
+                </div>
+            
+                <div class="control-group">
+                    <input type="submit" class="btn btn-primary btn-large" name="save" value="save"/>
+                </div>
+                
+            </fieldset>
+        </form>
     </xsl:template>
 
 </xsl:stylesheet>

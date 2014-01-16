@@ -60,8 +60,9 @@ AuthenticationInterface {
         parent::__construct();
 
         //$this->auth=new LocalAuth();
-        //$this->roleList = new RoleStorage('Role');
-        //$this->userProfile = new UserProfileFieldStorage("UserProfileField");
+        $this->roleList = new RoleStorage('Role');
+        $this->userProfile = new UserProfileFieldStorage("UserProfileField");
+        
         //Exclude from automated query building
         //$this->referedBy=new User();
 
@@ -278,6 +279,7 @@ AuthenticationInterface {
             $this->setRoles(Role::listing($this));
             //$this->setRoles($rs);
 
+            //var_dump("perm:" . permission::listing($this)->count());
             $this->setPermission(permission::listing($this));
 
 

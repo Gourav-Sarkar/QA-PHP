@@ -40,9 +40,10 @@ class Render {
     private $stylsheet;
     private $mappedClass = array('utility');
 
-    const STATIC_PAGE_IDENTIFIER = "static";
-    const RENDER_ROOT_NAME = "pageRoot";
-    const RENDER_MODE_IDENTIFIER = "renderMode";
+    const STATIC_PAGE_IDF = "static";
+    const RENDER_ROOT_IDF = "pageRoot";
+    const RENDER_META_IDF="meta";
+    const RENDER_MODE_IDF = "renderMode";
 
     /*
      * Dumper location dump and debug Raw data
@@ -51,6 +52,7 @@ class Render {
     private $dumper;
     private $mode;
     private $wrapperNode;
+   // private $metaNode; //Holds meta information. not to be shown directly
 
     public function __construct() {
 
@@ -69,6 +71,19 @@ class Render {
         $this->initRender();
     }
 
+    
+    public function addMeta($data)
+    {
+        //$this->metaNode->;
+        $metaNode=$this->model->documentElement->getElementsByTagName(static::RENDER_META_IDF)->item(0);
+        
+        $dataFrag= $this->model->createDocumentFragment();
+        $dataFrag->appendXml($data);
+        
+        $metaNode->appendChild($dataFrag);
+        //var_dump(htmlentities($data));
+    }
+    
     public function setWrapper($name) {
         $this->wrapperNode = $name;
     }
@@ -89,8 +104,11 @@ class Render {
     private function initRender() {
         $this->model = new DOMDocument('1.0', 'utf-8');
 
-        $page = $this->model->createElement(static::RENDER_ROOT_NAME);
+        $page = $this->model->createElement(static::RENDER_ROOT_IDF);
         $this->model->appendChild($page);
+        
+        $meta= $this->model->createElement(static::RENDER_META_IDF);
+        $page->appendChild($meta);;
 
 
 
@@ -173,6 +191,14 @@ class Render {
             //Append the wrapper node to root node
             $this->model->documentElement->appendChild($wrapperNode);
         }
+        
+        
+        /*
+         * Add session information
+         */
+        //var_dump(user::getActiveUser()->xmlSerialize());
+        $this->addMeta(User::getActiveUser()->xmlSerialize());
+        
         /*
          * load additional template before applying stylsheet styling
          */
