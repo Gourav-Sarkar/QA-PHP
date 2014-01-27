@@ -537,8 +537,8 @@ class CRUDobject implements CRUDLInterface {
         $tables = '';
         //var_dump($reference);
 
-        $dataStructure["default"][static::DATA_IDF] = CRUDobject::makeStructure($reference);
-        $dataStructure["default"][static::TYPE_IDF] = (string) $reference;
+        $dataStructure[static::DATA_IDF] = CRUDobject::makeStructure($reference);
+        $dataStructure[static::TYPE_IDF] = (string) $reference;
 
 
         //USORT failed
@@ -572,6 +572,9 @@ class CRUDobject implements CRUDLInterface {
         $fields = CRUDobject::extractFields($dataStructure);
         var_dump($fields);
 
+        var_dump($dataStructure);
+        CRUDobject::extractTableRelation($dataStructure[static::COMP_IDF]);
+        
         $query = sprintf("SELECT %s FROM %s AS %s", $reference, implode(',', $fields),  static::COMP_IDF);
         //LEFT OUTER JOIN ['tableNamae] AS ['alias]
 
@@ -620,7 +623,7 @@ class CRUDobject implements CRUDLInterface {
          * 
          */
 
-        foreach ($datastruct as $name => $component) {
+        foreach ($datastruct[static::DATA_IDF] as $name => $component) {
             //var_dump($datastruct);
             if (is_array($component)) {
                 //prepare fields
@@ -628,7 +631,7 @@ class CRUDobject implements CRUDLInterface {
                 //var_dump($datastruct);
                 //$currentTable = $name;
 
-                $fields = array_merge($fields, CRUDobject::extractFields($component[static::DATA_IDF], $name));
+                $fields = array_merge($fields, CRUDobject::extractFields($component, $name));
             } else {
                     $fields[] = "{$namespace}_{$component}";
             }
@@ -643,7 +646,7 @@ class CRUDobject implements CRUDLInterface {
         return $fields;
     }
     
-    private static function extractTableRelation(array $datastructure,$namespace)
+    private static function extractTableRelation(array $datastructure,$namespace='default')
     {
         $queryFrag="LEFT OUTER JOIN %s AS %s
             ON %s=%s
@@ -652,18 +655,24 @@ class CRUDobject implements CRUDLInterface {
         
         foreach($datastructure as $name=>$component)
         {
-             if (is_array($component)) {
+             if (is_array($component[static::DATA_IDF])) {
                 //prepare fields
                 //Walk through all element and prepend alias aka variable name to them
                 //var_dump($datastruct);
                 //$currentTable = $name;
 
                 $query[]=sprintf($queryFrag
-                        , $namespace[static::TYPE_IDF]
+                        , $datastructure
+                        ,$datastructure
                         ,$namespace
+                        ,$name
                         );
+                
+                        static::extractTableRelation($datastructure,$name);
             }
         }
+        
+        var_dump($query);
     }
 
     /*
