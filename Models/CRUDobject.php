@@ -15,17 +15,18 @@ require_once 'Exception/noEntryFoundException.php';
  * @author Gourav Sarkar
  */
 class CRUDobject implements CRUDLInterface {
-
     //put your code here
-    const TYPE_IDF='@type';
-    const COMP_IDF='default';
-    const DATA_IDF='@data';
+
+    const TYPE_IDF = '@type';
+    const COMP_IDF = 'default';
+    const DATA_IDF = '@data';
 
     /*
      * Generic getter method to get instance of any class which have used this trait
      * get All fields
      * 
      */
+
     protected $fieldCache = array();
     protected $dependency;
 
@@ -534,7 +535,7 @@ class CRUDobject implements CRUDLInterface {
 
         $query = '';
         $fields = array();
-        $tables = '';
+        $tables = array();
         //var_dump($reference);
 
         $dataStructure[static::DATA_IDF] = CRUDobject::makeStructure($reference);
@@ -573,9 +574,15 @@ class CRUDobject implements CRUDLInterface {
         var_dump($fields);
 
         var_dump($dataStructure);
-        CRUDobject::extractTableRelation($dataStructure[static::COMP_IDF]);
-        
-        $query = sprintf("SELECT %s FROM %s AS %s", $reference, implode(',', $fields),  static::COMP_IDF);
+        $tables=CRUDobject::extractTableRelation($dataStructure);
+        var_dump($tables);
+
+        $query = sprintf("SELECT %s FROM %s AS %s %s"
+                , $reference
+                , implode(',', $fields)
+                , static::COMP_IDF
+                ,implode(',',$tables)
+                );
         //LEFT OUTER JOIN ['tableNamae] AS ['alias]
 
         return $query;
@@ -595,7 +602,7 @@ class CRUDobject implements CRUDLInterface {
             $value = $property->getValue($obj);
 
             if ($value instanceof DatabaseInteractbleInterface) {
-                $dataStructure[$name][static::DATA_IDF]= CRUDobject::makeStructure($value);
+                $dataStructure[$name][static::DATA_IDF] = CRUDobject::makeStructure($value);
                 //Object type
                 $dataStructure[$name][static::TYPE_IDF] = (string) $value;
             } elseif (!is_object($value)) {
@@ -633,7 +640,7 @@ class CRUDobject implements CRUDLInterface {
 
                 $fields = array_merge($fields, CRUDobject::extractFields($component, $name));
             } else {
-                    $fields[] = "{$namespace}_{$component}";
+                $fields[] = "{$namespace}_{$component}";
             }
         }
         /*
@@ -641,38 +648,42 @@ class CRUDobject implements CRUDLInterface {
 
         //var_dump($fields);
 
-        sort($fields,SORT_STRING);
-        
+        sort($fields, SORT_STRING);
+
         return $fields;
     }
-    
-    private static function extractTableRelation(array $datastructure,$namespace='default')
-    {
-        $queryFrag="LEFT OUTER JOIN %s AS %s
+
+    private static function extractTableRelation(array $datastructure, $namespace = 'default') {
+        $query='';
+        $queryFrag = "LEFT OUTER JOIN %s AS %s
             ON %s=%s
             ";
-        $tables=array();
-        
-        foreach($datastructure as $name=>$component)
-        {
-             if (is_array($component[static::DATA_IDF])) {
+        $tables = array();
+
+        foreach ($datastructure[static::DATA_IDF] as $name => $component) {
+            if (is_array($component)) {
                 //prepare fields
                 //Walk through all element and prepend alias aka variable name to them
                 //var_dump($datastruct);
                 //$currentTable = $name;
 
-                $query[]=sprintf($queryFrag
-                        , $datastructure
-                        ,$datastructure
-                        ,$namespace
-                        ,$name
-                        );
-                
-                        static::extractTableRelation($datastructure,$name);
+                $query[] = sprintf($queryFrag
+                        , $component[static::TYPE_IDF]
+                        , $name
+                        , "$namespace.$name"
+                        , "{$component[static::TYPE_IDF]}.id"
+                );
+
+                static::extractTableRelation($component, $name);
+
+
+                //var_dump($component);
             }
         }
+
+        //var_dump($query);
         
-        var_dump($query);
+        return $query;
     }
 
     /*
