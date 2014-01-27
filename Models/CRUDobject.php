@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Exception/noEntryFoundException.php';
+
 /**
  * Description of CRUDobject
  * @todo Create function to parse structure of object
@@ -16,6 +17,9 @@ require_once 'Exception/noEntryFoundException.php';
 class CRUDobject implements CRUDLInterface {
 
     //put your code here
+    const TYPE_IDF='@type';
+    const COMP_IDF='default';
+    const DATA_IDF='@data';
 
     /*
      * Generic getter method to get instance of any class which have used this trait
@@ -143,7 +147,7 @@ class CRUDobject implements CRUDLInterface {
                 }
         );
 
-       //var_dump($fieldCache);
+        //var_dump($fieldCache);
         //var_dump(static::$connection);
 
         $data = implode(',', array_map(function($key) {
@@ -314,13 +318,15 @@ class CRUDobject implements CRUDLInterface {
      *  Supports only LEFT OUTER JOIN. deep pulling of data [Need update]
      * 
      *  @tODO IF $reference is empty it means that class has not any associates and softread()==read();
+     * 
+     * @limitation Joined queries are outer join
      *  
      */
 
     public function read() {
-        
+
         //var_dump('Object strcut',$this->dependency->getStrcuture());
-        
+
         $reference = array();
         //echo __CLASS__;
         //var_dump($this);
@@ -365,12 +371,11 @@ class CRUDobject implements CRUDLInterface {
 
             foreach ($fieldCache as $field => &$value) {
                 $value = $this->dependency->{"get{$field}"}();
-                if($value instanceof AbstractContent)
-                {
-                    $value=$value->getID();
+                if ($value instanceof AbstractContent) {
+                    $value = $value->getID();
                 }
                 $placeholders[] = "$this->dependency.$field=:$field ";
-               
+
                 //var_dump($field);
             }
             $query .= implode(" AND ", $placeholders);
@@ -380,14 +385,14 @@ class CRUDobject implements CRUDLInterface {
          * @DEBUG
          */
         /*
-        echo $query;
-        var_dump($fieldCache);
+          echo $query;
+          var_dump($fieldCache);
          * 
          */
-        
+
         //var_dump($fieldCache);
         var_dump($query);
-        
+
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
 
@@ -476,8 +481,8 @@ class CRUDobject implements CRUDLInterface {
         }
 
 
-       // echo $query;
-       // var_dump($fieldCache);
+        // echo $query;
+        // var_dump($fieldCache);
 
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
@@ -489,7 +494,7 @@ class CRUDobject implements CRUDLInterface {
         if (!$data = $stmt->fetch(PDO::FETCH_ASSOC)) {
             throw new NoEntryFoundException("No entry in Database");
         }
-        
+
         //var_dump($data);
         /*
          * Initialize self
@@ -525,8 +530,140 @@ class CRUDobject implements CRUDLInterface {
         return $this->dependency;
     }
 
-    public static function Listing(DatabaseInteractbleInterface $reference,$args=array()) {
+    public static function Listing(DatabaseInteractbleInterface $reference, $args = array()) {
+
+        $query = '';
+        $fields = array();
+        $tables = '';
+        //var_dump($reference);
+
+        $dataStructure["default"][static::DATA_IDF] = CRUDobject::makeStructure($reference);
+        $dataStructure["default"][static::TYPE_IDF] = (string) $reference;
+
+
+        //USORT failed
+        /*
+          var_dump($dataStructure);
+
+          $sort = function($a, $b) {
+          if (is_array($a) && is_array($b)) {
+          uasort($a, $sort);
+          uasort($b, $sort);
+          return 0;
+          } else {
+
+          if (is_array($a)) {
+          uasort($a, $sort);
+          return 1;
+          } elseif (is_array($b)) {
+          uasort($b, $sort);
+          return -1;
+          }
+          }
+
+          return 0;
+          };
+
+          uasort($dataStructure, $sort);
+
+         * 
+         */
+        var_dump($dataStructure);
+        $fields = CRUDobject::extractFields($dataStructure);
+        var_dump($fields);
+
+        $query = sprintf("SELECT %s FROM %s AS %s", $reference, implode(',', $fields),  static::COMP_IDF);
+        //LEFT OUTER JOIN ['tableNamae] AS ['alias]
+
+        return $query;
+    }
+
+    private static final function makeStructure(DatabaseInteractbleInterface $obj) {
+
+
+        $dataStructure = array();
+
+        $reflectReferenceObject = new ReflectionObject($obj);
+        $refProps = $reflectReferenceObject->getProperties(ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED);
+
+        foreach ($refProps as $property) {
+            $property->setAccessible(true);
+            $name = $property->getName();
+            $value = $property->getValue($obj);
+
+            if ($value instanceof DatabaseInteractbleInterface) {
+                $dataStructure[$name][static::DATA_IDF]= CRUDobject::makeStructure($value);
+                //Object type
+                $dataStructure[$name][static::TYPE_IDF] = (string) $value;
+            } elseif (!is_object($value)) {
+                $dataStructure[] = $name;
+            }
+        }
+
+        return $dataStructure;
+    }
+
+    private static function extractFields(array $datastruct, $namespace = 'default') {
+        $tables = array();
+        $fields = array();
+
+        //static $currentTable = 'default';
+
+        /*
+          array_walk_recursive($fields
+          , function($value,$key) use($fs)
+          {
+          //$data=reset($key);
+          var_dump("{$key}_{$value}");
+          }
+          );
+         * 
+         */
+
+        foreach ($datastruct as $name => $component) {
+            //var_dump($datastruct);
+            if (is_array($component)) {
+                //prepare fields
+                //Walk through all element and prepend alias aka variable name to them
+                //var_dump($datastruct);
+                //$currentTable = $name;
+
+                $fields = array_merge($fields, CRUDobject::extractFields($component[static::DATA_IDF], $name));
+            } else {
+                    $fields[] = "{$namespace}_{$component}";
+            }
+        }
+        /*
+         */
+
+        //var_dump($fields);
+
+        sort($fields,SORT_STRING);
         
+        return $fields;
+    }
+    
+    private static function extractTableRelation(array $datastructure,$namespace)
+    {
+        $queryFrag="LEFT OUTER JOIN %s AS %s
+            ON %s=%s
+            ";
+        $tables=array();
+        
+        foreach($datastructure as $name=>$component)
+        {
+             if (is_array($component)) {
+                //prepare fields
+                //Walk through all element and prepend alias aka variable name to them
+                //var_dump($datastruct);
+                //$currentTable = $name;
+
+                $query[]=sprintf($queryFrag
+                        , $namespace[static::TYPE_IDF]
+                        ,$namespace
+                        );
+            }
+        }
     }
 
     /*
@@ -539,18 +676,18 @@ class CRUDobject implements CRUDLInterface {
      */
 
     /*
-    public function get() {
+      public function get() {
 
-        $id = $reference->getID();
-        if (!empty($id)) {
-            //Modify itself
-        } else {
-            //return list
-        }
-    }
+      $id = $reference->getID();
+      if (!empty($id)) {
+      //Modify itself
+      } else {
+      //return list
+      }
+      }
      *
      */
-    
+
     /*
      * Recursively insert object into database
      * Check the object strcuture
@@ -559,13 +696,12 @@ class CRUDobject implements CRUDLInterface {
      * Recursively call Create()
      */
     /*
-    public function insert()
-    {
-        
-    }
+      public function insert()
+      {
+
+      }
      * 
      */
-
 }
 
 ?>

@@ -20,6 +20,9 @@ require_once 'models/baseObject.php';
  *
  * @author Gourav Sarkar
  * 
+ *  Permission priority
+ *  User level permission < content level permission < user setting <server setting
+ * 
  * @toDo Permission table has role object in database. Database permission table more of
  *  a mapper which map permission and resource
  */
@@ -32,16 +35,16 @@ class permission extends AbstractRenderbleObject implements CRUDLInterface {
     private $permission;
     private $role;
     private $crud;
-    static $connection;
+    //static $connection;
 
     public function __construct() {
-        $this->resourceStorage = new ResourceStorage("Resource");
+        //$this->resourceStorage = new ResourceStorage("Resource");
 
         /*
          * @todo [BUG]Possible cause of infinite loop
          */
         $this->resource = new Resource();
-        $this->resource = new Role();
+        $this->role = new Role();
         $this->crud = new CRUDobject($this);
     }
 

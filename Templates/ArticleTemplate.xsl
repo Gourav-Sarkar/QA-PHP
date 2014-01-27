@@ -23,8 +23,10 @@
                 <div class="offset1 span10">
                     <div class='page-header'>
                         <h1>
-                            Heading of the article
-                            <small>Caption of the artivle if avilble</small>
+                            <xsl:value-of select="title" />
+                            <small>
+                                <xsl:value-of select="caption" />
+                            </small>
                         </h1>
                     </div>
                 </div>
@@ -72,25 +74,7 @@
 
                 <!-- User profile -->
                 <div class="span4">
-                    <div class="user">
-                        
-                        <div class="row-fluid">
-                            <div class="offset1 span2">
-                                <img class='img-rounded img-polaroid' src="http://127.0.0.1/image/avatar/avatar.jpg" />
-                            </div>
-                            <div class="offset1 span8">
-                                Profile key unfo
-                            </div>
-                        </div>
-
-                        <div class="row-fluid">
-                            <div class="offset1">
-                                <p>User bio In short</p>
-                            </div>
-                        </div>
-                        
-                    </div>
-
+                    <xsl:apply-templates select="user" mode="inline-summary" />
                 </div>
             </div>
         </div>
@@ -98,17 +82,29 @@
     
     
     <xsl:template name="article-form">
-        <form class="form-horizontal">
+        <form method="post" class="form-horizontal">
+            <xsl:attribute name="action">
+                <xsl:call-template name="getLink"> 
+                    <xsl:with-param name="module">article</xsl:with-param>
+                    <xsl:with-param name="action">create</xsl:with-param>
+                </xsl:call-template>
+            </xsl:attribute>
+            
             <fieldset>
                 <legend>Article</legend>
                 
                 <div class="control-group" >
                     <input type="text" name="title" class="span7" />
+                </div> 
+                <div class="control-group" >
+                    <input type="text" name="caption" class="span7" />
                 </div>
                 <div class="control-group">
                     <textarea name="content" class="span7"></textarea>
                 </div>
             
+                <!-- time span of the article -->
+                <!--
                 <div class="control-group">
                     <label>timespan</label>
                     <span>From</span>
@@ -116,17 +112,17 @@
                     <span>To</span>
                     <input type="checkbox" name="draft" />
                 </div>
-            
-                <!--auto publish-->
+                -->
                 <!-- visibility -->
                 <!-- comment enable-->
                 <!-- comment Notfication -->
             
-                <div class="control-group">
-                    <label>Password</label>
-                    <input type="text" name="locked" />
-                </div>
-            
+                <!-- Password encryption
+                    <div class="control-group">
+                        <label>Password</label>
+                        <input type="text" name="locked" />
+                    </div>
+                -->
                 <div class="control-group">
                     <input type="submit" class="btn btn-primary btn-large" name="save" value="save"/>
                 </div>

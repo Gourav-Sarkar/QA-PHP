@@ -28,8 +28,6 @@ require_once 'models/RoleUserMapper.php';
 require_once 'models/Role.php';
 require_once 'Exception/PermissionDeniedException.php';
 
-require_once 'test.php';
-
 /**
  * Description of AbstractUser
  *

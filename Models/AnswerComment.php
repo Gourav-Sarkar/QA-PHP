@@ -13,14 +13,6 @@ require_once 'Abstracts/AbstractComment.php';
 class AnswerComment extends AbstractComment{
     //put your code here
     
-    public function __construct(Answer $answer)
-    {
-        parent::__construct($answer);
-        //echo __METHOD__;
-        $this->votes=new VoteStorage('AnswerComment');
-        
-    }
-    
     public function getAnswer()
     {
         return $this->dependency->getReference();

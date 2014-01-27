@@ -24,6 +24,14 @@ class ArticleController extends AbstractController{
         $this->view->addTemplate("tag");
         $this->view->addTemplate("article");
     }
+    public function getList()
+    {
+        $query=Article::listing(new Article());
+        var_dump($query);
+        
+        //$this->view->addModel($this->model->xmlSerialize());
+    }
+    
     public function show()
     {
         $this->model->setID($_GET['article']);
@@ -32,6 +40,40 @@ class ArticleController extends AbstractController{
         $this->view->addModel($this->model->xmlSerialize());
         
         echo $this->view->render();
+        
+    }
+    public function create()
+    {
+        $this->model->setTitle($_POST['title']);
+        $this->model->setContent($_POST['content']);
+        $this->model->setCaption($_POST['caption']);
+        $this->model->setTime();
+        $this->model->setInvisible(false);
+        $this->model->setUser(User::getActiveUser());
+        $this->model->setIp();
+        
+        $this->model->create();
+    }
+    
+    public function addComment()
+    {
+
+        $comment = new ArticleComment($this->model);
+        $comment->setContent($_POST['content']);
+        $comment->setTime();
+        $comment->setUser(User::getActiveUser());
+
+        $this->model->addComment($comment);
+       // $this->question->relay(__FUNCTION__);
+
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->addModel($comment->xmlSerialize());
+        echo $this->view->render();
+
+        /*
+         * Relay event
+         */
+
         
     }
 }

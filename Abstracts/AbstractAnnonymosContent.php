@@ -58,7 +58,7 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
     protected $time;
     protected $ip;
     protected $content;
-    protected $setting; ////move to renderble object
+    protected $setting; ////move to renderble object Dont need
     protected $crud; //move to renderble object
     protected $invisible = 0; //Every content can be removed softly [false=You can see]
 
@@ -209,6 +209,9 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
     }
 
     public static function listing(DatabaseInteractbleInterface $reference,$args=array()) {
+        //var_dump($reference);
+        
+        return CRUDobject::Listing($reference, $args);
     }
 
     public function softRead() {
