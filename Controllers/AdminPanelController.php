@@ -13,10 +13,12 @@ require_once 'abstracts/abstractController.php';
 class AdminPanelController extends AbstractController{
     //put your code here
     
-    public function show()
-    {
+    public function __construct() {
         parent::__construct();
         $this->view->addTemplate("adminPanel");
+    }
+    public function show()
+    {
         
         $this->view->addModel(SettingHandler::initSettingHandler()->getRawSetting());
         

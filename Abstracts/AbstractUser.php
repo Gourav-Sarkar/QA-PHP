@@ -48,7 +48,7 @@ AuthenticationInterface {
     protected $email;
     protected $crud;
     //protected $authType;
-    protected $auth;    //Authentication object
+    //protected $auth;    //Authentication object
     protected $roleList; //Seperate pulling
     protected $userProfile;
     protected $referedBy;
@@ -119,8 +119,13 @@ AuthenticationInterface {
         $this->id = $id;
     }
 
+    /*
+     * @suspected method
+     */
     public function setContent($content) {
-        throw new BadMethodCallException("Invalid method");
+        //throw new BadMethodCallException("Invalid method");
+        $this->content=$content;
+        
     }
 
     /* Getter methods to access private properties

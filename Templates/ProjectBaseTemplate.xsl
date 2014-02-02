@@ -143,21 +143,7 @@
              
         </div>
         <div class="span4">
-            <ul class="nav">
-                <!-- <?php if (User::getActiveUser()): ?> -->
-                    <li><img src='/image/avatar/avatar.jpg' style="width:40px;height:40px;" class="img-polaroid"/></li>
-                    <li>
-                        <a data-toggle="modal" href="#">nick</a>
-                    </li>
-                <!-- <?php else: ?> -->
-                    <!-- [todo] could be changed into a modular function -->
-                    <li><a href="?module=page&amp;action=show&amp;page=login">Login</a></li>
-                <!-- <?php endif; ?> -->
-
-                <li><a href='#'><i class="icon-globe"></i></a></li>
-                <li><a href='#'><i class="icon-bell"></i></a></li>
-                <li><a href='#'><i class="icon-envelope"></i></a></li>
-            </ul>
+           <xsl:apply-templates select="meta/user" mode="userpanel-inline" />
         </div>
 
     </div>

@@ -26,9 +26,11 @@ class ArticleController extends AbstractController{
     }
     public function getList()
     {
-        $query=Article::listing(new Article());
-        var_dump($query);
+        $articles=Article::listing(new Article());
+        //var_dump($query);
         
+        $this->view->addModel($articles->xmlSerialize());
+        echo $this->view->render();
         //$this->view->addModel($this->model->xmlSerialize());
     }
     

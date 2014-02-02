@@ -20,7 +20,6 @@ class PageController extends AbstractController {
         /*
          * Add static templates
          */
-        $this->view->addTemplate('User');
         $this->view->addTemplate('Campaign');
         
     }

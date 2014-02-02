@@ -80,6 +80,28 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="ArticleStorage">
+        <xsl:apply-templates select="article" mode="lists" />
+    </xsl:template>
+    
+    <xsl:template match="article" mode="lists">
+        <div class="row-fluid">
+            <div class="span1">
+                
+            </div>
+            <div class="span8">
+                <h2>
+                    <xsl:value-of select="title" />
+                </h2>
+                <p class="lead">
+                    <xsl:value-of select="caption" />
+                </p>
+                
+            </div>
+        </div>
+    </xsl:template>
+    
+    
     
     <xsl:template name="article-form">
         <form method="post" class="form-horizontal">

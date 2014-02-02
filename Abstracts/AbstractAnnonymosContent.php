@@ -58,7 +58,7 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
     protected $time;
     protected $ip;
     protected $content;
-    protected $setting; ////move to renderble object Dont need
+    //protected $setting; ////move to renderble object Dont need
     protected $crud; //move to renderble object
     protected $invisible = 0; //Every content can be removed softly [false=You can see]
 

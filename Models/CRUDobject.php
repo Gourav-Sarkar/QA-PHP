@@ -18,7 +18,7 @@ class CRUDobject implements CRUDLInterface {
     //put your code here
 
     const TYPE_IDF = '@type';
-    const COMP_IDF = 'default';
+    const COMP_IDF = 'rootClass';
     const DATA_IDF = '@data';
 
     /*
@@ -570,19 +570,19 @@ class CRUDobject implements CRUDLInterface {
          * 
          */
         var_dump($dataStructure);
-        $fields = CRUDobject::extractFields($dataStructure);
+        $fields = CRUDobject::extractFields($dataStructure, (string) $reference);
         var_dump($fields);
 
         var_dump($dataStructure);
-        $tables=CRUDobject::extractTableRelation($dataStructure);
+        $tables = CRUDobject::extractTableRelation($dataStructure, (string) $reference);
         var_dump($tables);
 
-        $query = sprintf("SELECT %s FROM %s AS %s %s"
-                , $reference
+        $query = sprintf("SELECT SQL_CALC_FOUND_ROWS %s FROM %s AS %s %s"
                 , implode(',', $fields)
-                , static::COMP_IDF
-                ,implode(',',$tables)
-                );
+                , (string) $reference
+                , (string) $reference
+                , implode(',', $tables)
+        );
         //LEFT OUTER JOIN ['tableNamae] AS ['alias]
 
         return $query;
@@ -613,7 +613,7 @@ class CRUDobject implements CRUDLInterface {
         return $dataStructure;
     }
 
-    private static function extractFields(array $datastruct, $namespace = 'default') {
+    private static function extractFields(array $datastruct, $namespace) {
         $tables = array();
         $fields = array();
 
@@ -640,7 +640,8 @@ class CRUDobject implements CRUDLInterface {
 
                 $fields = array_merge($fields, CRUDobject::extractFields($component, $name));
             } else {
-                $fields[] = "{$namespace}_{$component}";
+                //Identifier_property_class
+                $fields[] = "{$namespace}.{$component} AS {$namespace}_{$component}_{$datastruct[static::TYPE_IDF]}";
             }
         }
         /*
@@ -653,10 +654,16 @@ class CRUDobject implements CRUDLInterface {
         return $fields;
     }
 
-    private static function extractTableRelation(array $datastructure, $namespace = 'default') {
-        $query='';
+    /*
+     * @todo handle invisible 
+     */
+
+    private static function extractTableRelation(array $datastructure, $namespace) {
+
+
+        $query = '';
         $queryFrag = "LEFT OUTER JOIN %s AS %s
-            ON %s=%s
+            ON %s=%s  
             ";
         $tables = array();
 
@@ -668,10 +675,10 @@ class CRUDobject implements CRUDLInterface {
                 //$currentTable = $name;
 
                 $query[] = sprintf($queryFrag
-                        , $component[static::TYPE_IDF]
-                        , $name
-                        , "$namespace.$name"
-                        , "{$component[static::TYPE_IDF]}.id"
+                        , $component[static::TYPE_IDF] //table name
+                        , $name                         //table alias
+                        , "{$namespace}.{$name}"            //first table FK
+                        , "{$component[static::TYPE_IDF]}.id"   //second table FK
                 );
 
                 static::extractTableRelation($component, $name);
@@ -682,8 +689,55 @@ class CRUDobject implements CRUDLInterface {
         }
 
         //var_dump($query);
-        
+
         return $query;
+    }
+
+    public static function map($data) {
+        $stacks = array();
+
+        //var_dump('data' , $data);
+        foreach ($data as $name => $value) {
+            list($identifier, $property, $className) = explode('_', $name);
+
+            //var_dump($identifier, $className, $property);
+
+            /*
+             * Decrease use call of reflection by making it conditional and caching it
+             */
+            if (empty($stacks['object']) || !array_key_exists($identifier, $stacks['object'])) {
+                $stacks['object'][$identifier] = new $className();
+                $stacks['reflection'][$identifier] = new ReflectionObject($stacks['object'][$identifier]);
+            }
+
+            //Debug
+            //var_dump("set{$property}");
+
+            if (method_exists($stacks['object'][$identifier], "set{$property}")) {
+                /*
+                 * Uses setter method for object creation
+                 * @issues populates field cache of crudobject too
+                 * @beinifit possibly faster
+                 */
+                //var_dump("verified set{$property} $value");
+                $stacks['object'][$identifier]->{"set{$property}"}($value);
+                //var_dump("Stack" ,$stacks['object'][$identifier]);
+
+                //Uses reflection to set up a object
+                /*
+                  $reflProp = $stacks['reflection'][$identifier]->getProperty($property);
+                  $reflProp->setAccessible(true);
+                  $reflProp->setValue($stacks['object'][$identifier], $value);
+                 */
+            } else {
+                throw BadFunctionCallException("$property does not exist");
+            }
+
+            //$classes[]=new $className();
+        }
+        var_dump('total',count($stacks['object']));
+
+        return $stacks['object'];
     }
 
     /*

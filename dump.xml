@@ -4,7 +4,6 @@
 <reputation>105</reputation>
 <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
 <email>Gourav@gmail.com</email>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 <role><title>developer</title>
 <PermissionStorage><storage_type>Permission</storage_type>
@@ -14,7 +13,6 @@
 <reputation>1</reputation>
 <password/>
 <email/>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 </RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -22,13 +20,11 @@
 </PermissionStorage><time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </user><id>1</id>
 <time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </role><role><title>moderator</title>
 <PermissionStorage><storage_type>Permission</storage_type>
@@ -38,7 +34,6 @@
 <reputation>1</reputation>
 <password/>
 <email/>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 </RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -46,13 +41,11 @@
 </PermissionStorage><time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </user><id>3</id>
 <time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </role></RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -66,7 +59,6 @@
 <reputation>1</reputation>
 <password/>
 <email/>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 </RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -74,13 +66,11 @@
 </PermissionStorage><time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </user><id>1</id>
 <time/>
 <ip/>
 <content>Development job</content>
-<setting/>
 <invisible>0</invisible>
 </role></permission><permission><permission>1</permission>
 <role><title>moderator</title>
@@ -91,7 +81,6 @@
 <reputation>1</reputation>
 <password/>
 <email/>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 </RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -99,28 +88,24 @@
 </PermissionStorage><time/>
 <ip/>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </user><id>3</id>
 <time/>
 <ip/>
 <content>Moderator of the site</content>
-<setting/>
 <invisible>0</invisible>
 </role></permission></PermissionStorage><time>0</time>
 <ip>0</ip>
 <content/>
-<setting/>
 <invisible>0</invisible>
-</user></meta><article><CommentStorage><storage_type>ArticleComment</storage_type>
-</CommentStorage><caption>caption</caption>
-<title>foo bar</title>
+</user></meta><page><pageComponentList/>
+<title>login</title>
+<template>static</template>
 <user><id>14</id>
 <nick>gourav</nick>
 <reputation>105</reputation>
 <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
 <email>Gourav@gmail.com</email>
-<auth/>
 <RoleStorage><storage_type>Role</storage_type>
 </RoleStorage><UserProfileFieldStorage><storage_type>UserProfileField</storage_type>
 </UserProfileFieldStorage><referedBy/>
@@ -128,12 +113,11 @@
 </PermissionStorage><time>0</time>
 <ip>0</ip>
 <content/>
-<setting/>
 <invisible>0</invisible>
 </user><id>3</id>
-<time>1389968353</time>
-<ip>2130706433</ip>
-<content> content content contentcontent content content</content>
-<setting/>
+<time>1321231231</time>
+<ip/>
+<content/>
 <invisible>0</invisible>
-</article></pageRoot>
+<PageComponentStorage><storage_type>pageComponent</storage_type>
+</PageComponentStorage></page></pageRoot>

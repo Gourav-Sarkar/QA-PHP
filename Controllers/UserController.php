@@ -20,7 +20,6 @@ class UserController extends AbstractController{
         parent::__construct();
 
         $this->model=new User();
-        $this->view->addTemplate("user");
     }
     
     public function create()
@@ -72,6 +71,15 @@ class UserController extends AbstractController{
         //$this->view->addModel();
         
         echo $this->view->Render();
+        
+    }
+    public function logout()
+    {
+        session_destroy();
+    }
+    
+    public function forgotPassword()
+    {
         
     }
 }

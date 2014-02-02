@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 require_once 'Storages/ArticleCommentStorage.php';
+require_once 'Storages/ArticleStorage.php';
 require_once 'Models/ArticleComment.php';
 
 require_once 'Storages/CommentStorage.php';
@@ -61,6 +62,30 @@ class Article extends AbstractContent{
         $this->commentList->attach($comment,$comment);
         
         $comment->create();
+    }
+    public static function listing(\DatabaseInteractbleInterface $reference, $args = array()) {
+        $articleStore=new ArticleStorage("Article");
+        
+        $query=parent::listing($reference, $args);
+        var_dump($query);
+        
+        $stmt=DatabaseHandle::getConnection()->prepare($query);
+        
+        $stmt->execute();
+        
+        //Debug purpose
+        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            var_dump($data);
+        
+            $objs=CRUDobject::map($data);  
+            $objs['article']->setUser($objs['user']);
+            $articleStore->attach($objs['article'], $objs['article']);
+            //var_dump($objs);
+        }
+        //return $stmt->fetchAll();
+        
+        return $articleStore;
     }
 }
 

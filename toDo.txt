@@ -44,3 +44,8 @@ Simple pages which does not need to search through can be edited on the place (o
 
 ISSUES
 Error message handling- Handle error in controller level, model level. Localized error message, stacked error message
+
+
+RE-JUDGE
+Change to automated mapping
+Use generic storage with object identifier instead of separat objects.

@@ -275,6 +275,52 @@
             </div>
         </form>
     </xsl:template>   
+    
+    
+    <xsl:template match="user" mode="userpanel-inline">
+        <div class="row-fluid">
+            <xsl:choose>
+                <xsl:when test="string(id)!=''">
+                    <img src='/image/avatar/avatar.jpg' style="width:40px;height:40px;" class="img-polaroid"/>
+                    <a data-toggle="modal" href="#">
+                        <xsl:attribute name="href">
+                            
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="currentNode" select="meta/user" />
+                                <xsl:with-param name="action">show</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        
+                        <xsl:value-of select="nick" />
+                    </a>
+                    <a href='#'>
+                        <i class="icon-globe"></i>
+                    </a>
+                    <a href='#'>
+                        <i class="icon-bell"></i>
+                    </a>
+                    <a href='#'>
+                        <i class="icon-envelope"></i>
+                    </a>
+                    <a class="btn btn-primary">
+                        <xsl:attribute name="href">
+                            
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="module">user</xsl:with-param>
+                                <xsl:with-param name="action">logout</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        Logout
+                    </a>
+                </xsl:when>
+                    
+                <xsl:otherwise>
+                    <a class="btn btn-primary" href="?module=page&amp;action=show&amp;page=login">Login</a>
+                </xsl:otherwise>                    
+            </xsl:choose>
+        
+        </div>
+    </xsl:template>
   
     
     
