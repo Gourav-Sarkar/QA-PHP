@@ -19,15 +19,20 @@ abstract class AbstractController {
     protected $view;
     //Boolean flag indicates if controller data is called via ajax request
     protected $isAjax = false;
+    //Internationalise property. default to english
 
     public function __construct() {
-        $this->view = new Render();
+        $lang='';
 
         if (isset($_GET['ajax'])) {
             $this->isAjax = (bool) $_GET['ajax'];
         }
         
+        if (isset($_GET['lang'])) {
+            $lang = $_GET['lang'];
+        }
         
+        $this->view = new Render($lang);
         //Common template for all module
         $this->view->addTemplate("user");
     }

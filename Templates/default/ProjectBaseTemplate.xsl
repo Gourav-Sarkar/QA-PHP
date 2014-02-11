@@ -37,8 +37,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html"/>
     
-    <xsl:include  href='staticTemplate.xsl'/>
-    
     <xsl:template match="pageRoot">
         <xsl:choose>
             <xsl:when  test="current()/@mode='FRAGMENT'">
@@ -136,8 +134,9 @@
                     <li><a href="?module=adminPanel&amp;action=show">ACP</a></li>
                     <li><a href="?module=question&amp;action=ask">Write Article</a></li>
                     <li><a href="?module=question&amp;action=ask">Ask Question</a></li>
-                    <li><a href="?module=question&amp;action=ask">Give Answer</a></li>
+                    <li><a href="?module=question&amp;action=getList">Give Answer</a></li>
                     <li><a href="?module=question&amp;action=ask">Add File</a></li>
+                    <li><a href="?module=article&amp;action=getList">Browse article</a></li>
                 </ul>
             </div>
              

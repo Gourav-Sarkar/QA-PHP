@@ -69,8 +69,9 @@
     
     <!--
     # Template User profile
+    # uses a wrapper name for custom page handling
     -->
-    <xsl:template match="userProfile">
+    <xsl:template match="data[@name='userProfile']">
         <div class="row-fluid">
             <xsl:apply-templates match="user" mode="profile"/>
         </div>
@@ -83,7 +84,7 @@
                 <li>
                     <a data-toggle="tab" href="#myAnswer">Answers</a>
                 </li>
-                <li>
+                <li> 
                     <a data-toggle="tab" href="#myArticles">Articles</a>
                 </li>
                 <li>

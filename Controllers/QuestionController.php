@@ -30,7 +30,7 @@ class QuestionController extends AbstractController {
         $this->view->addTemplate("question");
         $this->view->addTemplate("answer");
         $this->view->addTemplate("comment");
-        $this->view->addTemplate("user");
+        //$this->view->addTemplate("user");
         $this->view->addTemplate("vote");
         $this->view->addTemplate("tag");
         //Without question There can't have any other action

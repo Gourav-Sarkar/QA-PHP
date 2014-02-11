@@ -57,6 +57,7 @@ class XMLSerialize implements XMLSerializeble {
 
 
             if ($propertyData instanceof XMLSerializeble) {
+                //Calls content serialize methods
                 $this->xmlResource->writeRaw($propertyData->xmlSerialize());
             } elseif (!is_object($propertyData)) {
                 //echo " Setting scalar data";

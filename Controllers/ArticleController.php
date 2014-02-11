@@ -19,7 +19,6 @@ class ArticleController extends AbstractController{
         $this->model=new Article();
         
         $this->view->addTemplate("comment");
-        $this->view->addTemplate("user");
         $this->view->addTemplate("vote");
         $this->view->addTemplate("tag");
         $this->view->addTemplate("article");

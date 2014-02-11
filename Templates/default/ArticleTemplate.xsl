@@ -90,10 +90,18 @@
                 
             </div>
             <div class="span8">
-                <h2>
-                    <xsl:value-of select="title" />
-                </h2>
-                <p class="lead">
+                <h3>
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <xsl:with-param name="action">show</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:value-of select="title" />
+                    </a>
+                </h3>
+                
+                <p>
                     <xsl:value-of select="caption" />
                 </p>
                 

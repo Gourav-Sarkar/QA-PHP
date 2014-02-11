@@ -49,3 +49,19 @@ Error message handling- Handle error in controller level, model level. Localized
 RE-JUDGE
 Change to automated mapping
 Use generic storage with object identifier instead of separat objects.
+
+
+<pageRoot mode='DOCUMENT/FRAGMENT'>
+    <meta>
+
+    </meta>
+    <data>
+        <user>
+
+        </user>
+    </data>
+</pageRoot>
+
+xml to xml conversion for locale using xslt
+There are two type of data in template and in system (like error and internal message)
+Site template should not be touched for locale. so it separate file will be used for data insertion

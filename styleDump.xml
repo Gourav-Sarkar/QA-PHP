@@ -32,10 +32,8 @@
          
          @ISSUUES Handling unmatched tags for debugging
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/static/loginTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/CampaignTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/userTemplate.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/default/articleTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/tagTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/voteTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/commentTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/userTemplate.xsl"/>
     <xsl:output method="html"/>
-    
-    <xsl:include href="staticTemplate.xsl"/>
     
     <xsl:template match="pageRoot">
         <xsl:choose>
@@ -134,8 +132,9 @@
                     <li><a href="?module=adminPanel&amp;action=show">ACP</a></li>
                     <li><a href="?module=question&amp;action=ask">Write Article</a></li>
                     <li><a href="?module=question&amp;action=ask">Ask Question</a></li>
-                    <li><a href="?module=question&amp;action=ask">Give Answer</a></li>
+                    <li><a href="?module=question&amp;action=getList">Give Answer</a></li>
                     <li><a href="?module=question&amp;action=ask">Add File</a></li>
+                    <li><a href="?module=article&amp;action=getList">Browse article</a></li>
                 </ul>
             </div>
              
