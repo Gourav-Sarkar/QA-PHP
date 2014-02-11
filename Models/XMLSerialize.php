@@ -54,11 +54,13 @@ class XMLSerialize implements XMLSerializeble {
              * If data is scalar type show the valu
              */
             //echo 'Setting ' . $property->getName() . '<br/>';
-
+ 
 
             if ($propertyData instanceof XMLSerializeble) {
                 //Calls content serialize methods
+                $this->xmlResource->startElement($property->name);
                 $this->xmlResource->writeRaw($propertyData->xmlSerialize());
+                $this->xmlResource->endElement();
             } elseif (!is_object($propertyData)) {
                 //echo " Setting scalar data";
                 

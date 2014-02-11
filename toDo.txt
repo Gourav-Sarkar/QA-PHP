@@ -65,3 +65,6 @@ Use generic storage with object identifier instead of separat objects.
 xml to xml conversion for locale using xslt
 There are two type of data in template and in system (like error and internal message)
 Site template should not be touched for locale. so it separate file will be used for data insertion
+
+Locale support
+namespace conflict in model xml

@@ -208,9 +208,9 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
         return $this->crud->delete();
     }
 
-    public static function listing(DatabaseInteractbleInterface $reference,$args=array()) {
+    public static function listing(DatabaseInteractbleInterface $reference, $args = array()) {
         //var_dump($reference);
-        
+
         return CRUDobject::Listing($reference, $args);
     }
 
@@ -219,17 +219,9 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
     }
 
     public function xmlSerialize() {
-
-        $writer = new XMLWriter();
-        $writer->openMemory();
-
-        $writer->startElement((string) $this);
         $xmlSer = new XMLSerialize($this);
-        $writer->writeRaw($xmlSer->xmlSerialize());
-        $writer->endElement();
-
-
-        return $writer->outputMemory(true);
+        //var_dump($xmlSer->xmlSerialize());
+        return $xmlSer->xmlSerialize();
     }
 
     public function hasDependency() {

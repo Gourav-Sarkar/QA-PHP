@@ -8,6 +8,7 @@
 //require_once 'RenderbleTrait.php';
 require_once 'Interfaces/RenderbleInterface.php';
 require_once 'Interfaces/XMLserializeble.php';
+require_once 'Models/Pagination.php';
 
 /**
  * Description of AbstractContentObjectStorage
@@ -19,12 +20,15 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
     //put your code here
     //use RenderbleTrait;
     protected $storage_type;
+    protected $pager;
 
     /*
      * @PARAM $objType must be a name of valid class
      */
 
     public function __construct($objType='') {
+        $this->pager=new Pagination();
+                
         if (empty($this->storage_type)) {
             $this->storage_type = $objType;
         }
@@ -51,6 +55,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
 
     public function xmlSerialize() {
 
+        
         $output = '';
 
         /*
