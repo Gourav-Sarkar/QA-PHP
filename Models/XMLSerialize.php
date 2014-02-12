@@ -8,7 +8,7 @@ require_once 'Interfaces/XMLSerializeble.php';
 
 /**
  * Description of XMLSerialize
- *
+ * @todo Need iprovement
  * @author Gourav Sarkar
  */
 class XMLSerialize implements XMLSerializeble {
@@ -54,11 +54,12 @@ class XMLSerialize implements XMLSerializeble {
         $props = $depRefl->getProperties();
 
         //Different Writer
-        //$objWriter=new XMLWriter();
-        //$objWriter->openMemory();
-        //$objWriter->setIndent(true);
-        //$objWriter->startElement((string) $this->dependency);
-
+        /*
+        $objWriter=new XMLWriter();
+        $objWriter->openMemory();
+        $objWriter->setIndent(true);
+        $objWriter->startElement((string) $this->dependency);
+        */
 
 
 
@@ -137,23 +138,23 @@ class XMLSerialize implements XMLSerializeble {
         }
          * 
          */
-
-        //$objWriter->endElement();
-        //$objWriter->WriteRaw($this->xmlResource->outputMemory(true));
-        //retrurn $objWriter->outputMemory(true);
+        /*
+        $objWriter->endElement();
+        $objWriter->WriteRaw($this->xmlResource->outputMemory(true));
+        return $objWriter->outputMemory(true);
         
-        return $this->xmlResource->outputMemory(true);
+         * 
+         */
+       return $this->xmlResource->outputMemory(true);
     }
     
     /*
-    
     public function addData($content)
     {
         $this->xmlResource->writeRaw($content);
     }
      * 
      */
-
 }
 
 ?>
