@@ -220,8 +220,11 @@ abstract class AbstractAnnonymosContent extends AbstractRenderbleObject implemen
 
     public function xmlSerialize() {
         $xmlSer = new XMLSerialize($this);
+        $xmlSer->getWriter()->startElement((string) $this);
+        $xmlSer->getWriter()->writeRaw($xmlSer->xmlSerialize());
+        $xmlSer->getWriter()->endElement();
         //var_dump($xmlSer->xmlSerialize());
-        return $xmlSer->xmlSerialize();
+        return $xmlSer->getWriter()->outputMemory(true);
     }
 
     public function hasDependency() {

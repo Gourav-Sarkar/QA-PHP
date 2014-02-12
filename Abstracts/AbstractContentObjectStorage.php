@@ -26,15 +26,15 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
      * @PARAM $objType must be a name of valid class
      */
 
-    public function __construct($objType='') {
-        $this->pager=new Pagination();
-                
+    public function __construct($objType) {
+        $this->pager = new Pagination();
+
         if (empty($this->storage_type)) {
             $this->storage_type = $objType;
         }
-        
+
         //ObjectStorage must have declare its storage type
-        assert('!empty($this->storage_type)');
+        //assert('!empty($this->storage_type)');
     }
 
     public function getHash($object) {
@@ -49,52 +49,23 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
     /*
      * @CAUTION Can break xml serialization
      */
+
     public function __toString() {
         return get_class($this);
     }
 
     public function xmlSerialize() {
 
-        
-        $output = '';
-
-        /*
-         * Handle object storage data structure
-         */
-        $subWriter = new XMLWriter();
-        $subWriter->openMemory();
-
-        $subWriter->startElement((String) $this);
-
-
-        /*
-         * Handle regular property
-         */
-        $writer = new XMLWriter();
-        $writer->openMemory();
 
         $xmlSer = new XMLSerialize($this);
-        $writer->writeRaw($xmlSer->xmlSerialize());
-
-        $subWriter->writeRaw($writer->outputMemory(true));
-        unset($writer);
-
-
-        foreach ($this as $element) {
-            //echo "<b>$element</b>" . $element->getID() . "<br/>";
-            //var_dump($element);
-            //$writer->startElement((string)$element);
-            $writer = new XMLSerialize($element);
-            $subWriter->startElement((String) $element);
-            $subWriter->writeRaw($writer->xmlSerialize());
-            $subWriter->endElement();
-            //$writer->endElement();
+        $xmlSer->getWriter()->startElement((string) $this);
+        $xmlSer->getWriter()->writeRaw($xmlSer->xmlSerialize());
+        foreach ($this as $content) {
+            $xmlSer->getWriter()->writeRaw($content->xmlSerialize());
         }
-
-        $subWriter->endElement();
-
-
-        return $output . $subWriter->outputMemory(true);
+        $xmlSer->getWriter()->endElement();
+        //var_dump($xmlSer->xmlSerialize());
+        return $xmlSer->getWriter()->outputMemory(true);
     }
 
 }

@@ -56,22 +56,6 @@ class Pagination extends BaseObject implements XMLSerializeble {
         $this->totalPage = $data[0] / static::ITEM_PER_PAGE;
     }
 
-    public function prevPage() {
-        if ($this->page > 1) {
-            return $this->page - 1;
-        }
-
-        return false;
-    }
-
-    public function nextPage() {
-        if ($this->page < $this->totalPage) {
-            return $this->page + 1;
-        }
-
-        return false;
-    }
-
     public function xmlSerialize() {
         /*
          * Serialize only when there is more than one page
@@ -80,8 +64,13 @@ class Pagination extends BaseObject implements XMLSerializeble {
         if ($this->totalPage > 1) {
             $xmlSer = new XMLSerialize($this);
             //var_dump($xmlSer->xmlSerialize());
-            return $xmlSer->xmlSerialize();
+            $xmlSer->getWriter()->startElement((string) $this);
+            $xmlSer->getWriter()->writeRaw($xmlSer->xmlSerialize());
+            $xmlSer->getWriter()->endeElement();
+            
         }
+        
+        return $xmlSer->getWriter()->outputMemory(true);
     }
 
 }
