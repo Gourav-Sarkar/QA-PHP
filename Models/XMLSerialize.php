@@ -20,6 +20,8 @@ class XMLSerialize implements XMLSerializeble {
     private $dependency;
     private $xmlResource;
 
+    private $filter=array();
+    
     public function __construct(XMLSerializeble $obj) {
         $this->dependency = $obj;
         $this->xmlResource = new XMLWriter();
@@ -68,6 +70,14 @@ class XMLSerialize implements XMLSerializeble {
          */
         foreach ($props as $property) {
             $property->setAccessible(true);
+            
+            /*
+             * If property is in filter list just skip it
+             */
+            if(in_array($property->name,$this->filter))
+            {
+                break;
+            }
 
             $propertyData = $property->getValue($this->dependency);
             
@@ -145,9 +155,30 @@ class XMLSerialize implements XMLSerializeble {
         
          * 
          */
+        
+        unset($this->filter);
        return $this->xmlResource->outputMemory(true);
     }
     
+    /*
+     * Filter properties from being serialized
+     */
+    public function addFilter($field)
+    {
+        if(is_array($field))
+        {
+            $this->filter=array_merge($this->filter, $field);
+        }
+        elseif(is_string($field))
+        {
+            $this->filter[]=$field;
+        }
+        else
+        {
+            throw UnexpectedValueException("Field must have array or string value");
+        }
+        
+    }
     /*
     public function addData($content)
     {

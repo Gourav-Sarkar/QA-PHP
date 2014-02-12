@@ -35,6 +35,7 @@ abstract class AbstractController {
         $this->view = new Render($lang);
         //Common template for all module
         $this->view->addTemplate("user");
+        $this->view->addTemplate("pagination");
     }
 
     /*

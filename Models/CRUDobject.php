@@ -577,13 +577,21 @@ class CRUDobject implements CRUDLInterface {
         $tables = CRUDobject::extractTableRelation($dataStructure, (string) $reference);
         var_dump($tables);
 
-        $query = sprintf("SELECT SQL_CALC_FOUND_ROWS %s FROM %s AS %s %s"
+        $query['main'] = sprintf("SELECT SQL_CALC_FOUND_ROWS %s FROM %s AS %s %s"
                 , implode(',', $fields)
                 , (string) $reference
                 , (string) $reference
                 , implode(',', $tables)
         );
         //LEFT OUTER JOIN ['tableNamae] AS ['alias]
+        
+        /*
+         * Adds limit clause
+         */
+        if(!empty($args['pager']) && $args['pager'] instanceof Pagination)
+        {
+            $query['limit']=sprintf("limit %s,%s", $args['pager']->getOffset(),$args['pager']->getLimit());
+        }
 
         return $query;
     }

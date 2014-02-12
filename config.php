@@ -19,7 +19,8 @@ const TEMPLATE_ROOT="e:/wamp/www/stackoverflow/templates/";
 const ROUTER_MODULE_IDF='module';
 const ROUTER_ACTION_IDF='action';
 const ROUTER_AJAX_IDF='ajax';
-const ROUTER_PAGE_IDF='page';
+(isset($_GET['page']))? define('ROUTER_PAGE_IDF',$_GET['page']) : define('ROUTER_PAGE_IDF',1) ;
+
 const ROUTER_LANG_IDF='lang';
 const ROUTER_THEME_IDF='theme';
 //const DEPLOYED='../';

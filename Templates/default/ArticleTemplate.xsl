@@ -80,14 +80,18 @@
         </div>
     </xsl:template>
     
+    
+    
     <xsl:template match="ArticleStorage">
         <xsl:apply-templates select="article" mode="lists" />
+        <xsl:apply-templates select="pager" />
     </xsl:template>
+    
+    <!-- 8926461407  -->
     
     <xsl:template match="article" mode="lists">
         <div class="row-fluid">
             <div class="span1">
-                
             </div>
             <div class="span8">
                 <h3>
@@ -104,12 +108,10 @@
                 <p>
                     <xsl:value-of select="caption" />
                 </p>
-                
             </div>
         </div>
     </xsl:template>
-    
-    
+     
     
     <xsl:template name="article-form">
         <form method="post" class="form-horizontal">

@@ -65,8 +65,13 @@ class Article extends AbstractContent{
     }
     public static function listing(\DatabaseInteractbleInterface $reference, $args = array()) {
         $articleStore=new ArticleStorage("Article");
+        $articleStore->setPager($args['pager']);
         
-        $query=parent::listing($reference, $args);
+        $queryFrags=parent::listing($reference, $args);
+        var_dump($queryFrags);
+        
+        $query=sprintf("%s %s",$queryFrags['main'],$queryFrags['limit']);
+        
         var_dump($query);
         
         $stmt=DatabaseHandle::getConnection()->prepare($query);
@@ -84,6 +89,8 @@ class Article extends AbstractContent{
             //var_dump($objs);
         }
         //return $stmt->fetchAll();
+        
+        $args['pager']->CountTotalPage();
         
         return $articleStore;
     }

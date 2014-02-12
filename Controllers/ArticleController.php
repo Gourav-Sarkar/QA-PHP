@@ -25,7 +25,10 @@ class ArticleController extends AbstractController{
     }
     public function getList()
     {
-        $articles=Article::listing(new Article());
+        $pager=new Pagination(ROUTER_PAGE_IDF, 2);
+        //var_dump('pageidf' ,ROUTER_PAGE_IDF);
+        
+        $articles=Article::listing(new Article(),array('pager'=>$pager));
         //var_dump($query);
         
         $this->view->addModel($articles->xmlSerialize());
