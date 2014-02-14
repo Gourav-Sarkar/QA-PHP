@@ -19,7 +19,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
 
     //put your code here
     //use RenderbleTrait;
-    protected $storage_type;
+    protected $storageType;
     /*
      * Pagination $pager used to paginate objects
      * Some object list dont need to paginate they need to show everything 
@@ -32,8 +32,8 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
 
     public function __construct($objType) {
 
-        if (empty($this->storage_type)) {
-            $this->storage_type = $objType;
+        if (empty($this->storageType)) {
+            $this->storageType = $objType;
         }
 
         //ObjectStorage must have declare its storage type
@@ -49,7 +49,7 @@ abstract class AbstractContentObjectStorage extends SplObjectStorage implements 
     }
     
     public function getHash($object) {
-        assert('$object instanceof ' . $this->storage_type);
+        assert('$object instanceof ' . $this->storageType);
         $id = $object->getID();
         //echo $id;
         //Ensure id is there

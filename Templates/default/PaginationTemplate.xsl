@@ -14,16 +14,30 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
+    
+    <!--Default pagination -->
     <xsl:template match="pagination">
-        <xsl:param name="i">0</xsl:param>
         <div class="pagination">
             <ul> 
                 <li>
-                    <xsl:value-of select="page" />
                     <xsl:if test="number(page)=1">
                         <xsl:attribute name="class">active</xsl:attribute>
                     </xsl:if>
-                    <a href="#">Prsev</a>
+                    <a>
+                        <xsl:attribute name="href">
+                            <!-- @todo should be replaced with specialised link formater for content storage -->
+                            <xsl:call-template name="getLink">
+                                <!-- 
+                                # could be optimised
+                                # Pagination usually used in ContentStorage
+                                # First parent is property, second parent is object it self
+                                -->
+                                <xsl:with-param name="module" select="../../storageType"></xsl:with-param>
+                                <xsl:with-param name="action">getList</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:text>Prev</xsl:text>
+                    </a>
                 </li>
                 <li>
                     
@@ -37,7 +51,20 @@
                         <xsl:attribute name="class">disabled</xsl:attribute> 
                         <a href="#">next</a> 
                     </xsl:if>
-                    <a href="#">next</a> 
+                     <a>
+                        <xsl:attribute name="href">
+                            <xsl:call-template name="getLink">
+                                <!-- 
+                                # could be optimised
+                                # Pagination usually used in ContentStorage
+                                # First parent is property, second parent is object it self
+                                -->
+                                <xsl:with-param name="module" select="../../storageType"></xsl:with-param>
+                                <xsl:with-param name="action">getList</xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:text>next</xsl:text>
+                    </a>
                 </li>
             </ul>
         </div>

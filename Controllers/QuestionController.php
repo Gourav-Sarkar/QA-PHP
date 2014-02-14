@@ -198,10 +198,6 @@ class QuestionController extends AbstractController {
         try {
             $ques = new Question();
 
-            $pager = new Pagination($ques);
-            $pager->setPage($_GET['page']);
-
-
             if (isset($_GET['tags'])) {
                 $ques->setTags(implode(',', $_GET['tags']));
             }

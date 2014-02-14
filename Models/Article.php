@@ -64,10 +64,12 @@ class Article extends AbstractContent{
         $comment->create();
     }
     public static function listing(\DatabaseInteractbleInterface $reference, $args = array()) {
-        $articleStore=new ArticleStorage("Article");
-        $articleStore->setPager($args['pager']);
+        $pager=new Pagination(ROUTER_PAGE_IDF, 2);
         
-        $queryFrags=parent::listing($reference, $args);
+        $articleStore=new ArticleStorage("Article");
+        $articleStore->setPager($pager);
+        
+        $queryFrags=parent::listing($reference, array('pager'=>$pager));
         var_dump($queryFrags);
         
         $query=sprintf("%s %s",$queryFrags['main'],$queryFrags['limit']);
@@ -90,7 +92,7 @@ class Article extends AbstractContent{
         }
         //return $stmt->fetchAll();
         
-        $args['pager']->CountTotalPage();
+        $pager->CountTotalPage();
         
         return $articleStore;
     }

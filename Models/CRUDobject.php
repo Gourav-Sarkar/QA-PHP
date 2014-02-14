@@ -16,7 +16,12 @@ require_once 'Exception/noEntryFoundException.php';
  */
 class CRUDobject implements CRUDLInterface {
     //put your code here
-
+    const QFRAG_IDF_MAIN='main';
+    const QFRAG_IDF_LIMIT='limit';
+    const QFRAG_IDF_PAGER='pager';
+    const QFRAG_IDF_WHERE='where';
+    
+    
     const TYPE_IDF = '@type';
     const COMP_IDF = 'rootClass';
     const DATA_IDF = '@data';
@@ -533,7 +538,14 @@ class CRUDobject implements CRUDLInterface {
 
     public static function Listing(DatabaseInteractbleInterface $reference, $args = array()) {
 
-        $query = '';
+        /*
+         * @todo
+         * Change to autoated initializing
+         */
+        $query[static::QFRAG_IDF_LIMIT]= '';
+        $query[static::QFRAG_IDF_MAIN]='';
+        $query[static::QFRAG_IDF_WHERE]='';
+        
         $fields = array();
         $tables = array();
         //var_dump($reference);
@@ -577,22 +589,34 @@ class CRUDobject implements CRUDLInterface {
         $tables = CRUDobject::extractTableRelation($dataStructure, (string) $reference);
         var_dump($tables);
 
-        $query['main'] = sprintf("SELECT SQL_CALC_FOUND_ROWS %s FROM %s AS %s %s"
-                , implode(',', $fields)
-                , (string) $reference
-                , (string) $reference
-                , implode(',', $tables)
-        );
-        //LEFT OUTER JOIN ['tableNamae] AS ['alias]
         
         /*
          * Adds limit clause
          */
         if(!empty($args['pager']) && $args['pager'] instanceof Pagination)
         {
-            $query['limit']=sprintf("limit %s,%s", $args['pager']->getOffset(),$args['pager']->getLimit());
+            $sqlRowCal='SQL_CALC_FOUND_ROWS';
+            $query[static::QFRAG_IDF_LIMIT]=sprintf("limit %s,%s", $args['pager']->getOffset(),$args['pager']->getLimit());
         }
 
+        
+        $query['main'] = sprintf("SELECT %s %s FROM %s AS %s"
+                ,$sqlRowCal
+                , implode(',', $fields)
+                , (string) $reference
+                , (string) $reference
+        );
+        
+        /*
+         * If there is any asscociated table include it
+         */
+        if(!empty($tables))
+        {
+            $query['main']=sprintf('%s %s',$query['main'],  implode(',', $tables));
+        }
+        //LEFT OUTER JOIN ['tableNamae] AS ['alias]
+        
+        
         return $query;
     }
 
@@ -738,7 +762,7 @@ class CRUDobject implements CRUDLInterface {
                   $reflProp->setValue($stacks['object'][$identifier], $value);
                  */
             } else {
-                throw BadFunctionCallException("$property does not exist");
+                throw new BadMethodCallException("$property does not exist");
             }
 
             //$classes[]=new $className();

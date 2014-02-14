@@ -21,7 +21,6 @@ class CampaignController extends AbstractController{
         $this->model=new Campaign();
         
         $this->view->addTemplate("campaign");
-        $this->view->addTemplate("user");
     }
     
     public function create()
@@ -63,7 +62,6 @@ class CampaignController extends AbstractController{
      */
     public function getList()
     {
-        var_dump(get_defined_constants("campaign"));
     }
     
     public function approve()

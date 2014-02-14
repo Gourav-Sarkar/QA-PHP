@@ -9,13 +9,13 @@
             <email>Gourav@gmail.com</email>
             <roleList>
                 <RoleStorage>
-                    <storage_type>Role</storage_type>
+                    <storageType/>
                     <pager/>
                     <role>
                         <title>developer</title>
                         <permissions>
                             <PermissionStorage>
-                                <storage_type>Permission</storage_type>
+                                <storageType/>
                                 <pager/>
                             </PermissionStorage>
                         </permissions>
@@ -29,20 +29,20 @@
                                 <email/>
                                 <roleList>
                                     <RoleStorage>
-                                        <storage_type>Role</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </RoleStorage>
                                 </roleList>
                                 <userProfile>
                                     <UserProfileFieldStorage>
-                                        <storage_type>UserProfileField</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </UserProfileFieldStorage>
                                 </userProfile>
                                 <referedBy/>
                                 <permissionList>
                                     <PermissionStorage>
-                                        <storage_type>Permission</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </PermissionStorage>
                                 </permissionList>
@@ -62,7 +62,7 @@
                         <title>moderator</title>
                         <permissions>
                             <PermissionStorage>
-                                <storage_type>Permission</storage_type>
+                                <storageType/>
                                 <pager/>
                             </PermissionStorage>
                         </permissions>
@@ -76,20 +76,20 @@
                                 <email/>
                                 <roleList>
                                     <RoleStorage>
-                                        <storage_type>Role</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </RoleStorage>
                                 </roleList>
                                 <userProfile>
                                     <UserProfileFieldStorage>
-                                        <storage_type>UserProfileField</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </UserProfileFieldStorage>
                                 </userProfile>
                                 <referedBy/>
                                 <permissionList>
                                     <PermissionStorage>
-                                        <storage_type>Permission</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </PermissionStorage>
                                 </permissionList>
@@ -109,14 +109,14 @@
             </roleList>
             <userProfile>
                 <UserProfileFieldStorage>
-                    <storage_type>UserProfileField</storage_type>
+                    <storageType/>
                     <pager/>
                 </UserProfileFieldStorage>
             </userProfile>
             <referedBy/>
             <permissionList>
                 <PermissionStorage>
-                    <storage_type>Permission</storage_type>
+                    <storageType/>
                     <pager/>
                     <permission>
                         <permission>1</permission>
@@ -125,7 +125,7 @@
                                 <title>developer</title>
                                 <permissions>
                                     <PermissionStorage>
-                                        <storage_type>Permission</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </PermissionStorage>
                                 </permissions>
@@ -139,20 +139,20 @@
                                         <email/>
                                         <roleList>
                                             <RoleStorage>
-                                                <storage_type>Role</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </RoleStorage>
                                         </roleList>
                                         <userProfile>
                                             <UserProfileFieldStorage>
-                                                <storage_type>UserProfileField</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </UserProfileFieldStorage>
                                         </userProfile>
                                         <referedBy/>
                                         <permissionList>
                                             <PermissionStorage>
-                                                <storage_type>Permission</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </PermissionStorage>
                                         </permissionList>
@@ -177,7 +177,7 @@
                                 <title>moderator</title>
                                 <permissions>
                                     <PermissionStorage>
-                                        <storage_type>Permission</storage_type>
+                                        <storageType/>
                                         <pager/>
                                     </PermissionStorage>
                                 </permissions>
@@ -191,20 +191,20 @@
                                         <email/>
                                         <roleList>
                                             <RoleStorage>
-                                                <storage_type>Role</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </RoleStorage>
                                         </roleList>
                                         <userProfile>
                                             <UserProfileFieldStorage>
-                                                <storage_type>UserProfileField</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </UserProfileFieldStorage>
                                         </userProfile>
                                         <referedBy/>
                                         <permissionList>
                                             <PermissionStorage>
-                                                <storage_type>Permission</storage_type>
+                                                <storageType/>
                                                 <pager/>
                                             </PermissionStorage>
                                         </permissionList>
@@ -230,112 +230,26 @@
             <invisible>0</invisible>
         </user>
     </meta>
-    <data>
-        <ArticleStorage>
-            <storage_type>Article</storage_type>
-            <pager>
-                <pagination>
-                    <page>2</page>
-                    <offset>2</offset>
-                    <limit/>
-                    <totalPage>2</totalPage>
-                    <itemPerPage>2</itemPerPage>
-                </pagination>
-            </pager>
-            <article>
-                <commentList>
-                    <CommentStorage>
-                        <storage_type>ArticleComment</storage_type>
-                        <pager/>
-                    </CommentStorage>
-                </commentList>
-                <caption>saadasda</caption>
-                <title>ffffff</title>
-                <user>
-                    <user>
-                        <id>14</id>
-                        <nick>gourav</nick>
-                        <reputation>105</reputation>
-                        <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
-                        <email>Gourav@gmail.com</email>
-                        <roleList>
-                            <RoleStorage>
-                                <storage_type>Role</storage_type>
-                                <pager/>
-                            </RoleStorage>
-                        </roleList>
-                        <userProfile>
-                            <UserProfileFieldStorage>
-                                <storage_type>UserProfileField</storage_type>
-                                <pager/>
-                            </UserProfileFieldStorage>
-                        </userProfile>
-                        <referedBy/>
-                        <permissionList>
-                            <PermissionStorage>
-                                <storage_type>Permission</storage_type>
-                                <pager/>
-                            </PermissionStorage>
-                        </permissionList>
-                        <time>0</time>
-                        <ip>0</ip>
-                        <content/>
-                        <invisible>0</invisible>
-                    </user>
-                </user>
-                <id>4</id>
-                <time>1390930757</time>
+    <data name="JournalApp">
+        <JournalStorage>
+            <storageType>journal</storageType>
+            <pager/>
+            <journal>
+                <passCode/>
+                <id>1</id>
+                <time>1392382419</time>
                 <ip>2130706433</ip>
-                <content>sadawdas</content>
+                <content>as</content>
                 <invisible>0</invisible>
-            </article>
-            <article>
-                <commentList>
-                    <CommentStorage>
-                        <storage_type>ArticleComment</storage_type>
-                        <pager/>
-                    </CommentStorage>
-                </commentList>
-                <caption>more article</caption>
-                <title>more article</title>
-                <user>
-                    <user>
-                        <id>14</id>
-                        <nick>gourav</nick>
-                        <reputation>105</reputation>
-                        <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
-                        <email>Gourav@gmail.com</email>
-                        <roleList>
-                            <RoleStorage>
-                                <storage_type>Role</storage_type>
-                                <pager/>
-                            </RoleStorage>
-                        </roleList>
-                        <userProfile>
-                            <UserProfileFieldStorage>
-                                <storage_type>UserProfileField</storage_type>
-                                <pager/>
-                            </UserProfileFieldStorage>
-                        </userProfile>
-                        <referedBy/>
-                        <permissionList>
-                            <PermissionStorage>
-                                <storage_type>Permission</storage_type>
-                                <pager/>
-                            </PermissionStorage>
-                        </permissionList>
-                        <time>0</time>
-                        <ip>0</ip>
-                        <content/>
-                        <invisible>0</invisible>
-                    </user>
-                </user>
-                <id>5</id>
-                <time>1392139417</time>
+            </journal>
+            <journal>
+                <passCode/>
+                <id>2</id>
+                <time>1392382446</time>
                 <ip>2130706433</ip>
-                <content>more article</content>
+                <content>as</content>
                 <invisible>0</invisible>
-            </article>
-        </ArticleStorage>
+            </journal>
+        </JournalStorage>
     </data>
 </pageRoot>
