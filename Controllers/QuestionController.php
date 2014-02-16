@@ -73,7 +73,6 @@ class QuestionController extends AbstractController {
      */
 
     public function ask() {
-        require 'Templates/Question/Question-form-view.php';
 
         if (isset($_POST['ask'])) {
             $this->question->setTitle($_POST['title']);

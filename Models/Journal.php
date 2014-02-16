@@ -5,7 +5,12 @@
  * and open the template in the editor.
  */
 require_once 'abstracts/AbstractAnnonymosContent.php';
+require_once 'models/emotion.php';
+
 require_once 'storages/journalStorage.php';
+require_once 'storages/EmotionStorage.php';
+require_once 'storages/ArticleStorage.php'; //fake
+require_once 'storages/DefaultContentStorage.php';
 /**
  * Description of Journal
  *
@@ -15,6 +20,23 @@ class Journal extends AbstractAnnonymosContent{
     //put your code here
     private $passCode;
     
+    /*
+     * Attatched pictures with entry
+     */
+    private $pictures;
+    private $emotions;
+    private $tags;
+    
+    public function __construct() {
+        parent::__construct();
+        
+        $this->pictures=new ArticleStorage("article");
+        $this->emotions=new EmotionStorage("emotion");
+        $this->tags=new ArticleStorage("article");
+        
+    }
+
+
     public function setPassCode($passcode)
     {
         $this->crud->setFieldCache("passCode");
@@ -25,7 +47,61 @@ class Journal extends AbstractAnnonymosContent{
         return $this->passCode;
     }
     
+    /*
+     * @PARAM array
+     */
+    public function addEmotion($emotions)
+    {
+        foreach($emotions as $emotion)
+        {
+            $emObj=new Emotion($this);
+            $emObj->setTitle($emotion);
+            $emObj->populate();
+            $this->emotions->attach($emObj, $emObj);
+        }
+    }
     
+    /*
+     * @Security
+     * Encrypt fields you want to fill
+     */
+    private function Encrypt()
+    {
+        
+    }
+    
+    /*
+     * @Security
+     * Decrypt fields you want to fill
+     */
+    private function Decrypt()
+    {
+        
+    }
+    
+    public function create() {
+        if(!empty($this->passCode))
+        {
+            $this->Encrypt();
+        }
+        
+        return parent::create();
+    }
+    
+    public function read() {
+        //Read from database
+        $obj=parent::read();
+        
+        //if pass key is set decrypt the data
+        if(!empty($this->passCode))
+        {
+            $obj->Decrypt();
+        }
+        
+        //return object as parent;
+        return $obj;
+    }
+
     public static function listing(\DatabaseInteractbleInterface $reference, $args = array()) {
         $journalStore=new JournalStorage("journal");
         

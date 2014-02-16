@@ -32,7 +32,7 @@
          
          @ISSUUES Handling unmatched tags for debugging
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/default/journalTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/paginationTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/userTemplate.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0"><xsl:include href="e:/wamp/www/stackoverflow/templates/default/journalTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/paginationTemplate.xsl"/><xsl:include href="e:/wamp/www/stackoverflow/templates/default/userTemplate.xsl"/>
     <xsl:output method="html"/>
     
     <xsl:template match="pageRoot">

@@ -68,3 +68,10 @@ Site template should not be touched for locale. so it separate file will be used
 
 Locale support
 namespace conflict in model xml
+
+
+====================================================================================
+
+1) Storages needs crud operation: creating storages should aggregate all insert 
+    make one query
+2) Some of abstract class should be moved as trait for convenience

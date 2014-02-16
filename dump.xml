@@ -1,255 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT">
-    <meta>
-        <user>
-            <id>14</id>
-            <nick>gourav</nick>
-            <reputation>105</reputation>
-            <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
-            <email>Gourav@gmail.com</email>
-            <roleList>
-                <RoleStorage>
-                    <storageType/>
-                    <pager/>
-                    <role>
-                        <title>developer</title>
-                        <permissions>
-                            <PermissionStorage>
-                                <storageType/>
-                                <pager/>
-                            </PermissionStorage>
-                        </permissions>
-                        <priority>0</priority>
-                        <user>
-                            <user>
-                                <id/>
-                                <nick/>
-                                <reputation>1</reputation>
-                                <password/>
-                                <email/>
-                                <roleList>
-                                    <RoleStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </RoleStorage>
-                                </roleList>
-                                <userProfile>
-                                    <UserProfileFieldStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </UserProfileFieldStorage>
-                                </userProfile>
-                                <referedBy/>
-                                <permissionList>
-                                    <PermissionStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </PermissionStorage>
-                                </permissionList>
-                                <time/>
-                                <ip/>
-                                <content/>
-                                <invisible>0</invisible>
-                            </user>
-                        </user>
-                        <id>1</id>
-                        <time/>
-                        <ip/>
-                        <content/>
-                        <invisible>0</invisible>
-                    </role>
-                    <role>
-                        <title>moderator</title>
-                        <permissions>
-                            <PermissionStorage>
-                                <storageType/>
-                                <pager/>
-                            </PermissionStorage>
-                        </permissions>
-                        <priority>0</priority>
-                        <user>
-                            <user>
-                                <id/>
-                                <nick/>
-                                <reputation>1</reputation>
-                                <password/>
-                                <email/>
-                                <roleList>
-                                    <RoleStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </RoleStorage>
-                                </roleList>
-                                <userProfile>
-                                    <UserProfileFieldStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </UserProfileFieldStorage>
-                                </userProfile>
-                                <referedBy/>
-                                <permissionList>
-                                    <PermissionStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </PermissionStorage>
-                                </permissionList>
-                                <time/>
-                                <ip/>
-                                <content/>
-                                <invisible>0</invisible>
-                            </user>
-                        </user>
-                        <id>3</id>
-                        <time/>
-                        <ip/>
-                        <content/>
-                        <invisible>0</invisible>
-                    </role>
-                </RoleStorage>
-            </roleList>
-            <userProfile>
-                <UserProfileFieldStorage>
-                    <storageType/>
-                    <pager/>
-                </UserProfileFieldStorage>
-            </userProfile>
-            <referedBy/>
-            <permissionList>
-                <PermissionStorage>
-                    <storageType/>
-                    <pager/>
-                    <permission>
-                        <permission>1</permission>
-                        <role>
-                            <role>
-                                <title>developer</title>
-                                <permissions>
-                                    <PermissionStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </PermissionStorage>
-                                </permissions>
-                                <priority>0</priority>
-                                <user>
-                                    <user>
-                                        <id/>
-                                        <nick/>
-                                        <reputation>1</reputation>
-                                        <password/>
-                                        <email/>
-                                        <roleList>
-                                            <RoleStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </RoleStorage>
-                                        </roleList>
-                                        <userProfile>
-                                            <UserProfileFieldStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </UserProfileFieldStorage>
-                                        </userProfile>
-                                        <referedBy/>
-                                        <permissionList>
-                                            <PermissionStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </PermissionStorage>
-                                        </permissionList>
-                                        <time/>
-                                        <ip/>
-                                        <content/>
-                                        <invisible>0</invisible>
-                                    </user>
-                                </user>
-                                <id>1</id>
-                                <time/>
-                                <ip/>
-                                <content>Development job</content>
-                                <invisible>0</invisible>
-                            </role>
-                        </role>
-                    </permission>
-                    <permission>
-                        <permission>1</permission>
-                        <role>
-                            <role>
-                                <title>moderator</title>
-                                <permissions>
-                                    <PermissionStorage>
-                                        <storageType/>
-                                        <pager/>
-                                    </PermissionStorage>
-                                </permissions>
-                                <priority>1</priority>
-                                <user>
-                                    <user>
-                                        <id/>
-                                        <nick/>
-                                        <reputation>1</reputation>
-                                        <password/>
-                                        <email/>
-                                        <roleList>
-                                            <RoleStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </RoleStorage>
-                                        </roleList>
-                                        <userProfile>
-                                            <UserProfileFieldStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </UserProfileFieldStorage>
-                                        </userProfile>
-                                        <referedBy/>
-                                        <permissionList>
-                                            <PermissionStorage>
-                                                <storageType/>
-                                                <pager/>
-                                            </PermissionStorage>
-                                        </permissionList>
-                                        <time/>
-                                        <ip/>
-                                        <content/>
-                                        <invisible>0</invisible>
-                                    </user>
-                                </user>
-                                <id>3</id>
-                                <time/>
-                                <ip/>
-                                <content>Moderator of the site</content>
-                                <invisible>0</invisible>
-                            </role>
-                        </role>
-                    </permission>
-                </PermissionStorage>
-            </permissionList>
-            <time>0</time>
-            <ip>0</ip>
-            <content/>
-            <invisible>0</invisible>
-        </user>
-    </meta>
-    <data name="JournalApp">
-        <JournalStorage>
-            <storageType>journal</storageType>
-            <pager/>
-            <journal>
-                <passCode/>
-                <id>1</id>
-                <time>1392382419</time>
-                <ip>2130706433</ip>
-                <content>as</content>
-                <invisible>0</invisible>
-            </journal>
-            <journal>
-                <passCode/>
-                <id>2</id>
-                <time>1392382446</time>
-                <ip>2130706433</ip>
-                <content>as</content>
-                <invisible>0</invisible>
-            </journal>
-        </JournalStorage>
-    </data>
-</pageRoot>
+<pageRoot mode="DOCUMENT"><meta><user>
+ <id>14</id>
+ <nick>gourav</nick>
+ <reputation>105</reputation>
+ <password>$2a$07$usesomesillystringforeiu4jq9DccBDegJApE9AiAbVPPUooDUe</password>
+ <email>Gourav@gmail.com</email>
+ <roleList><RoleStorage>
+ <storageType/>
+ <pager/>
+<role>
+ <title>developer</title>
+ <permissions><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissions>
+ <priority>0</priority>
+ <user><user>
+ <id/>
+ <nick/>
+ <reputation>1</reputation>
+ <password/>
+ <email/>
+ <roleList><RoleStorage>
+ <storageType/>
+ <pager/>
+</RoleStorage>
+</roleList>
+ <userProfile><UserProfileFieldStorage>
+ <storageType/>
+ <pager/>
+</UserProfileFieldStorage>
+</userProfile>
+ <referedBy/>
+ <permissionList><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissionList>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</user>
+</user>
+ <id>1</id>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</role>
+<role>
+ <title>moderator</title>
+ <permissions><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissions>
+ <priority>0</priority>
+ <user><user>
+ <id/>
+ <nick/>
+ <reputation>1</reputation>
+ <password/>
+ <email/>
+ <roleList><RoleStorage>
+ <storageType/>
+ <pager/>
+</RoleStorage>
+</roleList>
+ <userProfile><UserProfileFieldStorage>
+ <storageType/>
+ <pager/>
+</UserProfileFieldStorage>
+</userProfile>
+ <referedBy/>
+ <permissionList><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissionList>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</user>
+</user>
+ <id>3</id>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</role>
+</RoleStorage>
+</roleList>
+ <userProfile><UserProfileFieldStorage>
+ <storageType/>
+ <pager/>
+</UserProfileFieldStorage>
+</userProfile>
+ <referedBy/>
+ <permissionList><PermissionStorage>
+ <storageType/>
+ <pager/>
+<permission><permission>1</permission>
+<role><role>
+ <title>developer</title>
+ <permissions><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissions>
+ <priority>0</priority>
+ <user><user>
+ <id/>
+ <nick/>
+ <reputation>1</reputation>
+ <password/>
+ <email/>
+ <roleList><RoleStorage>
+ <storageType/>
+ <pager/>
+</RoleStorage>
+</roleList>
+ <userProfile><UserProfileFieldStorage>
+ <storageType/>
+ <pager/>
+</UserProfileFieldStorage>
+</userProfile>
+ <referedBy/>
+ <permissionList><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissionList>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</user>
+</user>
+ <id>1</id>
+ <time/>
+ <ip/>
+ <content>Development job</content>
+ <invisible>0</invisible>
+</role>
+</role>
+</permission><permission><permission>1</permission>
+<role><role>
+ <title>moderator</title>
+ <permissions><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissions>
+ <priority>1</priority>
+ <user><user>
+ <id/>
+ <nick/>
+ <reputation>1</reputation>
+ <password/>
+ <email/>
+ <roleList><RoleStorage>
+ <storageType/>
+ <pager/>
+</RoleStorage>
+</roleList>
+ <userProfile><UserProfileFieldStorage>
+ <storageType/>
+ <pager/>
+</UserProfileFieldStorage>
+</userProfile>
+ <referedBy/>
+ <permissionList><PermissionStorage>
+ <storageType/>
+ <pager/>
+</PermissionStorage>
+</permissionList>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</user>
+</user>
+ <id>3</id>
+ <time/>
+ <ip/>
+ <content>Moderator of the site</content>
+ <invisible>0</invisible>
+</role>
+</role>
+</permission></PermissionStorage>
+</permissionList>
+ <time>0</time>
+ <ip>0</ip>
+ <content/>
+ <invisible>0</invisible>
+</user>
+</meta><data name="JournalApp"><JournalStorage>
+ <storageType>journal</storageType>
+ <pager/>
+</JournalStorage>
+</data></pageRoot>

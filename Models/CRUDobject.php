@@ -466,7 +466,7 @@ class CRUDobject implements CRUDLInterface {
 
         //unset fieldCache after each CRUDE operation
         $this->fieldCache = array();
-        return $this;
+        return $this->dependency;
     }
 
     public function softRead() {
@@ -548,6 +548,7 @@ class CRUDobject implements CRUDLInterface {
         
         $fields = array();
         $tables = array();
+        $sqlRowCal='';
         //var_dump($reference);
 
         $dataStructure[static::DATA_IDF] = CRUDobject::makeStructure($reference);

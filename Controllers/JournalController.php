@@ -34,8 +34,19 @@ class JournalController extends AbstractController{
         $this->model->setTime();
         $this->model->setIP();
         $this->model->setInvisible(FALSE);
+        $this->model->setPassKey($_POST['passkey']);
+        
+        /*
+         * User must attatch one emotion atleast
+         */
+        $this->model->addEmotion(explode(',' , $_POST['emotion']));
         
         $this->model->create();
+        
+        $this->view->setMode(Render::MODE_FRAGMENT);
+        $this->view->addModel($this->model->xmlSerialize());
+        
+        echo $this->view->render();
     }
     
     public function openToday()

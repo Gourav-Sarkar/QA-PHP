@@ -1,5 +1,5 @@
 <?php
-
+require_once 'boot.php';
 require_once "config.php";
 //xdebug_start_code_coverage();
 //xdebug_start_trace( DOCUMENT_ROOT . 'trace',XDEBUG_TRACE_HTML | XDEBUG_TRACE_COMPUTERIZED );

@@ -8,7 +8,7 @@
         Purpose of transformation follows.
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl" version="1.0">
     <xsl:output method="html"/>
 
     <!-- TODO customize transformation rules 
@@ -27,7 +27,9 @@
                     <hr/>
                     <div class="row-fluid">
                         <div class="offset9 span3">
-                            <h3>13th may, 2012</h3>
+                            <h3>
+                                <xsl:value-of select="php:function('date','d F , Y')"/>
+                            </h3>
                             <hr/>
                         </div>
                     </div>
@@ -39,11 +41,11 @@
                 <div class="span4">
                     <div class="well">
                         <div>
-                            <h2>My mood</h2>
+                            <h2>My Statistics</h2>
                             <hr/>
                         </div>
                         <div>
-                            <h2>My </h2>
+                            <h2>My Moood</h2>
                             <hr/>
                         </div>
                         <div>
@@ -61,7 +63,7 @@
     
     <xsl:template match="JournalStorage">
         <div>
-            <xsl:apply-templates selec="journal" />
+            <xsl:apply-templates select="journal" />
         </div>
     </xsl:template>
     
@@ -75,16 +77,36 @@
             </xsl:attribute>
             
             <textarea name="content" class="span12"></textarea>
+            <!-- Emotions -->
+            <span>Emotion</span>
+            <input type="text" name="emotion" value=""  />
+            <span>Tag</span>
+            <input type="text" name="tag" value=""  />
+            <span>Passkey</span>
+            <input type="text" name="passkey" value=""  />
+            
+            <span>Privacy</span>
+            <select name="privacy">
+                <option value="">Me</option>
+                <option value="">Friends</option>
+                <option value="">Public</option>    
+            </select>
+            
+            <span>Share</span>
+            <span>Facebook</span><input type="checkbox" name="share[]" value="Facebook" />
+            <span>Twitter</span><input type="checkbox" name="share[]" value="Twitter" />
+            <span>Google+</span><input type="checkbox" name="share[]" value="Googleplus" />
+            <span>Email</span><input type="checkbox" name="share[]" value="Email" />
+                
             <input type="submit" name="create" value="create"  />
             <hr/>
             <!-- 
             share public
             List of public 
             -->
+            <!-- -->
             <!-- password protected -->
             <!--tag-->
-            <!-- Emotions -->
-            <!-- attatchment -->
         </form>
     </xsl:template>
     
@@ -92,25 +114,11 @@
     <xsl:template match="journal">
         
         <div class="container-fluid">
-            <p class="lead">10:05 PM</p>
+            <p class="lead"> 
+                <xsl:value-of select="php:function('date','h:i A , l',number(time))" />
+            </p>
             <p class="lead">
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
-                I have written something in journal entry
+                <xsl:value-of select="content" />
             </p>
             <hr/>
         </div>

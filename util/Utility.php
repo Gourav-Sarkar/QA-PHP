@@ -14,6 +14,7 @@ class Utility {
     //put your code here
     /*
      *@issue XSLT passes node in array
+     * @deprecation
      */
     public static function timeDiff($timestamp)
     {

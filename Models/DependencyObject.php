@@ -14,7 +14,7 @@ class DependencyObject {
     //put your code hereprotected $reference;
     protected $reference;
     
-    public function __construct(AbstractContent $content)
+    public function __construct(AbstractAnnonymosContent $content)
     {
         $this->reference=$content;
         //set field cache for $content object

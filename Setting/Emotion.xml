@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <emotion id="1" name="happy">
+        Something about happy emotion
+    </emotion>
+     <emotion id="1" name="sad">
+        Something about sad emotion
+    </emotion>
+    
+</root>

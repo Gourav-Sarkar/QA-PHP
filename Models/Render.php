@@ -74,7 +74,7 @@ class Render {
         }
 
         $this->themeDir = sprintf("%s%s", TEMPLATE_ROOT, $this->themeName );
-        var_dump($this->themeDir);
+        //var_dump($this->themeDir);
 
         $this->transformer = new XSLTProcessor();
 
