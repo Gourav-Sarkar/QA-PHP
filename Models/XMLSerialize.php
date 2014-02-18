@@ -19,9 +19,8 @@ class XMLSerialize implements XMLSerializeble {
 
     private $dependency;
     private $xmlResource;
+    private $filter = array();
 
-    private $filter=array();
-    
     public function __construct(XMLSerializeble $obj) {
         $this->dependency = $obj;
         $this->xmlResource = new XMLWriter();
@@ -33,11 +32,10 @@ class XMLSerialize implements XMLSerializeble {
         $this->xmlResource->startDocument(static::XML_VERSION, static::XML_ENCODING);
     }
 
-    
-    public function getWriter()
-    {
+    public function getWriter() {
         return $this->xmlResource;
     }
+
     /*
      * Handle null value
      * 
@@ -57,11 +55,11 @@ class XMLSerialize implements XMLSerializeble {
 
         //Different Writer
         /*
-        $objWriter=new XMLWriter();
-        $objWriter->openMemory();
-        $objWriter->setIndent(true);
-        $objWriter->startElement((string) $this->dependency);
-        */
+          $objWriter=new XMLWriter();
+          $objWriter->openMemory();
+          $objWriter->setIndent(true);
+          $objWriter->startElement((string) $this->dependency);
+         */
 
 
 
@@ -70,23 +68,23 @@ class XMLSerialize implements XMLSerializeble {
          */
         foreach ($props as $property) {
             $property->setAccessible(true);
-            
+
             /*
              * If property is in filter list just skip it
              */
-            if(in_array($property->name,$this->filter))
-            {
+            if (in_array($property->name, $this->filter)) {
                 break;
             }
 
             $propertyData = $property->getValue($this->dependency);
-            
-            
+
+
             /*
              * If data is scalar type show the value
+             * @NOTE currently array does not get serialized
              *
              */
-            if (!is_object($propertyData)) {
+            if (!is_object($propertyData) && !is_array($propertyData)) {
                 //echo " Setting scalar data";
 
                 /*
@@ -112,10 +110,7 @@ class XMLSerialize implements XMLSerializeble {
 
                 //@todo $property data can be get via getter to get data constantly
                 //var_dump($propertyData);
-
-                $this->xmlResource->writeElement($property->getName(), $propertyData);
-                
-                
+                    $this->xmlResource->writeElement($property->getName(), $propertyData);
             } else {
                 /*
                  * Handle different type of object
@@ -126,64 +121,56 @@ class XMLSerialize implements XMLSerializeble {
                     $this->xmlResource->startElement("Dependency");
                     $this->xmlResource->writeElement((string) $propertyData->getReference(), (string) $propertyData->getReference()->getID());
                     $this->xmlResource->endElement();
-                    
-                    
                 } elseif ($propertyData instanceof XMLSerializeble) {
-                    
+
                     //Calls content serialize methods
                     $this->xmlResource->startElement($property->name);
                     $this->xmlResource->writeRaw($propertyData->xmlSerialize());
                     $this->xmlResource->endElement();
-                    
                 }
             }
         }
 
         //echo '<hr/>';
         /*
-        if ($this->dependency instanceof AbstractContentObjectStorage) {
-            foreach ($this->dependency as $content) {
-                $this->xmlResource->writeRaw($content->xmlSerialize());
-            }
-        }
+          if ($this->dependency instanceof AbstractContentObjectStorage) {
+          foreach ($this->dependency as $content) {
+          $this->xmlResource->writeRaw($content->xmlSerialize());
+          }
+          }
          * 
          */
         /*
-        $objWriter->endElement();
-        $objWriter->WriteRaw($this->xmlResource->outputMemory(true));
-        return $objWriter->outputMemory(true);
-        
+          $objWriter->endElement();
+          $objWriter->WriteRaw($this->xmlResource->outputMemory(true));
+          return $objWriter->outputMemory(true);
+
          * 
          */
-        
+
         unset($this->filter);
-       return $this->xmlResource->outputMemory(true);
+        return $this->xmlResource->outputMemory(true);
     }
-    
+
     /*
      * Filter properties from being serialized
      */
-    public function addFilter($field)
-    {
-        if(is_array($field))
-        {
-            $this->filter=array_merge($this->filter, $field);
-        }
-        elseif(is_string($field))
-        {
-            $this->filter[]=$field;
-        }
-        else
-        {
+
+    public function addFilter($field) {
+        if (is_array($field)) {
+            $this->filter = array_merge($this->filter, $field);
+        } elseif (is_string($field)) {
+            $this->filter[] = $field;
+        } else {
             throw UnexpectedValueException("Field must have array or string value");
         }
-        
     }
+
     /*
-    public function addData($content)
-    {
-        $this->xmlResource->writeRaw($content);
-    }
+      public function addData($content)
+      {
+      $this->xmlResource->writeRaw($content);
+      }
      * 
      */
 }

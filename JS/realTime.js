@@ -4,7 +4,6 @@
  */
 
 
-
 /*
  * Streaming Continous data
  * It Analyzes document and check the data entry points which should be streamed

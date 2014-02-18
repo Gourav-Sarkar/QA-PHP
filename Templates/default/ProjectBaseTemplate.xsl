@@ -51,6 +51,9 @@
     
     <!--
     # Core page structure
+    # Fragment is for ajax request. It builds fragment of html which dont have
+        meaning itself
+    # FRGAMENT document should not have Wrapper
     -->
     <xsl:template name="document">
         <html>

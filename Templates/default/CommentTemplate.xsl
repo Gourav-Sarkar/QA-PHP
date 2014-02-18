@@ -118,7 +118,10 @@
         # incase elements needs seperate Storage remove the related element and
         # implement it in seperate Storage template
         -->
-        
+        <!--
+        <xsl:param name="foo">ss</xsl:param>
+        <xsl:value-of select="$foo" />
+        -->
         <xsl:apply-templates select="questioncomment | answercomment | articlecomment" />
     </xsl:template>
     <!-- ========================================================================-->    
@@ -127,7 +130,9 @@
     
     
     <xsl:template name="commentForm">
+        <!-- Where the data will be inserted -->
         <xsl:param name="holder"/>
+        <!-- target of Form id which will be -->
         <xsl:param name="formID"/>
         
         <form method="post">
@@ -154,18 +159,27 @@
                     <xsl:value-of select="$holder" />
                 </xsl:attribute>
                 
-                <!-- same as form id to uniqly identify form -->
+                <!--
+                same as form id to uniqly identify form 
+                @deprecated No need form id. closest form will be targeted
+                -->
+                <!--
                 <xsl:attribute name="data-form">
                     <xsl:text>#</xsl:text>
                     <xsl:value-of select="$formID" />
                 </xsl:attribute>
+                -->
                 
-                
+                <!--
+                # Have no any use
+                -->
+                <!--
                 <xsl:attribute name="data-target">
                     <xsl:value-of select="local-name(.)" />
                     <xsl:text>-</xsl:text>
                     <xsl:value-of select="id" />
                 </xsl:attribute>
+                -->
             </input>
         </form>
     </xsl:template>

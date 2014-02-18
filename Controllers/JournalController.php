@@ -6,60 +6,60 @@
  */
 require_once 'models/journal.php';
 require_once 'Abstracts/AbstractController.php';
+
 /**
  * Description of JournalController
  *
  * @author gourav sarkar
  */
-class JournalController extends AbstractController{
+class JournalController extends AbstractController {
+
     //put your code here
     public function __construct() {
         parent::__construct();
-        $this->model=new Journal();
-        
+        $this->model = new Journal();
+
         $this->view->addTemplate('journal');
-        $this->view->setWrapper("JournalApp");
+        if (!$this->isAjax) {
+            $this->view->setWrapper("JournalApp");
+        }
     }
-    
-    
-    public function launch()
-    {
-        
+
+    public function launch() {
+
         echo $this->view->render();
     }
-    
-    public function addEntry()
-    {
+
+    public function addEntry() {
         $this->model->setContent($_POST['content']);
         $this->model->setTime();
         $this->model->setIP();
         $this->model->setInvisible(FALSE);
-        $this->model->setPassKey($_POST['passkey']);
-        
+        $this->model->setPassCode($_POST['passkey']);
+
         /*
          * User must attatch one emotion atleast
          */
-        $this->model->addEmotion(explode(',' , $_POST['emotion']));
-        
+        $this->model->addEmotion(explode(',', $_POST['emotion']));
+
         $this->model->create();
-        
-        $this->view->setMode(Render::MODE_FRAGMENT);
+
         $this->view->addModel($this->model->xmlSerialize());
-        
+
+        //var_dump($this->view);
+
         echo $this->view->render();
     }
-    
-    public function openToday()
-    {
-        $journal=new Journal();
+
+    public function openToday() {
+        $journal = new Journal();
         //Change contentStorage to accomodate type of object it can store
-        $journalStore=  Journal::listing($journal, array('time'=>'today'));
-        
+        $journalStore = Journal::listing($journal, array('time' => 'today'));
+
         $this->view->addModel($journalStore->xmlSerialize());
         echo $this->view->render();
-        
-        
     }
+
 }
 
 ?>

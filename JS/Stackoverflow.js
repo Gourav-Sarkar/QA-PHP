@@ -19,14 +19,19 @@
  * </inline-form>
  * 
  */
-/*
         
         
-        
-/*
-* [VERIFIED]
-* Real time content adding
-*/
+//Set up ajax request
+$.ajaxSetup({
+    headers: {
+        'X-Requested-With': 'AJAX'
+    }
+});
+
+/* [VERIFIED]
+    * Real time content adding
+    * @ PARAM needed 'realtime' class to input submit button to work activate it
+    */
 $("form input.realTime")
     .click(
         function(e)
@@ -53,12 +58,16 @@ $("form input.realTime")
             console.log($(form).html());
             console.log(url);
             console.log($(form).serialize());
+            
+            
+            
                 
             $.post(url
                 ,$(form).serialize()
                 ,function(data)
                 {
                     //get the data and append it in holder
+                    //@todo parameter constraint on append and prepend
                     $(holderTarget).append(data);
                     //@debug data
                     console.log('data',data);
@@ -74,9 +83,9 @@ $("form input.realTime")
             
 
 /*
-             * General Modal dialouge
-             * Niche delete content
-             */
+ * General Modal dialouge
+ * Niche delete content
+ */
 $("body")
     .on("click"
         ,".btn-confirm"
@@ -117,8 +126,8 @@ $("body")
         );
    
 /*
-    * Ajax creation of content
-    */
+ * Ajax creation of content
+ */
    
         
 //$.fn.editable.defaults.toggle="manual";
@@ -141,12 +150,12 @@ $("body").on(
         
         //create anchor node
         /*
-         * Click on document closes the popup. so when click is occured in any dom
-         * element it will popogate to upper node and when it reaches the body
-         * it will close the popup immidtately. so no popup will be shown there
-         * 
-         * In case of non 'manual' option it handles it internally
-         */
+     * Click on document closes the popup. so when click is occured in any dom
+     * element it will popogate to upper node and when it reaches the body
+     * it will close the popup immidtately. so no popup will be shown there
+     * 
+     * In case of non 'manual' option it handles it internally
+     */
         e.stopPropagation();
         
         $("#"+target).find(".inline-edit").editable('toggle');      //marker

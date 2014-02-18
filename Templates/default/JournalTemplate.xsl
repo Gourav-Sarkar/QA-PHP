@@ -62,19 +62,28 @@
     
     
     <xsl:template match="JournalStorage">
-        <div>
+        <div id="JournalEntryStorage">
             <xsl:apply-templates select="journal" />
         </div>
     </xsl:template>
     
     <xsl:template name="createForm">
-        <form method="post" class="block">
+        <!-- Unique attribute -->
+        <form id="JournalEntryForm" method="post" class="block">
             <xsl:attribute name="action">
                 <xsl:call-template name="getLink">
                     <xsl:with-param name="module">journal</xsl:with-param>
                     <xsl:with-param name="action">addEntry</xsl:with-param>
                 </xsl:call-template>
             </xsl:attribute>
+            
+            <div class="row-fluid">
+                <p class="lead">
+                    <i class="icon-calendar"/>
+                    <xsl:value-of select="php:function('date','h:i A')" />
+                </p>
+                <hr/>
+            </div>
             
             <textarea name="content" class="span12"></textarea>
             <!-- Emotions -->
@@ -93,12 +102,17 @@
             </select>
             
             <span>Share</span>
-            <span>Facebook</span><input type="checkbox" name="share[]" value="Facebook" />
-            <span>Twitter</span><input type="checkbox" name="share[]" value="Twitter" />
-            <span>Google+</span><input type="checkbox" name="share[]" value="Googleplus" />
-            <span>Email</span><input type="checkbox" name="share[]" value="Email" />
+            <span>Facebook</span>
+            <input type="checkbox" name="share[]" value="Facebook" />
+            <span>Twitter</span>
+            <input type="checkbox" name="share[]" value="Twitter" />
+            <span>Google+</span>
+            <input type="checkbox" name="share[]" value="Googleplus" />
+            <span>Email</span>
+            <input type="checkbox" name="share[]" value="Email" />
                 
-            <input type="submit" name="create" value="create"  />
+            <input type="submit" data-loading-text="Commenting.." data-holder="#JournalEntryStorage" class="btn realTime" name="create" value="create" />
+
             <hr/>
             <!-- 
             share public

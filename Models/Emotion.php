@@ -48,6 +48,7 @@ class Emotion extends AbstractAnnonymosTitledContent{
     }
     
     /*
+     * @todo Bulk validation Move to corresponding Storage
      * @return boolean true/false
      * @throw NoEntryFoundException
      */
@@ -71,8 +72,10 @@ class Emotion extends AbstractAnnonymosTitledContent{
         $this->isValidEmotion();
         
         //get Node list
-        $this->setContent($this->emotionData[0]->emotion);
-        $this->setID($this->emotionData[0]->emotion['id']);
+        $xmlNode=$this->emotionData[0];
+        
+        $this->setContent($xmlNode);
+        $this->setID($xmlNode['id']);
         
         var_dump($this);
         

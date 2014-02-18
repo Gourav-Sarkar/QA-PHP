@@ -75,3 +75,5 @@ namespace conflict in model xml
 1) Storages needs crud operation: creating storages should aggregate all insert 
     make one query
 2) Some of abstract class should be moved as trait for convenience
+3) Make global default Storage. Storage should handle JS functionality marking 
+    (Like adding id to holder with templating)

@@ -59,8 +59,8 @@
                                 <!-- user could have nested values -->
                                 <xsl:apply-templates select="user" mode="inline-summary" />
                                 <p>
-                                - 
-                                <xsl:value-of select="php:function('utility::timeDiff',time)" />
+                                    - 
+                                    <xsl:value-of select="php:function('utility::timeDiff',time)" />
                                 </p>
                                 <!-- <xsl:value-of select="php:function('utility::getLink',String(.),'action')" /> -->
                                 <!--
@@ -105,6 +105,8 @@
                     <!-- Comment section of Question -->
                     <div class="row-fluid offset1 span11">
                         <!--comment template goes here -->
+                        
+                        <!--Storage id-->
                         <div id="QuestionCommentStorage">
                             <xsl:apply-templates select="CommentStorage" />
                         </div>

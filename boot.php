@@ -15,5 +15,5 @@ spl_autoload_register(function($name)
                     , true);
  /* 
  */
-var_dump("BOOTING");
+//var_dump("BOOTING");
 ?>
