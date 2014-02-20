@@ -13,11 +13,10 @@
 class Tag extends AbstractContent{
     //put your code here
     private $dependency;
-    private $name;
-    
+    private $title;
     //AbstractContent::$content used here as description of tag
     
-    public function __construct(AbstractContent $reference)
+    public function __construct(AbstractAnnonymosContent $reference)
     {
         parent::__construct();
 
@@ -25,15 +24,18 @@ class Tag extends AbstractContent{
         $this->crud->setFieldCache(get_class($reference));
     }
     
-    public function setName($name)
+    /*
+     * @todo should be moved into trait
+     */
+    public function setTitle($title)
     {
-        $this->crud->setFieldCache("name");
-        $this->name=$name;
+        $this->crud->setFieldCache("title");
+        $this->title=$title;
     }
     
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
     
     /*

@@ -88,9 +88,9 @@
             <textarea name="content" class="span12"></textarea>
             <!-- Emotions -->
             <span>Emotion</span>
-            <input type="text" name="emotion" value=""  />
+            <input type="text" name="emotions" value=""  />
             <span>Tag</span>
-            <input type="text" name="tag" value=""  />
+            <input type="text" name="tags" value=""  />
             <span>Passkey</span>
             <input type="text" name="passkey" value=""  />
             

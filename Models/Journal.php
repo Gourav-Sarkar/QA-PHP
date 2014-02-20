@@ -6,10 +6,11 @@
  */
 require_once 'abstracts/AbstractAnnonymosContent.php';
 require_once 'models/emotion.php';
+require_once 'models/tag.php';
 
 require_once 'storages/journalStorage.php';
 require_once 'storages/EmotionStorage.php';
-require_once 'storages/ArticleStorage.php'; //fake
+require_once 'storages/tagStorage.php'; //fake
 require_once 'storages/DefaultContentStorage.php';
 /**
  * Description of Journal
@@ -30,9 +31,9 @@ class Journal extends AbstractAnnonymosContent{
     public function __construct() {
         parent::__construct();
         
-        $this->pictures=new ArticleStorage("article");
+        $this->pictures=new SplObjectStorage();
         $this->emotions=new EmotionStorage("emotion");
-        $this->tags=new ArticleStorage("article");
+        $this->tags=new tagStorage("tag");
         
     }
 
@@ -50,7 +51,7 @@ class Journal extends AbstractAnnonymosContent{
     /*
      * @PARAM array
      */
-    public function addEmotion($emotions)
+    public function addEmotion(array $emotions)
     {
         foreach($emotions as $emotion)
         {
@@ -59,6 +60,18 @@ class Journal extends AbstractAnnonymosContent{
             $emObj->populate();
             $this->emotions->attach($emObj, $emObj);
         }
+        //Add to map
+    }
+    
+    public function addTag(array $tags)
+    {
+        foreach($tags as $tag)
+        {
+            $tagObject=new Tag($this);
+            $tagObject->setTitle($tag);
+            $this->tags->attach($tagObject, $tagObject);
+        }
+        //Add to map
     }
     
     /*

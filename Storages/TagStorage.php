@@ -15,7 +15,7 @@ require_once 'models/tag.php';
 class tagStorage extends AbstractContentObjectStorage{
     //put your code here
    public function getHash($object) {
-      return (string)$object->getName();
+      return (string)$object->getTitle();
    }
 }
 

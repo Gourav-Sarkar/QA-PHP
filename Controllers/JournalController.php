@@ -40,7 +40,8 @@ class JournalController extends AbstractController {
         /*
          * User must attatch one emotion atleast
          */
-        $this->model->addEmotion(explode(',', $_POST['emotion']));
+        $this->model->addEmotion(explode(',', $_POST['emotions']));
+        $this->model->addTag(explode(',',$_POST['tags']));
 
         $this->model->create();
 

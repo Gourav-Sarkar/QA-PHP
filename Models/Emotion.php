@@ -59,7 +59,7 @@ class Emotion extends AbstractAnnonymosTitledContent{
         //var_dump(x$q);
         
         $this->emotionData=$this->emotionList->xpath(sprintf($xq, $this->title));
-        var_dump($this->emotionData);
+        //var_dump($this->emotionData);
         if(empty($this->emotionData))
         {
             throw new NoEntryFoundException("There is no such emotion enlisted");
@@ -77,7 +77,7 @@ class Emotion extends AbstractAnnonymosTitledContent{
         $this->setContent($xmlNode);
         $this->setID($xmlNode['id']);
         
-        var_dump($this);
+        //var_dump($this);
         
     }
 }
