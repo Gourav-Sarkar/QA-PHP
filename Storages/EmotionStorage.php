@@ -12,6 +12,17 @@ require_once 'abstracts/AbstractContentObjectStorage.php';
  */
 class EmotionStorage extends AbstractContentObjectStorage{
     //put your code here
+    /*
+    public function getHash($object) {
+        assert('$object instanceof ' . $this->storageType);
+        $id = $object->getEmotion();
+        //echo $id;
+        //Ensure id is there
+        assert('!empty($id);');
+        return (string) $id;
+    }
+     * 
+     */
 }
 
 ?>

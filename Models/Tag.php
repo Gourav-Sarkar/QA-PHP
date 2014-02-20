@@ -5,19 +5,20 @@
  * and open the template in the editor.
  */
 
+require_once 'interfaces/DatabaseInteractbleInterface.php';
 /**
  * Description of Tag
  *
  * @author Gourav Sarkar
  */
-class Tag extends AbstractContent{
+class Tag extends AbstractContent implements DatabaseInteractbleInterface{
     //put your code here
     private $dependency;
     private $name;
     
     //AbstractContent::$content used here as description of tag
     
-    public function __construct(AbstractContent $reference)
+    public function __construct(AbstractAnnonymosContent $reference)
     {
         parent::__construct();
 

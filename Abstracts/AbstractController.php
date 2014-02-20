@@ -38,7 +38,7 @@ abstract class AbstractController {
         }
 
 
-        var_dump($this->isAjax);
+        //var_dump($this->isAjax);
         //Common template for all module
         $this->view->addTemplate("user");
         $this->view->addTemplate("pagination");
