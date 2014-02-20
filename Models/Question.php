@@ -94,7 +94,6 @@ class Question
     
     
     private $votes;
-    private $views;
     
     //need verification about passing id param
     public function Question()
@@ -123,15 +122,6 @@ class Question
     }
     
     
-    
-   public function setViews($views)
-   {
-       $this->views=$views;
-   }
-   public function getViews()
-   {
-       return $views;
-   }
    
     public function setAnswerCount($count)
     {
@@ -178,19 +168,12 @@ class Question
             $this->tagList->attach($tagObj,$tagObj);
         }
     }
-    public function setPager(Pagination $pager)
-    {
-        $this->pager=$pager;
-    }
+    
     public function setObserver(RelayMediator $observers)
     {
         $this->observers=$observers;
     }
     
-    public function getPager()
-    {
-        return $this->pager;
-    }
     public function getTags()
     {
         return $this->tagList;
@@ -233,11 +216,6 @@ class Question
         /*
          * $this->observers->notify();
         */
-    }
-    
-    
-    public function editAnswer(\AnswerableInterface $answer) {
-        ;
     }
     
     /*

@@ -381,5 +381,41 @@
  <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
  <invisible>0</invisible>
 </journal>
+<journal>
+ <passCode/>
+ <emotions><EmotionStorage>
+ <storageType>emotion</storageType>
+ <pager/>
+</EmotionStorage>
+</emotions>
+ <tags><tagStorage>
+ <storageType>tag</storageType>
+ <pager/>
+</tagStorage>
+</tags>
+ <id>73</id>
+ <time>1392929953</time>
+ <ip>2130706433</ip>
+ <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
+ <invisible>0</invisible>
+</journal>
+<journal>
+ <passCode/>
+ <emotions><EmotionStorage>
+ <storageType>emotion</storageType>
+ <pager/>
+</EmotionStorage>
+</emotions>
+ <tags><tagStorage>
+ <storageType>tag</storageType>
+ <pager/>
+</tagStorage>
+</tags>
+ <id>74</id>
+ <time>1392929965</time>
+ <ip>2130706433</ip>
+ <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
+ <invisible>0</invisible>
+</journal>
 </JournalStorage>
 </data></pageRoot>
