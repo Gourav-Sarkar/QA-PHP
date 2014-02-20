@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pageRoot mode="DOCUMENT"><meta><user>
+<pageRoot mode="FRAGMENT"><meta><user>
  <id>14</id>
  <nick>gourav</nick>
  <reputation>105</reputation>
@@ -198,10 +198,7 @@
  <content/>
  <invisible>0</invisible>
 </user>
-</meta><data name="JournalApp"><JournalStorage>
- <storageType>journal</storageType>
- <pager/>
-<journal>
+</meta><data><journal>
  <passCode/>
  <pictures><ArticleStorage>
  <storageType>article</storageType>
@@ -211,128 +208,29 @@
  <emotions><EmotionStorage>
  <storageType>emotion</storageType>
  <pager/>
+<emotion>
+ <Dependency>
+  <journal>59</journal>
+ </Dependency>
+ <rating/>
+ <title>sad</title>
+ <id>2</id>
+ <time/>
+ <ip/>
+ <content/>
+ <invisible>0</invisible>
+</emotion>
 </EmotionStorage>
 </emotions>
- <tags/>
- <id>63</id>
- <time>1392862968</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
+ <tags><ArticleStorage>
  <storageType>article</storageType>
  <pager/>
 </ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>64</id>
- <time>1392862982</time>
+</tags>
+ <id>59</id>
+ <time>1392648415</time>
  <ip>2130706433</ip>
  <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
+ <invisible/>
 </journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
- <storageType>article</storageType>
- <pager/>
-</ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>65</id>
- <time>1392868678</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
- <storageType>article</storageType>
- <pager/>
-</ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>66</id>
- <time>1392868794</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
- <storageType>article</storageType>
- <pager/>
-</ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>67</id>
- <time>1392868809</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
- <storageType>article</storageType>
- <pager/>
-</ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>68</id>
- <time>1392868845</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-<journal>
- <passCode/>
- <pictures><ArticleStorage>
- <storageType>article</storageType>
- <pager/>
-</ArticleStorage>
-</pictures>
- <emotions><EmotionStorage>
- <storageType>emotion</storageType>
- <pager/>
-</EmotionStorage>
-</emotions>
- <tags/>
- <id>69</id>
- <time>1392868863</time>
- <ip>2130706433</ip>
- <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
- <invisible>0</invisible>
-</journal>
-</JournalStorage>
 </data></pageRoot>

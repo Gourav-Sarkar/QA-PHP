@@ -11,7 +11,6 @@ require_once 'storages/journalStorage.php';
 require_once 'storages/EmotionStorage.php';
 require_once 'storages/ArticleStorage.php'; //fake
 require_once 'storages/DefaultContentStorage.php';
-require_once 'models/JournalTagMap.php';
 /**
  * Description of Journal
  *
@@ -33,7 +32,7 @@ class Journal extends AbstractAnnonymosContent{
         
         $this->pictures=new ArticleStorage("article");
         $this->emotions=new EmotionStorage("emotion");
-        $this->tags=new JournalTagMap($this,new Tag($this));
+        $this->tags=new ArticleStorage("article");
         
     }
 
@@ -58,10 +57,7 @@ class Journal extends AbstractAnnonymosContent{
             $emObj=new Emotion($this);
             $emObj->setTitle($emotion);
             $emObj->populate();
-            
-            //Replace with storage create for optimisation
             $this->emotions->attach($emObj, $emObj);
-            $emObj->create();
         }
     }
     

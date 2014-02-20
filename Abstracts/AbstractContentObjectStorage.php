@@ -10,13 +10,12 @@ require_once 'Interfaces/RenderbleInterface.php';
 require_once 'Interfaces/XMLserializeble.php';
 require_once 'Models/Pagination.php';
 
-require_once 'interfaces/DatabaseInteractbleInterface.php';
 /**
  * Description of AbstractContentObjectStorage
  *
  * @author Gourav Sarkar
  */
-abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble,DatabaseInteractbleInterface {
+abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble {
 
     //put your code here
     //use RenderbleTrait;
