@@ -177,6 +177,7 @@
     GET link
     @PARAM currentNode Either a node or a string represnting node name
     @PARAM action String 
+    @todo PArtial link generation
     -->
     <xsl:template name="getLink">
         

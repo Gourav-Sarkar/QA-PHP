@@ -16,12 +16,11 @@ require_once 'Exception/noEntryFoundException.php';
  */
 class CRUDobject implements CRUDLInterface {
     //put your code here
-    const QFRAG_IDF_MAIN='main';
-    const QFRAG_IDF_LIMIT='limit';
-    const QFRAG_IDF_PAGER='pager';
-    const QFRAG_IDF_WHERE='where';
-    
-    
+
+    const QFRAG_IDF_MAIN = 'main';
+    const QFRAG_IDF_LIMIT = 'limit';
+    const QFRAG_IDF_PAGER = 'pager';
+    const QFRAG_IDF_WHERE = 'where';
     const TYPE_IDF = '@type';
     const COMP_IDF = 'rootClass';
     const DATA_IDF = '@data';
@@ -78,15 +77,18 @@ class CRUDobject implements CRUDLInterface {
                     /* get id of objects who have an private identifier
                      * Could be constrained to an interface or abstract class Later
                      */
-                    if (is_object($conjObj = $this->dependency->{"get{$key}"}())) {
+                    $conjObj = $this->dependency->{"get{$key}"}();
+                    if (is_object($conjObj)) {
+                        if ($conjObj instanceof AbstractMap)
+                            assert('!is_null($conjObj->getID())');
                         $value = $conjObj->getID();
                     } else {
-                        $value = $this->dependency->{"get{$key}"}();
+                        $value = $conjObj;
                     }
                 }
         );
 
-        //var_dump($fieldCache);
+        var_dump($fieldCache);
         //var_dump(static::$connection);
 
         $data = implode(',', array_map(function($key) {
@@ -98,15 +100,29 @@ class CRUDobject implements CRUDLInterface {
         );
 
 
+
         //var_dump($data);
-        $query = sprintf("INSERT INTO %s SET $data", get_class($this->dependency), $data);
+        $query = sprintf("INSERT INTO %s SET $data", (string) $this->dependency, $data);
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         //var_dump($fieldCache);
-
+        //var_dump($query);
+        /*
+         * Handle Abstract Map
+         * "mapClassName"
+         */
+        /*
+          if ($this->dependency instanceof AbstractMap) {
+          foreach ($fieldCache as $idf => $val) {
+          var_dump($idf,$val);
+          $stmt->bindValue(":$idf", $val->getID());
+          }
+          } else {
+         */
         foreach ($fieldCache as $idf => $val) {
             //var_dump(":$idf=>$val");
             $stmt->bindValue(":$idf", $val);
         }
+        //}
         //echo $stmt->queryString;
         $retVal = $stmt->execute();
 
@@ -235,7 +251,7 @@ class CRUDobject implements CRUDLInterface {
         //$query=sprintf("DELETE FROM %s WHERE %s",get_class($this),$condition);
         //Flip array
         $fieldCache = array_flip($this->fieldCache);
-
+        //var_dump($this->fieldCache);
         //var_dump($fieldCache);
         //walk through array and set value by the key name
         array_walk($fieldCache, function(&$value, $key) {
@@ -397,7 +413,7 @@ class CRUDobject implements CRUDLInterface {
          */
 
         //var_dump($fieldCache);
-        var_dump($query);
+        //var_dump($query);
 
         $stmt = DatabaseHandle::getConnection()->prepare($query);
         $stmt->execute($fieldCache);
@@ -542,13 +558,13 @@ class CRUDobject implements CRUDLInterface {
          * @todo
          * Change to autoated initializing
          */
-        $query[static::QFRAG_IDF_LIMIT]= '';
-        $query[static::QFRAG_IDF_MAIN]='';
-        $query[static::QFRAG_IDF_WHERE]='';
-        
+        $query[static::QFRAG_IDF_LIMIT] = '';
+        $query[static::QFRAG_IDF_MAIN] = '';
+        $query[static::QFRAG_IDF_WHERE] = '';
+
         $fields = array();
         $tables = array();
-        $sqlRowCal='';
+        $sqlRowCal = '';
         //var_dump($reference);
 
         $dataStructure[static::DATA_IDF] = CRUDobject::makeStructure($reference);
@@ -582,42 +598,39 @@ class CRUDobject implements CRUDLInterface {
 
          * 
          */
-        var_dump($dataStructure);
+        //var_dump($dataStructure);
         $fields = CRUDobject::extractFields($dataStructure, (string) $reference);
-        var_dump($fields);
-
-        var_dump($dataStructure);
+        //var_dump($fields);
+        //var_dump($dataStructure);
         $tables = CRUDobject::extractTableRelation($dataStructure, (string) $reference);
-        var_dump($tables);
+        //var_dump($tables);
 
-        
+
         /*
          * Adds limit clause
          */
-        if(!empty($args['pager']) && $args['pager'] instanceof Pagination)
-        {
-            $sqlRowCal='SQL_CALC_FOUND_ROWS';
-            $query[static::QFRAG_IDF_LIMIT]=sprintf("limit %s,%s", $args['pager']->getOffset(),$args['pager']->getLimit());
+        if (!empty($args['pager']) && $args['pager'] instanceof Pagination) {
+            $sqlRowCal = 'SQL_CALC_FOUND_ROWS';
+            $query[static::QFRAG_IDF_LIMIT] = sprintf("limit %s,%s", $args['pager']->getOffset(), $args['pager']->getLimit());
         }
 
-        
+
         $query['main'] = sprintf("SELECT %s %s FROM %s AS %s"
-                ,$sqlRowCal
+                , $sqlRowCal
                 , implode(',', $fields)
                 , (string) $reference
                 , (string) $reference
         );
-        
+
         /*
          * If there is any asscociated table include it
          */
-        if(!empty($tables))
-        {
-            $query['main']=sprintf('%s %s',$query['main'],  implode(',', $tables));
+        if (!empty($tables)) {
+            $query['main'] = sprintf('%s %s', $query['main'], implode(',', $tables));
         }
         //LEFT OUTER JOIN ['tableNamae] AS ['alias]
-        
-        
+
+
         return $query;
     }
 
@@ -755,7 +768,6 @@ class CRUDobject implements CRUDLInterface {
                 //var_dump("verified set{$property} $value");
                 $stacks['object'][$identifier]->{"set{$property}"}($value);
                 //var_dump("Stack" ,$stacks['object'][$identifier]);
-
                 //Uses reflection to set up a object
                 /*
                   $reflProp = $stacks['reflection'][$identifier]->getProperty($property);
@@ -768,7 +780,7 @@ class CRUDobject implements CRUDLInterface {
 
             //$classes[]=new $className();
         }
-        var_dump('total',count($stacks['object']));
+        //var_dump('total', count($stacks['object']));
 
         return $stacks['object'];
     }

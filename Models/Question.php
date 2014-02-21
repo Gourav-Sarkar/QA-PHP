@@ -85,13 +85,6 @@ class Question
     private $selectedAnswer;
      
     private $observers;
-    /*
-     * Pager object used to paginate question objects
-     * @todo Check the usage of $pager. Most probably it is limited to Question::listing() which is static
-     */
-    private $pager;
-    
-    
     
     private $votes;
     
@@ -163,7 +156,7 @@ class Question
          foreach($tagList as $tag)
         {
             $tagObj = new Tag($this); 
-            $tagObj->setName($tag);
+            $tagObj->setTitle($tag);
             
             $this->tagList->attach($tagObj,$tagObj);
         }
@@ -459,7 +452,7 @@ class Question
             $question->setID($data['id']);
             $question->setTags($data['tags']);
             $question->setTime($data['time']);
-            $question->setViews($data['views']);
+            //$question->setViews($data['views']);
             $question->setTitle($data['title']);
             $question->setAnswerCount($data['answerCount']);
             $question->setUser($user);

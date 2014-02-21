@@ -12,16 +12,16 @@
  */
 class Tag extends AbstractContent{
     //put your code here
-    private $dependency;
+    //private $dependency;
     private $title;
     //AbstractContent::$content used here as description of tag
     
-    public function __construct(AbstractAnnonymosContent $reference)
+    public function __construct()
     {
         parent::__construct();
 
-        $this->dependency=new DependencyObject($reference);
-        $this->crud->setFieldCache(get_class($reference));
+        //$this->dependency=new DependencyObject($reference);
+        //$this->crud->setFieldCache(get_class($reference));
     }
     
     /*
@@ -38,6 +38,14 @@ class Tag extends AbstractContent{
         return $this->title;
     }
     
+    
+    /*
+     * Replace it with some magic method
+     */
+    public function getJournal()
+    {
+        return $this->dependency->getReference();
+    }
     /*
     public function getQuestion()
     {
