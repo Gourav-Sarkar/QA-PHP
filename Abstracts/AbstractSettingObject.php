@@ -90,7 +90,7 @@ abstract class AbstractSettingObject
         throw new BadMethodCallException();;
     }
     
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=  array()) {
         throw new BadMethodCallException();;
     }
     

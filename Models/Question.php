@@ -15,13 +15,17 @@ require_once 'Pagination.php';
 require_once 'Answer.php';
 require_once 'QuestionComment.php';
 require_once 'AnswerComment.php';
-require_once 'AnswerStorage.php';
-require_once 'commentStorage.php';
-require_once 'RevisionStorage.php';
+
+
+require_once DOCUMENT_ROOT . 'Storages/AnswerStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/commentStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/RevisionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/QuestionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/tagStorage.php';
+
 require_once 'QuestionRevision.php';
 require_once 'tagQuestionMapper.php';
-require_once 'tagStorage.php';
-require_once 'QuestionStorage.php';
+require_once 'QuestionVote.php';
 require_once 'interfaces/RelayInterface.php';
 require_once 'QuestionCache.php';
 require_once 'RelayMediator.php';
@@ -43,9 +47,8 @@ require_once 'Reputation.php';
 class Question 
     extends AbstractQuestion
     implements SplSubject
-                ,RenderbleInterface
                 ,RelayInterface
-                //VoteableInterface,
+                ,VoteableInterface
                 //CommentableInterface,
                 //AnswerableInterface,
                 //ListbleInterface,
@@ -82,12 +85,8 @@ class Question
     private $selectedAnswer;
      
     private $observers;
-    /*
-     * Pager object used to paginate question objects
-     * @todo Check the usage of $pager. Most probably it is limited to Question::listing() which is static
-     */
-    private $pager;
     
+    private $votes;
     
     //need verification about passing id param
     public function Question()
@@ -99,12 +98,13 @@ class Question
         /*
          * Set up a object storage for answer and comment list
          */
-        $this->answerList=new AnswerStorage();
-        $this->commentList=new CommentStorage();
-        $this->revisionList=new RevisionStorage();
-        $this->tagList=new tagStorage();
+        $this->answerList=new AnswerStorage('Answer');
+        $this->commentList=new CommentStorage('QuestionComment');
+        $this->revisionList=new RevisionStorage('QuestionRevision');
+        $this->tagList=new tagStorage('tag');
+        $this->votes=new VoteStorage('QuestionVote');
         //
-        $this->revisions=new QuestionStorage();
+        $this->revisions=new QuestionStorage('Question');
         $this->selectedAnswer=new Answer($this);
         
         $this->observers=new RelayMediator();
@@ -113,7 +113,6 @@ class Question
        
         //$this->SetfieldCache("votes");
     }
-    
     
     
    
@@ -135,6 +134,8 @@ class Question
     
     /*
      * @PARAM $tags comma seperated string 
+     * @todo Verify tag do exists in database which is being mapped. mysql error
+     *  1452
      */
     public function setTags($tags)
     {
@@ -155,24 +156,17 @@ class Question
          foreach($tagList as $tag)
         {
             $tagObj = new Tag($this); 
-            $tagObj->setName($tag);
+            $tagObj->setTitle($tag);
             
             $this->tagList->attach($tagObj,$tagObj);
         }
     }
-    public function setPager(Pagination $pager)
-    {
-        $this->pager=$pager;
-    }
+    
     public function setObserver(RelayMediator $observers)
     {
         $this->observers=$observers;
     }
     
-    public function getPager()
-    {
-        return $this->pager;
-    }
     public function getTags()
     {
         return $this->tagList;
@@ -182,27 +176,31 @@ class Question
     
     public function addAnswer(Answer $answer)
     {
-        $this->answerList->attach($answer,$answer);
         $answer->create();
+        $this->answerList->attach($answer,$answer);
     }
     
     public function addComment(AbstractComment $comment)
     {
-        //echo($this->setting->get('commentEnable'));
-        //Check Setting for adding comments
-        if(!$this->setting->get('commentEnable'))
+        //Check Setting for adding commentss
+        /*
+        if(!$this->setting->get("$this/commentEnable"))
         {
             //Debug purpose
             //trigger_error('Comenting closed by admin');
             throw new PermissionDeniedException("Commenting is closed by admin");
         }
-        //Add comments to current question
-        $this->commentList->attach($comment,$comment);
+         * 
+         */
         
         //Create Comment
         $comment->create();
         
         $comment->getQuestion()->read();
+        
+        
+        //Add comments to current question
+        $this->commentList->attach($comment,$comment);
         
         /*
          * Set meessage for relaying message to observers
@@ -213,13 +211,9 @@ class Question
         */
     }
     
-    
-    public function editAnswer(\AnswerableInterface $answer) {
-        ;
-    }
-    
     /*
      * @Deprecated in favor of objectstorage
+     * Should return only the answer from current question object
      */
     public function getAnswers()
     {
@@ -239,11 +233,33 @@ class Question
     
     public function create()
     {
-        
+        //Call parent Constructor
         parent::create();
         
+        /*
+         * Create the tag map of the question
+         */
+        try
+        {
         $tagMap=new TagQuestionMapper($this);
         $tagMap->create();
+        }
+        catch(PDOException $e)
+        {
+            /*
+             * If foreign key constraints fails in 'TAG' column, That means that specified
+             * Tag is not available anymore.
+             * Either create that tag and try once more
+             *      User can create tag if certain rules and permission is true
+             * Or throw Some error and skip that insertion
+             * @Details TagQuestionMapper
+             */
+            //sscanf($e->getMessage(), " %s FOREIGN KEY (`%s`) REFERENCES `tag` (`name`) %s", $foo,$columnName,$bar);
+            var_dump('Exception error',$e->getMessage());
+        }
+        
+        
+        
         /*
         $cache =new QuestionCache($this);
         $cache->create();
@@ -327,10 +343,11 @@ class Question
     /*
      *  
      */
-    public static function listing(DatabaseInteractbleInterface $reference)
+    public static function listing(DatabaseInteractbleInterface $reference,$args=array())
     {
         //$calcFoundRows='';
-        $questions = new QuestionStorage();
+        $totTag=0;
+        $questions = new QuestionStorage('Question');
         
         $query="
             SELECT
@@ -355,6 +372,7 @@ class Question
                         A.question AS id
                         ,A.time AS time
                          FROM answer AS A
+                         WHERE A.invisible=0
                         )
                         UNION ALL
                         (
@@ -362,6 +380,7 @@ class Question
                         Q.id AS id
                         ,Q.time AS time
                         FROM question Q
+                        WHERE Q.invisible=0
                         )
                     )
                     AS tempTable
@@ -407,7 +426,7 @@ class Question
         //@DEBUG
         //var_dump($query);
         
-        $stmt=static::$connection->prepare($query);
+        $stmt=  DatabaseHandle::getConnection()->prepare($query);
               
         $i=1;
          foreach($tags as $tag)
@@ -433,7 +452,7 @@ class Question
             $question->setID($data['id']);
             $question->setTags($data['tags']);
             $question->setTime($data['time']);
-            $question->setViews($data['views']);
+            //$question->setViews($data['views']);
             $question->setTitle($data['title']);
             $question->setAnswerCount($data['answerCount']);
             $question->setUser($user);
@@ -451,33 +470,7 @@ class Question
         
         return $questions;
     }
-    
-    public function getLink($action)
-    {
-        $query=array();
-        
-        $queryString = parent::getLink($action);
-        
-        //return $queryString;
-        /*
-        foreach($this->tagList as $tag)
-        {
-            $query[]="tags[]=" . $tag->getName();
-        }
-        
-        if(!empty($query))
-        {
-            $queryString .= '&amp;' . implode("&amp;" , $query);
-        }
-        echo $queryString . '<hr/>';
-        /*
-        if(!empty($this->pager))
-        {
-            $queryString .= http_build_query(["page"=>  $this->pager->getPage()]);
-        }
-        */
-        return $queryString;
-    }
+   
     
     public function setSelectedAnswer($ans)
     {
@@ -549,9 +542,38 @@ class Question
         return $qstore;
     }
     
-    public function xmlSerialize() {
-        $xml=new XMLSerialize($this);
-        echo $xml->xmlSerialize();
+    
+    
+    public function setVotes($votes)
+    {
+        $this->votes->setVotes($votes);
+    }
+    
+    
+    public function getVotes()
+    {
+        return $this->votes->getVotes();
+    }
+    
+    
+    public function upVote($vote) {
+        
+        $vote=new QuestionVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_UP);
+        $vote->setWeight();
+        
+        $this->votes->attach($vote,$vote);
+    }
+    public function downVote($vote) {
+         $vote=new QuestionVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_DOWN);
+        $vote->setWeight();
+        
+        $this->votes->attach($vote,$vote);
     }
     
 }

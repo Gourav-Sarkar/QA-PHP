@@ -8,80 +8,77 @@
 //require_once 'RenderbleTrait.php';
 require_once 'Interfaces/RenderbleInterface.php';
 require_once 'Interfaces/XMLserializeble.php';
+require_once 'Models/Pagination.php';
+
 /**
  * Description of AbstractContentObjectStorage
  *
  * @author Gourav Sarkar
  */
-abstract class AbstractContentObjectStorage 
-extends SplObjectStorage 
-implements RenderbleInterface
-//,XMLSerializeble
-//implements ListbleInterface
-{
+abstract class AbstractContentObjectStorage extends SplObjectStorage implements XMLSerializeble {
+
     //put your code here
     //use RenderbleTrait;
+    protected $storageType;
+    /*
+     * Pagination $pager used to paginate objects
+     * Some object list dont need to paginate they need to show everything 
+     */
+    protected $pager;
+
+    /*
+     * @PARAM $objType must be a name of valid class
+     */
+
+    public function __construct($objType) {
+
+        if (empty($this->storageType)) {
+            $this->storageType = $objType;
+        }
+
+        //ObjectStorage must have declare its storage type
+        //assert('!empty($this->storage_type)');
+    }
+
+    /*
+     * 
+     */
+    public function setPager(Pagination $pager)
+    {
+        $this->pager = $pager;
+    }
     
-   //protected $reference;
-   //protected $connection;
-   
     public function getHash($object) {
-        $id=$object->getID();
+        assert('$object instanceof ' . $this->storageType);
+        $id = $object->getID();
         //echo $id;
         //Ensure id is there
-        //assert('empty($id);');
-        return (string)$id;
+        assert('!empty($id);');
+        return (string) $id;
     }
+
     /*
-    public function setReference(AbstractContent $obj)
-    {
-        $this->reference=$obj;
-    }
-    public function setConnection(PDO $con)
-    {
-        $this->connection=$con;
-    }
-    
-    abstract function getList();
-    */
-    /*
-     * It could be implemeted into iterator too
-     * Just looping the objectstorage will make the data render
+     * @CAUTION Can break xml serialization
      */
-    public function render(Template $template)
-    {
-        $output='';
-        //$i=0;
-        
-        //No entry in database
-        /*
-        if($this->count()<=0)
-        {
-            return "Default message";
-        }
-            */
-        //echo $this->count();
-        
-        foreach($this as $object)
-        {
-            //++$i;
-            //var_dump(get_Class($object));
-            //var_dump($object->getName());
-            $output .= $object->render($template);
-            //$output .= "VOILA";
-            //$output .= printr_($object,true);
-            //echo $output;
-        }
-       //echo $i;
-        return $output;
+
+    public function __toString() {
+        return get_class($this);
     }
-    
-    public function getLink($action) {
-        trigger_error(__METHOD__ . "Blocked", E_USER_ERROR);
-    }
-    
+
     public function xmlSerialize() {
+
+
+        $xmlSer = new XMLSerialize($this);
+        $xmlSer->getWriter()->startElement((string) $this);
+        $xmlSer->getWriter()->writeRaw($xmlSer->xmlSerialize());
+        foreach ($this as $content) {
+            $xmlSer->getWriter()->writeRaw($content->xmlSerialize());
+        }
+        $xmlSer->getWriter()->endElement();
+        //var_dump($xmlSer->xmlSerialize());
+        return $xmlSer->getWriter()->outputMemory(true);
     }
+
 }
 
 ?>

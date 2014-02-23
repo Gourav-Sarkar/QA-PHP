@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="setting.xsl"?>
 <!--
 Setting file will auto parseble and updateble
 each module (submodule) have tab
@@ -7,75 +6,175 @@ each node must have meta attribute or meta node
 
 First level is module
 Each module could have seperate setting file to include
+module name is unique
 -->
 
 
-<root>
-    <core type="module" meta="Core setting for system">
-        <social type="tab">
-            <!--Social integration-->
-            <facebook type="" meta="Intigrate facebook application with the system">
-                <appID type="int">537717556265847</appID>
-                <appKey type="string">73a48848a53a948e6f78fd96448406e1</appKey>
-            </facebook>
-            
-            <facebook meta="Intigrate twitter application with the system">
-                <appID></appID>
-                <appKey></appKey>
-            </facebook>
-            
-            <google meta="Intigrate google plus group with the system">
-                <appID></appID>
-                <appKey></appKey>
-            </google>
-        </social>
-    </core>
+<setting>
     
-    <file type="module">
+    <!--
+    # Core system setting
+    -->
+    <module name="core" enable="true" meta="Core setting for system">
+        <module name="social">
+            <!--
+            # Social integration
+            # data can be post on users wall
+            #data can be post on application page or group
+            -->
+            <module name="facebook" meta="Intigrate facebook application with the system">
+                <appID  heading="Application ID" meta="Unique application ID" type="text">537717556265847</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">73a48848a53a948e6f78fd96448406e1</appKey>
+            </module>
+            
+            <module name="google" meta="Intigrate google plus group with the system">
+                <!-- 
+                # endpoint: api.sandbox.paypal.com 
+                # Test account: gourav.sarkar13-facilitator@yahoo.com
+                -->
+                <appID heading="Application ID" meta="Unique application ID" type="text">AXdLExCuasEzL6i8joSXWRFQc89_uW3lbYxmmwRnw0QakU1gZ-yWrQ69ze0V</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">ELKTyBCC_EcWypC0AmGzQjTTJBt4qXPVEH9a-VFJVf402bytgKSJ7YYHrle8</appKey>
+            </module>
+        </module>
+        
+        <module name="merchent">
+            <module name="paypal">
+                <appID  heading="Application ID" meta="Unique application ID" type="text">1213131</appID>
+                <appKey heading="Application Key" meta="Uniqe application key" type="text">1212121212121</appKey>
+            </module>
+        </module>
+    </module>
+    
+    <module id="file" name="file" enable="true">
         <movie>
             <permitedExtension></permitedExtension>
             <location></location>
             <maxSize></maxSize>
             <permitedResolution></permitedResolution>
         </movie>
-    </file>
+    </module>
     
-    <question type="module">
-        <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
-        <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
-        <flagEnable  heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"></flagEnable>
-        <privateConversation meta="Toggle" type="toggle">1</privateConversation>
+    
+    <!--
+    # Question system setting
+    -->
+    <module id="question" name="question" enable="true">
+        <module id="questionCore" name="core">
+            <commentEnable heading="Comment Enable" meta="Enable or disable comment" type="toggle">1</commentEnable>
+            <votingEnable heading="Voting Enable" meta="Enable or disable voting" type="toggle">1</votingEnable>
+            <flagEnable  heading="Flagging Enable" meta="Enable or disable Flagging" type="toggle"></flagEnable>
+            <privateConversation meta="Toggle" type="toggle">1</privateConversation>
+            <selfEditeEnable  heading="Flagging Enable" meta="User can edit his post" type="toggle">1</selfEditeEnable>
+            <selfDeleteEnable heading="Flagging Enable" meta="User can delete his post" type="toggle">1</selfDeleteEnable>
+            <allowGuestQuestion meta="Guest can ask question or not" type="toggle">0</allowGuestQuestion>
+            <itemPerPage heading="Item per page" type="text">10</itemPerPage>
+        </module>
         
-        <itemPerPage>10</itemPerPage>
-        <categorizingScheme toggle='tag'> <!-- toggle value tag/category Now only tag is available-->
-            <tag>
-                <max>5</max> <!-- Maximum tag can be used -->
-                <min>1</min>
-            </tag>
-        </categorizingScheme>
-        <format>threaded</format> <!-- Threaded or tagged -->
-    </question>   
+        <module id="answer" name="answer" enable="true">
+            <module id="answerCore" name="core">
+                <commentEnable type="toggle">true</commentEnable>
+                <votingEnable type="toggle"></votingEnable>
+                <flaggingEnable type="toggle"></flaggingEnable>
+                <itemPerPage type="text">10</itemPerPage>
+            </module>
+            
+            
+            <module id="answerComment" name="comment">
+            
+                <module id="answerCommentCore" name="core">
+                    <votingEnable type="toggle">true</votingEnable>
+                    <flaggingEnable type="toggle">true</flaggingEnable>
+                    <itemPerPage>5</itemPerPage>
+                </module>
+            
+            
+                <module id="answerCommentVote" name ="votes">
+                
+                </module>
+            
+            
+                <module id="answerCommentReputation" name ="Reputation">
+                
+                </module>
+            
+            </module> 
+        
+            <module id="answerVote" name ="votes">
+                
+            </module>
+            
+            
+            <module id="answerReputation" name ="Reputation">
+                
+            </module>
+        
+        </module>
+            
+        
+        <module id="questionComment" name="Comment">
+            <module id="questionCommentCore" name="core">
+                <votingEnable type="toggle">true</votingEnable>
+                <flaggingEnable type="toggle">true</flaggingEnable>
+                <itemPerPage>5</itemPerPage>
+            </module>
+            
+            <module id="questionCommentVote" name ="votes">
+                
+            </module>
+            
+            
+            <module id="questionCommentReputation" name ="Reputation">
+                
+            </module>
+            
+        </module> 
+        
+         <module id="questionVote" name ="votes">
+                
+         </module>
+            
+            
+        <module id="questionReputation" name ="Reputation">
+                
+        </module>
+        
+    </module>   
      
-    <answer type="module">
+   
+    <module id="page" name="Page">
+        
+    </module>
+    
+     <module id="article" name="article" enable="true">
         <commentEnable type="toggle">true</commentEnable>
         <votingEnable type="toggle"></votingEnable>
         <flaggingEnable type="toggle"></flaggingEnable>
         <itemPerPage type="j">10</itemPerPage>
-    </answer>
+    </module>
     
-    <comment type="module">
-        <votingEnable>true</votingEnable>
-        <flaggingEnable>true</flaggingEnable>
-        <itemPerPage>5</itemPerPage>
-    </comment>
     
-    <notification type="module">
-        <target module="question">
-            <actor>true</actor>
-            <participant>true</participant>
-            <owner>true</owner>
-        </target>
-    </notification>
+    
+    
+     <module id="ticket" name="ticket" enable="true">
+        <commentEnable type="toggle">true</commentEnable>
+        <votingEnable type="toggle"></votingEnable>
+        <flaggingEnable type="toggle"></flaggingEnable>
+        <itemPerPage type="j">10</itemPerPage>
+    </module>
+    
+    
+    <module id="flag" name="flag" enable="true">
+        <falgReason>
+            <reason id="1">
+                <name>Offensive</name>
+            </reason>
+        </falgReason>
+    </module>
+    
+      
+    <module id="user" name="user" enable="true">
+        
+    </module>
     
     <!--
     Notiification used to notify user if some action is taken on some object
@@ -146,4 +245,4 @@ Each module could have seperate setting file to include
     -->
 
         
-</root>
+</setting>

@@ -12,40 +12,52 @@
  */
 class Tag extends AbstractContent{
     //put your code here
-    private $question;
-    private $name;
-    
+    //private $dependency;
+    private $title;
     //AbstractContent::$content used here as description of tag
     
-    public function __construct(AbstractContent $reference)
+    public function __construct()
     {
         parent::__construct();
 
-        $this->question=$reference;
-        $this->crud->setFieldCache(get_class($reference));
-        $this->dependency=  strtolower(get_class($reference));
+        //$this->dependency=new DependencyObject($reference);
+        //$this->crud->setFieldCache(get_class($reference));
     }
     
-    public function setName($name)
+    /*
+     * @todo should be moved into trait
+     */
+    public function setTitle($title)
     {
-        $this->crud->setFieldCache("name");
-        $this->name=$name;
+        $this->crud->setFieldCache("title");
+        $this->title=$title;
     }
     
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
     
+    
+    /*
+     * Replace it with some magic method
+     */
+    public function getJournal()
+    {
+        return $this->dependency->getReference();
+    }
+    /*
     public function getQuestion()
     {
-        return $this->question;
+        return $this->dependency;
     }
     
     public function getLink($action)
     {
-        return $this->question->getLink("getList")."&amp;tags[]={$this->name}";
+        return $this->dependency->getLink("getList")."&amp;tags[]={$this->name}";
     }
+     * 
+     */
     
    
     

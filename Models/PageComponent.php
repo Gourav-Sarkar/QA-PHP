@@ -11,7 +11,7 @@ require_once 'Abstracts/abstractPageComponent.php';
  * @author Gourav Sarkar
  */
 class PageComponent extends AbstractPageComponent{
-   
+ 
 }
 
 ?>

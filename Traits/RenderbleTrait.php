@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* @deprectated
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -34,7 +34,6 @@ trait RenderbleTrait{
     
     public function getLink($action)
     {
-        //echo "booooooo" . get_class($this);
         
         $link=["module"=>  get_class($this)
                                        ,  strtolower(get_class($this))=>$this->getID()

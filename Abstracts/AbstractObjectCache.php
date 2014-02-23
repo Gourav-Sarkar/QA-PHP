@@ -57,7 +57,7 @@ abstract class AbstractObjectCache
         return unserialize(apc_fetch($this->getKey()));
     }
     
-    public static function listing(DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
+    public static function listing(DatabaseInteractbleInterface $reference,  $args=array()) {
         ;
     }
 }

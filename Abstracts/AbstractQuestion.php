@@ -4,16 +4,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Abstracts/AbstractContent.php';
+require_once 'Storages/voteStorage.php';
+require_once 'interfaces/VoteableInterface.php';
 /**
  * Description of AbstractQuestion
  *
  * @author Gourav Sarkar
  */
 
-require_once 'Abstracts/AbstractContent.php';
 
-class AbstractQuestion extends AbstractContent{
+abstract class AbstractQuestion 
+extends AbstractContent 
+{
     //put your code here
     protected $title;
     

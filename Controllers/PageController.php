@@ -5,28 +5,62 @@
  * and open the template in the editor.
  */
 require_once 'Models/page.php';
+require_once 'Abstracts/AbstractController.php';
 /**
  * Description of PageController
  *
  * @author Gourav Sarkar
  */
-class PageController {
-    //put your code here
-    private $model;
+class PageController extends AbstractController {
     
     public function __construct() {
-        $this->model=new Page();
+        parent::__construct();
+        $this->model=new Page(); 
+        
+        /*
+         * Add static templates
+         */
+        //$this->view->addTemplate('Campaign');
+        
     }
     
     public function show()
     {
-        echo 'SHOW simple CMS page';
+        //echo 'SHOW simple CMS page';
         
-        $this->model->setID($_GET['page']);
+        $this->model->setTitle($_GET['page']);
         $this->model->read();
         
-        echo $this->model->render(new Template('cms-page'));
+        $this->view->addModel($this->model->xmlSerialize());
+        
+        $this->view->addTemplate($this->model->getTitle(),$this->model->getTemplate());
+        echo $this->view->render();
     }
+    
+    public function addComponent()
+    {
+        
+    }
+    public function edit()
+    {
+        //Get all components
+        //List out all component
+        $this->model->setID($_GET['page']);
+        $this->model->read();
+        $this->view->addModel($this->model->xmlSerialize());
+        
+        echo $this->view->render();
+    }
+    
+    public function addPage()
+    {
+        
+    }
+    public function removePage()
+    {
+        
+    }
+    
 }
 
 ?>

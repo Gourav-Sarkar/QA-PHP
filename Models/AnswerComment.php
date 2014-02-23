@@ -13,11 +13,9 @@ require_once 'Abstracts/AbstractComment.php';
 class AnswerComment extends AbstractComment{
     //put your code here
     
-    public function __construct(Answer $answer)
+    public function getAnswer()
     {
-        parent::__construct($answer);
-        //echo __METHOD__;
-        
+        return $this->dependency->getReference();
     }
 }
 

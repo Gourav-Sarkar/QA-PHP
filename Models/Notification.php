@@ -226,7 +226,7 @@ class Notification extends AbstractContent
     public function delete() {
        
     }
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=  array()) {
         ;
     }
     

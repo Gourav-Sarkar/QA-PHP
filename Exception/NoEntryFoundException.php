@@ -10,7 +10,7 @@
  *
  * @author Gourav Sarkar
  */
-class NoEntryFoundException extends Exception{
+class NoEntryFoundException extends RuntimeException{
     //put your code here
 }
 

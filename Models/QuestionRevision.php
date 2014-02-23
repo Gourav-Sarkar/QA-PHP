@@ -61,8 +61,8 @@ class QuestionRevision
     public function read() {
         return parent::read();
     }
-    public static function listing(DatabaseInteractbleInterface $content, Pagination $pager=null) {
-        $revisionStorage= new RevisionStorage();
+    public static function listing(DatabaseInteractbleInterface $content, $args=array()) {
+        $revisionStorage= new RevisionStorage('QuestionRevision');
         
         $query="SELECT
             qrev.*
@@ -75,7 +75,7 @@ class QuestionRevision
             WHERE qrev.question=?
             ";
         
-        $stmt=  static::$connection->prepare($query);
+        $stmt= DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1,$content->getID());
         $stmt->execute();
         
@@ -123,6 +123,13 @@ class QuestionRevision
     }
      /* 
      */
+    
+    public function upVote(\VoteableInterface $vote) {
+        ;
+    }
+    public function downVote(\VoteableInterface $vote) {
+        ;
+    }
 }
 
 ?>

@@ -5,9 +5,10 @@
  * and open the template in the editor.
  */
 require_once 'Interfaces/XMLSerializeble.php';
+
 /**
  * Description of XMLSerialize
- *
+ * @todo Need iprovement
  * @author Gourav Sarkar
  */
 class XMLSerialize implements XMLSerializeble {
@@ -18,6 +19,7 @@ class XMLSerialize implements XMLSerializeble {
 
     private $dependency;
     private $xmlResource;
+    private $filter = array();
 
     public function __construct(XMLSerializeble $obj) {
         $this->dependency = $obj;
@@ -30,47 +32,147 @@ class XMLSerialize implements XMLSerializeble {
         $this->xmlResource->startDocument(static::XML_VERSION, static::XML_ENCODING);
     }
 
+    public function getWriter() {
+        return $this->xmlResource;
+    }
+
+    /*
+     * Handle null value
+     * 
+     * @isssue array converting
+     */
+
     public function xmlSerialize() {
+
+
+
         $depRefl = new ReflectionObject($this->dependency);
-        var_dump($this->dependency);
+        //var_dump($this->dependency);
         /*
          * get All property
          */
         $props = $depRefl->getProperties();
 
+        //Different Writer
+        /*
+          $objWriter=new XMLWriter();
+          $objWriter->openMemory();
+          $objWriter->setIndent(true);
+          $objWriter->startElement((string) $this->dependency);
+         */
+
+
+
+        /*
+         * Traverse through each property of the object
+         */
         foreach ($props as $property) {
             $property->setAccessible(true);
 
+            /*
+             * If property is in filter list just skip it
+             */
+            if (in_array($property->name, $this->filter)) {
+                break;
+            }
+
             $propertyData = $property->getValue($this->dependency);
-            //var_dump($propertyData);
+
+
             /*
              * If data is scalar type show the value
+             * @NOTE currently array does not get serialized
+             *
              */
-            //echo 'Setting ' . $property->getName() . '<br/>';
-            if ($propertyData instanceof XMLSerializeble) {
-                
-                //var_dump((string)$propertyData, $this->xmlResource->writeRaw($propertyData->xmlSerialize()));
-                //echo "Setting object  ";
-                //var_dump('Nested data ' , $propertyData->xmlSerialize());
-                //$property->getName();
-                //var_dump('Dumping',(string)$propertyData,$propertyData->xmlSerialize());
-               $this->xmlResource->startElement($property->getName());
-               $this->xmlResource->writeRaw($propertyData->xmlSerialize());
-               $this->xmlResource->endElement();
-               
-            }
-            elseif(!is_object($propertyData))
-            {
+            if (!is_object($propertyData) && !is_array($propertyData)) {
                 //echo " Setting scalar data";
-                $this->xmlResource->writeElement($property->getName(),$propertyData);
+
+                /*
+                 * @NeedThinking
+                 * Handle Boolean value. As False does not get printed it needs to
+                 * convey its value. Boolean equivalant 1 or 0
+                 * 
+                 * Reason for commented:
+                 * Though it is intended for XSLT stylesheet it may not be nesacry to do this
+                 * As XSLT false represents empty nodes
+                 */
+                /*
+                  if(is_bool($propertyData))
+                  {
+                  $propertyData=1;
+                  if(!$propertyData)
+                  {
+                  $propertyData=0;
+                  }
+                  }
+                 * 
+                 */
+
+                //@todo $property data can be get via getter to get data constantly
+                //var_dump($propertyData);
+                    $this->xmlResource->writeElement($property->getName(), $propertyData);
+            } else {
+                /*
+                 * Handle different type of object
+                 * Dependency object and basic xmlSerializable object
+                 * Different object need to be serialized differently
+                 */
+                if ($propertyData instanceof DependencyObject) {
+                    $this->xmlResource->startElement("Dependency");
+                    $this->xmlResource->writeElement((string) $propertyData->getReference(), (string) $propertyData->getReference()->getID());
+                    $this->xmlResource->endElement();
+                } elseif ($propertyData instanceof XMLSerializeble) {
+
+                    //Calls content serialize methods
+                    $this->xmlResource->startElement($property->name);
+                    $this->xmlResource->writeRaw($propertyData->xmlSerialize());
+                    $this->xmlResource->endElement();
+                }
             }
-            
-            //echo '<hr/>';
         }
-        
+
+        //echo '<hr/>';
+        /*
+          if ($this->dependency instanceof AbstractContentObjectStorage) {
+          foreach ($this->dependency as $content) {
+          $this->xmlResource->writeRaw($content->xmlSerialize());
+          }
+          }
+         * 
+         */
+        /*
+          $objWriter->endElement();
+          $objWriter->WriteRaw($this->xmlResource->outputMemory(true));
+          return $objWriter->outputMemory(true);
+
+         * 
+         */
+
+        unset($this->filter);
         return $this->xmlResource->outputMemory(true);
     }
 
+    /*
+     * Filter properties from being serialized
+     */
+
+    public function addFilter($field) {
+        if (is_array($field)) {
+            $this->filter = array_merge($this->filter, $field);
+        } elseif (is_string($field)) {
+            $this->filter[] = $field;
+        } else {
+            throw UnexpectedValueException("Field must have array or string value");
+        }
+    }
+
+    /*
+      public function addData($content)
+      {
+      $this->xmlResource->writeRaw($content);
+      }
+     * 
+     */
 }
 
 ?>

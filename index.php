@@ -1,5 +1,5 @@
 <?php
-
+require_once 'boot.php';
 require_once "config.php";
 //xdebug_start_code_coverage();
 //xdebug_start_trace( DOCUMENT_ROOT . 'trace',XDEBUG_TRACE_HTML | XDEBUG_TRACE_COMPUTERIZED );
@@ -28,8 +28,8 @@ require_once 'util/utility.php';
 
 require_once 'models/user.php';
 require_once 'models/resource.php';
+require_once 'models/render.php';
 
-require_once 'template.php';
 
 session_start();
 
@@ -47,8 +47,7 @@ session_start();
  * 
  */
 
-
-//var_dump($_SESSION);
+//var_dump('session',$_SESSION);
 
 /*
  * Initialize system setting,error,message files
@@ -84,22 +83,22 @@ $resource->setAction($_GET['action']);
 //$resource->get();
 
 //var_dump($resource);
-//echo User::getActiveUser()->getRoles()->count();
-/*
-foreach(User::getActiveUser()->getRoles() as $role)
-{
-    var_dump($role->getTitle());
-}
-*/
+//var_dump(User::getActiveUser()->getRoles()->count());
+//var_dump('User',User::getActiveUser());
+//var_dump('Roles session' , $_SESSION['roles']);
+
+//var_dump(count(User::getActiveUser()->getRoles()));
+
 
 try
 {
     //User::getActiveUser()->hasPermission($resource); //Throw Permission denied
     $resource->get();
+    //var_dump(User::getActiveUser());
 }
  catch (PermissionDeniedException $e)
  {
-    //var_dump($e->getMessage());
+    var_dump($e->getMessage());
     
     /*
     if($resource->getModule()=='adminpanel')
@@ -114,7 +113,7 @@ try
      */
     $resource->get();
  } 
- 
+// var_dump(User::getActiveUser());
  
 //*/
 

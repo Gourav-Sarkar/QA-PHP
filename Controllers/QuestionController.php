@@ -12,14 +12,27 @@
  */
 require_once 'models/Question.php';
 require_once 'models/Notification.php';
-require_once 'models/NotificationStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/NotificationStorage.php';
+require_once 'Abstracts/AbstractController.php';
 
-class QuestionController {
+class QuestionController extends AbstractController {
 
     //put your code here
     private $question;
 
     public function QuestionController() {
+
+        parent::__construct();
+
+        /*
+         * Load dependent modules
+         */
+        $this->view->addTemplate("question");
+        $this->view->addTemplate("answer");
+        $this->view->addTemplate("comment");
+        //$this->view->addTemplate("user");
+        $this->view->addTemplate("vote");
+        $this->view->addTemplate("tag");
         //Without question There can't have any other action
         //There is though exception like when asking question those should be handled in static method
         /*
@@ -32,9 +45,10 @@ class QuestionController {
          */
         //Set global connection
         //require_once ''
-        AbstractContent::setConnection(DatabaseHandle::getConnection());
         //Question Controller must have Question object
         $this->question = new Question();
+        $this->question->setInvisible(false);
+
         (isset($_GET['question'])) ? $this->question->setID($_GET['question']) : '';
 
 
@@ -59,23 +73,26 @@ class QuestionController {
      */
 
     public function ask() {
-        require 'Templates/Question/Question-form-view.php';
 
         if (isset($_POST['ask'])) {
             $this->question->setTitle($_POST['title']);
             $this->question->setContent($_POST['content']);
-            $this->question->setUser($_SESSION['self']);
+            $this->question->setUser(User::getActiveUser());
             $this->question->setTags($_POST['tags']);
             $this->question->setTime();
             //var_dump($this->question);
 
 
             $this->question->create();
+
+
+            $this->view->setMode(RENDER::MODE_FRAGMENT);
+            $this->view->addModel($this->question->xmlSerialize());
+            echo $this->view->render();
         }
     }
 
     public function edit() {
-        require_once 'templates/Question-form-edit-view.html';
 
         $queryObj = new Question();
         $queryObj->setID($_GET['question']);
@@ -95,7 +112,6 @@ class QuestionController {
     public function answer() {
 
 
-        $this->question->setID($_GET['question']);
 
         $ans = new Answer($this->question);
         $ans->setUser($_SESSION['self']);
@@ -105,6 +121,10 @@ class QuestionController {
 
         //var_dump($this->question);
         $this->question->addAnswer($ans);
+
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->addModel($ans->xmlSerialize());
+        echo $this->view->render();
     }
 
     /*
@@ -113,15 +133,18 @@ class QuestionController {
 
     public function addComment() {
 
-        $this->question->setID($_GET['question']);
 
         $comment = new QuestionComment($this->question);
         $comment->setContent($_POST['content']);
         $comment->setTime();
-        $comment->setUser($_SESSION['self']);
+        $comment->setUser(User::getActiveUser());
 
         $this->question->addComment($comment);
         $this->question->relay(__FUNCTION__);
+
+        $this->view->setMode(RENDER::MODE_FRAGMENT);
+        $this->view->addModel($comment->xmlSerialize());
+        echo $this->view->render();
 
         /*
          * Relay event
@@ -131,16 +154,17 @@ class QuestionController {
     public function show() {
         //echo _("GETTEXT");
         //echo __METHOD__;
-
-        $this->question->setID($_GET['question']);
-        $this->question->setConnection(DatabaseHandle::getConnection());
-
         //Read should update the object instead of return any object
         try {
             $question = $this->question->read();
             //var_dump($question);
             //$question->updateView();
-            echo $question->render(new Template('Question'));
+
+            $this->view->addModel($question->xmlSerialize());
+            //$this->view->addSubModel(new Tag($reference));
+            echo $this->view->render();
+
+            //echo Utility::getLink($this->question,'doSomething');
 
             /*
              * @debug
@@ -161,10 +185,7 @@ class QuestionController {
             die("404 PAGE NOT FOUND");
         }
         //echo $template->render();
-        
-        
-        var_dump($this->question);
-        echo $this->question->xmlSerialize();
+        //var_dump($this->question);
     }
 
     public function getList() {
@@ -173,14 +194,25 @@ class QuestionController {
         /*
          * new Pagaination()
          */
-        echo __METHOD__;
-        
-        echo $this->question->render(new Template('Question-list'));
+        try {
+            $ques = new Question();
+
+            if (isset($_GET['tags'])) {
+                $ques->setTags(implode(',', $_GET['tags']));
+            }
+        } catch (Exception $e) {
+            //Ignore exception
+        }
+
+        $questions = Question::listing($ques);
+
+        $this->view->addModel($questions->xmlSerialize());
+
+        echo $this->view->render();
     }
 
     public function selectAnswer() {
 
-        $this->question->setID($_GET['question']);
 
         $ans = new Answer();
         $ans->setID($_GET['answer']);
@@ -191,27 +223,26 @@ class QuestionController {
         echo __METHOD__;
 
         //it needs transaction
-        $this->question->upvote();
+        $this->question->upvote(null);
     }
 
     public function downVote() {
         echo __METHOD__;
 
-        $this->question->downvote();
+        $this->question->downvote(null);
     }
 
     public function delete() {
         echo __METHOD__;
 
-        $this->question->setID($_GET['question']);
 
-        $this->question->setUser($_SESSION['self']);
-        $this->question->delete();
+
+        //$this->question->setUser(User::getActiveUser());
     }
 
     public function getRevisions() {
 
-        $this->question->setID($_GET['question']);
+
 
         $qrev = new QuestionRevision($this);
         echo $qrev->render(new Template("templates/question-revision-view.php"));
@@ -229,10 +260,6 @@ class QuestionController {
         echo __METHOD__;
     }
 
-    public function stream() {
-        header("content-type:text/xml");
-        echo $this->question->render(new Template('question-stream'));
-    }
 
     public function __destruct() {
         

@@ -4,31 +4,34 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Abstracts/abstractController.php';
+require_once 'Models/Question.php';
 /**
  * Description of QuestionCommentController
  *
  * @author Gourav Sarkar
  */
-class QuestionCommentController {
+class QuestionCommentController extends AbstractController {
     //put your code here
     private $questionComment;
     
-    public function __construct($module) {
-        echo "foo";
+    public function __construct() {
+        parent::__construct();
+
         $ques= new Question();
         $ques->setID($_GET['question']);
         
-        $this->questionComment=new QuestionComment($ques);
-        $this->questionComment->setID($_GET[$module]);
-        var_dump($this->questionComment);
-        $this->questionComment->setConnection(DatabaseHandle::getConnection());
+        $this->model=new QuestionComment($ques);
+        $this->model->setID($_GET['questioncomment']); //Add model __tostring()
     }
     
     public function delete()
     {
-        echo __METHOD__;
-        $this->questionComment->delete();
+        $comment = new QuestionComment(new Question());
+        $comment->setID($_GET['questioncomment']); //Add model __tostring()
+        
+        $this->model->setInvisible(TRUE);
+        $this->model->edit($comment);
     }
 }
 

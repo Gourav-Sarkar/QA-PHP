@@ -6,7 +6,7 @@
  */
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Models/PageComponent.php';
-require_once 'Models/pageComponentStorage.php';
+require_once 'Storages/pageComponentStorage.php';
 /**
  * Description of Page
  * 
@@ -17,18 +17,20 @@ require_once 'Models/pageComponentStorage.php';
  */
 class Page extends AbstractContent{
     //put your code here
-    private $meta;
-    private $componentList;
+    private $pageComponentList;
     private $title;
+    private $template;
     
     
     public function __construct() {
-        $this->componentList=new PageComponentStorage();
+        parent::__construct();
+
+        $this->componentList=new PageComponentStorage('pageComponent');
     }
     
     public function setTitle($title)
     {
-        $this->setFieldCache('title');
+        $this->crud->setFieldCache('title');
         $this->title=$title;
     }
     
@@ -54,47 +56,32 @@ class Page extends AbstractContent{
     public function read()
     {
         parent::read();
+        
+        $this->pageComponentList=  PageComponent::listing($this);
         /*
          * Get component listed in page
          */
-        $this->getComponents();
+        //$this->getComponents();
     }
     
-    private function getComponents()
+    public function getTemplate()
     {
-        $componentStorage=new PageComponentStorage();
-        
-        $query="SELECT
-            pc.* FROM
-            PageComponentMapper AS pcm
-            INNER JOIN pageComponent as pc
-            ON pcm.component=pc.id
-            WHERE pcm.page=?
-            ";
-        
-        $stmt=  DatabaseHandle::getConnection()->prepare($query);
-        $stmt->execute([$this->id]);
-        
-        while($data=$stmt->fetch(PDO::FETCH_ASSOC))
-        {
-            
-            $pageComponent=new PageComponent();
-            $pageComponent->setID($data['id']);
-            $pageComponent->setTitle($data['title']);
-            $pageComponent->setContent($data['content']);
-            
-            
-            //var_dump($pageComponent);
-            $this->componentList->attach($pageComponent,$pageComponent);
-        }
+        return $this->template;
     }
+    
+    /*
+     * @PARAM $templateLocation location of template
+     */
+    public function setTemplate($templateLocation)
+    {
+        $this->crud->setFieldCache("template");
+        $this->template=$templateLocation;
+    }
+    
     
     /*
      * Do not serialize pager object
      */
-    public function xmlSerialize() {
-        //parent::xmlSerialize();
-    }
 }
 
 ?>

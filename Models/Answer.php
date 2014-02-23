@@ -15,10 +15,13 @@
 require_once 'Abstracts/AbstractContent.php';
 require_once 'Pagination.php';
 require_once 'AnswerComment.php';
-require_once 'AnswerStorage.php';
-require_once 'commentStorage.php';
-require_once 'RevisionStorage.php';
-require_once 'QuestionStorage.php';
+require_once 'AnswerVote.php';
+
+require_once DOCUMENT_ROOT . 'Storages/AnswerStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/commentStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/RevisionStorage.php';
+require_once DOCUMENT_ROOT . 'Storages/QuestionStorage.php';
+
 require_once 'interfaces/RenderbleInterface.php';
 require_once 'DependencyObject.php';
 //require_once 'traits/DependebleTrait.php';
@@ -28,21 +31,20 @@ require_once 'DependencyObject.php';
  *
  * @author Gourav Sarkar
  */
-class Answer extends AbstractContent 
-//implements RenderbleInterface
-//,Serializable
-//implements CommentableInterface,
+class Answer extends AbstractContent
+implements 
+//RenderbleInterface
+//,Serializable implements
+//CommentableInterface,
 //ListbleInterface,
-//VoteableInterface  
-{
+VoteableInterface {
 
     //use \DependebleTrait;
-
     //put your code here
     //Object array or object storage
     private $commentList;
-    private $vote;
     private $dependency;
+    private $votes;
 
     /* Give answer to certain question
      *  An answer does not exist unless its parent class does not exist (eg question). So there should be a question before you create
@@ -51,18 +53,26 @@ class Answer extends AbstractContent
 
     public function Answer(Question $ques) {
         parent::__construct();
-        
+
         /*
          * Create dependency on a object
          * update its fieldcache
          * @todo There should be an interface to dependency which can update field cache for
          *  parent object. See DependencyObject
          */
-        $this->dependency=new DependencyObject();
-        $this->dependency->setReference($ques);
-        $this->crud->setFieldCache((string)$ques);
+        $this->dependency = new DependencyObject($ques);
+        $this->crud->setFieldCache((string) $ques);
 
-        $this->commentList = new CommentStorage();
+        $this->commentList = new CommentStorage('AnswerComment');
+        $this->votes = new VoteStorage('AnswerCommentVote');
+    }
+
+    public function setVotes(VoteStorage $votes) {
+        $this->votes = $votes;
+    }
+
+    public function getVotes() {
+        return $this->votes;
     }
 
     public function addComment(AbstractComment $comment) {
@@ -74,15 +84,19 @@ class Answer extends AbstractContent
         return $this->commentList;
     }
 
+    public function getQuestion() {
+        return $this->dependency->getReference();
+    }
+
     //Interface wont have id
     //Returns objectStorage
     /*
      * @todo IT now fetches comment all togeteher. It can be replaced with
      * two query
      */
-    public static function listing(DatabaseInteractbleInterface $question, Pagination $pager = null) {
+    public static function listing(DatabaseInteractbleInterface $question,$args=array()) {
 
-        $answerStorage = new AnswerStorage();
+        $answerStorage = new AnswerStorage('Answer');
         // parent::get();
 
         /*
@@ -90,47 +104,131 @@ class Answer extends AbstractContent
          * 
          */
 
-        $query = "SELECT 
-               A.id
-               ,A.content
-               ,A.time
-               ,AC.id AS commentID
+        $query = "
+                SELECT
+                Answer.*
+                ,answerComment.*
+                ,ACU.id AS answerCommentUserID
+                ,ACU.nick AS answerCommentUserNick
+                ,ACU.reputation AS answerCommentUserRep
+                ,AC.id AS commentID
                ,AC.content AS commentContent
                ,AC.time AS commentTime
-                FROM question AS Q
-                LEFT OUTER JOIN Answer AS A
-                ON Q.id=A.question
-                LEFT OUTER JOIN AnswerComment AS AC
-                ON A.id=AC.answer
-                WHERE A.question=?";
+               FROM
+                (
+                    SELECT
+                    AU.id AS answerUserID
+                    ,AU.nick AS answerUserNick
+                    ,AU.reputation AS answerUserRep
+                    ,A.id AS answerID
+                    ,A.content
+                    ,A.time
+                    ,A.question
+                    ,SUM(AV.weight)/COUNT(AV.id) AS answerVote
+                    ,AVselfVote.weight AS answerSelfVote
+                    ,AVselfVote.weight as answerVoteWeight
+                    FROM question AS Q
+                    LEFT OUTER JOIN Answer AS A
+                    ON Q.id=A.question AND A.invisible=0        # filter visivle answer
+                    LEFT OUTER JOIN AnswerVote AS AV
+                    ON AV.answer=A.id
+                    LEFT OUTER JOIN AnswerVote AS AVselfVote
+                    ON AVselfVote.answer=A.id AND AVselfVote.user= ?
+                    LEFT OUTER JOIN User AS AU
+                    ON A.user=AU.id
+                    WHERE A.question= ?
+                    GROUP BY A.id
+                )
+                AS Answer
+                
+               LEFT OUTER JOIN
+               AnswerComment AS AC
+               ON AC.answer=Answer.answerID AND AC.invisible=0      #Filter visibilty of answer comments
+                LEFT OUTER JOIN
+               (
+                    SELECT
+                    ACV.comment
+                    ,ACV.id
+                    ,COUNT(ACV.id) AS answerCommentVote         #strategy
+                     ,ACVselfVote.user AS answerCommentSelfVote
+                     FROM
+                     AnswerCommentVote AS ACV
+                     LEFT OUTER JOIN AnswerCommentVote AS ACVselfVote
+                     ON ACV.id=ACVselfVote.id AND ACV.user= ?
+                     GROUP BY ACV.comment
+                )
+                AS answerComment        # Should be named to Answer comment vote
+                
+                ON AnswerComment.comment=AC.id
+                LEFT OUTER JOIN User AS ACU
+                ON AC.user=ACU.id
+                
+                WHERE Answer.question= ?
+                ";
 
         /*
          */
         //Debug test
         //$query="SELECT * FROM answer";
 
-        $stmt = static::$connection->prepare($query);
-        $stmt->bindValue(1, $question->getid());
-        $stmt->execute();
+        //var_dump($query, $question->getid(), User::getActiveUser()->getID());
+
+        $stmt = DatabaseHandle::getConnection()->prepare($query);
+        $stmt->execute(array(
+            User::getActiveUser()->getID()
+            , $question->getid()
+            , User::getActiveUser()->getID()
+            , $question->getid()
+        ));
 
         //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
         //$i=$j=0;
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
             //Debug
-            //var_dump($data);
+            //var_dump('Answer data', $data);
             //Setup answer
 
             $answer = new Answer($question);
-            $answer->setID($data['id']);
+            $answer->setID($data['answerID']);
             $answer->setContent($data['content']);
+
+            $user = new User();
+            $user->setID($data['answerUserID']);
+            $user->setNick($data['answerUserNick']);
+            $user->setReputation($data['answerUserRep']);
+
+            $answer->setUser($user);
+
+            $votes = new VoteStorage('votes'); //@should throw assertion because votes is not valid object 
+            $votes->setHasVoted($data['answerSelfVote']);
+            $votes->setVotes($data['answerVote']);
+
+            $answer->setVotes($votes);
+
+
             //$answer->setContent($data['time']);
             //get comments
 
-            $comments = new AnswerComment($answer);
-            $comments->setID($data['commentID']);
-            $comments->setContent($data['commentContent']);
-            $comments->setTime($data['commentTime']);
+            $comment = new AnswerComment($answer);
+            $comment->setID($data['commentID']);
+            $comment->setContent($data['commentContent']);
+            $comment->setTime($data['commentTime']);
+
+
+            $user = new User();
+            $user->setID($data['answerCommentUserID']);
+            $user->setNick($data['answerCommentUserNick']);
+            $user->setReputation($data['answerCommentUserRep']);
+            
+            $comment->setUser($user);
+
+            $votes = new VoteStorage('votes');
+            $votes->setHasVoted($data['answerCommentSelfVote']);
+            $votes->setVotes($data['answerCommentVote']);
+
+            $comment->setVotes($votes);
+
 
             //$meta=$stmt->getColumnMeta(2);
             //var_dump($meta);
@@ -148,8 +246,8 @@ class Answer extends AbstractContent
                 //echo ++$j . 'Distinct entries <br/>';
             }
 
-            if ($comments->getID() != NULL) {
-                $answerStorage->offsetGet($answer)->addComment($comments);
+            if ($comment->getID() != NULL) {
+                $answerStorage->offsetGet($answer)->addComment($comment);
             }
         }
         /*
@@ -190,9 +288,28 @@ class Answer extends AbstractContent
       }
 
      */
+
+    public function upVote($vote) {
+
+        $vote = new AnswerVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_UP);
+        $vote->setWeight();
+
+        $this->votes->attach($vote, $vote);
+    }
+
+    public function downVote($vote) {
+        $vote = new AnswerVote($this);
+        $vote->setTime();
+        $vote->setUser(User::getActiveUser());
+        $vote->setType(QuestionVote::VOTE_DOWN);
+        $vote->setWeight();
+
+        $this->votes->attach($vote, $vote);
+    }
+
 }
 
-/* TEST
- * 
- */
 ?>

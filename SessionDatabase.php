@@ -149,8 +149,6 @@ class SessionDatabase
 
 //session_set_save_handler(new SessionDatabase(DatabaseHandle::getConnection()),true);
 
-
-/*
 $sesdb=new SessionDatabase(DatabaseHandle::getConnection());
         session_set_save_handler(       
                                  array($sesdb,'open')
@@ -160,6 +158,5 @@ $sesdb=new SessionDatabase(DatabaseHandle::getConnection());
                                 ,array($sesdb,'destroy')
                                 ,array($sesdb,'gc')
                                 );
- /*
- */
+
 ?>

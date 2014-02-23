@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'Abstracts/AbstractVote.php';
 /**
  * Description of QuestionVote
  *
@@ -12,20 +12,21 @@
  */
 class QuestionVote extends AbstractVote{
     //put your code here
-    protected $question;
     
     public function __construct(Question $content) {
         parent::__construct($content);
         //var_dump($content);
-        $this->question=$content;
-        $this->setFieldCache(get_class($content));
+        $this->crud->setFieldCache(get_class($content));
         
         //$this->question->SetfieldCache("votes");
     }
     
+    /*
+     * Mapper method
+     */
     public function getQuestion()
     {
-        return $this->question;
+        return $this->dependency->getReference();
     }
 }
 

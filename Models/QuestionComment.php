@@ -24,14 +24,14 @@ class QuestionComment extends AbstractComment{
      * Comment listing
      * returns object in a storage which have only comment object (AbstractComment)
      */
-    public static function listing(\DatabaseInteractbleInterface $reference,  Pagination $pager=null) {
-         $commentStore=new CommentStorage();
+    public static function listing(\DatabaseInteractbleInterface $reference, $args=array()) {
+         $commentStore=new CommentStorage('QuestionComment');
         
          $query="SELECT
                 *
                 FROM questionComment
-                WHERE question=?";
-         $stmt=AbstractContent::$connection->prepare($query);
+                WHERE question=? AND invisible=0";
+         $stmt=  DatabaseHandle::getConnection()->prepare($query);
         $stmt->bindValue(1,$reference->getID());
         
         $stmt->execute();
@@ -50,6 +50,10 @@ class QuestionComment extends AbstractComment{
         }
         
         return $commentStore;
+    }
+    public function getQuestion()
+    {
+        return $this->dependency->getReference();
     }
     
    

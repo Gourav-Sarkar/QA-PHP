@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once "dependencyObject.php";
 /**
  * Description of tagMapper
  * Throws exception when tries to map a tag which does not exist,at least one tag is crucial
@@ -12,25 +12,28 @@
  */
 class TagQuestionMapper implements CRUDLInterface{
     //put your code here
-    private $question;
+    private $dependency;
     
     public function __construct(AbstractQuestion $ques) {
-        $this->question=$ques;
+        $this->dependency=new DependencyObject($ques);
     }
     
     
     public function create()
     {
-        $refClass=get_class($this->question);
         
-        $query=sprintf("INSERT IGNORE INTO %s VALUES(?,?)",  get_class($this));
+        /*
+         * First reference to question, second reference to tag
+         */
+        $query=sprintf("INSERT INTO %s VALUES(?,?)",  get_class($this));
         $stmt= DatabaseHandle::getConnection()->prepare($query);
         
-        $id=$this->question->getID();
-        $stmt->bindValue(2,$id);
+        //var_dump($this->dependency->getReference());
         
+        $id=$this->dependency->getReference()->getID();
+        assert('!empty($id)');
         
-        $tagList=$this->question->getTags();
+        $tagList=$this->dependency->getReference()->getTags();
         
         foreach($tagList as $tag)
         {
@@ -38,19 +41,18 @@ class TagQuestionMapper implements CRUDLInterface{
             
             var_dump($name,$id);
             
-            $stmt->bindParam(1,$name);
-            $e=$stmt->execute();
+            $stmt->execute(array($name,$id));
             
             //var_dump($e);
         }
     }
     
     public function delete() {
-        ;
+        throw new BadMethodCallException();;
     }
     
-    public static function listing(\DatabaseInteractbleInterface $reference) {
-        $tagStore=new TagStorage();
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
+        $tagStore=new TagStorage('tag');
         
         $query=sprintf("SELECT * FROM tagQuestionMapper WHERE question=?");
         $stmt=DatabaseHandle::getConnection()->prepare($query);

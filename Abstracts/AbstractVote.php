@@ -4,58 +4,55 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once 'interfaces/VoteableInterface.php';
+require_once 'interfaces/CRUDLInterface.php';
+require_once 'interfaces/DependencyInterface.php';
 
+require_once 'models/crudObject.php';
+require_once 'Abstracts/AbstractContent.php';
 /**
  * Description of AbstractVote
  * @todo change name to weightedvote
  * @author Gourav Sarkar
  */
-class AbstractVote {
-    //put your code here
-    use CRUDLTrait;
+abstract class AbstractVote extends AbstractContent implements DependencyInterface{
     
     const VOTE_UP="+";
     const VOTE_DOWN="-";
     
-    protected static $connection;
     
-    protected $id;
-    protected $type; //Write only
-    protected $ip;
-    protected $user;
-    protected $time;
+    protected $type=''; //Write only
     protected $weight;
     
+    protected $dependency;
+
+
+
+
+    //protected $votes;
+    
+    
     public function __construct(AbstractContent $content) {
-        $this->setFieldCache("ip");
+        
+        parent::__construct();
+
+        $this->crud=new CRUDobject($this);
+        $this->dependency=new DependencyObject($content);
+        
+        $this->crud->setFieldCache("ip");
         $this->ip=  ip2long($_SERVER['REMOTE_ADDR']);
+        //Should be replaced with User::getAactiveUser() . default to current user
         $this->user=new User();
         
         
         
     }
     
-    
     public function setID($id)
     {
         $this->id=$id;
-        $this->setFieldCache('id');
-    }
-     public function setTime()
-    {
-        $this->time=time();
-        $this->setFieldCache('time');
-    }
-     public function setUser(AbstractUser $user)
-    {
-        $this->user=$user;
-        $this->setFieldCache('user');
-    }
+        $this->crud->setFieldCache('id');
     
-    //Should be removed instead of use databasehandleTrait
-    public static function setConnection()
-    {
-        static::$connection=  DatabaseHandle::getConnection();
     }
     
     public function setType($type)
@@ -63,15 +60,19 @@ class AbstractVote {
         $this->type=$type;
     }
     
-    
+    /*
+     * @todo introduce core object to intrpduce $object->isEmpty()
+     */
     public function setWeight()
     {
+        $userID=$this->user->getID();
+        assert('!empty($userID)');
         
-        //assert("!is_object($this->user)");
         
-        $this->setFieldCache('weight');
-        //echo $this->user->getReputation();
-        $this->weight=$this->type.$this->user->getReputation();
+        assert('!empty($this->type)');
+        
+        $this->crud->setFieldCache('weight');
+        $this->weight= (string) $this->type . $this->user->getReputation();
     }
     
     
@@ -97,6 +98,14 @@ class AbstractVote {
     {
         return $this->id;
     }
+    public static function listing(\DatabaseInteractbleInterface $reference,$args=array()) {
+    }
+    
+    public function getReference()
+    {
+        return $this->dependency->getReference();
+    }
+  
 }
 
 ?>

@@ -4,22 +4,33 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'Models/SettingHandler.php';
+require_once 'abstracts/abstractController.php';
 /**
  * Description of AdminPanelController
  *
  * @author Gourav Sarkar
  */
-class AdminPanelController {
+class AdminPanelController extends AbstractController{
     //put your code here
     
+    public function __construct() {
+        parent::__construct();
+        $this->view->addTemplate("adminPanel");
+    }
     public function show()
     {
-        require_once "templates/admin-panel.php";
         
+        $this->view->addModel(SettingHandler::initSettingHandler()->getRawSetting());
         
-        $methods=Resource::getAvailableController();
-        var_dump($methods);
+        echo $this->view->render();
+    }
+    
+    /*
+     * Up date each field
+     */
+    public function updateSetting()
+    {
+        SettingHandler::initSettingHandler()->update($_POST['field'],$_POST['value']);
     }
 }
 

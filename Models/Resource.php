@@ -1,17 +1,17 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 require_once 'Interfaces/CRUDLInterface.php';
 require_once 'models/CRUDobject.php';
+require_once 'models/BaseObject.php';
 /**
  * Description of Resource
  * @todo possible issue with case sensivity []
  * @author Gourav Sarkar
  */
-class Resource implements CRUDLInterface{
+class Resource extends BaseObject implements CRUDLInterface{
     
     //In favor PHP 5.3 compatible
     //use CRUDLTrait;
@@ -74,6 +74,25 @@ class Resource implements CRUDLInterface{
     public function get()
     {
         /*
+         * Handle static resource
+         * If module is static pass the rest of the code
+         */
+        //var_dump($this->module);
+        
+        /*
+        if($this->module=="page")
+        {
+            $render=new Render();
+            $render->addModel(null);
+            $render->render();
+            
+            return null;
+        }
+         * 
+         */
+        
+        
+        /*
          * Validate IF module is there and has permssion to acccess it
          */
         if(empty($this->module))
@@ -93,8 +112,25 @@ class Resource implements CRUDLInterface{
          * check if methods are in module
          */
         
+        
+        /*
+         * Check current user has permission to access this resource
+         */
+        
+        
         $controller=new $controllerName();
         $controller->{$this->action}();
+        
+        echo $controller->render();
+    }
+    
+    
+    public function hasPermission()
+    {
+        foreach(User::getActiveUser()->getRoles() as $role)
+        {
+            
+        }
     }
    
     /*
@@ -205,7 +241,7 @@ class Resource implements CRUDLInterface{
     public function edit(\DatabaseInteractbleInterface $tempObj) {
         ;
     }
-    public static function listing(\DatabaseInteractbleInterface $reference) {
+    public static function listing(\DatabaseInteractbleInterface $reference, $args=array()) {
         ;
     }
     
