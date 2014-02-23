@@ -120,6 +120,8 @@ class Resource extends BaseObject implements CRUDLInterface{
         
         $controller=new $controllerName();
         $controller->{$this->action}();
+        
+        echo $controller->render();
     }
     
     

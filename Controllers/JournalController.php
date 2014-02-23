@@ -26,8 +26,6 @@ class JournalController extends AbstractController {
     }
 
     public function launch() {
-
-        echo $this->view->render();
     }
 
     public function addEntry() {
@@ -45,11 +43,9 @@ class JournalController extends AbstractController {
 
         $this->model->create();
 
-        $this->view->addModel($this->model->xmlSerialize());
+        $this->view->addModel($this->model);
 
         //var_dump($this->view);
-
-        echo $this->view->render();
     }
 
     public function openToday() {
@@ -57,8 +53,7 @@ class JournalController extends AbstractController {
         //Change contentStorage to accomodate type of object it can store
         $journalStore = Journal::listing($journal, array('time' => 'today'));
 
-        $this->view->addModel($journalStore->xmlSerialize());
-        echo $this->view->render();
+        $this->view->addModel($journalStore);
     }
 
 }

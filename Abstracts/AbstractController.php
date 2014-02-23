@@ -44,6 +44,11 @@ abstract class AbstractController {
         $this->view->addTemplate("pagination");
     }
 
+    
+    public function render()
+    {
+        $this->view->Render();
+    }
     /*
       abstract public function create();
       abstract public function delete();

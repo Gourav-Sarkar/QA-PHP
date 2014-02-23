@@ -171,14 +171,13 @@ class Render {
      * @todo add Model tag as wrapper
      */
 
-    public function addModel($modelData, $name = null) {
-        assert('$this->dataNode instanceof DOMElement');
-
-        if (!empty($modelData)) {
+    public function addModel(XMLSerializeble $model, $name = null) {
+        
+            
             $fragment = $this->model->createDocumentFragment();
 
 
-            $fragment->appendXML($modelData);
+            $fragment->appendXML($model->xmlSerialize());
 
 
             $modelNode = $this->dataNode->appendChild($fragment);
@@ -190,7 +189,6 @@ class Render {
                 //$this->model->documentElement->appendChild($ns);
                 $modelNode->setAttribute("name", $name);
             }
-        }
     }
 
     /*
