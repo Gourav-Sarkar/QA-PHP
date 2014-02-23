@@ -8,23 +8,6 @@
  <roleList><RoleStorage>
  <storageType/>
  <pager/>
-<role>
- <title>developer</title>
- <permissions><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissions>
- <priority>0</priority>
- <user><user>
- <id/>
- <nick/>
- <reputation>1</reputation>
- <password/>
- <email/>
- <roleList><RoleStorage>
- <storageType/>
- <pager/>
 </RoleStorage>
 </roleList>
  <userProfile><UserProfileFieldStorage>
@@ -37,161 +20,6 @@
  <storageType/>
  <pager/>
 </PermissionStorage>
-</permissionList>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</user>
-</user>
- <id>1</id>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</role>
-<role>
- <title>moderator</title>
- <permissions><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissions>
- <priority>0</priority>
- <user><user>
- <id/>
- <nick/>
- <reputation>1</reputation>
- <password/>
- <email/>
- <roleList><RoleStorage>
- <storageType/>
- <pager/>
-</RoleStorage>
-</roleList>
- <userProfile><UserProfileFieldStorage>
- <storageType/>
- <pager/>
-</UserProfileFieldStorage>
-</userProfile>
- <referedBy/>
- <permissionList><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissionList>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</user>
-</user>
- <id>3</id>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</role>
-</RoleStorage>
-</roleList>
- <userProfile><UserProfileFieldStorage>
- <storageType/>
- <pager/>
-</UserProfileFieldStorage>
-</userProfile>
- <referedBy/>
- <permissionList><PermissionStorage>
- <storageType/>
- <pager/>
-<permission><permission>1</permission>
-<role><role>
- <title>developer</title>
- <permissions><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissions>
- <priority>0</priority>
- <user><user>
- <id/>
- <nick/>
- <reputation>1</reputation>
- <password/>
- <email/>
- <roleList><RoleStorage>
- <storageType/>
- <pager/>
-</RoleStorage>
-</roleList>
- <userProfile><UserProfileFieldStorage>
- <storageType/>
- <pager/>
-</UserProfileFieldStorage>
-</userProfile>
- <referedBy/>
- <permissionList><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissionList>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</user>
-</user>
- <id>1</id>
- <time/>
- <ip/>
- <content>Development job</content>
- <invisible>0</invisible>
-</role>
-</role>
-</permission><permission><permission>1</permission>
-<role><role>
- <title>moderator</title>
- <permissions><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissions>
- <priority>1</priority>
- <user><user>
- <id/>
- <nick/>
- <reputation>1</reputation>
- <password/>
- <email/>
- <roleList><RoleStorage>
- <storageType/>
- <pager/>
-</RoleStorage>
-</roleList>
- <userProfile><UserProfileFieldStorage>
- <storageType/>
- <pager/>
-</UserProfileFieldStorage>
-</userProfile>
- <referedBy/>
- <permissionList><PermissionStorage>
- <storageType/>
- <pager/>
-</PermissionStorage>
-</permissionList>
- <time/>
- <ip/>
- <content/>
- <invisible>0</invisible>
-</user>
-</user>
- <id>3</id>
- <time/>
- <ip/>
- <content>Moderator of the site</content>
- <invisible>0</invisible>
-</role>
-</role>
-</permission></PermissionStorage>
 </permissionList>
  <time>0</time>
  <ip>0</ip>
@@ -201,5 +29,23 @@
 </meta><data name="JournalApp"><JournalStorage>
  <storageType>journal</storageType>
  <pager/>
+<journal>
+ <passCode/>
+ <emotions><EmotionStorage>
+ <storageType>emotion</storageType>
+ <pager/>
+</EmotionStorage>
+</emotions>
+ <tags><tagStorage>
+ <storageType>tag</storageType>
+ <pager/>
+</tagStorage>
+</tags>
+ <id>123</id>
+ <time>1393173273</time>
+ <ip>2130706433</ip>
+ <content>February is good February is good February is good February is good February is good February is good February is good February is good February is good </content>
+ <invisible>0</invisible>
+</journal>
 </JournalStorage>
 </data></pageRoot>
